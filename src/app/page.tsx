@@ -20,6 +20,7 @@ export default function Home() {
           className="object-cover max-h-[360px]"
         />
       </div>
+      <div>test</div>
       <section className="px-4">
         <Link href="/?catalog=true" className="md:hidden">
           <MainButton />
