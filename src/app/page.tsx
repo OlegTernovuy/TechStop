@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Metadata } from "next";
 import Link from "next/link";
-import MainButton from "../../components/MainButton";
+import ButtonCatalog from "../../components/ButtonCatalog";
 import Catalog from "../../components/Catalog";
 
 export const metadata: Metadata = {
@@ -27,7 +27,7 @@ export default function Home() {
         </div>
         <div className="px-4 md:px-0">
           <Link href="/?catalog=true" className="md:hidden">
-            <MainButton />
+            <ButtonCatalog />
           </Link>
         </div>
       </section>

@@ -19,3 +19,27 @@
 body {
   color: rgb(var(--foreground-rgb));
 }
+
+[type="text"]:focus,
+[type="email"]:focus,
+[type="url"]:focus,
+[type="password"]:focus,
+[type="number"]:focus,
+[type="date"]:focus,
+[type="datetime-local"]:focus,
+[type="month"]:focus,
+[type="search"]:focus,
+[type="tel"]:focus,
+[type="time"]:focus,
+[type="week"]:focus,
+[multiple]:focus,
+textarea:focus,
+select:focus {
+  outline: 0px !important;
+  outline-offset: 0px !important;
+  box-shadow: none !important;
+}
+
+.icon {
+  @apply bg-[url('/SearchFilled.svg')]  bg-no-repeat bg-[length:24px_24px] bg-[right];
+}

@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import SearchField from "./SearchField";
 import MobileMenu from "./MobileMenu";
+import ButtonCatalog from "./ButtonCatalog";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
@@ -19,17 +20,30 @@ const Navbar = () => {
   const pathname = usePathname();
 
   return (
-    <header className="bg-[#262626]" style={{ background: "#262626" }}>
-      <div className="flex justify-between gap-6 items-center px-4 py-2 mx-auto max-w-screen-2xl">
-        <button onClick={handleNav}>
-          <MenuIcon
-            sx={{
-              width: 48,
-              height: 48,
-              color: "#ffffff",
-            }}
-          />
-        </button>
+    <header className="bg-deWiseBlack h-16 md:h-28 flex justify-start items-center max-w-full  ">
+      <div className="flex justify-between gap-6 items-center w-screen px-4 lg:px-8 xl:px-[104px]">
+        <div className="flex items-center gap-0 md:gap-16">
+          <button onClick={handleNav}>
+            <MenuIcon
+              sx={{
+                width: 48,
+                height: 48,
+                color: "#ffffff",
+              }}
+            />
+          </button>
+          <Link href="/">
+            <Image
+              src="/logo-footer.svg"
+              alt="logo"
+              width={193}
+              height={72}
+              className="hidden md:block"
+            />
+          </Link>
+          <ButtonCatalog stylesButton="hidden lg:flex" />
+        </div>
+
         <Link href="/">
           <Image
             src="/navLogo.svg"
@@ -37,7 +51,7 @@ const Navbar = () => {
             width={30}
             height={32}
             priority={true}
-            className="max-w-[30px] "
+            className="max-w-[30px] md:hidden"
           />
         </Link>
         <SearchField />
