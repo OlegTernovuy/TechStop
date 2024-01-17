@@ -1,9 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import ArrowForwardFilled from "@mui/icons-material/ArrowForward";
 import { CatalogItem } from "../constants";
 
-const Catalog = () => {
+const Catalog = ({ children }: { children?: React.ReactNode }) => {
   return (
     <ul className="flex flex-col pt-4">
       {CatalogItem ? (
@@ -24,7 +23,7 @@ const Catalog = () => {
                     />
                     <p className="pl-8">{item.title}</p>
                   </div>
-                  <ArrowForwardFilled />
+                  {children}
                 </div>
               </Link>
             </li>
