@@ -6,6 +6,7 @@ import ModalWrapper from "../../components/ModalWrapper";
 import ShoppingCard from "../../components/ShoppingCard";
 import Catalog from "../../components/Catalog";
 import Navbar from "../../components/Navbar";
+import ArrowForwardFilled from "@mui/icons-material/ArrowForward";
 
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
@@ -28,7 +29,9 @@ export default function RootLayout({
           <ShoppingCard />
         </ModalWrapper>
         <ModalWrapper title="Каталог товарів" search="catalog">
-          <Catalog />
+          <Catalog>
+            <ArrowForwardFilled />
+          </Catalog>
         </ModalWrapper>
         <Footer />
       </body>
