@@ -13,3 +13,7 @@ export interface Navigation {
   nav: boolean;
   handleNav: () => void;
 }
+
+export interface ButtonCatalogProps {
+  stylesButton?: string;
+}

@@ -1,8 +1,5 @@
 import Image from "next/image";
-
-interface ButtonCatalogProps {
-  stylesButton?: string;
-}
+import { ButtonCatalogProps } from "../types";
 
 const ButtonCatalog = (props: ButtonCatalogProps) => {
   const { stylesButton } = props;
