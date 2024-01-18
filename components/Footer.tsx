@@ -4,8 +4,8 @@ import { IFooterData } from "../types";
 
 const Footer = () => {
   return (
-    <footer className="py-6 px-4 bg-deWiseBlack text-white md:flex md:justify-around">
-      <div className="flex flex-col md:justify-center md:items-center">
+    <footer className="py-6 px-4 bg-deWiseBlack text-white md:flex md:justify-around md:gap-5">
+      <div className="flex flex-col">
         <Image
           src="/logo-footer.svg"
           alt="Logo"
@@ -29,7 +29,7 @@ const Footer = () => {
           <Image src="/insta.svg" alt="instaLogo" width={32} height={32} />
         </span>
       </div>
-      <div className="md:flex md:space-x-5">
+      <div className="md:flex md:gap-6 lg:gap-20 md:flex-wrap">
         {footerBlock.length ? (
           footerBlock.map((item: IFooterData) => {
             return (
