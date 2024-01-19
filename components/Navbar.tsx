@@ -4,11 +4,11 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import { useState } from "react";
 import SearchField from "./SearchField";
 import MobileMenu from "./MobileMenu";
 import ButtonCatalog from "./ButtonCatalog";
+import { useShoppingCardModalStore } from "@/store/modalStore";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
@@ -17,7 +17,9 @@ const Navbar = () => {
     setNav(!nav);
   };
 
-  const pathname = usePathname();
+  const setShowShoppingCard = useShoppingCardModalStore(
+    (state) => state.setShowShoppingCard
+  );
 
   return (
     <header className="bg-deWiseBlack h-16 md:h-28 flex justify-start items-center max-w-full  ">
@@ -55,10 +57,9 @@ const Navbar = () => {
           />
         </Link>
         <SearchField />
-        <Link href={`${pathname}?shopCard=true`}>
+        <button onClick={setShowShoppingCard}>
           <ShoppingCartOutlinedIcon fontSize="large" className="text-white" />
-        </Link>
-        {/* <MobileMenu nav={nav} handleNav={handleNav} /> */}
+        </button>
       </div>
       <MobileMenu nav={nav} handleNav={handleNav} />
     </header>

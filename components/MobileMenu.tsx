@@ -3,10 +3,22 @@
 import Image from "next/image";
 import Link from "next/link";
 import CloseIcon from "@mui/icons-material/Close";
-import { mobileMenuInfo, mobileMenuLinkInfo, mobileMenuSocialMedia } from "../constants";
+import {
+  mobileMenuInfo,
+  mobileMenuLinkInfo,
+  mobileMenuSocialMedia,
+} from "../constants";
 import { Navigation } from "../types";
+import {
+  useCatalogModalStore,
+  useShoppingCardModalStore,
+} from "@/store/modalStore";
 
 const MobileMenu = ({ nav, handleNav }: Navigation) => {
+  const setShowCatalog = useCatalogModalStore((state) => state.setShowCatalog);
+  const setShowShoppingCard = useShoppingCardModalStore(
+    (state) => state.setShowShoppingCard
+  );
   return (
     <>
       <nav
@@ -19,7 +31,7 @@ const MobileMenu = ({ nav, handleNav }: Navigation) => {
         <div className="flex justify-between bg-deWiseBlack px-4 py-3">
           <Link href="/" onClick={handleNav}>
             <Image
-              src='/logo-footer.svg'
+              src="/logo-footer.svg"
               alt="Logo"
               width={109}
               height={40}
@@ -32,30 +44,51 @@ const MobileMenu = ({ nav, handleNav }: Navigation) => {
         </div>
         <div className=" text-deWiseBlack text-base">
           <ul className="flex flex-col uppercase">
-            {mobileMenuLinkInfo.length > 0 ? (
-              mobileMenuLinkInfo.map((item) => {
-                return (
-                  <li
-                    key={item.title}
-                    className="py-3 pl-4 hover:bg-deWiseMainHover"
-                    onClick={handleNav}
-                  >
-                    <Link href={item.href} className="flex">
-                      <Image
-                        src={item.imageSrc}
-                        alt="buttonIcon"
-                        width={24}
-                        height={24}
-                        className="mr-8"
-                      />
-                      {item.title}
-                    </Link>
-                  </li>
-                );
-              })
-            ) : (
-              <div>No Data</div>
-            )}
+            <li
+              className="py-3 pl-4 hover:bg-deWiseMainHover"
+              onClick={handleNav}
+            >
+              <button onClick={setShowCatalog} className="flex uppercase">
+                <Image
+                  src={"./buttonIcon.svg"}
+                  alt="buttonIcon"
+                  width={24}
+                  height={24}
+                  className="mr-8"
+                />
+                Каталог товарів
+              </button>
+            </li>
+            <li
+              className="py-3 pl-4 hover:bg-deWiseMainHover"
+              onClick={handleNav}
+            >
+              <Link href="/" className="flex">
+                <Image
+                  src={"./question_mark.svg"}
+                  alt="questionIcon"
+                  width={24}
+                  height={24}
+                  className="mr-8"
+                />
+                Довідковий центр
+              </Link>
+            </li>
+            <li
+              className="py-3 pl-4 hover:bg-deWiseMainHover"
+              onClick={handleNav}
+            >
+              <button onClick={setShowShoppingCard} className="flex uppercase">
+                <Image
+                  src={"./cart.svg"}
+                  alt="cartIcon"
+                  width={24}
+                  height={24}
+                  className="mr-8"
+                />
+                Кошик
+              </button>
+            </li>
           </ul>
           <hr className="my-2 text-slate-300" />
           <ul className="flex flex-col uppercase ">

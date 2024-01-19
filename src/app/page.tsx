@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { Metadata } from "next";
-import Link from "next/link";
 import ButtonCatalog from "../../components/ButtonCatalog";
 import Catalog from "../../components/Catalog";
 
@@ -26,9 +25,7 @@ export default function Home() {
           />
         </div>
         <div className="px-4 md:px-0">
-          <Link href="/?catalog=true" className="md:hidden">
-            <ButtonCatalog />
-          </Link>
+            <ButtonCatalog stylesButton="w-full md:hidden"/>
         </div>
       </section>
     </main>

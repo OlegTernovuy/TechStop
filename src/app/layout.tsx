@@ -2,11 +2,9 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import Footer from "../../components/Footer";
-import ModalWrapper from "../../components/ModalWrapper";
-import ShoppingCard from "../../components/ShoppingCard";
-import Catalog from "../../components/Catalog";
 import Navbar from "../../components/Navbar";
-import ArrowForwardFilled from "@mui/icons-material/ArrowForward";
+import ShoppingCardModal from "../../components/ShoppingCardModal";
+import CatalogModal from "../../components/CatalogModal";
 
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
@@ -25,14 +23,8 @@ export default function RootLayout({
       <body className={roboto.className}>
         <Navbar />
         {children}
-        <ModalWrapper title="Кошик" search="shopCard">
-          <ShoppingCard />
-        </ModalWrapper>
-        <ModalWrapper title="Каталог товарів" search="catalog">
-          <Catalog>
-            <ArrowForwardFilled />
-          </Catalog>
-        </ModalWrapper>
+        <ShoppingCardModal/>
+        <CatalogModal/>
         <Footer />
       </body>
     </html>
