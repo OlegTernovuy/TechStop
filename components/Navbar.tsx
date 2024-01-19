@@ -18,7 +18,7 @@ const Navbar = () => {
   };
 
   const setShowShoppingCard = useShoppingCardModalStore(
-    (state: any) => state.setShowShoppingCard
+    (state) => state.setShowShoppingCard
   );
 
   return (

@@ -1,11 +1,18 @@
-import { create } from 'zustand'
+import { create } from "zustand";
+import { CatalogModalState, ShoppingCardModalState } from "../../types";
 
-export const useCatalogModalStore = create((set) => ({
+export const useCatalogModalStore = create<CatalogModalState>((set) => ({
   showCatalog: false,
-  setShowCatalog: () => set((state: any) => ({ showCatalog: state.showCatalog = !state.showCatalog })),
-}))
+  setShowCatalog: () =>
+    set((state) => ({ showCatalog: (state.showCatalog = !state.showCatalog) })),
+}));
 
-export const useShoppingCardModalStore = create((set) => ({
-  showShoppingCard: false,
-  setShowShoppingCard: () => set((state: any) => ({ showShoppingCard: state.showShoppingCard = !state.showShoppingCard })),
-}))
+export const useShoppingCardModalStore = create<ShoppingCardModalState>(
+  (set) => ({
+    showShoppingCard: false,
+    setShowShoppingCard: () =>
+      set((state) => ({
+        showShoppingCard: (state.showShoppingCard = !state.showShoppingCard),
+      })),
+  })
+);

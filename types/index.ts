@@ -17,3 +17,13 @@ export interface Navigation {
 export interface ButtonCatalogProps {
   stylesButton?: string;
 }
+
+export interface CatalogModalState {
+  showCatalog: boolean;
+  setShowCatalog: () => void;
+}
+
+export interface ShoppingCardModalState {
+  showShoppingCard: boolean;
+  setShowShoppingCard: () => void;
+}

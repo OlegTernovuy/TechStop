@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import Image from "next/image";
 import { ButtonCatalogProps } from "../types";
@@ -7,7 +7,7 @@ import { useCatalogModalStore } from "@/store/modalStore";
 const ButtonCatalog = (props: ButtonCatalogProps) => {
   const { stylesButton } = props;
 
-  const setShowCatalog = useCatalogModalStore((state: any) => state.setShowCatalog);
+  const setShowCatalog = useCatalogModalStore((state) => state.setShowCatalog);
 
   return (
     <>

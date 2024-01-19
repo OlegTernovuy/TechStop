@@ -15,11 +15,9 @@ import {
 } from "@/store/modalStore";
 
 const MobileMenu = ({ nav, handleNav }: Navigation) => {
-  const setShowCatalog = useCatalogModalStore(
-    (state: any) => state.setShowCatalog
-  );
+  const setShowCatalog = useCatalogModalStore((state) => state.setShowCatalog);
   const setShowShoppingCard = useShoppingCardModalStore(
-    (state: any) => state.setShowShoppingCard
+    (state) => state.setShowShoppingCard
   );
   return (
     <>

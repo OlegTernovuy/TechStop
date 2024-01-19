@@ -7,10 +7,8 @@ import Catalog from "./Catalog";
 import { useCatalogModalStore } from "@/store/modalStore";
 
 const CatalogModal = () => {
-  const showCatalog = useCatalogModalStore((state: any) => state.showCatalog);
-  const setShowCatalog = useCatalogModalStore(
-    (state: any) => state.setShowCatalog
-  );
+  const showCatalog = useCatalogModalStore((state) => state.showCatalog);
+  const setShowCatalog = useCatalogModalStore((state) => state.setShowCatalog);
   return (
     <>
       <div
@@ -28,13 +26,13 @@ const CatalogModal = () => {
         </div>
         <div className="text-deWiseBlack">
           <Catalog>
-            <ArrowForwardFilled/>
+            <ArrowForwardFilled />
           </Catalog>
         </div>
       </div>
       <div
         className={
-            showCatalog
+          showCatalog
             ? "fixed top-0 left-0 bg-black bg-opacity-50 h-screen w-full"
             : "hidden"
         }

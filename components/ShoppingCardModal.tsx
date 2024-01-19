@@ -6,10 +6,10 @@ import { useShoppingCardModalStore } from "@/store/modalStore";
 
 const ShoppingCardModal = () => {
   const showShoppingCard = useShoppingCardModalStore(
-    (state: any) => state.showShoppingCard
+    (state) => state.showShoppingCard
   );
   const setShowShoppingCard = useShoppingCardModalStore(
-    (state: any) => state.setShowShoppingCard
+    (state) => state.setShowShoppingCard
   );
   return (
     <div
