@@ -57,7 +57,7 @@ const Navbar = () => {
           />
         </Link>
         <SearchField />
-        <Link href="/shoppingCard">
+        <Link href="/shoppingCart">
           <ShoppingCartOutlinedIcon fontSize="large" className="text-white" />
         </Link>
       </div>

@@ -78,7 +78,7 @@ const MobileMenu = ({ nav, handleNav }: Navigation) => {
               className="py-3 pl-4 hover:bg-deWiseMainHover"
               onClick={handleNav}
             >
-              <Link href="/shoppingCard" className="flex uppercase">
+              <Link href="/shoppingCart" className="flex uppercase">
                 <Image
                   src={"./cart.svg"}
                   alt="cartIcon"

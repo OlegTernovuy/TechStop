@@ -15,8 +15,8 @@ const ProductInCard = () => {
           height={320}
           className="w-[104px] h-[158px] md:w-[210px] md:h-[320px]"
         />
-        <div className="flex flex-col w-full justify-between pl-6">
-          <div className="flex">
+        <div className="flex flex-col justify-between pl-6 w-full">
+          <div className="flex justify-between">
             <p className="text-sm text-[14px] leading-5 md:text-body1">
               Дуже довга назва товару з якимись цифрами HTG-7658
             </p>
@@ -24,7 +24,7 @@ const ProductInCard = () => {
               <ThreeDotsSymbolMobile />
             </div>
           </div>
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-end">
             <div className="hidden md:flex">
               <Button
                 variant="text"
@@ -35,7 +35,7 @@ const ProductInCard = () => {
                 Видалити
               </Button>
             </div>
-            <div className="flex items-center md:gap-8 justify-between w-full md:w-auto">
+            <div className="flex md:gap-8 items-end justify-between w-full md:w-auto">
               <div className="flex items-center">
                 <button>
                   <Image
