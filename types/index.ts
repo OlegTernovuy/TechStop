@@ -1,15 +1,9 @@
-export interface IFooterData {
+export interface IFooterDataProps {
   head: string;
   subHeaders: string[];
 }
 
-export interface IModal {
-  children: React.ReactNode;
-  title: string;
-  search: string;
-}
-
-export interface Navigation {
+export interface NavigationProps {
   nav: boolean;
   handleNav: () => void;
 }
@@ -21,9 +15,4 @@ export interface ButtonCatalogProps {
 export interface CatalogModalState {
   showCatalog: boolean;
   setShowCatalog: () => void;
-}
-
-export interface ShoppingCardModalState {
-  showShoppingCard: boolean;
-  setShowShoppingCard: () => void;
 }

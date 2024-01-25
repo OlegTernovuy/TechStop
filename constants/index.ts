@@ -147,11 +147,4 @@ export const footerBlock = [
   },
 ];
 
-export const productsInCard = [
-  {
-    title: "Дуже довга назва товару з якимись цифрами HTG-7658",
-    image: shoppingCardItem,
-    oldPrice: 28999,
-    newPrice: 19999,
-  },
-];
+export const productsInCard = [1];
