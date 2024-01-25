@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
-import CloseIcon from "@mui/icons-material/Close";
 import { useShoppingCardModalStore } from "@/store/modalStore";
+import ShoppingCard from "./ShoppingCardEmpty";
+import CloseIcon from "@mui/icons-material/Close";
 
 const ShoppingCardModal = () => {
   const showShoppingCard = useShoppingCardModalStore(
@@ -25,21 +25,7 @@ const ShoppingCardModal = () => {
           <CloseIcon fontSize="medium" />
         </button>
       </div>
-      <div className="text-deWiseBlack">
-        {" "}
-        <div className="flex flex-col pt-16 px-4 items-center text-center">
-          <Image
-            src="/shoppingCardEmpty.svg"
-            alt="ShoppingCartEmpty"
-            width={100}
-            height={100}
-          />
-          <span>
-            <h2 className="text-Headline5 pt-8 pb-1">Кошик порожній</h2>
-            <p className="text-base">Вперед до покупок :)</p>
-          </span>
-        </div>
-      </div>
+      <ShoppingCard />
     </div>
   );
 };

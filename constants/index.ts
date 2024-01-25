@@ -15,6 +15,7 @@ import instaLogo from "../public/ins_line.svg";
 import buttonIcon from "../public/buttonIcon.svg";
 import cartIcon from "../public/cart.svg";
 import questionIcon from "../public/question_mark.svg";
+import shoppingCardItem from "../public/shoppingCardItemTest.svg";
 
 export const mobileMenuInfo = [
   {
@@ -143,5 +144,14 @@ export const footerBlock = [
       "+38 (093) 123 45 67",
       "+38 (093) 123 45 67",
     ],
+  },
+];
+
+export const productsInCard = [
+  {
+    title: "Дуже довга назва товару з якимись цифрами HTG-7658",
+    image: shoppingCardItem,
+    oldPrice: 28999,
+    newPrice: 19999,
   },
 ];

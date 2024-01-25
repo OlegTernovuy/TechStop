@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss"; 
+import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
@@ -18,21 +18,23 @@ const config: Config = {
         deWiseMainHover: "#04c2c21a",
         deWiseBlack: "#262626",
         deWiseGray: "#ffffffde",
+        deWiseRed: "#FE0202",
+        textBlack: "#000000DE",
       },
     },
     fontSize: {
       xs: [
-        "0.75rem",
+        "10px",
         {
-          lineHeight: "150%",
+          lineHeight: "15px",
           letterSpacing: "0.15px",
           fontWeight: "400",
         },
       ],
       sm: [
-        "0.875rem",
+        "12px",
         {
-          lineHeight: "150%",
+          lineHeight: "18px",
           letterSpacing: "0.15px",
           fontWeight: "400",
         },
@@ -45,12 +47,51 @@ const config: Config = {
           fontWeight: "400",
         },
       ],
-      xl: "1.25rem",
+      xl: [
+        "1.2rem",
+        {
+          lineHeight: "28px",
+          letterSpacing: "0.15px",
+          fontWeight: "400",
+        },
+      ],
       Headline5: [
         "1.5rem",
         {
           lineHeight: "32px",
           letterSpacing: "0em",
+          fontWeight: "400",
+        },
+      ],
+      Headline4: [
+        "2.125rem",
+        {
+          lineHeight: "1.235",
+          letterSpacing: "0.00735em",
+          fontWeight: "400",
+        },
+      ],
+      Headline3: [
+        "3rem",
+        {
+          lineHeight: "1.167rem",
+          letterSpacing: "0em",
+          fontWeight: "400",
+        },
+      ],
+      body1: [
+        "24px",
+        {
+          lineHeight: "36px",
+          letterSpacing: "0.15px",
+          fontWeight: "400",
+        },
+      ],
+      subtitle1: [
+        "16px",
+        {
+          lineHeight: "28px",
+          letterSpacing: "0.15px",
           fontWeight: "400",
         },
       ],

@@ -57,9 +57,9 @@ const Navbar = () => {
           />
         </Link>
         <SearchField />
-        <button onClick={setShowShoppingCard}>
+        <Link href="/shoppingCard">
           <ShoppingCartOutlinedIcon fontSize="large" className="text-white" />
-        </button>
+        </Link>
       </div>
       <MobileMenu nav={nav} handleNav={handleNav} />
     </header>
