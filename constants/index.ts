@@ -15,6 +15,7 @@ import instaLogo from "../public/ins_line.svg";
 import buttonIcon from "../public/buttonIcon.svg";
 import cartIcon from "../public/cart.svg";
 import questionIcon from "../public/question_mark.svg";
+import shoppingCardItem from "../public/shoppingCardItemTest.svg";
 
 export const mobileMenuInfo = [
   {
@@ -145,3 +146,5 @@ export const footerBlock = [
     ],
   },
 ];
+
+export const productsInCard = [1];

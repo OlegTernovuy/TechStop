@@ -8,17 +8,11 @@ import {
   mobileMenuLinkInfo,
   mobileMenuSocialMedia,
 } from "../constants";
-import { Navigation } from "../types";
-import {
-  useCatalogModalStore,
-  useShoppingCardModalStore,
-} from "@/store/modalStore";
+import { NavigationProps } from "../types";
+import { useCatalogModalStore } from "@/store/modalStore";
 
-const MobileMenu = ({ nav, handleNav }: Navigation) => {
+const MobileMenu = ({ nav, handleNav }: NavigationProps) => {
   const setShowCatalog = useCatalogModalStore((state) => state.setShowCatalog);
-  const setShowShoppingCard = useShoppingCardModalStore(
-    (state) => state.setShowShoppingCard
-  );
   return (
     <>
       <nav
@@ -78,7 +72,7 @@ const MobileMenu = ({ nav, handleNav }: Navigation) => {
               className="py-3 pl-4 hover:bg-deWiseMainHover"
               onClick={handleNav}
             >
-              <button onClick={setShowShoppingCard} className="flex uppercase">
+              <Link href="/shoppingCart" className="flex uppercase">
                 <Image
                   src={"./cart.svg"}
                   alt="cartIcon"
@@ -87,7 +81,7 @@ const MobileMenu = ({ nav, handleNav }: Navigation) => {
                   className="mr-8"
                 />
                 Кошик
-              </button>
+              </Link>
             </li>
           </ul>
           <hr className="my-2 text-slate-300" />

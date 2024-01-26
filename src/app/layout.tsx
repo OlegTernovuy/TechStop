@@ -3,7 +3,6 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
-import ShoppingCardModal from "../../components/ShoppingCardModal";
 import CatalogModal from "../../components/CatalogModal";
 
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
@@ -23,7 +22,6 @@ export default function RootLayout({
       <body className={roboto.className}>
         <Navbar />
         {children}
-        <ShoppingCardModal/>
         <CatalogModal/>
         <Footer />
       </body>

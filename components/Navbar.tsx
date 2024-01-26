@@ -8,11 +8,8 @@ import { useState } from "react";
 import SearchField from "./SearchField";
 import MobileMenu from "./MobileMenu";
 import ButtonCatalog from "./ButtonCatalog";
-import {
-  useCatalogModalStore,
-  useShoppingCardModalStore,
-} from "@/store/modalStore";
 import BasketHoverBlock from "./BasketHoverBlock";
+import { useCatalogModalStore } from "@/store/modalStore";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
@@ -20,10 +17,6 @@ const Navbar = () => {
   const handleNav = () => {
     setNav(!nav);
   };
-
-  const setShowShoppingCard = useShoppingCardModalStore(
-    (state) => state.setShowShoppingCard
-  );
 
   const setShowCatalog = useCatalogModalStore((state) => state.setShowCatalog);
 
@@ -69,9 +62,9 @@ const Navbar = () => {
         </Link>
         <SearchField />
         <div className="group relative">
-          <button onClick={setShowShoppingCard}>
+          <Link href="/shoppingCart">
             <ShoppingCartOutlinedIcon fontSize="large" className="text-white" />
-          </button>
+          </Link>
           <BasketHoverBlock />
         </div>
       </div>
