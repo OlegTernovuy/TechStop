@@ -10,6 +10,9 @@ export interface NavigationProps {
 
 export interface ButtonCatalogProps {
   stylesButton?: string;
+  title?: string;
+  onClick?: () => void;
+  icon?: boolean;
 }
 
 export interface CatalogModalState {

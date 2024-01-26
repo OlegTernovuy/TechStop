@@ -6,6 +6,8 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --DeWise-Main: #04c2c2;
+  --DeWise-Hover: rgba(4, 194, 194, 0.1);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -42,4 +44,22 @@ select:focus {
 
 .icon {
   @apply bg-[url('/SearchFilled.svg')]  bg-no-repeat bg-[length:24px_24px] bg-[right];
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--DeWise-Hover);
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--DeWise-Main);
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--DeWise-Main);
 }
