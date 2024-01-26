@@ -8,7 +8,6 @@ import { useState } from "react";
 import SearchField from "./SearchField";
 import MobileMenu from "./MobileMenu";
 import ButtonCatalog from "./ButtonCatalog";
-import { useShoppingCardModalStore } from "@/store/modalStore";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
@@ -16,10 +15,6 @@ const Navbar = () => {
   const handleNav = () => {
     setNav(!nav);
   };
-
-  const setShowShoppingCard = useShoppingCardModalStore(
-    (state) => state.setShowShoppingCard
-  );
 
   return (
     <header className="bg-deWiseBlack h-16 md:h-28 flex justify-start items-center max-w-full  ">

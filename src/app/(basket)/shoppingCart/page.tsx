@@ -10,13 +10,14 @@ import CheaperTogether from "../CheaperTogether";
 import ShoppingCardEmpty from "../../../../components/ShoppingCartEmpty";
 import ProductInCard from "../ProductInCard";
 import { productsInCard } from "../../../../constants";
+import MaxWidthWrapper from "../../../../components/MaxWidthWrapper";
 
 const ShoppingCart = () => {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen max-w-[1712px] mx-auto px-4">
-      <div className="border-b-2 pb-4 md:border-b-0">
+    <MaxWidthWrapper className="min-h-screen">
+      <div className="border-b-2 pb-4 lg:border-b-0">
         <button
           className="pt-4 flex text-Headline5 text-deWiseBlack md:text-Headline4 items-center"
           onClick={router.back}
@@ -98,7 +99,7 @@ const ShoppingCart = () => {
           </div>
         </div>
       )}
-    </div>
+    </MaxWidthWrapper>
   );
 };
 

@@ -20,12 +20,12 @@ const ProductInCard = () => {
             <p className="text-sm text-[14px] leading-5 md:text-body1">
               Дуже довга назва товару з якимись цифрами HTG-7658
             </p>
-            <div className="md:hidden">
+            <div className="lg:hidden">
               <ThreeDotsSymbolMobile />
             </div>
           </div>
           <div className="flex justify-between items-end">
-            <div className="hidden md:flex">
+            <div className="hidden lg:flex">
               <Button
                 variant="text"
                 size="large"
@@ -35,7 +35,7 @@ const ProductInCard = () => {
                 Видалити
               </Button>
             </div>
-            <div className="flex md:gap-8 items-end justify-between w-full md:w-auto">
+            <div className="flex md:gap-8 items-end justify-between w-full lg:w-auto">
               <div className="flex items-center">
                 <button>
                   <Image

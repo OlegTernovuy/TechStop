@@ -8,17 +8,11 @@ import {
   mobileMenuLinkInfo,
   mobileMenuSocialMedia,
 } from "../constants";
-import { Navigation } from "../types";
-import {
-  useCatalogModalStore,
-  useShoppingCardModalStore,
-} from "@/store/modalStore";
+import { NavigationProps } from "../types";
+import { useCatalogModalStore } from "@/store/modalStore";
 
-const MobileMenu = ({ nav, handleNav }: Navigation) => {
+const MobileMenu = ({ nav, handleNav }: NavigationProps) => {
   const setShowCatalog = useCatalogModalStore((state) => state.setShowCatalog);
-  const setShowShoppingCard = useShoppingCardModalStore(
-    (state) => state.setShowShoppingCard
-  );
   return (
     <>
       <nav
