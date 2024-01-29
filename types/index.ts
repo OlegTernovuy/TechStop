@@ -1,7 +1,7 @@
-export interface IFooterDataProps {
-  head: string;
-  subHeaders: string[];
-}
+// export interface IFooterDataProps {
+//   head: string;
+//   subHeaders: string[];
+// }
 
 export interface NavigationProps {
   nav: boolean;

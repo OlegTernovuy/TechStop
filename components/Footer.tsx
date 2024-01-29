@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { footerBlock } from "../constants";
-import { IFooterDataProps } from "../types";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 
 const Footer = () => {
@@ -33,7 +32,7 @@ const Footer = () => {
         </div>
         <div className="md:flex md:gap-6 lg:gap-20 md:flex-wrap">
           {footerBlock.length ? (
-            footerBlock.map((item: IFooterDataProps) => {
+            footerBlock.map((item) => {
               return (
                 <div key={item.head} className="pt-8 md:pt-0">
                   <h2 className="pb-6 text-Headline5 text-deWiseGray">
