@@ -13,6 +13,7 @@ export interface ButtonCatalogProps {
   title?: string;
   onClick?: () => void;
   icon?: boolean;
+  disabled?: boolean;
 }
 
 export interface CatalogModalState {

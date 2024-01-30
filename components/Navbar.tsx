@@ -44,7 +44,7 @@ const Navbar = () => {
           </Link>
           <ButtonCatalog
             icon={true}
-            stylesButton="hidden lg:flex w-60"
+            stylesButton="hidden lg:flex w-60 bg-deWiseMain text-deWiseBlack"
             title="каталог товарів"
             onClick={setShowCatalog}
           />

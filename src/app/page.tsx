@@ -25,7 +25,7 @@ export default function Home() {
           />
         </div>
         <div className="px-4 md:px-0">
-            <ButtonCatalog stylesButton="w-full md:hidden"/>
+          <ButtonCatalog stylesButton="w-full md:hidden bg-deWiseMain text-deWiseBlack" />
         </div>
       </section>
     </main>

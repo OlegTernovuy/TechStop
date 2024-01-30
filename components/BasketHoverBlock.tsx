@@ -82,7 +82,7 @@ function BasketHoverBlock() {
 
         <div className="flex items-end justify-end pr-11">
           <ButtonCatalog
-            stylesButton="w-[244px] mt-[32px]"
+            stylesButton="w-[244px] mt-[32px] bg-deWiseMain text-deWiseBlack"
             title="Оформити замовлення"
             icon={false}
             onClick={createOrder}

@@ -1,16 +1,18 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import ButtonCatalog from "../../../../../components/ButtonCatalog";
 import { useRouter } from "next/navigation";
 import TextField from "@mui/material/TextField";
 import ProductOrderCard from "../../ProductOrderCard";
 import ContactInfoOrder from "../../ContactInfoOrder";
+import MaxWidthWrapper from "../../../../../components/MaxWidthWrapper";
 
 function OrderCart() {
   const router = useRouter();
+  const [disabled, setDisabled] = useState(true);
   return (
-    <div className="min-h-screen max-w-[1712px] mx-auto px-4">
+    <MaxWidthWrapper>
       <div className=" w-full flex items-center justify-between mt-8 mb-6">
         <h2 className="text-[34px] hidden md:block">Оформити замовлення</h2>
         <h2 className=" block text-[24px] md:hidden">Оформлення</h2>
@@ -66,13 +68,16 @@ function OrderCart() {
             </div>
             <ButtonCatalog
               title="оформити замовлення"
-              stylesButton="w-[100%] h-[52px] bg-[#dedede] text-[#b5b5b5]"
+              stylesButton={`w-[100%] h-[52px] ${
+                disabled ? "bg-deWiseGrey" : "bg-deWiseMain"
+              } ${disabled ? "text-deWiseGreyLight" : "text-deWiseBlack"}`}
+              disabled={true}
             />
             <div className="w-[100%] border-b border-[rgba(0, 0, 0, 0.12)] mt-[31px]"></div>
           </div>
         </div>
       </div>
-    </div>
+    </MaxWidthWrapper>
   );
 }
 
