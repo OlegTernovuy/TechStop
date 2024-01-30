@@ -45,7 +45,7 @@ const ShoppingCart = () => {
             {/*Element only for mobile */}
             <AdditionalServicesMobile />
             <div className="w-full lg:w-4/12 xl:w-2/5 lg:pl-8 xl:pl-24 pt-6 lg:pt-0">
-              <ButtonCatalog stylesButton="w-full hidden md:flex" />
+              <ButtonCatalog stylesButton="w-full hidden md:flex bg-deWiseMain text-deWiseBlack" />
               <div className="hidden md:flex flex-col pt-10 pb-24 gap-6">
                 <div className="flex justify-between items-center">
                   <p className="text-body1">Товар на суму</p>
@@ -74,7 +74,7 @@ const ShoppingCart = () => {
             </div>
             {/*Element only for mobile */}
             <div className="flex flex-col md:hidden mt-4">
-              <ButtonCatalog stylesButton="w-full" />
+              <ButtonCatalog stylesButton="w-full bg-deWiseMain text-deWiseBlack" />
               <span className="text-Headline5 pt-8 pb-4">Разом дешевше</span>
               <CheaperTogether />
               <CheaperTogether />
@@ -83,7 +83,7 @@ const ShoppingCart = () => {
                   19 990
                 </span>
               </div>
-              <ButtonCatalog stylesButton="w-full" />
+              <ButtonCatalog stylesButton="w-full bg-deWiseMain text-deWiseBlack" />
             </div>
           </div>
           <div className="hidden md:flex flex-col max-w-full">

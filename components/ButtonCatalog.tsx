@@ -4,13 +4,14 @@ import Image from "next/image";
 import { ButtonCatalogProps } from "../types";
 
 const ButtonCatalog = (props: ButtonCatalogProps) => {
-  const { stylesButton, title, onClick, icon } = props;
+  const { stylesButton, title, onClick, icon, disabled } = props;
 
   return (
     <div>
       <button
-        className={` bg-deWiseMain h-[52px] flex justify-center items-center py-2 px-6 rounded border-none ${stylesButton}`}
+        className={`h-[52px] flex justify-center items-center py-2 px-6 rounded border-none ${stylesButton}`}
         onClick={onClick}
+        disabled={disabled}
       >
         {icon && (
           <Image

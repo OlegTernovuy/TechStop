@@ -23,6 +23,8 @@ const config: Config = {
         deWiseGray: "#ffffffde",
         deWiseRed: "#FE0202",
         textBlack: "#000000DE",
+        deWiseGrey: "rgba(0, 0, 0, 0.12)",
+        deWiseGreyLight: "rgba(0, 0, 0, 0.38)"
       },
     },
     fontSize: {
