@@ -5,7 +5,14 @@ import { Fragment } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
-const ThreeDotsSymbolMobile = () => {
+type IdProps = {
+  onRemoveItem?: () => void;
+};
+
+const ThreeDotsSymbolMobile = ({ onRemoveItem }: IdProps) => {
+  const RemoveItemFromCart = () => {
+    if (onRemoveItem) onRemoveItem();
+  };
   return (
     <div className="">
       <Menu as="div" className="relative inline-block text-left">
@@ -38,6 +45,7 @@ const ThreeDotsSymbolMobile = () => {
                     size="medium"
                     startIcon={<DeleteIcon />}
                     sx={{ color: "#04C2C2" }}
+                    onClick={RemoveItemFromCart}
                   >
                     Видалити
                   </Button>

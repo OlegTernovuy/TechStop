@@ -10,6 +10,7 @@ import MobileMenu from "./MobileMenu";
 import ButtonCatalog from "./ButtonCatalog";
 import BasketHoverBlock from "./BasketHoverBlock";
 import { useCatalogModalStore } from "@/store/modalStore";
+import MaxWidthWrapper from "./MaxWidthWrapper";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
@@ -21,8 +22,8 @@ const Navbar = () => {
   const setShowCatalog = useCatalogModalStore((state) => state.setShowCatalog);
 
   return (
-    <header className="bg-deWiseBlack relative h-16 md:h-28 flex justify-start items-center max-w-full  ">
-      <div className=" relative flex justify-between gap-6 items-center w-screen px-4 lg:px-8 xl:px-[104px]">
+    <header className="bg-deWiseBlack relative h-16 md:h-28 flex items-center max-w-full">
+      <MaxWidthWrapper className="flex justify-between md:gap-6 items-center">
         <div className="flex items-center gap-0 md:gap-16">
           <button onClick={handleNav}>
             <MenuIcon
@@ -67,7 +68,7 @@ const Navbar = () => {
           </Link>
           <BasketHoverBlock />
         </div>
-      </div>
+      </MaxWidthWrapper>
       <MobileMenu nav={nav} handleNav={handleNav} />
     </header>
   );

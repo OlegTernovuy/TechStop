@@ -1,18 +1,26 @@
 import Image from "next/image";
+import { AddServices } from "../types";
+import { useCartStore } from "@/store/useCartStore";
 
-const AdditionalServices = () => {
+interface AddServicesProps {
+  service: AddServices;
+}
+
+const AdditionalServices = ({ service }: AddServicesProps) => {
+  const { addAdditionalServices } = useCartStore();
+
+  const addServiceToCart = () => {
+    addAdditionalServices(service);
+  };
   return (
     <div className="flex justify-between py-4">
       <div className="flex flex-col pb-4">
-        <h4 className="text-subtitle1 text-[20px] pb-2">Страховка</h4>
-        <p className="text-sm max-w-72">
-          Короткий опис послуги, в якому описані основні переваги тут може бути
-          достатньо тексту, але все залежить від кількості послуг
-        </p>
+        <h4 className="text-subtitle1 !text-[20px] pb-2">{service.title}</h4>
+        <p className="text-sm max-w-72">{service.desc}</p>
       </div>
       <div className="flex flex-col justify-between items-end pl-6">
         <span className="flex">
-          1700{" "}
+          {service.servicesPrice}
           <Image
             src="/ukraineHryvna.svg"
             alt="ukraineHryvna"
@@ -20,13 +28,15 @@ const AdditionalServices = () => {
             height={12}
           />
         </span>
-        <Image
-          src="/tifanyCard.svg"
-          alt="shoppingCard"
-          width={32}
-          height={32}
-          className="stroke-black text-deWiseMain"
-        />
+        <button onClick={addServiceToCart}>
+          <Image
+            src="/tifanyCard.svg"
+            alt="shoppingCard"
+            width={32}
+            height={32}
+            className="stroke-black text-deWiseMain"
+          />
+        </button>
       </div>
     </div>
   );

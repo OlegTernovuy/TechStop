@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Metadata } from "next";
-import ButtonCatalog from "../../components/ButtonCatalog";
 import Catalog from "../../components/Catalog";
+import OpenCatalogMainPage from "../../components/OpenCatalogMainPage";
 
 export const metadata: Metadata = {
   title: "Home Shop page",
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen max-w-screen-2xl flex mx-auto md:divide-x">
+    <main className="min-h-screen max-w-[1712px] lg:px-6 xl:px-8 flex mx-auto md:divide-x">
       <aside className="hidden lg:block w-96">
         <Catalog />
       </aside>
@@ -25,7 +25,7 @@ export default function Home() {
           />
         </div>
         <div className="px-4 md:px-0">
-          <ButtonCatalog stylesButton="w-full md:hidden bg-deWiseMain text-deWiseBlack" />
+          <OpenCatalogMainPage />
         </div>
       </section>
     </main>

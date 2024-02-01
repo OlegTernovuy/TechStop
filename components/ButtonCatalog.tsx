@@ -22,7 +22,9 @@ const ButtonCatalog = (props: ButtonCatalogProps) => {
             style={{ marginRight: "8px" }}
           />
         )}
-        <span className="text-sm uppercase">{title}</span>
+        <span className="text-[15px] tracking-wide font-medium uppercase">
+          {title}
+        </span>
       </button>
     </div>
   );
