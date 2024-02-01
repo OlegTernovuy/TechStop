@@ -81,6 +81,7 @@ const ShoppingCart = () => {
               <ButtonCatalog
                 stylesButton="w-full hidden md:flex bg-deWiseMain text-deWiseBlack"
                 title="перейти до оформлення"
+                onClick={() => router.push("/shoppingCart/orderCart")}
               />
               <div className="hidden md:flex flex-col pt-10 pb-24 gap-6">
                 <div className="flex justify-between items-center">
@@ -113,6 +114,7 @@ const ShoppingCart = () => {
               <ButtonCatalog
                 stylesButton="w-full bg-deWiseMain text-deWiseBlack"
                 title="Оформити замовлення"
+                onClick={() => router.push("/shoppingCart/orderCart")}
               />
               <span className="text-Headline5 pt-8 pb-4">Разом дешевше</span>
               <CheaperTogether />
