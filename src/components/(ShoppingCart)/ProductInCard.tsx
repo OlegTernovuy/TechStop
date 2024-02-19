@@ -6,6 +6,7 @@ import ThreeDotsSymbolMobile from "./ThreeDotsSymbolMobile";
 import AdditionalServicesMobile from "./AdditionalServicesMobile";
 import { CartProduct } from "../../types";
 import { useCartStore } from "@/store/useCartStore";
+import AdditionalServicesDesktop from "./AdditionalServicesDesktop";
 
 interface CartItemCardProps {
   product: CartProduct;
@@ -96,7 +97,7 @@ const ProductInCard = ({ product }: CartItemCardProps) => {
             </div>
 
             <div>
-              <AdditionalServicesMobile/>
+              <AdditionalServicesDesktop/>
             </div>
 
         </div>

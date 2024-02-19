@@ -6,8 +6,8 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  --DeWise-Main: #04c2c2;
-  --DeWise-Hover: rgba(4, 194, 194, 0.1);
+  --TechStop-Main: #CC7E00;
+  --TechStop-Hover: #CC7E0033;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -51,16 +51,16 @@ select:focus {
 }
 
 .scrollShoppingCart::-webkit-scrollbar-track {
-  background: var(--DeWise-Hover);
+  background: var(--TechStop-Hover);
   border-radius: 100px;
 }
 
 .scrollShoppingCart::-webkit-scrollbar-thumb {
-  background: var(--DeWise-Main);
+  background: var(--TechStop-Main);
   border-radius: 100px;
 }
 
 .scrollShoppingCart::-webkit-scrollbar-thumb:hover {
-  background: var(--DeWise-Main);
+  background: var(--TechStop-Main);
 }
 

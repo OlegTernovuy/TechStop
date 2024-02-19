@@ -11,6 +11,7 @@ import HomePageProducts from "../HomePageProducts";
 import ProductInCard from "./ProductInCard";
 import AdditionalServicesMobile from "./AdditionalServicesMobile";
 import CheaperTogether from "./CheaperTogether";
+import Link from "next/link";
 
 const ShoppingCartModal = () => {
   const showShoppingCart = useShoppingCartModalStore(
@@ -160,10 +161,13 @@ const ShoppingCartModal = () => {
                   onClick={setShowShoppingCart}
                   stylesButton="border-[1px] border-TechStopBlue40"
                 />
-                <ButtonCatalog
-                  title="Оформити замовлення"
-                  stylesButton="bg-TechStopBlue text-TechStopWhite w-96"
-                />
+                <Link href="./orderCart">
+                  <ButtonCatalog
+                    title="Оформити замовлення"
+                    stylesButton="bg-TechStopBlue text-TechStopWhite w-96"
+                    onClick={setShowShoppingCart}
+                  />
+                </Link>
               </div>
               <div className="hidden md:flex flex-col max-w-full">
                 <HomePageProducts ShowAllItems={false} />

@@ -71,6 +71,14 @@ const config: Config = {
           fontWeight: "400",
         },
       ],
+      Headline6: [
+        "20px",
+        {
+          lineHeight: "32px",
+          letterSpacing: "0em",
+          fontWeight: "500",
+        },
+      ],
       Headline5: [
         "24px",
         {
