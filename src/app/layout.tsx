@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import Footer from "../../components/Footer";
-import Navbar from "../../components/Navbar";
-import CatalogModal from "../../components/CatalogModal";
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
+import CatalogModal from "../components/CatalogModal";
+import ShoppingCartModal from "../components/(ShoppingCart)/ShoppingCartModal";
 
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body className={roboto.className}>
         <Navbar />
         {children}
+        <ShoppingCartModal/>
         <CatalogModal/>
         <Footer />
       </body>

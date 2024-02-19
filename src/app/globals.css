@@ -43,23 +43,24 @@ select:focus {
 }
 
 .icon {
-  @apply bg-[url('/SearchFilled.svg')]  bg-no-repeat bg-[length:24px_24px] bg-[right];
+  @apply bg-[url('/SearchFilled.svg')]  bg-no-repeat bg-[length:24px_24px] bg-[center_right_12px];
 }
 
-::-webkit-scrollbar {
+.scrollShoppingCart::-webkit-scrollbar {
   width: 8px;
 }
 
-::-webkit-scrollbar-track {
+.scrollShoppingCart::-webkit-scrollbar-track {
   background: var(--DeWise-Hover);
   border-radius: 100px;
 }
 
-::-webkit-scrollbar-thumb {
+.scrollShoppingCart::-webkit-scrollbar-thumb {
   background: var(--DeWise-Main);
   border-radius: 100px;
 }
 
-::-webkit-scrollbar-thumb:hover {
+.scrollShoppingCart::-webkit-scrollbar-thumb:hover {
   background: var(--DeWise-Main);
 }
+

@@ -3,7 +3,7 @@ import type { Config } from "tailwindcss";
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
@@ -17,6 +17,17 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
+        TechStopWhite: "#FFFFFF",
+        TechStopBlue: "#022750",
+        TechStopBlue60: "#02275099",
+        TechStopBlue40: "#02275066",
+        TechStopBlue10: "#0227501A",        
+        TechStopBronze: "#CC7E00",
+        TechStopRed: "#B10F2E",
+        
+
+
+
         deWiseMain: "#04C2C2",
         deWiseMainHover: "#04c2c21a",
         deWiseBlack: "#262626",
@@ -61,7 +72,7 @@ const config: Config = {
         },
       ],
       Headline5: [
-        "1.5rem",
+        "24px",
         {
           lineHeight: "32px",
           letterSpacing: "0em",
@@ -69,25 +80,25 @@ const config: Config = {
         },
       ],
       Headline4: [
-        "2.125rem",
+        "34px",
         {
-          lineHeight: "1.235",
-          letterSpacing: "0.00735em",
+          lineHeight: "42px",
+          letterSpacing: "0.25px",
           fontWeight: "400",
         },
       ],
       Headline3: [
-        "3rem",
+        "48px",
         {
-          lineHeight: "1.167rem",
+          lineHeight: "56px",
           letterSpacing: "0em",
           fontWeight: "400",
         },
       ],
       body1: [
-        "24px",
+        "16px",
         {
-          lineHeight: "36px",
+          lineHeight: "24px",
           letterSpacing: "0.15px",
           fontWeight: "400",
         },

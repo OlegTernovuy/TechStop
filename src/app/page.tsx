@@ -1,7 +1,9 @@
 import Image from "next/image";
 import { Metadata } from "next";
-import Catalog from "../../components/Catalog";
-import OpenCatalogMainPage from "../../components/OpenCatalogMainPage";
+import Catalog from "../components/Catalog";
+import OpenCatalogMainPage from "../components/OpenCatalogMainPage";
+import HomePageProducts from "../components/HomePageProducts";
+import CategoryDesktopBlock from "../components/CategoryDesktopBlock";
 
 export const metadata: Metadata = {
   title: "Home Shop page",
@@ -10,22 +12,27 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen max-w-[1712px] lg:px-6 xl:px-8 flex mx-auto md:divide-x">
-      <aside className="hidden lg:block w-96">
-        <Catalog />
+    <main className="min-h-screen max-w-[1712px] lg:px-6 xl:px-8 flex mx-auto md:divide-x-[1px] divide-TechStopBlue40 overflow-hidden">
+      <aside className="hidden lg:block w-80">
+        <div className="border-b-[1px] border-b-TechStopBlue40">
+          <Catalog />
+        </div>
       </aside>
-      <section className="lg:pl-4 lg:w-[calc(100%_-_300px)]">
-        <div className="mb-4">
+      <section className=" lg:w-[calc(100%_-_300px)]">
+        <div className="pb-4 lg:pt-4 lg:pl-4">
           <Image
-            src="/MainBaner.svg"
+            src="/MainBanerTest.svg"
             alt="baner"
             width={1306}
             height={360}
-            className="object-cover max-h-[360px]"
+            className="object-cover min-h-[300px] max-h-[360px]"
           />
+          {/* <CategoryDesktopBlock/> */}
         </div>
-        <div className="px-4 md:px-0">
+        <div className="px-2 md:px-4 lg:px-0 divide-y-[1px] divide-TechStopBlue40">
           <OpenCatalogMainPage />
+          <HomePageProducts />
+          <HomePageProducts />
         </div>
       </section>
     </main>
