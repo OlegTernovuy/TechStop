@@ -1,14 +1,14 @@
 import { Disclosure } from "@headlessui/react";
 import Image from "next/image";
 import { useCartStore } from "@/store/useCartStore";
-import { AddServices } from "../../types";
+import { AddServices, AdditionalServicesDesktopType } from "../../types";
 import { additionalServices } from "../../constants";
 
-const AdditionalServicesMobile = () => {
+const AdditionalServicesMobile = (productId: AdditionalServicesDesktopType) => {
   const { addAdditionalServices, checkAddService } = useCartStore();
 
   const addServiceToCart = (service: AddServices) => {
-    addAdditionalServices(service);
+    addAdditionalServices(service, productId);
   };
   return (
     <div className="w-full">
@@ -33,23 +33,28 @@ const AdditionalServicesMobile = () => {
                   {additionalServices.length ? (
                     additionalServices.map(
                       (service: {
-                        id: number;
-                        title: string;
-                        desc: string;
+                        servicesId: number;
+                        servicesTitle: string;
+                        servicesDesc: string;
                         servicesPrice: number;
                       }) => {
                         return (
-                          <li key={service.id} className="flex justify-between items-center">
+                          <li
+                            key={service.servicesId}
+                            className="flex justify-between items-center"
+                          >
                             <div className="flex items-center">
                               <input
                                 id="vue-checkbox"
                                 type="checkbox"
-                                checked={Boolean(checkAddService(service.id))}
+                                checked={Boolean(
+                                  checkAddService(service.servicesId, productId)
+                                )}
                                 onChange={() => addServiceToCart(service)}
                                 className="w-5 h-5 "
                               />
                               <label className="w-full py-3 ms-3 text-sm">
-                                {service.title}
+                                {service.servicesTitle}
                               </label>
                             </div>
                             <span>{service.servicesPrice}</span>

@@ -1,12 +1,14 @@
 import { additionalServices } from "@/constants";
 import { useCartStore } from "@/store/useCartStore";
-import { AddServices } from "@/types";
+import { AddServices, AdditionalServicesDesktopType } from "@/types";
 
-const AdditionalServicesDesktop = () => {
+const AdditionalServicesDesktop = (
+  productId: AdditionalServicesDesktopType
+) => {
   const { addAdditionalServices, checkAddService } = useCartStore();
 
   const addServiceToCart = (service: AddServices) => {
-    addAdditionalServices(service);
+    addAdditionalServices(service, productId);
   };
   return (
     <div>
@@ -17,21 +19,25 @@ const AdditionalServicesDesktop = () => {
         {additionalServices.length ? (
           additionalServices.map(
             (service: {
-              id: number;
-              title: string;
-              desc: string;
+              servicesId: number;
+              servicesTitle: string;
+              servicesDesc: string;
               servicesPrice: number;
             }) => {
               return (
-                <li key={service.id} className="flex justify-between ">
+                <li key={service.servicesId} className="flex justify-between ">
                   <div className="flex items-center">
                     <input
                       type="checkbox"
-                      checked={Boolean(checkAddService(service.id))}
+                      checked={Boolean(
+                        checkAddService(service.servicesId, productId)
+                      )}
                       onChange={() => addServiceToCart(service)}
                       className=" mr-2 w-[18px] h-[18px] "
                     />
-                    <label className="text-body1">{service.title}</label>
+                    <label className="text-body1">
+                      {service.servicesTitle}
+                    </label>
                   </div>
                   <span className="text-Headline6">
                     {service.servicesPrice}

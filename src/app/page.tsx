@@ -3,7 +3,6 @@ import { Metadata } from "next";
 import Catalog from "../components/Catalog";
 import OpenCatalogMainPage from "../components/OpenCatalogMainPage";
 import HomePageProducts from "../components/HomePageProducts";
-import CategoryDesktopBlock from "../components/CategoryDesktopBlock";
 
 export const metadata: Metadata = {
   title: "Home Shop page",
@@ -19,7 +18,7 @@ export default function Home() {
         </div>
       </aside>
       <section className=" lg:w-[calc(100%_-_300px)]">
-        <div className="pb-4 lg:pt-4 lg:pl-4">
+        <div className="pb-4 pt-2 lg:pt-4 lg:pl-4">
           <Image
             src="/MainBanerTest.svg"
             alt="baner"
@@ -27,12 +26,11 @@ export default function Home() {
             height={360}
             className="object-cover min-h-[300px] max-h-[360px]"
           />
-          {/* <CategoryDesktopBlock/> */}
         </div>
-        <div className="px-2 md:px-4 lg:px-0 divide-y-[1px] divide-TechStopBlue40">
+        <div className="px-2 md:px-4 lg:px-0 md:divide-y-[1px] divide-TechStopBlue40">
           <OpenCatalogMainPage />
-          <HomePageProducts />
-          <HomePageProducts />
+          <HomePageProducts title="Недавно переглянуті товари"/>
+          <HomePageProducts title="Бестселлери"/>
         </div>
       </section>
     </main>

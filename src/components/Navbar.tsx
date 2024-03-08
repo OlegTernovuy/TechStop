@@ -27,47 +27,28 @@ const Navbar = () => {
 
   return (
     <header className="bg-TechStopWhite relative flex items-center max-w-full border-b-[1px] border-b-TechStopBlue40 py-2 md:py-0">
-      <MaxWidthWrapper className="flex justify-between md:gap-6 items-center">
-        <div className="flex items-center gap-0 md:gap-16">
-          <button onClick={handleNav}>
-            <Image
-              src="./MenuIcon.svg"
-              alt="Menu Icon"
-              width={48}
-              height={48}
-            />
-          </button>
-          <Link href="/">
-            <Image
-              src="/TechLogo.svg"
-              alt="logo"
-              width={116}
-              height={89}
-              className="hidden md:block"
-            />
-          </Link>
-          <ButtonCatalog
-            icon={true}
-            stylesButton="hidden lg:flex w-80 bg-TechStopWhite text-TechStopBlue border-[1px] border-TechStopBlue40"
-            title="каталог товарів"
-            onClick={setShowCatalog}
-          />
-        </div>
-
+      <MaxWidthWrapper className="flex justify-between items-center">
+        <button onClick={handleNav} className="flex md:hidden">
+          <Image src="./MenuIcon.svg" alt="Menu Icon" width={48} height={48} />
+        </button>
         <Link href="/">
           <Image
-            src="/navLogo.svg"
+            src="/TechLogo.svg"
             alt="logo"
-            width={30}
-            height={32}
-            priority={true}
-            className="max-w-[30px] md:hidden"
+            width={116}
+            height={89}
+            className="w-16 md:w-28"
           />
         </Link>
+        <ButtonCatalog
+          icon={true}
+          stylesButton="hidden lg:flex w-80 bg-TechStopWhite text-TechStopBlue border-[1px] border-TechStopBlue40"
+          title="каталог товарів"
+          onClick={setShowCatalog}
+        />
         <SearchField />
-        <div className="group relative">
-          {/* <Link href="/shoppingCart"> */}
-          <button onClick={setShowShoppingCart}>
+        <div className="group">
+          <button onClick={setShowShoppingCart} className="flex items-center">
             <Image
               src="./ShoppingCartIcon.svg"
               alt="ShoppingCartIcon"
@@ -75,7 +56,6 @@ const Navbar = () => {
               height={32}
             />
           </button>
-          {/* </Link> */}
           <BasketHoverBlock />
         </div>
       </MaxWidthWrapper>

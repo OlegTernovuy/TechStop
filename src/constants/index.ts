@@ -9,7 +9,7 @@ import gardening from "../../public/catalogIcons/gardening.svg";
 import sports from "../../public/catalogIcons/sports.svg";
 import toys from "../../public/catalogIcons/toys.svg";
 import pets from "../../public/catalogIcons/pets.svg";
-import facebookLogo from "../../public/facebook_line-2.svg";
+import facebookLogo from "../../public/FacebookIcon.svg";
 import youtubeLogo from "../../public/YoutubeIcon.svg";
 import instaLogo from "../../public/InstagramIcon.svg";
 import buttonIcon from "../../public/ButtonCatalogIcon.svg";
@@ -144,21 +144,21 @@ export const footerBlock = [
 
 export const additionalServices = [
   {
-    id: 1,
-    title: "service 1",
-    desc: "Короткий опис послуги, в якому описані основні переваги тут може бути достатньо тексту, але все залежить від кількості послуг",
+    servicesId: 1,
+    servicesTitle: "service 1",
+    servicesDesc: "Короткий опис послуги, в якому описані основні переваги тут може бути достатньо тексту, але все залежить від кількості послуг",
     servicesPrice: 1000,
   },
   {
-    id: 2,
-    title: "service 2",
-    desc: "Короткий опис послуги, в якому описані основні переваги тут може бути достатньо тексту, але все залежить від кількості послуг",
+    servicesId: 2,
+    servicesTitle: "service 2",
+    servicesDesc: "Короткий опис послуги, в якому описані основні переваги тут може бути достатньо тексту, але все залежить від кількості послуг",
     servicesPrice: 2000,
   },
   {
-    id: 3,
-    title: "service 3",
-    desc: "Короткий опис послуги, в якому описані основні переваги тут може бути достатньо тексту, але все залежить від кількості послуг",
+    servicesId: 3,
+    servicesTitle: "service 3",
+    servicesDesc: "Короткий опис послуги, в якому описані основні переваги тут може бути достатньо тексту, але все залежить від кількості послуг",
     servicesPrice: 3000,
   },
 ];

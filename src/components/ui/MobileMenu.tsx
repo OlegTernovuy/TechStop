@@ -2,44 +2,49 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import CloseIcon from "@mui/icons-material/Close";
 import {
   mobileMenuInfo,
   mobileMenuLinkInfo,
   mobileMenuSocialMedia,
 } from "../../constants";
 import { NavigationProps } from "../../types";
-import { useCatalogModalStore } from "@/store/modalStore";
+import {
+  useCatalogModalStore,
+  useShoppingCartModalStore,
+} from "@/store/modalStore";
 
 const MobileMenu = ({ nav, handleNav }: NavigationProps) => {
   const setShowCatalog = useCatalogModalStore((state) => state.setShowCatalog);
+  const setShowShoppingCart = useShoppingCartModalStore(
+    (state) => state.setShowShoppingCart
+  );
   return (
     <>
       <nav
         className={
           nav
-            ? "fixed left-0 top-0 w-10/12 md:w-96 h-full bg-white text-deWiseBlack z-10 overflow-y-scroll"
+            ? "fixed left-0 top-0 w-10/12 md:w-96 h-full bg-white text-TechStopBlue z-10 overflow-y-scroll"
             : "hidden"
         }
       >
-        <div className="flex justify-between bg-deWiseBlack px-4 py-3">
+        <div className="flex justify-between px-4 py-3">
           <Link href="/" onClick={handleNav}>
             <Image
-              src="/logo-footer.svg"
+              src="/TechLogo.svg"
               alt="Logo"
-              width={109}
-              height={40}
-              className="h-[40px]"
+              width={66}
+              height={51}
+              className="h-[51px]"
             />
           </Link>
           <button onClick={handleNav}>
-            <CloseIcon fontSize="medium" className="text-white" />
+            <Image src="CloseIcon.svg" alt="close" width={24} height={24} />
           </button>
         </div>
-        <div className=" text-deWiseBlack text-base">
+        <div className="text-base">
           <ul className="flex flex-col uppercase">
             <li
-              className="py-3 pl-4 hover:bg-deWiseMainHover"
+              className="py-3 pl-4 hover:bg-TechStopBronze20"
               onClick={handleNav}
             >
               <button onClick={setShowCatalog} className="flex uppercase">
@@ -54,10 +59,10 @@ const MobileMenu = ({ nav, handleNav }: NavigationProps) => {
               </button>
             </li>
             <li
-              className="py-3 pl-4 hover:bg-deWiseMainHover"
+              className="py-3 pl-4 hover:bg-TechStopBronze20"
               onClick={handleNav}
             >
-              <Link href="/" className="flex">
+              <Link href="/" className="flex uppercase">
                 <Image
                   src={"./question_mark.svg"}
                   alt="questionIcon"
@@ -69,10 +74,10 @@ const MobileMenu = ({ nav, handleNav }: NavigationProps) => {
               </Link>
             </li>
             <li
-              className="py-3 pl-4 hover:bg-deWiseMainHover"
+              className="py-3 pl-4 hover:bg-TechStopBronze20"
               onClick={handleNav}
             >
-              <Link href="/shoppingCart" className="flex uppercase">
+              <button onClick={setShowShoppingCart} className="flex uppercase">
                 <Image
                   src={"./cart.svg"}
                   alt="cartIcon"
@@ -81,7 +86,7 @@ const MobileMenu = ({ nav, handleNav }: NavigationProps) => {
                   className="mr-8"
                 />
                 Кошик
-              </Link>
+              </button>
             </li>
           </ul>
           <hr className="my-2 text-slate-300" />
@@ -90,7 +95,7 @@ const MobileMenu = ({ nav, handleNav }: NavigationProps) => {
               mobileMenuInfo.map((item: { title: string; href: string }) => {
                 return (
                   <li
-                    className="py-3 pl-4 hover:bg-deWiseMainHover"
+                    className="py-3 pl-4 hover:bg-TechStopBronze20"
                     key={item.title}
                   >
                     <Link href={item.href}>{item.title}</Link>
@@ -113,8 +118,8 @@ const MobileMenu = ({ nav, handleNav }: NavigationProps) => {
                         <Image
                           src={item.imageSrc}
                           alt="Logo"
-                          width={32}
-                          height={32}
+                          width={24}
+                          height={24}
                         />
                       </Link>
                     );

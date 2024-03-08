@@ -15,8 +15,8 @@ const AdditionalServices = ({ service }: AddServicesProps) => {
   return (
     <div className="flex justify-between py-4">
       <div className="flex flex-col pb-4">
-        <h4 className="text-subtitle1 !text-[20px] pb-2">{service.title}</h4>
-        <p className="text-sm max-w-72">{service.desc}</p>
+        <h4 className="text-subtitle1 !text-[20px] pb-2">{service.servicesTitle}</h4>
+        <p className="text-sm max-w-72">{service.servicesDesc}</p>
       </div>
       <div className="flex flex-col justify-between items-end pl-6">
         <span className="flex">
