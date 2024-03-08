@@ -10,7 +10,7 @@ const Catalog = ({ children }: { children?: React.ReactNode }) => {
           return (
             <li key={item.title}>
               <Link href="/">
-                <div className="flex justify-between text-body1 py-3 px-4 hover:bg-TechStopBlue10">
+                <div className="flex justify-between text-body1 py-3 px-4 hover:bg-TechStopBronze20">
                   <div className="flex">
                     <Image
                       src={item.icon}

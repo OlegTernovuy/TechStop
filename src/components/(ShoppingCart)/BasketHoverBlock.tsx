@@ -2,9 +2,10 @@
 import Image from "next/image";
 import React from "react";
 import ButtonCatalog from "../ui/ButtonCatalog";
-import { useStore } from "zustand";
+import { useStore } from "@/store/useStore";
 import { useCartStore } from "@/store/useCartStore";
 import Link from "next/link";
+import formatPrice from "@/app/utils/formatPrice";
 
 function BasketHoverBlock() {
   const cartItems = useStore(useCartStore, (state) => state.cartItems);
@@ -15,7 +16,7 @@ function BasketHoverBlock() {
       <div className=" pl-8 pt-8 bg-white text-TechStopBlue shadow-lg mt-[38px] pb-8">
         <h2 className="mb-4 text-Headline5 text-left">Кошик</h2>
         <div className="max-h-[320px] scrollShoppingCart overflow-y-auto mr-1">
-          {cartItems.length ? (
+          {cartItems?.length ? (
             cartItems.map((product) => {
               return (
                 <div className="flex gap-4 pr-11 mb-4" key={product.id}>
@@ -39,10 +40,10 @@ function BasketHoverBlock() {
                     </div>
                     <div className="w-full text-end">
                       <p className=" text-sm text-TechStopBlue60 line-through">
-                        {product.oldPrice}
+                        {formatPrice(product.oldPrice)}
                       </p>
                       <p className="text-subtitle1 text-TechStopRed">
-                        {product.price}
+                        {formatPrice(product.price)}
                       </p>
                     </div>
                   </div>
@@ -55,7 +56,7 @@ function BasketHoverBlock() {
             </div>
           )}
         </div>
-        {cartItems.length > 0 && (
+        {cartItems?.length ? (
           <div className="flex items-end justify-end pr-11">
             <Link href="./orderCart">
               <ButtonCatalog
@@ -64,7 +65,7 @@ function BasketHoverBlock() {
               />
             </Link>
           </div>
-        )}
+        ) : null}
       </div>
     </div>
   );

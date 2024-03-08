@@ -35,13 +35,23 @@ export interface Product {
   title: string;
 }
 
-export type CartProduct = Product & {
-  quantity: number;
-};
-
 export interface AddServices {
-  id: number;
-  title: string;
-  desc: string;
+  servicesId: number;
+  servicesTitle: string;
+  servicesDesc: string;
   servicesPrice: number;
 }
+
+export type addAdditionalServices = AddServices & {
+  productId: number;
+};
+
+export type CartProduct = Product & {
+  quantity: number;
+} & {
+  addServices?: AddServices[];
+};
+
+export type AdditionalServicesDesktopType = {
+  productId: number;
+};

@@ -8,7 +8,7 @@ const OpenCatalogMainPage = () => {
 
   return (
     <ButtonCatalog
-      stylesButton="w-full md:hidden bg-TechStopBlue text-TechStopWhite"
+      stylesButton="w-full md:hidden bg-TechStopWhite text-TechStopBlue border-[1px] border-TechStopBlue40"
       icon={true}
       title="каталог товарів"
       onClick={setShowCatalog}

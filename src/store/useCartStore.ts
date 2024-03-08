@@ -1,16 +1,34 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { AddServices, CartProduct, Product } from "../types";
+import {
+  AddServices,
+  AdditionalServicesDesktopType,
+  CartProduct,
+  Product,
+} from "../types";
+
+interface TotalPrices {
+  totalPrice: number;
+  totalOldPrice: number;
+}
 
 interface CartState {
   cartItems: CartProduct[];
-  additionalService: AddServices[];
-  addAdditionalServices: (service: AddServices) => void;
-  checkAddService: (id: number) => void;
+  addAdditionalServices: (
+    service: AddServices,
+    productId: AdditionalServicesDesktopType
+  ) => void;
+  checkAddService: (
+    servicesId: number,
+    productId: AdditionalServicesDesktopType
+  ) => void;
   addItemToCart: (item: Product) => void;
   increaseQuantity: (productId: number) => void;
   decreaseQuantity: (productId: number) => void;
   removeItemFromCart: (productId: number) => void;
+  totalPrice: { totalPrice: number; priceWithAddService: number };
+  countTotalPrice: () => void;
+  getTotalPriceOneProduct: (product: CartProduct) => TotalPrices;
 }
 
 export const useCartStore = create(
@@ -18,35 +36,98 @@ export const useCartStore = create(
     (set, get) => ({
       cartItems: [
         /* For testing*/
-        {
-          id: 1,
-          inStock: true,
-          poster: "/shoppingCardItemTest.svg",
-          price: 19990,
-          oldPrice: 28990,
-          title: "Дуже довга назва товару з якимись цифрами HTG-7658",
-          quantity: 1,
-        },
+        // {
+        //   id: 1,
+        //   inStock: true,
+        //   poster: "/shoppingCardItemTest.svg",
+        //   price: 19990,
+        //   oldPrice: 28990,
+        //   title: "Дуже довга назва товару з якимись цифрами HTG-7658",
+        //   quantity: 1,
+        //   addServices: [],
+        // },
+        // {
+        //   id: 2,
+        //   inStock: true,
+        //   poster: "/shoppingCardItemTest.svg",
+        //   price: 19990,
+        //   oldPrice: 28990,
+        //   title: "Дуже довга назва товару з якимись цифрами HTG-7658",
+        //   quantity: 1,
+        //   addServices: [],
+        // },
       ],
-      additionalService: [],
-      addAdditionalServices: (service: AddServices) => {
-        const serviceExists = get().additionalService.find(
-          (serviceItem) => serviceItem.id === service.id
-        );
-        set({
-          additionalService: [...get().additionalService, { ...service }],
+      totalPrice: {
+        totalPrice: 0,
+        priceWithAddService: 0,
+      },
+      countTotalPrice: () => {
+        const { cartItems } = get();
+        let totalPrice = 0;
+        let priceWithAddService = 0;
+        cartItems?.forEach((item) => {
+          totalPrice += item.price * item.quantity!;
         });
+        cartItems?.forEach((item) => {
+          item.addServices?.forEach((service) => {
+            priceWithAddService += service.servicesPrice;
+          });
+        });
+        set({
+          totalPrice: {
+            totalPrice: totalPrice,
+            priceWithAddService: priceWithAddService + totalPrice,
+          },
+        });
+      },
+      getTotalPriceOneProduct: (product): TotalPrices => {
+        let totalOldPrice = 0;
+        let totalPrice = 0;
+        totalOldPrice = product.oldPrice * product.quantity;
+        totalPrice = product.price * product.quantity;
+        return { totalPrice, totalOldPrice };
+      },
+      addAdditionalServices: (service, productId) => {
+        const { cartItems } = get();
 
-        if (serviceExists) {
-          const updateServiceItems = get().additionalService.filter(
-            (item) => item.id !== service.id
-          );
-          set({ additionalService: updateServiceItems });
+        const itemIndex = cartItems.findIndex(
+          (item) => item.id === productId.productId
+        );
+
+        if (itemIndex !== -1) {
+          const updatedCartItems = [...cartItems];
+
+          const services = updatedCartItems[itemIndex].addServices;
+
+          if (services) {
+            const serviceIndex = services.findIndex(
+              (itemService) => itemService.servicesId === service.servicesId
+            );
+
+            if (serviceIndex !== -1) {
+              services.splice(serviceIndex, 1);
+            } else {
+              services.push(service);
+            }
+
+            set({ cartItems: updatedCartItems });
+            get().countTotalPrice();
+          }
         }
       },
-      checkAddService: (id) => {
-        return !!get().additionalService.find((service) => service.id === id);
+      checkAddService: (id, productId) => {
+        const { cartItems } = get();
+
+        const product = cartItems.find(
+          (item) => item.id === productId.productId
+        );
+
+        if (!product || !product.addServices) {
+          return false;
+        }
+        return product.addServices.some((service) => service.servicesId === id);
       },
+
       addItemToCart: (item) => {
         const itemExists = get().cartItems.find(
           (cartItem) => cartItem.id === item.id
@@ -58,6 +139,7 @@ export const useCartStore = create(
         } else {
           set({ cartItems: [...get().cartItems, { ...item, quantity: 1 }] });
         }
+        get().countTotalPrice();
       },
       increaseQuantity: (productId) => {
         const itemExists = get().cartItems.find(
@@ -67,6 +149,7 @@ export const useCartStore = create(
           itemExists.quantity++;
           set({ cartItems: [...get().cartItems] });
         }
+        get().countTotalPrice();
       },
       decreaseQuantity: (productId) => {
         const itemExists = get().cartItems.find(
@@ -81,15 +164,12 @@ export const useCartStore = create(
           }
         }
         set({ cartItems: [...get().cartItems] });
+        get().countTotalPrice();
       },
       removeItemFromCart: (productId) => {
         const itemExists = get().cartItems.find(
           (item) => item.id === productId
         );
-
-        if (get().cartItems.length === 1) {
-          set({ additionalService: [] });
-        }
 
         if (itemExists) {
           const updateCartItems = get().cartItems.filter(
@@ -97,6 +177,7 @@ export const useCartStore = create(
           );
           set({ cartItems: updateCartItems });
         }
+        get().countTotalPrice();
       },
     }),
     {

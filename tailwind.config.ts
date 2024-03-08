@@ -23,8 +23,13 @@ const config: Config = {
         TechStopBlue40: "#02275066",
         TechStopBlue10: "#0227501A",        
         TechStopBronze: "#CC7E00",
+        TechStopBronze20: "#CC7E0033",
         TechStopRed: "#B10F2E",
-        
+        DisabledBackground: "#0000001F",
+        DisabledBackgroundText: "#00000061",
+
+
+
 
 
 
@@ -56,9 +61,9 @@ const config: Config = {
         },
       ],
       base: [
-        "1rem",
+        "14px",
         {
-          lineHeight: "24px",
+          lineHeight: "21px",
           letterSpacing: "0.15px",
           fontWeight: "400",
         },

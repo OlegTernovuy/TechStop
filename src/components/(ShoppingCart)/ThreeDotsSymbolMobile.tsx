@@ -4,15 +4,19 @@ import Image from "next/image";
 import { Fragment } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useShoppingCartModalStore } from "@/store/modalStore";
 
 type IdProps = {
   onRemoveItem?: () => void;
+  isOrderPage?: boolean;
 };
 
-const ThreeDotsSymbolMobile = ({ onRemoveItem }: IdProps) => {
+const ThreeDotsSymbolMobile = ({ onRemoveItem, isOrderPage }: IdProps) => {
   const RemoveItemFromCart = () => {
     if (onRemoveItem) onRemoveItem();
   };
+  const { setShowShoppingCart } = useShoppingCartModalStore();
+
   return (
     <div>
       <Menu as="div" className="relative inline-block text-left">
@@ -38,31 +42,49 @@ const ThreeDotsSymbolMobile = ({ onRemoveItem }: IdProps) => {
         >
           <Menu.Items className="absolute top-0 right-0 w-48 origin-top-right divide-y-2 divide-gray-500 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
             <div className="px-1 py-1">
-              <Menu.Item>
-                {({ active }) => (
-                  <Button
-                    variant="text"
-                    size="medium"
-                    startIcon={<DeleteIcon />}
-                    sx={{ color: "#CC7E00" }}
-                    onClick={RemoveItemFromCart}
-                  >
-                    Видалити
-                  </Button>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <Button
-                    variant="text"
-                    size="medium"
-                    startIcon={<FavoriteIcon />}
-                    sx={{ color: "#CC7E00" }}
-                  >
-                    Обране
-                  </Button>
-                )}
-              </Menu.Item>
+              {isOrderPage ? (
+                <Menu.Item>
+                  {({ active }) => (
+                    <Button
+                      variant="text"
+                      size="medium"
+                      startIcon={<DeleteIcon />}
+                      sx={{ color: "#CC7E00" }}
+                      onClick={setShowShoppingCart}
+                    >
+                      Редагувати
+                    </Button>
+                  )}
+                </Menu.Item>
+              ) : (
+                <>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <Button
+                        variant="text"
+                        size="medium"
+                        startIcon={<DeleteIcon />}
+                        sx={{ color: "#CC7E00" }}
+                        onClick={RemoveItemFromCart}
+                      >
+                        Видалити
+                      </Button>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <Button
+                        variant="text"
+                        size="medium"
+                        startIcon={<FavoriteIcon />}
+                        sx={{ color: "#CC7E00" }}
+                      >
+                        Обране
+                      </Button>
+                    )}
+                  </Menu.Item>
+                </>
+              )}
             </div>
           </Menu.Items>
         </Transition>
