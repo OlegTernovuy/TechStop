@@ -2,7 +2,6 @@
 import { useState } from "react";
 
 function ContactInfoOrder() {
-
   const toOrderBlocks = [
     {
       title: "1. Контактна інформація",
