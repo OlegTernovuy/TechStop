@@ -47,7 +47,7 @@ const Navbar = () => {
           onClick={setShowCatalog}
         />
         <SearchField />
-        <div className="group">
+        <div className="group relative">
           <button onClick={setShowShoppingCart} className="flex items-center">
             <Image
               src="./ShoppingCartIcon.svg"

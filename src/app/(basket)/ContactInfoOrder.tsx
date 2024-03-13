@@ -1,20 +1,19 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
+import ContactContent from "./ContactContent";
+import PaymentMethod from "./PaymentMethod";
+import DeliveryMethod from "./DeliveryMethod";
+
+export interface IAdd {
+  [key: string]: string; // або вкажіть більше типів, якщо є потреба
+}
 
 function ContactInfoOrder() {
 
-  const toOrderBlocks = [
-    {
-      title: "1. Контактна інформація",
-    },
-    {
-      title: "2. Спосіб доставки",
-    },
-    {
-      title: "3. Спосіб оплати",
-    },
-  ];
-
+  const [add, setAdd] = useState<IAdd>({})
+  const formContactData = new FormData();
+  const formDeliveryData = new FormData();
+  const formPayData = new FormData();
   const [selected, setSelected] = useState(null);
 
   const toggle = (i: any) => {
@@ -23,6 +22,44 @@ function ContactInfoOrder() {
     }
     return setSelected(i);
   };
+  const toOrderBlocks = [
+    {
+      title: "1. Контактна інформація",
+      content: (
+        <ContactContent formContactData={formContactData} toggle={toggle} setAdd={setAdd} />
+      ),
+    },
+    {
+      title: "2. Спосіб доставки",
+      content: (
+        <DeliveryMethod formDeliveryData={formDeliveryData} toggle={toggle} />
+      ),
+    },
+    {
+      title: "3. Спосіб оплати",
+      content: <PaymentMethod formPayData={formPayData} />,
+    },
+  ];
+
+  const combinedFormData = new FormData();
+
+  // const confirm = () => {
+  //   console.log('1');
+    
+  //   [formContactData, formDeliveryData, formPayData].forEach((formData) => {
+  //     for (const key of Array.from(formData.keys())) {
+  //       const value = formData.get(key);
+  //       if (value !== null) {
+  //         console.log(key, value.toString());
+          
+  //         combinedFormData.append(key, value.toString());
+  //       }
+  //     }
+  //   });
+  // }
+
+  console.log(add);
+  
 
   return (
     <div className=" w-full mt-8 mb-8">
@@ -49,94 +86,25 @@ function ContactInfoOrder() {
                     >
                       змінити
                     </span>
+                    {/* <span>
+                      {formData.has("name") ? (
+                        <div>{String(formData.get("name"))}</div>
+                      ) : null}
+                    </span> */}
                   </button>
                   <div
                     className={
-                      selected === i ? "h-auto" : "max-h-0 overflow-hidden"
+                      selected === i ? "h-auto pb-8" : "max-h-0 overflow-hidden"
                     }
                   >
-                    Yes! You can purchase a license that you can share with your
-                    entire team.
-                    {i !== toOrderBlocks.length - 1 && (
-                      <button onClick={() => toggle(i + 1)}>Continue</button>
-                    )}
+                    {block.content}
                   </div>
                 </div>
               </div>
             );
           })
-        : // <div>no data</div>
-          null}
-      {/* <Disclosure defaultOpen={true}>
-        {({ open }) => (
-          <div className="w-full border-TechStopBlue40 border-b border-t">
-            <Disclosure.Button className="w-full gap-4 md:gap-0  flex items-center justify-between py-4 md:py-8  flex-col md:flex-row ">
-              <p className=" w-full flex text-body1 lg:text-Headline4 text-TechStopBlue60">
-                1. Контактна інформація
-              </p>
-              <span
-                className={`${
-                  open ? "hidden" : "block"
-                } 'text-body1 uppercase text-TechStopBronze mr-[11px]`}
-              >
-                змінити
-              </span>
-            </Disclosure.Button>
-            <Disclosure.Panel className="pb-7 text-gray-500">
-              Yes! You can purchase a license that you can share with your
-              entire team.
-              <Disclosure.Button>
-                Close
-              </Disclosure.Button>
-            </Disclosure.Panel>
-          </div>
-        )}
-      </Disclosure> */}
-
-      {/* <Disclosure>
-        {({open}) => (
-          <div className="w-full border-TechStopBlue40 border-b">
-            <Disclosure.Button className="w-full gap-4 md:gap-0  flex items-center justify-between py-4 md:py-8  flex-col md:flex-row ">
-              <p className=" w-full flex text-body1 lg:text-Headline4 text-TechStopBlue60">
-                2. Спосіб доставки
-              </p>
-              <span
-                className={`${
-                  open ? "hidden" : "block"
-                } 'text-body1 uppercase text-TechStopBronze mr-[11px]`}
-              >
-                змінити
-              </span>
-            </Disclosure.Button>
-            <Disclosure.Panel className="pb-7 text-gray-500">
-              Yes! You can purchase a license that you can share with your
-              entire team.
-            </Disclosure.Panel>
-          </div>
-        )}
-      </Disclosure>
-      <Disclosure>
-        {({ open }) => (
-          <div className="w-full border-TechStopBlue40 border-b mb-4 md:mb-16">
-            <Disclosure.Button className="w-full gap-4 md:gap-0  flex items-center justify-between py-4 md:py-8  flex-col md:flex-row ">
-              <p className=" w-full flex text-body1 lg:text-Headline4 text-TechStopBlue60">
-                3. Спосіб оплати
-              </p>
-              <span
-                className={`${
-                  open ? "hidden" : "block"
-                } 'text-body1 uppercase text-TechStopBronze mr-[11px]`}
-              >
-                змінити
-              </span>
-            </Disclosure.Button>
-            <Disclosure.Panel className="pb-7 text-gray-500">
-              Yes! You can purchase a license that you can share with your
-              entire team.
-            </Disclosure.Panel>
-          </div>
-        )}
-      </Disclosure> */}
+        : null}
+        {/* <button onClick={confirm}>confirm</button> */}
     </div>
   );
 }

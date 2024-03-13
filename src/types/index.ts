@@ -55,3 +55,20 @@ export type CartProduct = Product & {
 export type AdditionalServicesDesktopType = {
   productId: number;
 };
+
+
+export interface IContactContent {
+  name: string;
+  email: string;
+  phone: string;
+  anotherPersonReceive: boolean;
+}
+
+export interface IDeliveryContent {
+  city: string;
+  postOffice: string;
+}
+
+export interface IPayMethodContent {
+  payMethod_id: number;
+}

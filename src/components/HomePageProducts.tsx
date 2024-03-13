@@ -98,7 +98,7 @@ const HomePageProducts = ({ ShowAllItems, title }: ProdProps) => {
                   key={index}
                   className="w-1/2 md:w-1/4 xl:w-1/5 px-2 py-2 xl:px-3 xl:py-3"
                 >
-                  <SingleProduct product={item}/>
+                  <SingleProduct product={item} />
                 </li>
               ) : null;
             })

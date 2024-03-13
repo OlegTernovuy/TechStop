@@ -39,7 +39,7 @@ function OrderCart() {
         </button>
       </div>
       <div className="w-full flex flex-col md:flex-row  ">
-        <div className=" w-full md:w-[70%] md:pr-6 ">
+        <div className=" w-full md:w-[70%] md:pr-6 md:border-TechStopBlue40 md:border-r">
           {cartItems?.length ? (
             cartItems.map((item) => {
               return <ProductOrderCard product={item} key={item.id} />;
@@ -68,13 +68,13 @@ function OrderCart() {
           </div>
         </div>
         <div className=" w-full md:w-[30%] text-body1 lg:text-Headline5 text-TechStopBlue">
-          <div className=" md:pl-6  md:border-TechStopBlue40 md:border-l">
+          <div className=" md:pl-6  ">
             <div className="flex flex-col gap-3 md:gap-6">
               <div className="w-full flex items-center justify-between">
                 <p>Товар на суму</p>
                 <p className="font-bold md:font-normal">{productsPrice}</p>
               </div>
-              <div className="flex flex-col gap-3 md:gap-6 text-body1 md:text-Headline5">
+              <div className="flex flex-col gap-3 md:gap-6 text-body1 lg:text-Headline5">
                 {cartItems?.length
                   ? cartItems?.map((product) => {
                       return product.addServices?.map((service) => {
