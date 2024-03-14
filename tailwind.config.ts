@@ -139,9 +139,6 @@ const config: Config = {
       "4xl": "2.441rem",
       "5xl": "3.052rem",
     },
-    screens: {
-      sm: { max: "639px" },
-    },
   },
   plugins: [],
 };
