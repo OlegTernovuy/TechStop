@@ -9,8 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       variants: {
-        display:['group-hover']
-       },
+        display: ["group-hover"],
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -21,17 +21,12 @@ const config: Config = {
         TechStopBlue: "#022750",
         TechStopBlue60: "#02275099",
         TechStopBlue40: "#02275066",
-        TechStopBlue10: "#0227501A",        
+        TechStopBlue10: "#0227501A",
         TechStopBronze: "#CC7E00",
-        TechStopBronze20: "#CC7E0033",
+        TechStopBronze20: "rgba(204, 126, 0, 0.2)",
         TechStopRed: "#B10F2E",
         DisabledBackground: "#0000001F",
         DisabledBackgroundText: "#00000061",
-
-
-
-
-
 
         deWiseMain: "#04C2C2",
         deWiseMainHover: "#04c2c21a",
@@ -40,7 +35,7 @@ const config: Config = {
         deWiseRed: "#FE0202",
         textBlack: "#000000DE",
         deWiseGrey: "rgba(0, 0, 0, 0.12)",
-        deWiseGreyLight: "rgba(0, 0, 0, 0.38)"
+        deWiseGreyLight: "rgba(0, 0, 0, 0.38)",
       },
     },
     fontSize: {
@@ -106,6 +101,22 @@ const config: Config = {
           lineHeight: "56px",
           letterSpacing: "0em",
           fontWeight: "400",
+        },
+      ],
+      Headline2: [
+        "60px",
+        {
+          lineHeight: "120%",
+          letterSpacing: "-0.5px",
+          fontWeight: "500",
+        },
+      ],
+      Headline1: [
+        "162px",
+        {
+          lineHeight: "120%",
+          letterSpacing: "-0.5px",
+          fontWeight: "500",
         },
       ],
       body1: [
