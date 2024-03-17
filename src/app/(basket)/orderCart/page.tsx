@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ButtonCatalog from "../../../components/ui/ButtonCatalog";
 import { useRouter } from "next/navigation";
 import TextField from "@mui/material/TextField";
@@ -10,6 +10,7 @@ import MaxWidthWrapper from "../../../components/MaxWidthWrapper";
 import { useCartStore } from "@/store/useCartStore";
 import { useStore } from "@/store/useStore";
 import formatPrice from "@/app/utils/formatPrice";
+import { IAdd } from "@/types";
 
 function OrderCart() {
   const router = useRouter();
@@ -19,7 +20,15 @@ function OrderCart() {
   const productsPrice = formatPrice(totalPrice?.totalPrice);
   const productsPriceWithAdd = formatPrice(totalPrice?.priceWithAddService);
 
+  const [orderContactData, setOrderContactData] = useState<IAdd>({});
   const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    if (Object.keys(orderContactData).length === 7) {
+      setDisabled(false);
+    }
+  }, [orderContactData]);
+
   return (
     <MaxWidthWrapper>
       <div className=" w-full flex items-center justify-between mt-8 mb-6 text-TechStopBlue">
@@ -51,7 +60,10 @@ function OrderCart() {
             <p>Разом до сплати</p>
             <p>{productsPriceWithAdd}</p>
           </div>
-          <ContactInfoOrder />
+          <ContactInfoOrder
+            setOrderContactData={setOrderContactData}
+            orderContactData={orderContactData}
+          />
           <div className=" w-full mb-4 md:mb-[122px]">
             <TextField
               id="outlined-required"
@@ -113,7 +125,7 @@ function OrderCart() {
                     ? "text-DisabledBackgroundText"
                     : "text-TechStopWhite"
                 }`}
-                disabled={true}
+                disabled={disabled}
               />
               <div className="w-[100%] lg:border-b border-TechStopBlue40 mt-[31px]"></div>
             </div>

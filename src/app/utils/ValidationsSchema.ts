@@ -25,18 +25,12 @@ export const ContactValidationsSchema = yup.object().shape({
 });
 
 export const DeliveryValidationsSchema = yup.object().shape({
-  city: yup
-    .string()
-    .required("Required")
-    .min(2, "Name must be more than 2 characters")
-    .max(60, "Name must be less than 60 characters"),
   postOffice: yup
     .string()
     .required("Required")
-    // .min(2, "Email must be more than 2 characters")
     .max(100, "Email must be less than 100 characters"),
 });
 
 export const PayMethodValidationsSchema = yup.object().shape({
-  payMethod_id: yup.number().required("Required").integer(),
+  payMethod_id: yup.string().required("Required"),
 });

@@ -4,18 +4,11 @@ import Checkbox from "@mui/material/Checkbox";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ContactValidationsSchema } from "../utils/ValidationsSchema";
-import { IContactContent } from "@/types";
+import { IContactContent, formDat } from "@/types";
 import ButtonCatalog from "@/components/ui/ButtonCatalog";
-import { useState } from "react";
-import { IAdd } from "./ContactInfoOrder";
+import { checkIsContact } from "../utils/CheckIsData";
 
-interface formDat {
-  formContactData: FormData;
-  toggle: (i: any) => void;
-  setAdd: React.Dispatch<React.SetStateAction<IAdd>>;
-}
-
-const ContactContent = ({ formContactData, toggle, setAdd }: formDat) => {
+const ContactContent = ({ toggle, setOrderContactData }: formDat) => {
   const {
     handleSubmit,
     control,
@@ -31,38 +24,9 @@ const ContactContent = ({ formContactData, toggle, setAdd }: formDat) => {
     resolver: yupResolver(ContactValidationsSchema),
   });
 
-  // interface IAdd {
-  //   [key: string]: string; // або вкажіть більше типів, якщо є потреба
-  // }
-
-  // const [add, setAdd] = useState<IAdd>({})
-
-  // const checkIsContact = (formValues: IContactContent) => {
-  //   Object.entries(formValues).forEach(([key, value]) => {
-  //     if (typeof value === "undefined") return;
-  //     formContactData.set(key, value);
-  //   });
-  // };
-  const checkIsContact = (formValues: IContactContent) => {
-    setAdd((prevAdd) => {
-      const updatedAdd = { ...prevAdd };
-      Object.entries(formValues).forEach(([key, value]) => {
-        if (typeof value !== "undefined") {
-          updatedAdd[key] = value;
-        }
-      });
-      return updatedAdd;
-    });
-  };
-
   const submitFields: SubmitHandler<IContactContent> = (contact) => {
     try {
-      // console.log(contact);
-      
-      checkIsContact(contact);
-      // console.log(add);
-      
-      // console.log(formContactData.entries());
+      checkIsContact({ ...contact }, setOrderContactData);
       toggle(1);
     } catch (error: any) {
       console.error("Error post user: ", error);
