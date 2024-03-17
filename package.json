@@ -13,12 +13,16 @@
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@headlessui/react": "^1.7.18",
+    "@hookform/resolvers": "^3.3.4",
     "@mui/icons-material": "^5.15.5",
     "@mui/material": "^5.15.5",
+    "axios": "^1.6.7",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
+    "react-hook-form": "^7.51.0",
     "react-responsive": "^9.0.2",
+    "yup": "^1.4.0",
     "zustand": "^4.4.7"
   },
   "devDependencies": {

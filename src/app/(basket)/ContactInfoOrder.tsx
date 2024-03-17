@@ -1,19 +1,19 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
+import ContactContent from "./ContactContent";
+import PaymentMethod from "./PaymentMethod";
+import DeliveryMethod from "./DeliveryMethod";
+import { IAdd } from "@/types";
 
-function ContactInfoOrder() {
-  const toOrderBlocks = [
-    {
-      title: "1. Контактна інформація",
-    },
-    {
-      title: "2. Спосіб доставки",
-    },
-    {
-      title: "3. Спосіб оплати",
-    },
-  ];
+interface TContactInfoOrder {
+  orderContactData: IAdd;
+  setOrderContactData: React.Dispatch<React.SetStateAction<IAdd>>;
+}
 
+const ContactInfoOrder = ({
+  orderContactData,
+  setOrderContactData,
+}: TContactInfoOrder) => {
   const [selected, setSelected] = useState(null);
 
   const toggle = (i: any) => {
@@ -23,121 +23,98 @@ function ContactInfoOrder() {
     return setSelected(i);
   };
 
+  const toOrderBlocks = [
+    {
+      title: "1. Контактна інформація",
+      content: (
+        <ContactContent
+          toggle={toggle}
+          setOrderContactData={setOrderContactData}
+        />
+      ),
+    },
+    {
+      title: "2. Спосіб доставки",
+      content: (
+        <DeliveryMethod
+          setOrderContactData={setOrderContactData}
+          toggle={toggle}
+        />
+      ),
+    },
+    {
+      title: "3. Спосіб оплати",
+      content: (
+        <PaymentMethod
+          setOrderContactData={setOrderContactData}
+          toggle={toggle}
+        />
+      ),
+    },
+  ];
+
   return (
     <div className=" w-full mt-8 mb-8">
       {toOrderBlocks.length
         ? toOrderBlocks.map((block, i) => {
             return (
-              <div key={i}>
-                <div
-                  className={`${
-                    i === toOrderBlocks.length - 1 ? "border-b" : ""
-                  } w-full border-TechStopBlue40 border-t`}
+              <div
+                key={i}
+                className={`${
+                  i === toOrderBlocks.length - 1 ? "border-b" : ""
+                } w-full border-TechStopBlue40 border-t`}
+              >
+                <button
+                  className={
+                    "w-full gap-4 md:gap-0 flex flex-col md:flex-row items-center justify-between py-4 md:py-8"
+                  }
+                  onClick={() => toggle(i)}
                 >
-                  <button
-                    className="w-full gap-4 md:gap-0  flex items-center justify-between py-4 md:py-8  flex-col md:flex-row "
-                    onClick={() => toggle(i)}
-                  >
+                  <div className="flex flex-col items-center w-full">
                     <p className=" w-full flex text-body1 lg:text-Headline4 text-TechStopBlue60">
                       {block.title}
                     </p>
-                    <span
-                      className={`${
-                        selected === i ? "hidden" : "block"
-                      } 'text-body1 uppercase text-TechStopBronze mr-[11px]`}
-                    >
-                      змінити
+                    <span className="pl-6 md:pl-14 flex justify-start w-full">
+                      {Object.keys(orderContactData).length ? (
+                        selected !== i && i === 0 ? (
+                          orderContactData?.name ? (
+                            <div className="text-TechStopBlue60 pt-4 md:pt-6">{`${orderContactData?.name} / ${orderContactData?.phone}`}</div>
+                          ) : null
+                        ) : selected !== i && i === 1 ? (
+                          orderContactData?.city ? (
+                            <div className="text-TechStopBlue60 pt-4 md:pt-6">{`${orderContactData?.city} / ${orderContactData?.postOffice}`}</div>
+                          ) : null
+                        ) : selected !== i && i === 2 ? (
+                          orderContactData?.payMethod_id ? (
+                            <div className="text-TechStopBlue60 pt-4 md:pt-6">{`${orderContactData?.payMethod_id}`}</div>
+                          ) : null
+                        ) : (
+                          <div></div>
+                        )
+                      ) : null}
                     </span>
-                  </button>
-                  <div
-                    className={
-                      selected === i ? "h-auto" : "max-h-0 overflow-hidden"
-                    }
-                  >
-                    Yes! You can purchase a license that you can share with your
-                    entire team.
-                    {i !== toOrderBlocks.length - 1 && (
-                      <button onClick={() => toggle(i + 1)}>Continue</button>
-                    )}
                   </div>
+                  <span
+                    className={`${
+                      selected === i ? "hidden" : "block"
+                    } 'text-body1 uppercase text-TechStopBronze mr-[11px]`}
+                  >
+                    змінити
+                  </span>
+                </button>
+                <div
+                  className={
+                    selected === i ? "h-auto pb-8" : "max-h-0 overflow-hidden"
+                  }
+                >
+                  {block.content}
                 </div>
               </div>
             );
           })
-        : // <div>no data</div>
-          null}
-      {/* <Disclosure defaultOpen={true}>
-        {({ open }) => (
-          <div className="w-full border-TechStopBlue40 border-b border-t">
-            <Disclosure.Button className="w-full gap-4 md:gap-0  flex items-center justify-between py-4 md:py-8  flex-col md:flex-row ">
-              <p className=" w-full flex text-body1 lg:text-Headline4 text-TechStopBlue60">
-                1. Контактна інформація
-              </p>
-              <span
-                className={`${
-                  open ? "hidden" : "block"
-                } 'text-body1 uppercase text-TechStopBronze mr-[11px]`}
-              >
-                змінити
-              </span>
-            </Disclosure.Button>
-            <Disclosure.Panel className="pb-7 text-gray-500">
-              Yes! You can purchase a license that you can share with your
-              entire team.
-              <Disclosure.Button>
-                Close
-              </Disclosure.Button>
-            </Disclosure.Panel>
-          </div>
-        )}
-      </Disclosure> */}
-
-      {/* <Disclosure>
-        {({open}) => (
-          <div className="w-full border-TechStopBlue40 border-b">
-            <Disclosure.Button className="w-full gap-4 md:gap-0  flex items-center justify-between py-4 md:py-8  flex-col md:flex-row ">
-              <p className=" w-full flex text-body1 lg:text-Headline4 text-TechStopBlue60">
-                2. Спосіб доставки
-              </p>
-              <span
-                className={`${
-                  open ? "hidden" : "block"
-                } 'text-body1 uppercase text-TechStopBronze mr-[11px]`}
-              >
-                змінити
-              </span>
-            </Disclosure.Button>
-            <Disclosure.Panel className="pb-7 text-gray-500">
-              Yes! You can purchase a license that you can share with your
-              entire team.
-            </Disclosure.Panel>
-          </div>
-        )}
-      </Disclosure>
-      <Disclosure>
-        {({ open }) => (
-          <div className="w-full border-TechStopBlue40 border-b mb-4 md:mb-16">
-            <Disclosure.Button className="w-full gap-4 md:gap-0  flex items-center justify-between py-4 md:py-8  flex-col md:flex-row ">
-              <p className=" w-full flex text-body1 lg:text-Headline4 text-TechStopBlue60">
-                3. Спосіб оплати
-              </p>
-              <span
-                className={`${
-                  open ? "hidden" : "block"
-                } 'text-body1 uppercase text-TechStopBronze mr-[11px]`}
-              >
-                змінити
-              </span>
-            </Disclosure.Button>
-            <Disclosure.Panel className="pb-7 text-gray-500">
-              Yes! You can purchase a license that you can share with your
-              entire team.
-            </Disclosure.Panel>
-          </div>
-        )}
-      </Disclosure> */}
+        : null}
     </div>
   );
-}
+};
 
 export default ContactInfoOrder;

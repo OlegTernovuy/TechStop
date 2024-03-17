@@ -162,3 +162,26 @@ export const additionalServices = [
     servicesPrice: 3000,
   },
 ];
+
+export const paymentsMethods = [
+  {
+    id: 1,
+    title: 'Оплата після отриманні',
+  },
+  {
+    id: 2,
+    title: 'Оплата частинами',
+  },
+  {
+    id: 3,
+    title: 'Онлайн оплата Visa/MasterCard',
+  },
+  {
+    id: 4,
+    title: 'Apple Pay',
+  },
+  {
+    id: 5,
+    title: 'Google Pay',
+  },
+]
