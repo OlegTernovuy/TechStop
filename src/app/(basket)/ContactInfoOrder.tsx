@@ -22,6 +22,7 @@ const ContactInfoOrder = ({
     }
     return setSelected(i);
   };
+
   const toOrderBlocks = [
     {
       title: "1. Контактна інформація",
