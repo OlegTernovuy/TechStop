@@ -36,7 +36,7 @@ const ContactContent = ({ toggle, setOrderContactData }: formDat) => {
 
   return (
     <form onSubmit={handleSubmit(submitFields)}>
-      <div>
+      <div className="">
         <Controller
           control={control}
           name="phone"
@@ -49,7 +49,7 @@ const ContactContent = ({ toggle, setOrderContactData }: formDat) => {
               helperText={errors.phone?.message}
               onChange={(e) => field.onChange(e)}
               value={field.value}
-              className="w-full md:w-80 mr-4 mb-4"
+              className="mr-4 mb-4 w-full md:w-80"
               sx={{
                 "& label": {
                   color: "#02275099",
@@ -75,7 +75,7 @@ const ContactContent = ({ toggle, setOrderContactData }: formDat) => {
               helperText={errors?.name?.message}
               onChange={(e) => field.onChange(e)}
               value={field.value}
-              className="w-full md:w-80 mr-4 mb-4"
+              className="mr-4 mb-4 w-full md:w-80"
               sx={{
                 "& label": {
                   color: "#02275099",
@@ -103,7 +103,7 @@ const ContactContent = ({ toggle, setOrderContactData }: formDat) => {
               helperText={errors?.email?.message}
               onChange={(e) => field.onChange(e)}
               value={field.value}
-              className="w-full md:w-80 mr-4 mb-4"
+              className="mr-4 mb-4 w-full md:w-80"
               sx={{
                 "& label": {
                   color: "#02275099",
@@ -118,17 +118,21 @@ const ContactContent = ({ toggle, setOrderContactData }: formDat) => {
           )}
         />
 
-        <div className="pb-6 pl-3">
+        <div className="flex items-center pb-6">
+          <div className="max-w-6">
           <Controller
             control={control}
             name="anotherPersonReceive"
             render={({ field }) => (
               <Checkbox
+                size="medium"
                 onChange={(e) => field.onChange(e)}
                 value={field.value}
+                sx={{ '& svg': { width: '24px', height: '24px' }, color: '#02275099' }}
               />
             )}
           />
+          </div>
           <span className="text-Headline6 text-TechStopBlue60 pl-3">
             Отримувати буде інша людина
           </span>
