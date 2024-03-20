@@ -57,10 +57,12 @@ const PaymentMethod = ({ setOrderContactData, toggle }: formDat) => {
                             field.onChange(e);
                             setTimeout(() => submitFields(), 100); // Затримка перед викликом
                           }}
+                          size="medium"
                           sx={{
-                            color: "#022750",
+                            "& svg": { width: "24px", height: "24px" },
+                            color: "#02275099",
                             "&.Mui-checked": {
-                              color: "#022750",
+                              color: "#02275099",
                             },
                           }}
                         />

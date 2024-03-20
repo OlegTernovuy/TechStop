@@ -14,9 +14,8 @@ import { DeliveryValidationsSchema } from "../utils/ValidationsSchema";
 import { IDeliveryContent, INPCity, formDat } from "@/types";
 import ButtonCatalog from "@/components/ui/ButtonCatalog";
 import { checkIsContact } from "../utils/CheckIsData";
-import { useCallback, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { getData } from "../utils/NovaPostaApi";
-import { useInput } from "../utils/useInput";
 import { useDebounce } from "../utils/useDebounce";
 import Image from "next/image";
 
@@ -40,15 +39,11 @@ const Posts = [
 ];
 
 const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
-  const [showCity, setShowCity] = useState(false);
   const [searchCity, setSearchCity] = useState<INPCity[]>([]);
-  const [selectedCity, setSelectedCity] = useState({
-    city: "м. Київ, Київська обл.",
-  });
 
-  const input = useInput("");
+  const [search, setSearch] = useState({ city: "м. Київ, Київська обл." });
 
-  const debouncedSearch = useDebounce<string>(input.search, 600);
+  const debouncedSearch = useDebounce<string>(search.city, 200);
 
   const searchPets = useCallback(async () => {
     const response = await getData(debouncedSearch);
@@ -56,7 +51,11 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
   }, [debouncedSearch]);
 
   useEffect(() => {
-    searchPets();
+    search.city.length === 0
+      ? setSearchCity([])
+      : search.city.includes("обл")
+      ? setSearchCity([])
+      : searchPets();
   }, [debouncedSearch]);
 
   const {
@@ -73,7 +72,7 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
 
   const submitFields = handleSubmit((contact) => {
     try {
-      checkIsContact(selectedCity, setOrderContactData);
+      checkIsContact(search, setOrderContactData);
       checkIsContact({ ...contact }, setOrderContactData);
       toggle(2);
     } catch (error: any) {
@@ -84,56 +83,59 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
 
   return (
     <form className="mb-4 flex flex-col gap-4" onSubmit={submitFields}>
-      <div
-        className="h-14 border-[1px] border-TechStopBlue40 w-full flex justify-between items-center px-3 rounded cursor-pointer"
-        onClick={() => setShowCity(!showCity)}
-      >
-        <span className="text-TechStopBlue">
-          {selectedCity.city !== "" ? selectedCity.city : "Ваше місто"}
-        </span>
-        <Image
-          src={"/ArrowDropDownFilled.svg"}
-          alt="ArrowDropDownFilled"
-          width={24}
-          height={24}
+      <div className="w-full">
+        <TextField
+          label="Ваше місто"
+          value={search.city}
+          className="w-full border-TechStopBlue40 border-[2px] rounded"
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setSearch({ city: e.target.value })
+          }
+          InputProps={{
+            endAdornment: (
+              <Image
+                src="./ArrowDropDownFilled.svg"
+                alt="ArrowDropDownFilled"
+                width={24}
+                height={24}
+              />
+            ),
+            sx: {
+              ".css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
+                border: "2px solid #02275066",
+              },
+              "&:hover": {
+                ".css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
+                  border: "2px solid #02275066",
+                },
+              },
+            },
+          }}
         />
-      </div>
-      {showCity && (
-        <div className="w-full">
-          <TextField
-            label="Ваше місто"
-            value={input.search}
-            className="w-full"
-            {...input}
-          />
 
-          {searchCity.length > 0 && (
-            <div
-              className={
-                "mt-2 border-[1px] border-TechStopBlue60 rounded max-h-44 overflow-y-auto"
-              }
-            >
-              {searchCity.length > 0 &&
-                searchCity.map((city, i) => {
-                  return (
-                    <MenuItem
-                      key={i}
-                      value={city?.Present}
-                      onClick={() => {
-                        setSelectedCity({ city: city?.MainDescription });
-                        input.setSearch("");
-                        setSearchCity([]);
-                        setShowCity(!showCity);
-                      }}
-                    >
-                      {city?.Present}
-                    </MenuItem>
-                  );
-                })}
-            </div>
-          )}
-        </div>
-      )}
+        {searchCity.length > 0 && (
+          <div
+            className={
+              "mt-2 border-[2px] border-TechStopBlue60 rounded max-h-44 overflow-y-auto"
+            }
+          >
+            {searchCity.length > 0 &&
+              searchCity.map((city, i) => {
+                return (
+                  <MenuItem
+                    key={i}
+                    value={city?.Present}
+                    onClick={() => {
+                      setSearch({ city: city?.Present });
+                    }}
+                  >
+                    {city?.Present}
+                  </MenuItem>
+                );
+              })}
+          </div>
+        )}
+      </div>
       <FormControl sx={{ width: "100%" }} error={!!errors?.postOffice}>
         {errors?.postOffice && (
           <FormLabel className="pb-4">Select your post office</FormLabel>
@@ -146,7 +148,7 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
                 name="postOffice"
                 key={post.id}
                 render={({ field }) => (
-                  <div className="h-14 w-full px-3 border-TechStopBlue40 border-[2px] rounded flex items-center">
+                  <div className="h-14 w-full px-3 border-TechStopBlue40 border-[2px] rounded flex justify-between items-center">
                     <FormControlLabel
                       control={
                         <Radio
@@ -155,15 +157,22 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
                             field.onChange(e);
                           }}
                           sx={{
-                            color: "#022750",
+                            "& svg": { width: "24px", height: "24px" },
+                            color: "#02275099",
                             "&.Mui-checked": {
-                              color: "#022750",
+                              color: "#02275099",
                             },
                           }}
                         />
                       }
                       className="text-TechStopBlue60"
                       label={post.name}
+                    />
+                    <Image
+                      src="./ArrowDropDownFilled.svg"
+                      alt="ArrowDropDownFilled"
+                      width={24}
+                      height={24}
                     />
                   </div>
                 )}
