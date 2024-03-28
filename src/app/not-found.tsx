@@ -9,7 +9,7 @@ const NotFoundPage: FC = () => {
         {" "}
         <Link
           href="/"
-          className=" flex items-center sm:absolute static z-10 top-[42px] left-[10px] sm:left-[170px]  sm:pl-0 pl-[34px] sm:py-0 py-[23px]"
+          className=" flex items-center sm:absolute static z-10 top-[42px] left-[10px] lg:left-[170px]  sm:pl-0 pl-9 sm:py-0 py-6"
         >
           <Image
             src="/icon_left.svg"
@@ -18,15 +18,15 @@ const NotFoundPage: FC = () => {
             height={24}
             priority={true}
           />
-          <span className="text-[15px] font-medium leading-[1.7333] tracking-[0.46px] ml-[4px] ">
+          <span className="text-TechStopBlue text-lg font-medium tracking-[0.46px] ml-1 ">
             Повернутись
           </span>
         </Link>
       </div>
 
-      <section className="flex justify-center items-center relative pt-[37px] pb-[196px]">
+      <section className="flex justify-center items-center relative pt-9 pb-[196px]">
         <div className="w-[235px] h-[235px]  sm:w-[704px] sm:h-[706px]  bg-TechStopBronze20 flex justify-center flex-col items-center rounded-full ">
-          <ul className="flex items-center justify-center flex-col gap-[16px] ">
+          <ul className="flex items-center justify-center flex-col gap-4 ">
             <li>
               <h2 className="sm:text-Headline2 text-Headline5  text-TechStopBlue">
                 Йой, лишенько!
