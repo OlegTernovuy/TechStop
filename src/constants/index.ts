@@ -15,6 +15,15 @@ import instaLogo from "../../public/InstagramIcon.svg";
 import buttonIcon from "../../public/ButtonCatalogIcon.svg";
 import cartIcon from "../../public/cart.svg";
 import questionIcon from "../../public/question_mark.svg";
+import AccountCircleOutlined from "../../public/AccountCircleOutlined.svg";
+import ShoppingCartIcon from "../../public/ShoppingCartIcon.svg";
+import favorite from "../../public/favorite.svg";
+import CommentOutlined from "../../public/CommentOutlined.svg";
+import RemoveRedEyeOutlined from "../../public/AccountCircleOutlined.svg";
+import NovaPoshtaLogo from "../../public/NovaPoshtaLogo.svg";
+import UkrposhtaLogo from "../../public/UkrposhtaLogo.svg";
+import shoppingCardItemTest from "../../public//shoppingCardItemTest.svg";
+import { boolean } from "yup";
 
 export const mobileMenuInfo = [
   {
@@ -146,19 +155,22 @@ export const additionalServices = [
   {
     servicesId: 1,
     servicesTitle: "service 1",
-    servicesDesc: "Короткий опис послуги, в якому описані основні переваги тут може бути достатньо тексту, але все залежить від кількості послуг",
+    servicesDesc:
+      "Короткий опис послуги, в якому описані основні переваги тут може бути достатньо тексту, але все залежить від кількості послуг",
     servicesPrice: 1000,
   },
   {
     servicesId: 2,
     servicesTitle: "service 2",
-    servicesDesc: "Короткий опис послуги, в якому описані основні переваги тут може бути достатньо тексту, але все залежить від кількості послуг",
+    servicesDesc:
+      "Короткий опис послуги, в якому описані основні переваги тут може бути достатньо тексту, але все залежить від кількості послуг",
     servicesPrice: 2000,
   },
   {
     servicesId: 3,
     servicesTitle: "service 3",
-    servicesDesc: "Короткий опис послуги, в якому описані основні переваги тут може бути достатньо тексту, але все залежить від кількості послуг",
+    servicesDesc:
+      "Короткий опис послуги, в якому описані основні переваги тут може бути достатньо тексту, але все залежить від кількості послуг",
     servicesPrice: 3000,
   },
 ];
@@ -166,22 +178,162 @@ export const additionalServices = [
 export const paymentsMethods = [
   {
     id: 1,
-    title: 'Оплата після отриманні',
+    title: "Оплата після отриманні",
   },
   {
     id: 2,
-    title: 'Оплата частинами',
+    title: "Оплата частинами",
   },
   {
     id: 3,
-    title: 'Онлайн оплата Visa/MasterCard',
+    title: "Онлайн оплата Visa/MasterCard",
   },
   {
     id: 4,
-    title: 'Apple Pay',
+    title: "Apple Pay",
   },
   {
     id: 5,
-    title: 'Google Pay',
+    title: "Google Pay",
   },
-]
+];
+
+export const profileNavItems = [
+  {
+    title: "Персональні дані",
+    url: "/account",
+    icon: AccountCircleOutlined,
+  },
+  {
+    title: "Мої замовлення",
+    url: "/account/purchases",
+    icon: ShoppingCartIcon,
+  },
+  {
+    title: "Обране",
+    url: "/account/favorites",
+    icon: favorite,
+  },
+  {
+    title: "Відгуки",
+    url: "/account/reviews",
+    icon: CommentOutlined,
+  },
+  {
+    title: "Переглянути товари",
+    url: "/account/viewedProducts",
+    icon: RemoveRedEyeOutlined,
+  },
+];
+
+export const DeliveryAddressData = [
+  {
+    id: 1,
+    title: "Адресна доставка",
+    icon: "",
+  },
+  {
+    id: 2,
+    title: "Nova Post",
+    icon: NovaPoshtaLogo,
+  },
+  {
+    id: 3,
+    title: "Ukr Post",
+    icon: UkrposhtaLogo,
+  },
+];
+
+export const Posts = [
+  {
+    id: 1,
+    name: "Нова Пошта",
+  },
+  {
+    id: 2,
+    name: "УкрПошта",
+  },
+  {
+    id: 3,
+    name: "Самовивіз з магазину",
+  },
+  {
+    id: 4,
+    name: "Курʼєром",
+  },
+];
+
+export const UkrPostDepartments = [
+  {
+    id: 1,
+    title: "Відділення 1",
+  },
+  {
+    id: 2,
+    title: "Відділення 2",
+  },
+  {
+    id: 3,
+    title: "Відділення 3",
+  },
+  {
+    id: 4,
+    title: "Відділення 4",
+  },
+  {
+    id: 5,
+    title: "Відділення 5",
+  },
+];
+
+export const OurShops = [
+  {
+    id: 1,
+    title: "Магазин 1",
+  },
+  {
+    id: 2,
+    title: "Магазин 2",
+  },
+  {
+    id: 3,
+    title: "Магазин 3",
+  },
+];
+
+export const InfoAboutPurchase = [
+  {
+    productId: 1,
+    orderNumber: "123456",
+    orderStatus: "Виконано",
+    orderDate: "4 квітня 2024",
+    orderIcon: shoppingCardItemTest,
+    orderTitle:
+      "Геймпад Microsoft Xbox Series X | S Wireless Controller Velocity Green (QAU-00091)",
+    orderPrice: 19999,
+    orderCount: 1,
+    paymentStatus: "Сплачено",
+    PaymentMethod: "картою онлайн",
+    deliveryAddress: "Львів, вул. Степана Бандери, 13/13",
+    orderRecipientName: "Степан Підбийкопито",
+    orderRecipientPhone: "+38 - (063) - 345 - 22 - 34",
+    inStock: true,
+  },
+  {
+    productId: 2,
+    orderNumber: "456765",
+    orderStatus: "Виконано",
+    orderDate: "8 квітня 2024",
+    orderIcon: shoppingCardItemTest,
+    orderTitle:
+      "Геймпад Microsoft Xbox Series X | S Wireless Controller Velocity Green (QAU-00091)",
+    orderPrice: 29999,
+    orderCount: 2,
+    paymentStatus: "Сплачено",
+    PaymentMethod: "картою онлайн",
+    deliveryAddress: "Тернопіль, вул. Степана Бандери, 14/14",
+    orderRecipientName: "Йохим Підбийкопито",
+    orderRecipientPhone: "+38 - (063) - 345 - 22 - 34",
+    inStock: true,
+  },
+];

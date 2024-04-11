@@ -82,7 +82,28 @@ const ContactInfoOrder = ({
                           ) : null
                         ) : selected !== i && i === 1 ? (
                           orderContactData?.city ? (
-                            <div className="text-TechStopBlue60 pt-4 md:pt-6">{`${orderContactData?.city} / ${orderContactData?.postOffice}`}</div>
+                            <div className="text-TechStopBlue60 pt-4 md:pt-6">
+                              <span className="flex mb-1">{`${orderContactData?.city} / ${orderContactData?.postOffice}`}</span>
+                              {orderContactData?.postOffice === "Нова Пошта" ? (
+                                <span className="flex text-start">
+                                  {orderContactData?.novaPostDepart}
+                                </span>
+                              ) : orderContactData?.postOffice ===
+                                "УкрПошта" ? (
+                                <span className="flex text-start">
+                                  {orderContactData?.ukrPostDepart}
+                                </span>
+                              ) : orderContactData?.postOffice ===
+                                "Самовивіз з магазину" ? (
+                                <span className="flex text-start">
+                                  {orderContactData?.shopDepart}
+                                </span>
+                              ) : (
+                                <span className="flex text-start">
+                                  {orderContactData?.courierAddress}
+                                </span>
+                              )}
+                            </div>
                           ) : null
                         ) : selected !== i && i === 2 ? (
                           orderContactData?.payMethod_id ? (
@@ -97,7 +118,7 @@ const ContactInfoOrder = ({
                   <span
                     className={`${
                       selected === i ? "hidden" : "block"
-                    } 'text-body1 uppercase text-TechStopBronze mr-[11px]`}
+                    } 'text-body1 uppercase text-TechStopBronze mr-3`}
                   >
                     змінити
                   </span>

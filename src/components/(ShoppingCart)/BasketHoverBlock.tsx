@@ -40,10 +40,10 @@ function BasketHoverBlock() {
                     </div>
                     <div className="w-full text-end">
                       <p className=" text-sm text-TechStopBlue60 line-through">
-                        {formatPrice(product.oldPrice)}
+                        {formatPrice(product.oldPrice) + ' ₴'}
                       </p>
                       <p className="text-subtitle1 text-TechStopRed">
-                        {formatPrice(product.price)}
+                        {formatPrice(product.price) + ' ₴'}
                       </p>
                     </div>
                   </div>
@@ -58,9 +58,9 @@ function BasketHoverBlock() {
         </div>
         {cartItems?.length ? (
           <div className="flex items-end justify-end pr-11">
-            <Link href="./orderCart">
+            <Link href="/orderCart">
               <ButtonCatalog
-                stylesButton="mt-[32px] bg-TechStopBlue text-TechStopWhite"
+                stylesButton="mt-[32px] px-6 bg-TechStopBlue text-TechStopWhite"
                 title="Оформити замовлення"
               />
             </Link>

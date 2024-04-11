@@ -27,6 +27,7 @@ const config: Config = {
         TechStopRed: "#B10F2E",
         DisabledBackground: "#0000001F",
         DisabledBackgroundText: "#00000061",
+        TechStopGreen: '#06AD03',
 
         deWiseMain: "#04C2C2",
         deWiseMainHover: "#04c2c21a",

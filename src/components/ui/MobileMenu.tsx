@@ -27,7 +27,7 @@ const MobileMenu = ({ nav, handleNav }: NavigationProps) => {
             : "hidden"
         }
       >
-        <div className="flex justify-between px-4 py-3">
+        <div className="flex justify-between px-4 py-3 border-b border-TechStopBlue20">
           <Link href="/" onClick={handleNav}>
             <Image
               src="/TechLogo.svg"
@@ -57,6 +57,21 @@ const MobileMenu = ({ nav, handleNav }: NavigationProps) => {
                 />
                 Каталог товарів
               </button>
+            </li>
+            <li
+              className="py-3 pl-4 hover:bg-TechStopBronze20"
+              onClick={handleNav}
+            >
+              <Link href={'/account'} className="flex uppercase">
+                <Image
+                  src={"./AccountCircleOutlined.svg"}
+                  alt="accountIcon"
+                  width={24}
+                  height={24}
+                  className="mr-8"
+                />
+                Особистий кабінет
+              </Link>
             </li>
             <li
               className="py-3 pl-4 hover:bg-TechStopBronze20"

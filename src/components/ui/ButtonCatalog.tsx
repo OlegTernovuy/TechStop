@@ -9,7 +9,7 @@ const ButtonCatalog = (props: ButtonCatalogProps) => {
   return (
     <div>
       <button
-        className={`h-[52px] min-w-[249px] flex justify-center items-center py-2 rounded ${stylesButton}`}
+        className={`h-[52px] min-w-[200px] flex justify-center items-center py-2 rounded ${stylesButton}`}
         onClick={onClick}
         disabled={disabled}
       >

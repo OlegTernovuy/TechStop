@@ -56,19 +56,26 @@ export type AdditionalServicesDesktopType = {
   productId: number;
 };
 
-
-export interface IContactContent extends Record<string, string | number | boolean> {
+export interface IContactContent
+  extends Record<string, string | number | boolean> {
   name: string;
   email: string;
   phone: string;
   anotherPersonReceive: boolean;
 }
 
-export interface IDeliveryContent extends Record<string, string | number | boolean> {
+export interface IDeliveryContent {
+  // extends Record<string, string | number | boolean> {
   postOffice: string;
+  novaPostDepart?: string | undefined;
+  ukrPostDepart?: string | undefined;
+  shopDepart?: string | undefined;
+  courierAddress?: string | undefined;
+  // postOfficeData: string;
 }
 
-export interface IPayMethodContent extends Record<string, string | number | boolean> {
+export interface IPayMethodContent
+  extends Record<string, string | number | boolean> {
   // payMethod_id: number;
   payMethod_id: string;
 }
@@ -97,4 +104,40 @@ export interface INPCity {
   SettlementTypeCode: string;
   StreetsAvailability: boolean;
   Warehouses: number;
+}
+
+export interface IPersonalContactInfo {
+  name: string;
+  surname: string;
+  phone: string;
+  email: string;
+  birthdate?: string | null;
+}
+
+export interface IPersonalLoginInfo {
+  loginPhone: string;
+}
+
+export interface IHomeDeliveryAddress {
+  city: string;
+  street: string;
+  houseNumber: string;
+  appartamentNumber?: string | undefined;
+}
+
+export interface IInfoAboutPurchase {
+  productId: number;
+  orderNumber: string;
+  orderStatus: string;
+  orderDate: string;
+  orderIcon: string;
+  orderTitle: string;
+  orderPrice: number;
+  orderCount: number;
+  paymentStatus: string;
+  PaymentMethod: string;
+  deliveryAddress: string;
+  orderRecipientName: string;
+  orderRecipientPhone: string;
+  inStock: boolean,
 }
