@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import ButtonCatalog from "../../../components/ui/ButtonCatalog";
+import Button from "../../../components/ui/Button";
 import { useRouter } from "next/navigation";
 import TextField from "@mui/material/TextField";
 import ProductOrderCard from "../ProductOrderCard";
@@ -136,7 +136,7 @@ function OrderCart() {
                   {productsPriceWithAdd + " ₴"}
                 </p>
               </div>
-              <ButtonCatalog
+              <Button
                 title="оформити замовлення"
                 stylesButton={`w-[100%] h-[52px] ${
                   disabled ? "bg-DisabledBackground" : "bg-TechStopBlue"

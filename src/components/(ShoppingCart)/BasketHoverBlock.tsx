@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import ButtonCatalog from "../ui/ButtonCatalog";
+import Button from "../ui/Button";
 import { useStore } from "@/store/useStore";
 import { useCartStore } from "@/store/useCartStore";
 import Link from "next/link";
@@ -59,7 +59,7 @@ function BasketHoverBlock() {
         {cartItems?.length ? (
           <div className="flex items-end justify-end pr-11">
             <Link href="/orderCart">
-              <ButtonCatalog
+              <Button
                 stylesButton="mt-[32px] px-6 bg-TechStopBlue text-TechStopWhite"
                 title="Оформити замовлення"
               />

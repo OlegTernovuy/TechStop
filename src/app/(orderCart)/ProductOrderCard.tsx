@@ -48,15 +48,8 @@ function ProductOrderCard(product: ProductProps) {
             </div>
             <div className="mt-1">
               <button onClick={setShowShoppingCart} className="flex gap-2">
-                <Image
-                  src="/editIcon.svg"
-                  alt="edit icon"
-                  className="lg:w-[24px] lg:h-[24px] hidden md:block"
-                  width={24}
-                  height={24}
-                />
                 <span className="text-body1 uppercase text-TechStopBronze hidden md:block">
-                  редагувати
+                  змінити
                 </span>
               </button>
               <div className=" block md:hidden">

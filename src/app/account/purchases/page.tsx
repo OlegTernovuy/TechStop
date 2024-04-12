@@ -1,6 +1,6 @@
 "use client";
 
-import ButtonCatalog from "@/components/ui/ButtonCatalog";
+import Button from "@/components/ui/Button";
 import { InfoAboutPurchase } from "@/constants";
 import { useCartStore } from "@/store/useCartStore";
 import { IInfoAboutPurchase } from "@/types";
@@ -142,12 +142,12 @@ const Purchases = () => {
                           </p>
                         </div>
                         <div className="flex gap-6">
-                          <ButtonCatalog
+                          <Button
                             title="Повторити замовлення"
                             stylesButton="w-full lg:max-w-[255px] px-6 bg-white text-TechStopBronze lg:text-TechStopBlue lg:border border-TechStopBlue60 uppercase"
                             onClick={() => repeatOrder(purchases)}
                           />
-                          <ButtonCatalog
+                          <Button
                             title="залишити відгук"
                             stylesButton="w-full lg:max-w-[196px] px-6 bg-white text-TechStopBronze lg:text-TechStopBlue lg:border border-TechStopBlue60 uppercase"
                           />

@@ -1,7 +1,7 @@
 "use client";
 
 import { PersonalContactInfoSchema } from "@/app/utils/ValidationsSchema";
-import ButtonCatalog from "@/components/ui/ButtonCatalog";
+import Button from "@/components/ui/Button";
 import { IPersonalContactInfo } from "@/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TextField } from "@mui/material";
@@ -165,7 +165,7 @@ const PersonalContactInfo = () => {
             />
           </div>
         </div>
-        <ButtonCatalog
+        <Button
           stylesButton="w-full lg:w-[200px] bg-white text-TechStopBronze lg:text-TechStopBlue lg:border border-TechStopBlue60 uppercase"
           title="Зберегти"
         />

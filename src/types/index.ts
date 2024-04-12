@@ -8,7 +8,7 @@ export interface NavigationProps {
   handleNav: () => void;
 }
 
-export interface ButtonCatalogProps {
+export interface ButtonProps {
   stylesButton?: string;
   title: string;
   onClick?: () => void;

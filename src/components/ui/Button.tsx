@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { ButtonCatalogProps } from "../../types";
+import { ButtonProps } from "../../types";
 
-const ButtonCatalog = (props: ButtonCatalogProps) => {
+const Button = (props: ButtonProps) => {
   const { stylesButton, title, onClick, icon, disabled } = props;
 
   return (
@@ -30,4 +30,4 @@ const ButtonCatalog = (props: ButtonCatalogProps) => {
   );
 };
 
-export default ButtonCatalog;
+export default Button;

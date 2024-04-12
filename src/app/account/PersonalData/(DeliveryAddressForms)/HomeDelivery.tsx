@@ -1,7 +1,7 @@
 "use client";
 
 import { HomeDeliveryAddressSchema } from "@/app/utils/ValidationsSchema";
-import ButtonCatalog from "@/components/ui/ButtonCatalog";
+import Button from "@/components/ui/Button";
 import { IHomeDeliveryAddress, IPersonalContactInfo } from "@/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TextField } from "@mui/material";
@@ -143,7 +143,7 @@ const HomeDelivery = () => {
             />
           </div>
         </div>
-        <ButtonCatalog
+        <Button
           stylesButton="w-full lg:w-[200px] bg-white text-TechStopBronze lg:text-TechStopBlue lg:border border-TechStopBlue60 uppercase"
           title="Зберегти"
         />

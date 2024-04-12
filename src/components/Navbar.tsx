@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import SearchField from "./ui/SearchField";
 import MobileMenu from "./ui/MobileMenu";
-import ButtonCatalog from "./ui/ButtonCatalog";
+import Button from "./ui/Button";
 import BasketHoverBlock from "./(ShoppingCart)/BasketHoverBlock";
 import {
   useCatalogModalStore,
@@ -50,7 +50,7 @@ const Navbar = () => {
             className="w-16 md:w-28"
           />
         </button>
-        <ButtonCatalog
+        <Button
           icon={true}
           stylesButton="hidden lg:flex w-80 bg-TechStopWhite text-TechStopBlue border-[1px] border-TechStopBlue40"
           title="каталог товарів"

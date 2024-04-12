@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useStore } from "@/store/useStore";
 import ShoppingCardEmpty from "./ShoppingCartEmpty";
-import ButtonCatalog from "../ui/ButtonCatalog";
+import Button from "../ui/Button";
 import HomePageProducts from "../HomePageProducts";
 import ProductInCard from "./ProductInCard";
 import Link from "next/link";
@@ -117,7 +117,7 @@ const ShoppingCartModal = () => {
                 </div>
                 {/*Element only for mobile */}
                 <div className="flex flex-col md:hidden mt-4">
-                  <ButtonCatalog
+                  <Button
                     stylesButton="w-full bg-TechStopBlue text-TechStopWhite"
                     title="Оформити замовлення"
                     onClick={routerToOrderPage}
@@ -125,13 +125,13 @@ const ShoppingCartModal = () => {
                 </div>
               </div>
               <div className="hidden md:flex justify-between pb-10">
-                <ButtonCatalog
+                <Button
                   title="продовжити покупки"
                   onClick={setShowShoppingCart}
                   stylesButton="border-[1px] border-TechStopBlue40"
                 />
                 <Link href="./orderCart">
-                  <ButtonCatalog
+                  <Button
                     title="Оформити замовлення"
                     stylesButton="bg-TechStopBlue text-TechStopWhite w-96"
                     onClick={setShowShoppingCart}

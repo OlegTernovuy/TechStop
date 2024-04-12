@@ -5,7 +5,7 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ContactValidationsSchema } from "../utils/ValidationsSchema";
 import { IContactContent, formDat } from "@/types";
-import ButtonCatalog from "@/components/ui/ButtonCatalog";
+import Button from "@/components/ui/Button";
 import { checkIsContact } from "../utils/CheckIsData";
 
 const ContactContent = ({ toggle, setOrderContactData }: formDat) => {
@@ -143,7 +143,7 @@ const ContactContent = ({ toggle, setOrderContactData }: formDat) => {
           </span>
         </div>
       </div>
-      <ButtonCatalog
+      <Button
         stylesButton="w-full md:w-[358px] bg-TechStopBlue text-TechStopWhite uppercase"
         title="продовжити"
       />

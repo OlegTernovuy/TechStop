@@ -7,7 +7,6 @@ import {
   Radio,
   RadioGroup,
   Select,
-  SelectChangeEvent,
   TextField,
 } from "@mui/material";
 
@@ -15,9 +14,9 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { DeliveryValidationsSchema } from "../utils/ValidationsSchema";
 import { IDeliveryContent, INPCity, formDat } from "@/types";
-import ButtonCatalog from "@/components/ui/ButtonCatalog";
+import Button from "@/components/ui/Button";
 import { checkIsContact } from "../utils/CheckIsData";
-import { ChangeEvent, Fragment, useCallback, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { getData, getNovaPostDepartments } from "../utils/NovaPostaApi";
 import { useDebounce } from "../utils/useDebounce";
 import Image from "next/image";
@@ -26,6 +25,8 @@ import { OurShops, Posts, UkrPostDepartments } from "@/constants";
 
 const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
   const [selected, setSelected] = useState(null);
+  const [selectedCity, setSelectedCity] = useState(false);
+  const [search, setSearch] = useState("");
 
   const PostToggle = (i: any) => {
     if (i === selected) {
@@ -37,9 +38,9 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
   const [searchCity, setSearchCity] = useState<INPCity[]>([]);
   const [searchPostDepartments, setSearchPostDepartments] = useState<any[]>([]);
 
-  const [search, setSearch] = useState({ city: "м. Київ, Київська обл." });
+  const [city, setCity] = useState({ city: "м. Київ, Київська обл." });
 
-  const debouncedSearch = useDebounce<string>(search.city, 200);
+  const debouncedSearch = useDebounce<string>(search, 200);
 
   const findCity = useCallback(async () => {
     const response = await getData(debouncedSearch);
@@ -62,9 +63,7 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
   }, []);
 
   useEffect(() => {
-    search.city.length === 0
-      ? setSearchCity([])
-      : search.city.includes("обл")
+    city.city.length === 0
       ? setSearchCity([])
       : findCity();
   }, [debouncedSearch]);
@@ -88,7 +87,7 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
 
   const submitFields = handleSubmit((contact) => {
     try {
-      checkIsContact(search, setOrderContactData);
+      checkIsContact(city, setOrderContactData);
       checkIsContact({ ...contact }, setOrderContactData);
 
       // const {
@@ -127,11 +126,13 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
       <div className="w-full">
         <TextField
           label="Ваше місто"
-          value={search.city}
+          value={city.city}
           className="w-full "
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setSearch({ city: e.target.value })
-          }
+          // onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          //   setSearch({ city: e.target.value })
+          // }
+          // disabled
+          onClick={() => setSelectedCity(!selectedCity)}
           InputProps={{
             endAdornment: (
               <Image
@@ -153,30 +154,58 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
             },
           }}
         />
-
-        {searchCity.length > 0 && (
-          <div
-            className={
-              "mt-2 border-[2px] border-TechStopBlue60 rounded max-h-44 overflow-y-auto"
+        <div
+          className={`w-full items-center mt-1 ${
+            selectedCity ? "h-14" : "hidden"
+          }`}
+        >
+          <TextField
+            label="Ваше місто"
+            value={search}
+            className="w-full"
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setSearch(e.target.value)
             }
-          >
-            {searchCity.length > 0 &&
-              searchCity.map((city, i) => {
-                return (
-                  <MenuItem
-                    key={i}
-                    value={city?.Present}
-                    onClick={() => {
-                      setSearch({ city: city?.Present });
-                      findNovaPostDepartments(city?.DeliveryCity);
-                    }}
-                  >
-                    {city?.Present}
-                  </MenuItem>
-                );
-              })}
-          </div>
-        )}
+            InputProps={{
+              sx: {
+                ".css-igs3ac": {
+                  border: "2px solid #02275066",
+                },
+                "&:hover": {
+                  ".css-igs3ac": {
+                    border: "2px solid #02275066",
+                  },
+                },
+              },
+            }}
+          />
+          {searchCity.length > 0 && (
+            <div
+              className={
+                "mt-2 border-[2px] bg-white border-TechStopBlue60 rounded max-h-44 overflow-y-auto relative z-50"
+              }
+            >
+              {searchCity.length > 0 &&
+                searchCity.map((city, i) => {
+                  return (
+                    <MenuItem
+                      key={i}
+                      value={city?.Present}
+                      onClick={() => {
+                        setCity({ city: city?.Present });
+                        findNovaPostDepartments(city?.DeliveryCity);
+                        setSearch('');
+                        setSelectedCity(false)
+                      }}
+                      className="text-sm md:text-base"
+                    >
+                      {city?.Present}
+                    </MenuItem>
+                  );
+                })}
+            </div>
+          )}
+        </div>
       </div>
       <FormControl sx={{ width: "100%" }} error={!!errors?.postOffice}>
         {errors?.postOffice && (
@@ -395,7 +424,7 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
           })}
         </RadioGroup>
       </FormControl>
-      <ButtonCatalog
+      <Button
         stylesButton="w-full md:w-[358px] bg-TechStopBlue text-TechStopWhite uppercase"
         title="продовжити"
       />
