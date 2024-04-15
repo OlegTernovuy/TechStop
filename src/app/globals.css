@@ -6,8 +6,8 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  --TechStop-Main: #CC7E00;
-  --TechStop-Hover: #CC7E0033;
+  --TechStop-Main: #cc7e00;
+  --TechStop-Hover: #cc7e0033;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -63,4 +63,3 @@ select:focus {
 .scrollShoppingCart::-webkit-scrollbar-thumb:hover {
   background: var(--TechStop-Main);
 }
-

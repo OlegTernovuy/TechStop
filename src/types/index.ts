@@ -56,19 +56,21 @@ export type AdditionalServicesDesktopType = {
   productId: number;
 };
 
-
-export interface IContactContent extends Record<string, string | number | boolean> {
+export interface IContactContent
+  extends Record<string, string | number | boolean> {
   name: string;
   email: string;
   phone: string;
   anotherPersonReceive: boolean;
 }
 
-export interface IDeliveryContent extends Record<string, string | number | boolean> {
+export interface IDeliveryContent
+  extends Record<string, string | number | boolean> {
   postOffice: string;
 }
 
-export interface IPayMethodContent extends Record<string, string | number | boolean> {
+export interface IPayMethodContent
+  extends Record<string, string | number | boolean> {
   // payMethod_id: number;
   payMethod_id: string;
 }

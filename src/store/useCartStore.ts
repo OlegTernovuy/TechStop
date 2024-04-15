@@ -23,6 +23,7 @@ interface CartState {
     productId: AdditionalServicesDesktopType
   ) => void;
   addItemToCart: (item: Product) => void;
+  toggleProductCardToFavorites: (id: number) => void;
   increaseQuantity: (productId: number) => void;
   decreaseQuantity: (productId: number) => void;
   removeItemFromCart: (productId: number) => void;
@@ -36,16 +37,16 @@ export const useCartStore = create(
     (set, get) => ({
       cartItems: [
         /* For testing*/
-        // {
-        //   id: 1,
-        //   inStock: true,
-        //   poster: "/shoppingCardItemTest.svg",
-        //   price: 19990,
-        //   oldPrice: 28990,
-        //   title: "Дуже довга назва товару з якимись цифрами HTG-7658",
-        //   quantity: 1,
-        //   addServices: [],
-        // },
+        {
+          id: 1,
+          inStock: true,
+          poster: "/shoppingCardItemTest.svg",
+          price: 19990,
+          oldPrice: 28990,
+          title: "Дуже довга назва товару з якимись цифрами HTG-7658",
+          quantity: 1,
+          addServices: [],
+        },
         // {
         //   id: 2,
         //   inStock: true,
@@ -140,6 +141,34 @@ export const useCartStore = create(
           set({ cartItems: [...get().cartItems, { ...item, quantity: 1 }] });
         }
         get().countTotalPrice();
+      },
+      toggleProductCardToFavorites: (id: number) => {
+        const { cartItems } = get();
+
+        const isFavorites = (id: number) =>
+          cartItems.some((item) => item.id === id);
+
+        if (isFavorites(id)) {
+          set((state) => ({
+            cartItems: state.cartItems.filter((item) => item.id !== id),
+          }));
+        } else {
+          set((state) => ({
+            cartItems: [
+              ...state.cartItems,
+              {
+                id: 1,
+                inStock: true,
+                poster: "/shoppingCardItemTest.svg",
+                price: 19990,
+                oldPrice: 28990,
+                title: "Дуже довга назва товару з якимись цифрами HTG-7658",
+                quantity: 1,
+                addServices: [],
+              },
+            ],
+          }));
+        }
       },
       increaseQuantity: (productId) => {
         const itemExists = get().cartItems.find(

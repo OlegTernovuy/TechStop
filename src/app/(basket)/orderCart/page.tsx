@@ -30,12 +30,13 @@ function OrderCart() {
   }, [orderContactData]);
 
   // console.log(orderContactData);
-  
 
   return (
     <MaxWidthWrapper className="min-h-screen">
       <div className="w-full flex items-center justify-between  pl-4 pt-4 md:pt-8 pb-4 md:pb-6 mb-4 md:mb-0 border-b md:border-b-0 border-TechStopBlue40 text-TechStopBlue">
-        <h2 className="text-Headline5 md:text-Headline4">Оформити замовлення</h2>
+        <h2 className="text-Headline5 md:text-Headline4">
+          Оформити замовлення
+        </h2>
         <button
           onClick={router.back}
           className="text-body1 uppercase text-TechStopBronze hidden md:flex"
