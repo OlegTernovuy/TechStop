@@ -1,10 +1,11 @@
+import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { FC } from "react";
 
 const FeedBackPage: FC = () => {
   return (
-    <div>
-      <h2>FeedBackPage</h2>
-    </div>
+    <MaxWidthWrapper>
+      <h2 className="text-TechStopBlue">FeedBackPage</h2>
+    </MaxWidthWrapper>
   );
 };
 
