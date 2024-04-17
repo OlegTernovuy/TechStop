@@ -11,7 +11,7 @@ import HomePageProducts from "../HomePageProducts";
 import ProductInCard from "./ProductInCard";
 import Link from "next/link";
 import formatPrice from "@/app/utils/formatPrice";
-import SingleProduct from "../SingleProduct";
+import { useViewProductsStore } from "@/store/useViewProductsStore";
 
 const ShoppingCartModal = () => {
   const { showShoppingCart, setShowShoppingCart } = useShoppingCartModalStore();
@@ -33,6 +33,11 @@ const ShoppingCartModal = () => {
     setShowShoppingCart();
     router.push("/orderCart");
   };
+
+  const viewProducts = useStore(
+    useViewProductsStore,
+    (state) => state.viewProducts
+  );
 
   return (
     <>
@@ -138,28 +143,12 @@ const ShoppingCartModal = () => {
                   />
                 </Link>
               </div>
-              {/* {viewProducts?.length ? (
-                <div className="hidden md:flex flex-col max-w-full mb-16">
-                  <h2 className="text-Headline6 md:text-Headline5 lg:text-Headline4 mb-6">
-                    Недавно переглянуті товари
-                  </h2>
-                  <div className="justify-center">
-                    <ul className="flex flex-wrap flex-row w-full ">
-                      {viewProducts?.map((item, index) => {
-                        return index < 4 ? (
-                          <li
-                            key={index}
-                            className="w-1/2 md:w-1/4 xl:w-1/5 px-2 py-2 xl:px-3 xl:py-3"
-                          >
-                            <SingleProduct product={item} />
-                          </li>
-                        ) : null;
-                      })}
-                    </ul>
-                  </div>
-                </div>
-              ) : null} */}
-              <HomePageProducts title="Недавно переглянуті товари" />
+              {viewProducts != undefined && viewProducts?.length > 0 && (
+                <HomePageProducts
+                  products={viewProducts}
+                  title="Недавно переглянуті товари"
+                />
+              )}
             </div>
           )}
         </div>
