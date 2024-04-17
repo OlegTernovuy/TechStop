@@ -5,11 +5,8 @@ import { useMediaQuery } from "react-responsive";
 
 import SingleProduct from "./SingleProduct";
 import Image from "next/image";
-<<<<<<< HEAD
 import Link from "next/link";
-=======
 import { Product } from "@/types";
->>>>>>> bbbbbbca0a0ce23f56f9a102c4b3b53c544a3b93
 
 interface ProdProps {
   ShowAllItems?: boolean;
