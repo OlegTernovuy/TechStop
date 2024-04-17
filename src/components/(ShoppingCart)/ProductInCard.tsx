@@ -8,6 +8,7 @@ import { CartProduct } from "../../types";
 import { useCartStore } from "@/store/useCartStore";
 import AdditionalServicesDesktop from "./AdditionalServicesDesktop";
 import formatPrice from "@/app/utils/formatPrice";
+import { DiscountPercentage } from "@/constants";
 
 interface CartItemCardProps {
   product: CartProduct;
@@ -29,7 +30,7 @@ const ProductInCard = ({ product }: CartItemCardProps) => {
   };
 
   const productPrice = getTotalPriceOneProduct(product);
-  const oldPrice = formatPrice(productPrice.totalOldPrice);
+  const oldPrice = formatPrice(productPrice.totalPrice * DiscountPercentage);
   const newPrice = formatPrice(productPrice.totalPrice);
 
   return (
@@ -80,10 +81,10 @@ const ProductInCard = ({ product }: CartItemCardProps) => {
             </div>
             <div className="flex flex-col md:gap-2 items-end">
               <span className="text-xs text-TechStopBlue60 md:text-[20px] md:font-medium md:leading-8 line-through">
-                {oldPrice}
+                {oldPrice + " ₴"}
               </span>
               <span className="text-TechStopRed text-subtitle1 md:text-Headline4">
-                {newPrice}
+                {newPrice + " ₴"}
               </span>
             </div>
           </div>

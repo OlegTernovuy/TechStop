@@ -35,29 +35,7 @@ interface CartState {
 export const useCartStore = create(
   persist<CartState>(
     (set, get) => ({
-      cartItems: [
-        /* For testing*/
-        {
-          id: 1,
-          inStock: true,
-          poster: "/shoppingCardItemTest.svg",
-          price: 19990,
-          oldPrice: 28990,
-          title: "Дуже довга назва товару з якимись цифрами HTG-7658",
-          quantity: 1,
-          addServices: [],
-        },
-        // {
-        //   id: 2,
-        //   inStock: true,
-        //   poster: "/shoppingCardItemTest.svg",
-        //   price: 19990,
-        //   oldPrice: 28990,
-        //   title: "Дуже довга назва товару з якимись цифрами HTG-7658",
-        //   quantity: 1,
-        //   addServices: [],
-        // },
-      ],
+      cartItems: [],
       totalPrice: {
         totalPrice: 0,
         priceWithAddService: 0,
@@ -84,7 +62,7 @@ export const useCartStore = create(
       getTotalPriceOneProduct: (product): TotalPrices => {
         let totalOldPrice = 0;
         let totalPrice = 0;
-        totalOldPrice = product.oldPrice * product.quantity;
+        // totalOldPrice = product.oldPrice * product.quantity;
         totalPrice = product.price * product.quantity;
         return { totalPrice, totalOldPrice };
       },
@@ -99,6 +77,7 @@ export const useCartStore = create(
           const updatedCartItems = [...cartItems];
 
           const services = updatedCartItems[itemIndex].addServices;
+          console.log(services);
 
           if (services) {
             const serviceIndex = services.findIndex(
@@ -138,7 +117,12 @@ export const useCartStore = create(
           itemExists.quantity++;
           set({ cartItems: [...get().cartItems] });
         } else {
-          set({ cartItems: [...get().cartItems, { ...item, quantity: 1 }] });
+          set({
+            cartItems: [
+              ...get().cartItems,
+              { ...item, quantity: 1, addServices: [] },
+            ],
+          });
         }
         get().countTotalPrice();
       },

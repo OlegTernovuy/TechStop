@@ -5,46 +5,69 @@ import { useMediaQuery } from "react-responsive";
 
 import SingleProduct from "./SingleProduct";
 import Image from "next/image";
+<<<<<<< HEAD
 import Link from "next/link";
+=======
+import { Product } from "@/types";
+>>>>>>> bbbbbbca0a0ce23f56f9a102c4b3b53c544a3b93
 
 interface ProdProps {
   ShowAllItems?: boolean;
   title: string;
+  products: Product[] | undefined;
 }
 
-const HomePageProducts = ({ ShowAllItems, title }: ProdProps) => {
-  // const products: String[] = [
-  //   "Item 1",
-  //   "Item 2",
-  //   "Item 3",
-  //   "Item 4",
-  //   "Item 5",
-  //   "Item 6",
-  //   "Item 7",
-  //   "Item 8",
+const HomePageProducts = ({ ShowAllItems, title, products }: ProdProps) => {
+  // const products = [
+  //   {
+  //     id: 1,
+  //     inStock: true,
+  //     poster: "/shoppingCardItemTest.svg",
+  //     price: 19990,
+  //     oldPrice: 28990,
+  //     title: "Дуже довга назва товару з якимись цифрами HTG-7658",
+  //   },
+  //   {
+  //     id: 2,
+  //     inStock: true,
+  //     poster: "/shoppingCardItemTest.svg",
+  //     price: 29990,
+  //     oldPrice: 38990,
+  //     title: "Дуже довга назва товару з якимись цифрами HTG-7658",
+  //   },
+  //   {
+  //     id: 3,
+  //     inStock: true,
+  //     poster: "/shoppingCardItemTest.svg",
+  //     price: 29990,
+  //     oldPrice: 38990,
+  //     title: "Дуже довга назва товару з якимись цифрами HTG-7658",
+  //   },
+  //   {
+  //     id: 4,
+  //     inStock: true,
+  //     poster: "/shoppingCardItemTest.svg",
+  //     price: 29990,
+  //     oldPrice: 38990,
+  //     title: "Дуже довга назва товару з якимись цифрами HTG-7658",
+  //   },
+  //   {
+  //     id: 5,
+  //     inStock: true,
+  //     poster: "/shoppingCardItemTest.svg",
+  //     price: 29990,
+  //     oldPrice: 38990,
+  //     title: "Дуже довга назва товару з якимись цифрами HTG-7658",
+  //   },
+  //   {
+  //     id: 6,
+  //     inStock: true,
+  //     poster: "/shoppingCardItemTest.svg",
+  //     price: 29990,
+  //     oldPrice: 38990,
+  //     title: "Дуже довга назва товару з якимись цифрами HTG-7658",
+  //   },
   // ];
-  const products = [
-    {
-      id: 1,
-      inStock: true,
-      poster: "/shoppingCardItemTest.svg",
-      price: 19990,
-      oldPrice: 28990,
-      title: "Дуже довга назва товару з якимись цифрами HTG-7658",
-      quantity: 1,
-      addServices: [],
-    },
-    {
-      id: 2,
-      inStock: true,
-      poster: "/shoppingCardItemTest.svg",
-      price: 29990,
-      oldPrice: 38990,
-      title: "Дуже довга назва товару з якимись цифрами HTG-7658",
-      quantity: 1,
-      addServices: [],
-    },
-  ];
 
   const [columnsToShow, setColumnsToShow] = useState(5);
 
@@ -92,7 +115,7 @@ const HomePageProducts = ({ ShowAllItems, title }: ProdProps) => {
       </div>
       <div className="justify-center mt-2">
         <ul className="flex flex-wrap flex-row w-full ">
-          {products.length > 0 ? (
+          {products != undefined ? (
             products?.map((item, index) => {
               return index < columnsToShow ? (
                 <li

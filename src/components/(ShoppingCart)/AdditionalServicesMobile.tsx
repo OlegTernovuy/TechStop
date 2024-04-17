@@ -57,7 +57,7 @@ const AdditionalServicesMobile = (productId: AdditionalServicesDesktopType) => {
                                 {service.servicesTitle}
                               </label>
                             </div>
-                            <span>{service.servicesPrice}</span>
+                            <span>{service.servicesPrice + ' ₴'}</span>
                           </li>
                         );
                       }

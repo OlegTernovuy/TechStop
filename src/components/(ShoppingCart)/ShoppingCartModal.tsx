@@ -6,11 +6,12 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useStore } from "@/store/useStore";
 import ShoppingCardEmpty from "./ShoppingCartEmpty";
-import ButtonCatalog from "../ui/ButtonCatalog";
+import Button from "../ui/Button";
 import HomePageProducts from "../HomePageProducts";
 import ProductInCard from "./ProductInCard";
 import Link from "next/link";
 import formatPrice from "@/app/utils/formatPrice";
+import { useViewProductsStore } from "@/store/useViewProductsStore";
 
 const ShoppingCartModal = () => {
   const { showShoppingCart, setShowShoppingCart } = useShoppingCartModalStore();
@@ -32,6 +33,11 @@ const ShoppingCartModal = () => {
     setShowShoppingCart();
     router.push("/orderCart");
   };
+
+  const viewProducts = useStore(
+    useViewProductsStore,
+    (state) => state.viewProducts
+  );
 
   return (
     <>
@@ -72,7 +78,9 @@ const ShoppingCartModal = () => {
                   <div className="hidden md:flex flex-col gap-6">
                     <div className="flex justify-between items-center">
                       <p className="text-Headline5">Товар на суму</p>
-                      <span className="text-Headline5">{productsPrice}</span>
+                      <span className="text-Headline5">
+                        {productsPrice + " ₴"}
+                      </span>
                     </div>
                     <div className="flex flex-col gap-6">
                       {cartItems.length
@@ -87,7 +95,7 @@ const ShoppingCartModal = () => {
                                     {service.servicesTitle}
                                   </p>
                                   <span className="text-Headline5">
-                                    {service.servicesPrice}
+                                    {service.servicesPrice + " ₴"}
                                   </span>
                                 </div>
                               );
@@ -97,7 +105,7 @@ const ShoppingCartModal = () => {
                     </div>
                     <div className="flex justify-between items-center">
                       <p className="text-Headline5">Знижка</p>
-                      <span className="text-Headline5">9000</span>
+                      <span className="text-Headline5">9000 ₴</span>
                     </div>
                   </div>
                   <div className="flex justify-between items-center">
@@ -108,13 +116,13 @@ const ShoppingCartModal = () => {
                       Разом до сплати
                     </p>
                     <span className="text-subtitle1 md:text-Headline4">
-                      {productsPriceWithAdd}
+                      {productsPriceWithAdd + " ₴"}
                     </span>
                   </div>
                 </div>
                 {/*Element only for mobile */}
                 <div className="flex flex-col md:hidden mt-4">
-                  <ButtonCatalog
+                  <Button
                     stylesButton="w-full bg-TechStopBlue text-TechStopWhite"
                     title="Оформити замовлення"
                     onClick={routerToOrderPage}
@@ -122,25 +130,25 @@ const ShoppingCartModal = () => {
                 </div>
               </div>
               <div className="hidden md:flex justify-between pb-10">
-                <ButtonCatalog
+                <Button
                   title="продовжити покупки"
                   onClick={setShowShoppingCart}
                   stylesButton="border-[1px] border-TechStopBlue40"
                 />
                 <Link href="./orderCart">
-                  <ButtonCatalog
+                  <Button
                     title="Оформити замовлення"
                     stylesButton="bg-TechStopBlue text-TechStopWhite w-96"
                     onClick={setShowShoppingCart}
                   />
                 </Link>
               </div>
-              <div className="hidden md:flex flex-col max-w-full">
+              {viewProducts != undefined && viewProducts?.length > 0 && (
                 <HomePageProducts
+                  products={viewProducts}
                   title="Недавно переглянуті товари"
-                  ShowAllItems={false}
                 />
-              </div>
+              )}
             </div>
           )}
         </div>

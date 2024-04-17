@@ -1,15 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { ButtonCatalogProps } from "../../types";
+import { ButtonProps } from "../../types";
 
-const ButtonCatalog = (props: ButtonCatalogProps) => {
+const Button = (props: ButtonProps) => {
   const { stylesButton, title, onClick, icon, disabled } = props;
 
   return (
     <div>
       <button
-        className={`h-[52px] min-w-[249px] flex justify-center items-center py-2 rounded ${stylesButton}`}
+        className={`h-[52px] min-w-[200px] flex justify-center items-center py-2 rounded ${stylesButton}`}
         onClick={onClick}
         disabled={disabled}
       >
@@ -30,4 +30,4 @@ const ButtonCatalog = (props: ButtonCatalogProps) => {
   );
 };
 
-export default ButtonCatalog;
+export default Button;

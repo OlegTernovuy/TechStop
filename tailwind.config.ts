@@ -28,6 +28,7 @@ const config: Config = {
         DisabledBackground: "#0000001F",
         DisabledBackgroundText: "#00000061",
         SuccessLightGreen: "#4CAF50",
+        TechStopGreen: '#06AD03',
         deWiseMain: "#04C2C2",
         deWiseMainHover: "#04c2c21a",
         deWiseBlack: "#262626",
@@ -136,6 +137,14 @@ const config: Config = {
           lineHeight: "28px",
           letterSpacing: "0.15px",
           fontWeight: "400",
+        },
+      ],
+      subtitle2: [
+        "14px",
+        {
+          lineHeight: "22px",
+          letterSpacing: "0.1px",
+          fontWeight: "500",
         },
       ],
       "3xl": "1.953rem",

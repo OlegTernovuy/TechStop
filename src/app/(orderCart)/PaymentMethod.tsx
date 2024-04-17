@@ -36,9 +36,6 @@ const PaymentMethod = ({ setOrderContactData, toggle }: formDat) => {
     <form>
       <FormControl sx={{ width: "100%" }}>
         <RadioGroup
-          aria-labelledby="demo-radio-buttons-group-label"
-          defaultValue="female"
-          name="radio-buttons-group"
           className="gap-4"
         >
           {paymentsMethods?.map((methods) => {

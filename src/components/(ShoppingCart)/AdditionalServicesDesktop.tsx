@@ -40,7 +40,7 @@ const AdditionalServicesDesktop = (
                     </label>
                   </div>
                   <span className="text-Headline6">
-                    {service.servicesPrice}
+                    {service.servicesPrice + ' ₴'}
                   </span>
                 </li>
               );
