@@ -23,7 +23,6 @@ import RemoveRedEyeOutlined from "../../public/AccountCircleOutlined.svg";
 import NovaPoshtaLogo from "../../public/NovaPoshtaLogo.svg";
 import UkrposhtaLogo from "../../public/UkrposhtaLogo.svg";
 import shoppingCardItemTest from "../../public//shoppingCardItemTest.svg";
-import { boolean } from "yup";
 
 export const mobileMenuInfo = [
   {
@@ -78,6 +77,27 @@ export const mobileMenuLinkInfo = [
     href: "?shopCard=true",
     imageSrc: cartIcon,
     title: "Кошик",
+  },
+];
+
+export const categoriesItems = [
+  {
+    id: 1,
+    icon: laptop,
+    title: "Ноутбуки та компʼютери",
+    subcategories: [
+      { id: 101, name: "Мобільні телефони" },
+      { id: 102, name: "Ноутбуки" },
+    ],
+  },
+  {
+    id: 2,
+    icon: tools,
+    title: "Інструменти",
+    subcategories: [
+      { id: 201, name: "Фантастика" },
+      { id: 202, name: "Навчальна література" },
+    ],
   },
 ];
 
@@ -336,4 +356,22 @@ export const InfoAboutPurchase = [
     orderRecipientPhone: "+38 - (063) - 345 - 22 - 34",
     inStock: true,
   },
+];
+
+export const DiscountPercentage = 1.2;
+
+export const categories = [
+  {
+    id: 1,
+    slug: "technology",
+    name: "Технології",
+    subcategories: ["Комп'ютери", "Смартфони"],
+  },
+  {
+    id: 2,
+    slug: "books",
+    name: "Книги",
+    subcategories: ["Художня література", "Наукова література"],
+  },
+  { id: 3, slug: "music", name: "Музика", subcategories: ["Класична", "Рок"] },
 ];

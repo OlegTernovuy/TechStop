@@ -61,7 +61,7 @@ export const useCartStore = create(
       getTotalPriceOneProduct: (product): TotalPrices => {
         let totalOldPrice = 0;
         let totalPrice = 0;
-        totalOldPrice = product.oldPrice * product.quantity;
+        // totalOldPrice = product.oldPrice * product.quantity;
         totalPrice = product.price * product.quantity;
         return { totalPrice, totalOldPrice };
       },
