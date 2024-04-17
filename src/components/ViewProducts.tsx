@@ -9,7 +9,6 @@ const ViewProducts = () => {
     useViewProductsStore,
     (state) => state.viewProducts
   );
-  console.log(viewProducts?.length);
 
   return (
     <div>
