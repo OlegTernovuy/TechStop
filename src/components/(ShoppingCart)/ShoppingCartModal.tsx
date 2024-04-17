@@ -6,11 +6,12 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useStore } from "@/store/useStore";
 import ShoppingCardEmpty from "./ShoppingCartEmpty";
-import ButtonCatalog from "../ui/ButtonCatalog";
+import Button from "../ui/Button";
 import HomePageProducts from "../HomePageProducts";
 import ProductInCard from "./ProductInCard";
 import Link from "next/link";
 import formatPrice from "@/app/utils/formatPrice";
+import SingleProduct from "../SingleProduct";
 
 const ShoppingCartModal = () => {
   const { showShoppingCart, setShowShoppingCart } = useShoppingCartModalStore();
@@ -72,7 +73,9 @@ const ShoppingCartModal = () => {
                   <div className="hidden md:flex flex-col gap-6">
                     <div className="flex justify-between items-center">
                       <p className="text-Headline5">Товар на суму</p>
-                      <span className="text-Headline5">{productsPrice}</span>
+                      <span className="text-Headline5">
+                        {productsPrice + " ₴"}
+                      </span>
                     </div>
                     <div className="flex flex-col gap-6">
                       {cartItems.length
@@ -87,7 +90,7 @@ const ShoppingCartModal = () => {
                                     {service.servicesTitle}
                                   </p>
                                   <span className="text-Headline5">
-                                    {service.servicesPrice}
+                                    {service.servicesPrice + " ₴"}
                                   </span>
                                 </div>
                               );
@@ -97,7 +100,7 @@ const ShoppingCartModal = () => {
                     </div>
                     <div className="flex justify-between items-center">
                       <p className="text-Headline5">Знижка</p>
-                      <span className="text-Headline5">9000</span>
+                      <span className="text-Headline5">9000 ₴</span>
                     </div>
                   </div>
                   <div className="flex justify-between items-center">
@@ -108,13 +111,13 @@ const ShoppingCartModal = () => {
                       Разом до сплати
                     </p>
                     <span className="text-subtitle1 md:text-Headline4">
-                      {productsPriceWithAdd}
+                      {productsPriceWithAdd + " ₴"}
                     </span>
                   </div>
                 </div>
                 {/*Element only for mobile */}
                 <div className="flex flex-col md:hidden mt-4">
-                  <ButtonCatalog
+                  <Button
                     stylesButton="w-full bg-TechStopBlue text-TechStopWhite"
                     title="Оформити замовлення"
                     onClick={routerToOrderPage}
@@ -122,25 +125,41 @@ const ShoppingCartModal = () => {
                 </div>
               </div>
               <div className="hidden md:flex justify-between pb-10">
-                <ButtonCatalog
+                <Button
                   title="продовжити покупки"
                   onClick={setShowShoppingCart}
                   stylesButton="border-[1px] border-TechStopBlue40"
                 />
                 <Link href="./orderCart">
-                  <ButtonCatalog
+                  <Button
                     title="Оформити замовлення"
                     stylesButton="bg-TechStopBlue text-TechStopWhite w-96"
                     onClick={setShowShoppingCart}
                   />
                 </Link>
               </div>
-              <div className="hidden md:flex flex-col max-w-full">
-                <HomePageProducts
-                  title="Недавно переглянуті товари"
-                  ShowAllItems={false}
-                />
-              </div>
+              {/* {viewProducts?.length ? (
+                <div className="hidden md:flex flex-col max-w-full mb-16">
+                  <h2 className="text-Headline6 md:text-Headline5 lg:text-Headline4 mb-6">
+                    Недавно переглянуті товари
+                  </h2>
+                  <div className="justify-center">
+                    <ul className="flex flex-wrap flex-row w-full ">
+                      {viewProducts?.map((item, index) => {
+                        return index < 4 ? (
+                          <li
+                            key={index}
+                            className="w-1/2 md:w-1/4 xl:w-1/5 px-2 py-2 xl:px-3 xl:py-3"
+                          >
+                            <SingleProduct product={item} />
+                          </li>
+                        ) : null;
+                      })}
+                    </ul>
+                  </div>
+                </div>
+              ) : null} */}
+              <HomePageProducts title="Недавно переглянуті товари" />
             </div>
           )}
         </div>

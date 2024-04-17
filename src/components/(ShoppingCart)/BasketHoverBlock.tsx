@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import ButtonCatalog from "../ui/ButtonCatalog";
+import Button from "../ui/Button";
 import { useStore } from "@/store/useStore";
 import { useCartStore } from "@/store/useCartStore";
 import Link from "next/link";
@@ -40,10 +40,10 @@ function BasketHoverBlock() {
                     </div>
                     <div className="w-full text-end">
                       <p className=" text-sm text-TechStopBlue60 line-through">
-                        {formatPrice(product.oldPrice)}
+                        {formatPrice(product.oldPrice) + ' ₴'}
                       </p>
                       <p className="text-subtitle1 text-TechStopRed">
-                        {formatPrice(product.price)}
+                        {formatPrice(product.price) + ' ₴'}
                       </p>
                     </div>
                   </div>
@@ -58,9 +58,9 @@ function BasketHoverBlock() {
         </div>
         {cartItems?.length ? (
           <div className="flex items-end justify-end pr-11">
-            <Link href="./orderCart">
-              <ButtonCatalog
-                stylesButton="mt-[32px] bg-TechStopBlue text-TechStopWhite"
+            <Link href="/orderCart">
+              <Button
+                stylesButton="mt-[32px] px-6 bg-TechStopBlue text-TechStopWhite"
                 title="Оформити замовлення"
               />
             </Link>

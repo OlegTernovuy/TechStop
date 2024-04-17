@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import ButtonCatalog from "../../../components/ui/ButtonCatalog";
+import Button from "../../../components/ui/Button";
 import { useRouter } from "next/navigation";
 import TextField from "@mui/material/TextField";
 import ProductOrderCard from "../ProductOrderCard";
@@ -24,18 +24,34 @@ function OrderCart() {
   const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
-    if (Object.keys(orderContactData).length === 7) {
+    // if (Object.keys(orderContactData).length > 8) {
+    //   setDisabled(false);
+    // }
+    if (
+      Object.keys(orderContactData).length === 11 &&
+      orderContactData.phone !== "" &&
+      orderContactData.name !== "" &&
+      orderContactData.email !== "" &&
+      orderContactData.city !== "" &&
+      orderContactData.postOffice !== "" &&
+      orderContactData.payMethod_id !== "" &&
+      (orderContactData.courierAddress !== "" ||
+        orderContactData.novaPostDepart !== "" ||
+        orderContactData.shopDepart !== "" ||
+        orderContactData.ukrPostDepart)
+    ) {
       setDisabled(false);
     }
   }, [orderContactData]);
 
-  // console.log(orderContactData);
-  
+  console.log(orderContactData);
 
   return (
     <MaxWidthWrapper className="min-h-screen">
-      <div className="w-full flex items-center justify-between  pl-4 pt-4 md:pt-8 pb-4 md:pb-6 mb-4 md:mb-0 border-b md:border-b-0 border-TechStopBlue40 text-TechStopBlue">
-        <h2 className="text-Headline5 md:text-Headline4">Оформити замовлення</h2>
+      <div className="w-screen md:w-full ml-[-16px] md:ml-0 flex items-center justify-between pl-4 md:pl-0 pt-4 md:pt-8 pb-4 md:pb-6 mb-4 md:mb-0 border-b md:border-b-0 border-TechStopBlue40 text-TechStopBlue">
+        <h2 className="text-Headline5 md:text-Headline4">
+          Оформити замовлення
+        </h2>
         <button
           onClick={router.back}
           className="text-body1 uppercase text-TechStopBronze hidden md:flex"
@@ -60,7 +76,7 @@ function OrderCart() {
           )}
           <div className=" text-Headline6 flex items-center justify-between md:hidden">
             <p>Разом до сплати</p>
-            <p>{productsPriceWithAdd}</p>
+            <p>{productsPriceWithAdd + " ₴"}</p>
           </div>
           <ContactInfoOrder
             setOrderContactData={setOrderContactData}
@@ -86,7 +102,9 @@ function OrderCart() {
             <div className="flex flex-col gap-3 md:gap-6">
               <div className="w-full flex items-center justify-between">
                 <p>Товар на суму</p>
-                <p className="font-bold md:font-normal">{productsPrice}</p>
+                <p className="font-bold md:font-normal">
+                  {productsPrice + " ₴"}
+                </p>
               </div>
               <div className="flex flex-col gap-3 md:gap-6 text-body1 lg:text-Headline5">
                 {cartItems?.length
@@ -98,7 +116,7 @@ function OrderCart() {
                             key={service.servicesId}
                           >
                             <p>{service.servicesTitle}</p>
-                            <span>{service.servicesPrice}</span>
+                            <span>{service.servicesPrice + " ₴"}</span>
                           </div>
                         );
                       });
@@ -107,7 +125,7 @@ function OrderCart() {
               </div>
               <div className="w-full flex items-center justify-between">
                 <p>Вартість доставки</p>
-                <p>150</p>
+                <p>150 ₴</p>
               </div>
             </div>
 
@@ -115,10 +133,10 @@ function OrderCart() {
               <div className="w-full flex items-center justify-between mt-[40px] md:mt-24 font-bold mb-4 md:mb-[42px]">
                 <p>До сплати</p>
                 <p className="text-body1 md:text-Headline4">
-                  {productsPriceWithAdd}
+                  {productsPriceWithAdd + " ₴"}
                 </p>
               </div>
-              <ButtonCatalog
+              <Button
                 title="оформити замовлення"
                 stylesButton={`w-[100%] h-[52px] ${
                   disabled ? "bg-DisabledBackground" : "bg-TechStopBlue"

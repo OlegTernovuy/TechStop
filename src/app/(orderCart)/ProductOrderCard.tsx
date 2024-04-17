@@ -48,15 +48,8 @@ function ProductOrderCard(product: ProductProps) {
             </div>
             <div className="mt-1">
               <button onClick={setShowShoppingCart} className="flex gap-2">
-                <Image
-                  src="/editIcon.svg"
-                  alt="edit icon"
-                  className="lg:w-[24px] lg:h-[24px] hidden md:block"
-                  width={24}
-                  height={24}
-                />
                 <span className="text-body1 uppercase text-TechStopBronze hidden md:block">
-                  редагувати
+                  змінити
                 </span>
               </button>
               <div className=" block md:hidden">
@@ -95,10 +88,10 @@ function ProductOrderCard(product: ProductProps) {
             </div>
             <div className="flex flex-col md:gap-2 items-end">
               <span className="text-xs text-TechStopBlue60 md:text-[20px] md:font-medium md:leading-8 line-through">
-                {oldPrice}
+                {oldPrice + ' ₴'}
               </span>
               <span className="text-TechStopRed text-subtitle1 md:text-Headline4">
-                {newPrice}
+                {newPrice + ' ₴'}
               </span>
             </div>
           </div>

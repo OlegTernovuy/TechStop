@@ -30,8 +30,6 @@ const HomePageProducts = ({ ShowAllItems, title }: ProdProps) => {
       price: 19990,
       oldPrice: 28990,
       title: "Дуже довга назва товару з якимись цифрами HTG-7658",
-      quantity: 1,
-      addServices: [],
     },
     {
       id: 2,
@@ -40,8 +38,6 @@ const HomePageProducts = ({ ShowAllItems, title }: ProdProps) => {
       price: 29990,
       oldPrice: 38990,
       title: "Дуже довга назва товару з якимись цифрами HTG-7658",
-      quantity: 1,
-      addServices: [],
     },
   ];
 

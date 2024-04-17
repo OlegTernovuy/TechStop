@@ -80,10 +80,10 @@ const ProductInCard = ({ product }: CartItemCardProps) => {
             </div>
             <div className="flex flex-col md:gap-2 items-end">
               <span className="text-xs text-TechStopBlue60 md:text-[20px] md:font-medium md:leading-8 line-through">
-                {oldPrice}
+                {oldPrice + ' ₴'}
               </span>
               <span className="text-TechStopRed text-subtitle1 md:text-Headline4">
-                {newPrice}
+                {newPrice + ' ₴'}
               </span>
             </div>
           </div>
