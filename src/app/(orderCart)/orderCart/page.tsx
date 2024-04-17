@@ -44,19 +44,11 @@ function OrderCart() {
     }
   }, [orderContactData]);
 
-<<<<<<< HEAD:src/app/(basket)/orderCart/page.tsx
   // console.log(orderContactData);
 
   return (
     <MaxWidthWrapper className="min-h-screen">
-      <div className="w-full flex items-center justify-between  pl-4 pt-4 md:pt-8 pb-4 md:pb-6 mb-4 md:mb-0 border-b md:border-b-0 border-TechStopBlue40 text-TechStopBlue">
-=======
-  console.log(orderContactData);
-
-  return (
-    <MaxWidthWrapper className="min-h-screen">
       <div className="w-screen md:w-full ml-[-16px] md:ml-0 flex items-center justify-between pl-4 md:pl-0 pt-4 md:pt-8 pb-4 md:pb-6 mb-4 md:mb-0 border-b md:border-b-0 border-TechStopBlue40 text-TechStopBlue">
->>>>>>> bbbbbbca0a0ce23f56f9a102c4b3b53c544a3b93:src/app/(orderCart)/orderCart/page.tsx
         <h2 className="text-Headline5 md:text-Headline4">
           Оформити замовлення
         </h2>
