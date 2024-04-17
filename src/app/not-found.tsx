@@ -1,10 +1,11 @@
+import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
 
 const NotFoundPage: FC = () => {
   return (
-    <div className="mx-auto">
+    <MaxWidthWrapper>
       <div className="flex items-center relative  border-b-[1px] w-full border-b-TechStopBlue40">
         {" "}
         <Link
@@ -50,7 +51,7 @@ const NotFoundPage: FC = () => {
           </p>
         </div>
       </section>
-    </div>
+    </MaxWidthWrapper>
   );
 };
 
