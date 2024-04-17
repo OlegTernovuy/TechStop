@@ -14,7 +14,6 @@ import {
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import AccountHoverBlock from "@/app/account/(ui)/AccountHoverBlock";
 import { usePathname, useRouter } from "next/navigation";
-import path from "path";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
@@ -56,6 +55,7 @@ const Navbar = () => {
           title="каталог товарів"
           onClick={setShowCatalog}
         />
+        {/* <Menu/> */}
         <SearchField />
         <div className="flex gap-10">
           <div className="group relative hidden md:block">

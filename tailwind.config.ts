@@ -136,6 +136,14 @@ const config: Config = {
           fontWeight: "400",
         },
       ],
+      subtitle2: [
+        "14px",
+        {
+          lineHeight: "22px",
+          letterSpacing: "0.1px",
+          fontWeight: "500",
+        },
+      ],
       "3xl": "1.953rem",
       "4xl": "2.441rem",
       "5xl": "3.052rem",

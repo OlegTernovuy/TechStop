@@ -1,5 +1,6 @@
 "use client";
 
+import formatPrice from "@/app/utils/formatPrice";
 import Button from "@/components/ui/Button";
 import { InfoAboutPurchase } from "@/constants";
 import { useCartStore } from "@/store/useCartStore";
@@ -29,15 +30,15 @@ const Purchases = () => {
       inStock: orderDetail.inStock,
       poster: orderDetail.orderIcon,
       price: orderDetail.orderPrice,
-      oldPrice: orderDetail.orderPrice,
       title: orderDetail.orderTitle,
+      quantity: orderDetail.orderCount,
     };
     addItemToCart(newOrder);
   };
 
   return (
     <div className="w-full">
-      <h2 className="w-full text-Headline5 md:text-Headline4 text-TechStopBlue md:mb-6">
+      <h2 className="w-full text-Headline5 md:text-Headline4 text-TechStopBlue mb-4 md:mb-6">
         Мої замовлення
       </h2>
       <div className="mx-auto w-full text-TechStopBlue">
@@ -48,56 +49,76 @@ const Purchases = () => {
                 {({ open }) => (
                   <>
                     <div className="border border-TechStopBlue40 rounded">
-                      <Disclosure.Button className="flex justify-between w-full px-4 py-4 items-center">
+                      <Disclosure.Button className="flex justify-between w-full p-2 lg:p-4 items-center h-auto">
                         <div
                           className={`${
-                            open ? "mr-6" : "mr-14"
-                          } w-full flex items-center justify-between`}
+                            open
+                              ? "md:mr-6 mr-4 flex-col lg:flex-row lg:items-center"
+                              : "md:mr-14 mr-4 items-center"
+                          } w-full h-full flex  justify-between`}
                         >
-                          <div>
-                            <p>
-                              <span className="text-Headline6 mr-[6px]">
-                                Замовлення № {purchases.orderNumber}
-                              </span>
-                              <span className="text-sm">
-                                від {purchases.orderDate} року
-                              </span>
-                            </p>
-                            <p className="flex items-baseline">
-                              <span className="text-Headline6 mr-[6px] text-TechStopGreen">
-                                {purchases.orderStatus}
-                              </span>
-                              {open && (
-                                <span className="text-sm">
-                                  {purchases.orderDate} року
+                          <div className="flex flex-col justify-between h-full">
+                            <div className="flex flex-col text-start gap-1 md:gap-2">
+                              <p className="">
+                                <span className="text-subtitle2 lg:text-Headline6 mr-[6px]">
+                                  Замовлення № {purchases.orderNumber}
                                 </span>
-                              )}
-                            </p>
+                                <span className="lg:inline hidden text-sm">
+                                  від {purchases.orderDate} року
+                                </span>
+                              </p>
+                              <p className="flex items-baseline">
+                                <span className="text-subtitle2 lg:text-Headline6 mr-[6px] text-TechStopGreen">
+                                  {purchases.orderStatus}
+                                </span>
+                                <span className="flex md:hidden text-sm mt-1 mb-6">
+                                  від {purchases.orderDate}
+                                </span>
+                                {open && (
+                                  <span className="hidden lg:flex text-sm">
+                                    {purchases.orderDate} року
+                                  </span>
+                                )}
+                              </p>
+                            </div>
+                            <div
+                              className={`${
+                                open ? "hidden" : "flex"
+                              } md:hidden`}
+                            >
+                              <p className="text-subtitle1 text-TechStopBlue60 mr-4">
+                                <span>{purchases.paymentStatus}</span>
+                              </p>
+                              <span className="text-subtitle1">
+                                {formatPrice(purchases.orderPrice)} ₴
+                              </span>
+                            </div>
                           </div>
-                          <div className="flex">
+                          <div className="flex items-center">
                             <Image
                               src={purchases.orderIcon}
                               alt="shoppingCardItemTest"
                               width={90}
                               height={62}
-                              className="max-h-16 object-cover mr-6"
+                              className={`${
+                                open ? "mr-6" : ""
+                              } max-h-16 min-w-[90px] object-cover`}
                             />
                             <p
                               className={`${
                                 open ? "flex" : "hidden"
-                              } max-w-60 text-start`}
+                              } max-w-60 text-start text-sm md:text-subtitle1`}
                             >
                               {purchases.orderTitle}
                             </p>
                           </div>
                           {open && (
-                            <div>
-                              <span className="text-subtitle1">
-                                {purchases.orderPrice} х {purchases.orderCount}
-                              </span>
-                            </div>
+                            <span className="hidden lg:flex text-subtitle1">
+                              {formatPrice(purchases.orderPrice)} х{" "}
+                              {purchases.orderCount}
+                            </span>
                           )}
-                          <div className="flex flex-col">
+                          <div className="hidden md:flex lg:flex-row xl:flex-col justify-between gap-1 md:gap-2 mt-6 xl:mt-0">
                             <p className="text-subtitle1 text-TechStopBlue60">
                               <span
                                 className={`${
@@ -109,7 +130,7 @@ const Purchases = () => {
                               {open && <span>/ {purchases.PaymentMethod}</span>}
                             </p>
                             <span className="text-Headline6 text-end">
-                              {purchases.orderPrice} ₴
+                              {formatPrice(purchases.orderPrice)} ₴
                             </span>
                           </div>
                         </div>
@@ -123,8 +144,29 @@ const Purchases = () => {
                           } h-5 w-5`}
                         />
                       </Disclosure.Button>
-                      <Disclosure.Panel className="flex justify-between px-4 pb-4 pt-8">
-                        <div className="flex gap-20">
+                      <div
+                        className={`${
+                          open ? "flex justify-between mt-6 mx-2" : "hidden"
+                        } md:hidden `}
+                      >
+                        <p className="text-subtitle1 text-TechStopBlue60">
+                          <span
+                            className={`${open ? "text-TechStopGreen" : ""}`}
+                          >
+                            {purchases.paymentStatus}
+                          </span>
+                          {open && <span>/ {purchases.PaymentMethod}</span>}
+                        </p>
+                        <span className="text-Headline6 text-end">
+                          {formatPrice(purchases.orderPrice)} ₴
+                        </span>
+                      </div>
+                      <Disclosure.Panel
+                        className={`${
+                          open ? "flex-col-reverse lg:flex-row" : ""
+                        } flex justify-between px-2 md:px-4 pb-2 md:pb-4 pt-6 md:pt-8`}
+                      >
+                        <div className="flex flex-col lg:flex-row gap-4 lg:gap-20">
                           <p className="flex flex-col">
                             <span className="text-sm mb-2">
                               Адреса доставки
@@ -141,15 +183,15 @@ const Purchases = () => {
                             </span>
                           </p>
                         </div>
-                        <div className="flex gap-6">
+                        <div className="flex flex-col lg:flex-row gap-2 md:gap-6 mb-6">
                           <Button
                             title="Повторити замовлення"
-                            stylesButton="w-full lg:max-w-[255px] px-6 bg-white text-TechStopBronze lg:text-TechStopBlue lg:border border-TechStopBlue60 uppercase"
+                            stylesButton="flex w-full lg:max-w-[255px] px-6 bg-white text-TechStopBlue border border-TechStopBlue60 uppercase"
                             onClick={() => repeatOrder(purchases)}
                           />
                           <Button
                             title="залишити відгук"
-                            stylesButton="w-full lg:max-w-[196px] px-6 bg-white text-TechStopBronze lg:text-TechStopBlue lg:border border-TechStopBlue60 uppercase"
+                            stylesButton="flex w-full lg:max-w-[196px] px-6 bg-white text-TechStopBlue border border-TechStopBlue60 uppercase"
                           />
                         </div>
                       </Disclosure.Panel>

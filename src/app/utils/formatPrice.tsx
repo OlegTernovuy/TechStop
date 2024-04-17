@@ -1,6 +1,6 @@
 const formatPrice = (price: number | undefined) => {
   if (price) {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    return price.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   } else return;
 };
 

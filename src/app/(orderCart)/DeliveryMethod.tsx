@@ -388,7 +388,8 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
                           </FormControl>
                         </div>
                       ) : (
-                        <FormControl fullWidth className="py-3">
+                        <div className="w-full py-3">
+                        <FormControl fullWidth>
                           <Controller
                             control={control}
                             name="courierAddress"
@@ -415,6 +416,7 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
                             )}
                           />
                         </FormControl>
+                        </div>
                       )}
                     </div>
                   </div>
