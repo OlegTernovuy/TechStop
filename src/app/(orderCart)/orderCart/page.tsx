@@ -44,7 +44,7 @@ function OrderCart() {
     }
   }, [orderContactData]);
 
-  console.log(orderContactData);
+  // console.log(orderContactData);
 
   return (
     <MaxWidthWrapper className="min-h-screen">

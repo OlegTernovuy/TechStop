@@ -5,6 +5,7 @@ import { useMediaQuery } from "react-responsive";
 
 import SingleProduct from "./SingleProduct";
 import Image from "next/image";
+import Link from "next/link";
 import { Product } from "@/types";
 
 interface ProdProps {
@@ -118,7 +119,9 @@ const HomePageProducts = ({ ShowAllItems, title, products }: ProdProps) => {
                   key={index}
                   className="w-1/2 md:w-1/4 xl:w-1/5 px-2 py-2 xl:px-3 xl:py-3"
                 >
-                  <SingleProduct product={item} />
+                  <Link href={`/products/${item.id}/about-product`}>
+                    <SingleProduct product={item} />
+                  </Link>
                 </li>
               ) : null;
             })

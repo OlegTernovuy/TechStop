@@ -141,15 +141,6 @@ export interface IInfoAboutPurchase {
   inStock: boolean,
 }
 
-// types/index.ts
-// export interface Category {
-//   id: number;
-//   slug: string;
-//   name: string;
-//   subcategories: string[];
-// }
-
-// data/categories.ts
 export interface Subcategory {
   id: number;
   name: string;
@@ -161,10 +152,3 @@ export interface Category {
   title: string;
   subcategories: Subcategory[];
 }
-
-// const categories: Category[] = [
-//   { id: 1, name: 'Електроніка', subcategories: [{ id: 101, name: 'Мобільні телефони' }, { id: 102, name: 'Ноутбуки' }] },
-//   { id: 2, name: 'Книги', subcategories: [{ id: 201, name: 'Фантастика' }, { id: 202, name: 'Навчальна література' }] }
-// ];
-
-// export default categories;

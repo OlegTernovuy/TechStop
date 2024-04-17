@@ -27,8 +27,8 @@ const config: Config = {
         TechStopRed: "#B10F2E",
         DisabledBackground: "#0000001F",
         DisabledBackgroundText: "#00000061",
+        SuccessLightGreen: "#4CAF50",
         TechStopGreen: '#06AD03',
-
         deWiseMain: "#04C2C2",
         deWiseMainHover: "#04c2c21a",
         deWiseBlack: "#262626",
@@ -37,6 +37,9 @@ const config: Config = {
         textBlack: "#000000DE",
         deWiseGrey: "rgba(0, 0, 0, 0.12)",
         deWiseGreyLight: "rgba(0, 0, 0, 0.38)",
+      },
+      boxShadow: {
+        sm: "0px 3px 1px -2px rgba(0, 0, 0, 0.2),0px 2px 2px 0px rgba(0, 0, 0, 0.14),0px 1px 5px 0px rgba(0, 0, 0, 0.12);",
       },
     },
     fontSize: {
