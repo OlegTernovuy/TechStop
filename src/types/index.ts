@@ -58,6 +58,7 @@ export type AdditionalServicesDesktopType = {
 export interface IContactContent
   extends Record<string, string | number | boolean> {
   name: string;
+  surname: string;
   email: string;
   phone: string;
   anotherPersonReceive: boolean;
@@ -124,6 +125,16 @@ export interface IHomeDeliveryAddress {
   appartamentNumber?: string | undefined;
 }
 
+export interface INovaPostDeliveryAddress {
+  city: string;
+  novaPostDepart: string;
+}
+
+export interface IUkrPostDeliveryAddress {
+  city: string;
+  ukrPostDepart: string;
+}
+
 export interface IInfoAboutPurchase {
   productId: number;
   orderNumber: string;
@@ -141,9 +152,15 @@ export interface IInfoAboutPurchase {
   inStock: boolean,
 }
 
+export interface SubcategoryModel {
+  id: string;
+  name: string;
+}
+
 export interface Subcategory {
   id: number;
   name: string;
+  model: SubcategoryModel[];
 }
 
 export interface Category {

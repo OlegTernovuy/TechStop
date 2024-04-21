@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "../ui/Button";
 import { useStore } from "@/store/useStore";
 import { useCartStore } from "@/store/useCartStore";
@@ -13,18 +13,22 @@ function BasketHoverBlock() {
   const { removeItemFromCart } = useCartStore();
 
   return (
-    <div className={`${cartItems?.length ? 'w-[573px]' : 'w-[284px]'} z-50 bg-transparent-200 lg:group-hover:block hidden absolute max-h-[700px] right-0`}>
+    <div
+      className={`${
+        cartItems?.length ? "w-[573px]" : "w-[284px]"
+      } z-50 bg-transparent-200 lg:group-hover:block hidden absolute max-h-[700px] right-0`}
+    >
       <div className=" pl-8 pt-8 bg-white text-TechStopBlue shadow-lg mt-[38px] pb-8">
         {cartItems?.length ? (
           <h2 className="mb-4 text-Headline5 text-left">Кошик</h2>
         ) : (
           ""
         )}
-        <div className="max-h-[320px] scrollShoppingCart overflow-y-auto mr-1">
+        <ul className="max-h-[320px] scrollShoppingCart overflow-y-auto mr-1">
           {cartItems?.length ? (
             cartItems.map((product) => {
               return (
-                <div className="flex gap-4 pr-11 mb-4" key={product.id}>
+                <li className="flex gap-4 pr-11 mb-4" key={product.id}>
                   <Image
                     src={product.poster}
                     alt="test icon"
@@ -52,15 +56,15 @@ function BasketHoverBlock() {
                       </p>
                     </div>
                   </div>
-                </div>
+                </li>
               );
             })
           ) : (
             <div className="flex justify-center text-Headline5">
-             Кошик порожній
+              Кошик порожній
             </div>
           )}
-        </div>
+        </ul>
         {cartItems?.length ? (
           <div className="flex items-end justify-end pr-11">
             <Link href="/orderCart">

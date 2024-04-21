@@ -78,7 +78,7 @@ const ContactInfoOrder = ({
                       {Object.keys(orderContactData).length ? (
                         selected !== i && i === 0 ? (
                           orderContactData?.name ? (
-                            <div className="text-TechStopBlue60 pt-4 md:pt-6">{`${orderContactData?.name} / ${orderContactData?.phone}`}</div>
+                            <div className="text-TechStopBlue60 pt-4 md:pt-6">{`${orderContactData?.name} ${orderContactData?.surname} / ${orderContactData?.phone}`}</div>
                           ) : null
                         ) : selected !== i && i === 1 ? (
                           orderContactData?.city ? (
