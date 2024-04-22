@@ -14,14 +14,19 @@ const productNavList = [
 ];
 
 interface IProductNavListProps {
-  params: {
+  params?: {
     data: Product;
   };
 }
 
 const ProductNavList: FC<IProductNavListProps> = ({ params }) => {
-  const { id: paramsId } = params.data;
   const currentPath = usePathname();
+
+  if (!params) {
+    return <div>Loading...</div>;
+  }
+
+  const { id: paramsId } = params?.data;
 
   return (
     <>
