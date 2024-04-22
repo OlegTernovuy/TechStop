@@ -131,7 +131,9 @@ const ProductContent: FC<IData> = ({ product }) => {
         onClick={handleClick}
         type="button"
         className={`rounded-full bg-TechStopBronze w-14 h-14 flex justify-center items-center bottom-[300px] right-[76px] fixed ${
-          showButton ? "block" : "hidden"
+          showButton
+            ? "block opacity-100 translate-y-0"
+            : "opacity-0 translate-y-10"
         } hover:bg-yellow-500 focus:bg-yellow-500 transition ease-out duration-300`}
       >
         <Image src={arrow} alt="arrow_icon" width={16} height={16} />

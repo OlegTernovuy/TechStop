@@ -10,8 +10,7 @@ interface Product {
 }
 
 export interface IProductCardProps {
-  product: Product;
-  params: {
+  params?: {
     id: string;
   };
 }
