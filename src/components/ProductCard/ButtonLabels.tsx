@@ -4,22 +4,26 @@ import diagram from "/public/product-card-icons/loan.svg";
 import basket from "/public/product-card-icons/basket.svg";
 import heart from "/public/product-card-icons/heart.svg";
 import Image from "next/image";
+import heartActive from "/public/product-card-icons/heart_active.svg";
+
 import { useCartStore } from "@/store/useCartStore";
+import { IData } from "@/types";
+import CustomToast from "../Global/CustomToast";
+import toast from "react-hot-toast";
+import { useFavoritesStore } from "@/store/useFavoritesStore";
 
-const obj = {
-  id: 1,
-  inStock: true,
-  poster: "/shoppingCardItemTest.svg",
-  price: 19990,
-  oldPrice: 28990,
-  title: "Дуже довга назва товару з якимись цифрами HTG-7658",
-  quantity: 1,
-  addServices: [],
-};
+const ButtonLabels: FC<IData> = ({ product }) => {
+  const { price, id, title } = product.data;
+  const { addItemToCart } = useCartStore();
+  const { toggleProductCardToFavorites, favorites } = useFavoritesStore();
 
-const ButtonLabels: FC = () => {
-  const { toggleProductCardToFavorites } = useCartStore();
-  const { id } = obj;
+  const handleAddItem = () => {
+    addItemToCart(product.data);
+    toast.success(`Product ${title} was added to basket`);
+  };
+
+  const isFavoriteTeacher = (id: number) =>
+    favorites.some((product) => product.id === id);
 
   return (
     <div className="md:flex items-center border-b-[1px] md:py-10 pt-3 pb-[32px] flex-wrap md:flex-nowrap relative">
@@ -29,16 +33,17 @@ const ButtonLabels: FC = () => {
           28 999 ₴
         </p>
         <p className="text-TechStopRed font-normal text-3xl text-nowrap">
-          12 999 ₴
+          {price} ₴
         </p>
       </div>
 
-      <ul className="md:flex items-center flex-wrap md:flex-nowrap md:gap-6">
+      <ul className="md:flex items-center flex-wrap md:gap-6">
         <li>
           {" "}
           <button
             type="button"
-            className="flex justify-center items-center mb-4 md:mb-0 mt-8 md:mt-0 px-6 py-2 w-full md:w-[249px] h-[52px] text-base uppercase font-medium bg-TechStopBlue text-TechStopWhite rounded shadow-sm"
+            onClick={handleAddItem}
+            className="flex justify-center items-center mb-4 md:mb-0 mt-8 md:mt-0 px-6 py-2 w-full md:w-[249px] h-[52px] text-base uppercase font-medium bg-TechStopBlue text-TechStopWhite rounded shadow-sm hover:bg-TechStopBlue60 focus:bg-TechStopBlue60 transition ease-out duration-300"
           >
             <span className="mr-2">
               {" "}
@@ -50,7 +55,7 @@ const ButtonLabels: FC = () => {
         <li>
           <button
             type="button"
-            className="flex justify-center items-center px-6 py-2 w-full md:w-[249px] h-[52px] text-base font-medium uppercase bg-TechStopBronze text-TechStopWhite rounded shadow-sm"
+            className="flex justify-center items-center px-6 py-2 w-full md:w-[249px] h-[52px] text-base font-medium uppercase bg-TechStopBronze text-TechStopWhite rounded shadow-sm hover:bg-TechStopBronze20 focus:bg-TechStopBronze20 transition ease-out duration-300"
           >
             <span className="mr-2">
               {" "}
@@ -59,20 +64,25 @@ const ButtonLabels: FC = () => {
             купити частинами
           </button>
         </li>
-        <li>
+        <li className="absolute top-5  right-0 md:static">
           <button
             type="button"
-            onClick={() => toggleProductCardToFavorites(id)}
-            className="md:flex justify-center items-center text-TechStopBlue uppercase md:w-[122px] h-[52px] w-full absolute top-0 left-0 md:static "
+            onClick={() => toggleProductCardToFavorites(product.data)}
+            className=" md:flex justify-center items-center text-TechStopBlue uppercase md:w-[122px] h-[52px] w-full  hover:scale-110 transition ease-out duration-300"
           >
-            <span className="mr-2">
+            <div className="flex gap-[10px]">
               {" "}
-              <Image src={heart} alt="basket" width={20} height={20} />
-            </span>
-            в обране
+              {isFavoriteTeacher(id) ? (
+                <Image src={heartActive} alt="basket" width={20} height={20} />
+              ) : (
+                <Image src={heart} alt="basket" width={20} height={20} />
+              )}
+              <span> в обране</span>
+            </div>
           </button>
         </li>
       </ul>
+      <CustomToast />
     </div>
   );
 };

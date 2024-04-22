@@ -1,10 +1,12 @@
 import { getProductById } from "@/api";
 import ProductNavList from "@/components/ProductCard/ProductNavList";
+import { Product } from "@/types";
 import { FC } from "react";
 
 interface IProductProps {
   params: {
     id: string;
+    data: Product;
   };
 }
 

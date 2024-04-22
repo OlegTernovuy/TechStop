@@ -138,7 +138,7 @@ export interface IInfoAboutPurchase {
   deliveryAddress: string;
   orderRecipientName: string;
   orderRecipientPhone: string;
-  inStock: boolean,
+  inStock: boolean;
 }
 
 export interface Subcategory {
@@ -151,4 +151,12 @@ export interface Category {
   icon: string;
   title: string;
   subcategories: Subcategory[];
+}
+
+//* Product-card types
+
+export interface IData {
+  product: {
+    data: Product;
+  };
 }

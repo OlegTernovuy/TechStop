@@ -1,15 +1,23 @@
-import { useCartStore } from "@/store/useCartStore";
+import { useFavoritesStore } from "@/store/useFavoritesStore";
+import { FC } from "react";
 
-const TestFavorites = () => {
-  const { cartItems } = useCartStore();
+const TestFavorites: FC = () => {
+  const { favorites } = useFavoritesStore();
 
   return (
     <div>
-      {cartItems.map(({ title }) => (
-        <>
-          <h1 className="text-TechStopBlue">Favorites</h1>
-          <li key={Date.now().toString()}>{title}</li>
-        </>
+      {favorites.map(({ id, price, title }) => (
+        <li key={id} className="text-TechStopBlue">
+          <p>
+            PRICE <strong>{price}</strong>
+          </p>
+          <p>
+            TITLE <strong>{title}</strong>
+          </p>
+          <p>
+            ID <strong>{id}</strong>
+          </p>
+        </li>
       ))}
     </div>
   );
