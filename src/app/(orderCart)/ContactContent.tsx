@@ -17,6 +17,7 @@ const ContactContent = ({ toggle, setOrderContactData }: formDat) => {
   } = useForm<IContactContent>({
     defaultValues: {
       name: "",
+      surname: "",
       email: "",
       phone: "",
       anotherPersonReceive: false,
@@ -74,6 +75,32 @@ const ContactContent = ({ toggle, setOrderContactData }: formDat) => {
                   label="Ім'я"
                   placeholder="Степан"
                   error={!!errors?.name}
+                  helperText={errors?.name?.message}
+                  onChange={(e) => field.onChange(e)}
+                  value={field.value}
+                  className="w-full md:w-80"
+                  sx={{
+                    "& label": {
+                      color: "#02275099",
+                    },
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderColor: "#02275099",
+                      },
+                    },
+                  }}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name="surname"
+              render={({ field }) => (
+                <TextField
+                  variant="outlined"
+                  label="Прізвище"
+                  placeholder="Бандера"
+                  error={!!errors?.surname}
                   helperText={errors?.name?.message}
                   onChange={(e) => field.onChange(e)}
                   value={field.value}

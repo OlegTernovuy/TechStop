@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   mobileMenuInfo,
-  mobileMenuLinkInfo,
   mobileMenuSocialMedia,
 } from "../../constants";
 import { NavigationProps } from "../../types";
@@ -12,6 +11,11 @@ import {
   useCatalogModalStore,
   useShoppingCartModalStore,
 } from "@/store/modalStore";
+
+import ButtonCatalogIcon from "../../../public/ButtonCatalogIcon.svg"
+import AccountCircleOutlined from "../../../public/AccountCircleOutlined.svg"
+import question_mark from "../../../public/question_mark.svg"
+import cart from "../../../public/cart.svg"
 
 const MobileMenu = ({ nav, handleNav }: NavigationProps) => {
   const setShowCatalog = useCatalogModalStore((state) => state.setShowCatalog);
@@ -49,7 +53,7 @@ const MobileMenu = ({ nav, handleNav }: NavigationProps) => {
             >
               <button onClick={setShowCatalog} className="flex uppercase">
                 <Image
-                  src={"./ButtonCatalogIcon.svg"}
+                  src={ButtonCatalogIcon}
                   alt="buttonIcon"
                   width={24}
                   height={24}
@@ -64,7 +68,7 @@ const MobileMenu = ({ nav, handleNav }: NavigationProps) => {
             >
               <Link href={'/account'} className="flex uppercase">
                 <Image
-                  src={"./AccountCircleOutlined.svg"}
+                  src={AccountCircleOutlined}
                   alt="accountIcon"
                   width={24}
                   height={24}
@@ -79,7 +83,7 @@ const MobileMenu = ({ nav, handleNav }: NavigationProps) => {
             >
               <Link href="/" className="flex uppercase">
                 <Image
-                  src={"./question_mark.svg"}
+                  src={question_mark}
                   alt="questionIcon"
                   width={24}
                   height={24}
@@ -94,7 +98,7 @@ const MobileMenu = ({ nav, handleNav }: NavigationProps) => {
             >
               <button onClick={setShowShoppingCart} className="flex uppercase">
                 <Image
-                  src={"./cart.svg"}
+                  src={cart}
                   alt="cartIcon"
                   width={24}
                   height={24}

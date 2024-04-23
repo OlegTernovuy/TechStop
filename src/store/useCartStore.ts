@@ -76,7 +76,6 @@ export const useCartStore = create(
           const updatedCartItems = [...cartItems];
 
           const services = updatedCartItems[itemIndex].addServices;
-          console.log(services);
 
           if (services) {
             const serviceIndex = services.findIndex(

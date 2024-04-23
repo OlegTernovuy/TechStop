@@ -19,7 +19,7 @@ import AccountCircleOutlined from "../../public/AccountCircleOutlined.svg";
 import ShoppingCartIcon from "../../public/ShoppingCartIcon.svg";
 import favorite from "../../public/favorite.svg";
 import CommentOutlined from "../../public/CommentOutlined.svg";
-import RemoveRedEyeOutlined from "../../public/AccountCircleOutlined.svg";
+import RemoveRedEyeOutlined from "../../public/RemoveRedEyeOutlined.svg";
 import NovaPoshtaLogo from "../../public/NovaPoshtaLogo.svg";
 import UkrposhtaLogo from "../../public/UkrposhtaLogo.svg";
 import shoppingCardItemTest from "../../public//shoppingCardItemTest.svg";
@@ -86,19 +86,111 @@ export const categoriesItems = [
     icon: laptop,
     title: "Ноутбуки та компʼютери",
     subcategories: [
-      { id: 101, name: "Мобільні телефони" },
-      { id: 102, name: "Ноутбуки" },
+      {
+        id: 101,
+        name: "Мобільні телефони",
+        model: [
+          {
+            id: '1c',
+            name: "a",
+          },
+          {
+            id: '2c',
+            name: "b",
+          },
+          {
+            id: '3c',
+            name: "c",
+          },
+        ],
+      },
+      {
+        id: 102,
+        name: "Ноутбуки",
+        model: [
+          {
+            id: "1a",
+            name: "a",
+          },
+          {
+            id: "2a",
+            name: "b",
+          },
+          {
+            id: "3a",
+            name: "c",
+          },
+          {
+            id: "4a",
+            name: "d",
+          },
+        ],
+      },
+      {
+        id: 103,
+        name: "loremerfg",
+        model: [
+          {
+            id: "1b",
+            name: "a",
+          },
+          {
+            id: "2b",
+            name: "b",
+          },
+          {
+            id: "3b",
+            name: "c",
+          },
+        ],
+      },
+      {
+        id: 104,
+        name: "rrrrrrrr",
+        model: [
+          {
+            id: "1d",
+            name: "a",
+          },
+          {
+            id: "2d",
+            name: "b",
+          },
+          {
+            id: "3d",
+            name: "c",
+          },
+        ],
+      },
+      {
+        id: 105,
+        name: "qqqqqqqqq",
+        model: [
+          {
+            id: "1e",
+            name: "a",
+          },
+          {
+            id: "2e",
+            name: "b",
+          },
+          {
+            id: "3e",
+            name: "c",
+          },
+        ],
+      },
     ],
   },
-  {
-    id: 2,
-    icon: tools,
-    title: "Інструменти",
-    subcategories: [
-      { id: 201, name: "Фантастика" },
-      { id: 202, name: "Навчальна література" },
-    ],
-  },
+  // {
+  //   id: 2,
+  //   icon: tools,
+  //   title: "Інструменти",
+  //   subcategories: [
+  //     { id: 201, name: "Фантастика" },
+  //     { id: 202, name: "Навчальна література" },
+  //   ],
+  // },
 ];
 
 export const CatalogItem = [
@@ -250,17 +342,17 @@ export const DeliveryAddressData = [
   {
     id: 1,
     title: "Адресна доставка",
-    icon: "",
+    // icon: "",
   },
   {
     id: 2,
-    title: "Nova Post",
-    icon: NovaPoshtaLogo,
+    title: "Нова Пошта",
+    // icon: NovaPoshtaLogo,
   },
   {
     id: 3,
-    title: "Ukr Post",
-    icon: UkrposhtaLogo,
+    title: "УкрПошта",
+    // icon: UkrposhtaLogo,
   },
 ];
 

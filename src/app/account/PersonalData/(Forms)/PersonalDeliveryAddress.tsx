@@ -5,10 +5,8 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
-import { CustomTextField } from "./PersonalContactInfo";
 import { useState } from "react";
 import { DeliveryAddressData } from "@/constants";
-import Image from "next/image";
 import HomeDelivery from "../(DeliveryAddressForms)/HomeDelivery";
 import NovaPostDelivery from "../(DeliveryAddressForms)/NovaPostDelivery";
 import UkrPostDelivery from "../(DeliveryAddressForms)/UkrPostDelivery";
@@ -23,10 +21,8 @@ const PersonalDeliveryAddress = () => {
     return setSelected(i);
   };
 
-  const classes = CustomTextField();
-
   return (
-    <div>
+    <div className="mb-6 w-full">
       <h2 className="text-Headline5 md:text-Headline4 text-TechStopBlue mb-6">
         Адреса доставки
       </h2>
@@ -35,7 +31,12 @@ const PersonalDeliveryAddress = () => {
           <RadioGroup className="gap-6 md:gap-8">
             {DeliveryAddressData?.map((item, i) => {
               return (
-                <div key={item.id}>
+                <div
+                  className={`w-full px-3 border-TechStopBlue40 border rounded items-center ${
+                    selected === i ? "h-auto" : "h-14"
+                  }`}
+                  key={item.id}
+                >
                   <FormControlLabel
                     control={
                       <Radio
@@ -51,32 +52,19 @@ const PersonalDeliveryAddress = () => {
                         onClick={() => toggle(i)}
                       />
                     }
-                    className={"w-full text-TechStopBlue60"}
-                    label={
-                      item.id === 1 ? (
-                        item.title
-                      ) : (
-                        <>
-                          <Image
-                            src={item.icon}
-                            alt="Icon"
-                            width={item.id === 2 ? 140 : 180}
-                            height={50}
-                            className="pl-4 min-h-[50px]"
-                          />
-                        </>
-                      )
-                    }
+                    className={"w-full h-14 text-TechStopBlue60"}
+                    label={item.title}
                     sx={{
                       ".css-ahj2mt-MuiTypography-root": {
-                        fontSize: "20px",
-                        fontWeight: "500",
+                        fontSize: "16px",
+                        fontWeight: "400",
+                        paddingLeft: '8px',
                       },
                     }}
                   />
                   <div
                     className={
-                      selected === i ? "h-auto" : "max-h-0 overflow-hidden"
+                      selected === i ? "h-auto mb-4" : "max-h-0 overflow-hidden"
                     }
                   >
                     {item.id === 1 ? (

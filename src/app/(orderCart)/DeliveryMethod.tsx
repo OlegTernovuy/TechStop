@@ -19,7 +19,6 @@ import { checkIsContact } from "../utils/CheckIsData";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { getData, getNovaPostDepartments } from "../utils/NovaPostaApi";
 import { useDebounce } from "../utils/useDebounce";
-import Image from "next/image";
 
 import { OurShops, Posts, UkrPostDepartments } from "@/constants";
 
@@ -63,9 +62,7 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
   }, []);
 
   useEffect(() => {
-    city.city.length === 0
-      ? setSearchCity([])
-      : findCity();
+    city.city.length === 0 ? setSearchCity([]) : findCity();
   }, [debouncedSearch]);
 
   const {
@@ -123,39 +120,32 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
 
   return (
     <form className="mb-4 flex flex-col gap-4" onSubmit={submitFields}>
-      <div className="w-full">
-        <TextField
-          label="Ваше місто"
-          value={city.city}
-          className="w-full "
-          // onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          //   setSearch({ city: e.target.value })
-          // }
-          // disabled
-          onClick={() => setSelectedCity(!selectedCity)}
-          InputProps={{
-            endAdornment: (
-              <Image
-                src="./ArrowDropDownFilled.svg"
-                alt="ArrowDropDownFilled"
-                width={24}
-                height={24}
+      <div
+        className={`w-full px-3 border-TechStopBlue40 border-[2px] rounded items-center ${
+          selectedCity ? "h-auto" : "h-14"
+        }`}
+      >
+        <div className="flex justify-between h-full w-full">
+          <FormControlLabel
+            control={
+              <Radio
+                value={city.city}
+                onClick={() => setSelectedCity(!selectedCity)}
+                sx={{
+                  "& svg": { width: "24px", height: "24px" },
+                  color: "#02275099",
+                  "&.Mui-checked": {
+                    color: "#02275099",
+                  },
+                }}
               />
-            ),
-            sx: {
-              ".css-igs3ac": {
-                border: "2px solid #02275066",
-              },
-              "&:hover": {
-                ".css-igs3ac": {
-                  border: "2px solid #02275066",
-                },
-              },
-            },
-          }}
-        />
+            }
+            className="text-TechStopBlue60 w-full"
+            label={city.city}
+          />
+        </div>
         <div
-          className={`w-full items-center mt-1 ${
+          className={`w-full items-center mt-1 mb-3 ${
             selectedCity ? "h-14" : "hidden"
           }`}
         >
@@ -194,8 +184,8 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
                       onClick={() => {
                         setCity({ city: city?.Present });
                         findNovaPostDepartments(city?.DeliveryCity);
-                        setSearch('');
-                        setSelectedCity(false)
+                        setSearch("");
+                        setSelectedCity(false);
                       }}
                       className="text-sm md:text-base"
                     >
@@ -245,12 +235,6 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
                         className="text-TechStopBlue60 w-full"
                         label={post.name}
                       />
-                      <Image
-                        src="./ArrowDropDownFilled.svg"
-                        alt="ArrowDropDownFilled"
-                        width={24}
-                        height={24}
-                      />
                     </div>
                     <div className={selected === i ? "flex" : "hidden"}>
                       {post.id === 1 ? (
@@ -280,16 +264,6 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
                                   }}
                                   fullWidth
                                 >
-                                  {/* <TextField
-                                    label="Пошук"
-                                    value={searchTerm}
-                                    variant="outlined"
-                                    size="small"
-                                    fullWidth
-                                    onChange={(e) =>
-                                      setSearchTerm(e.target.value)
-                                    }
-                                  /> */}
                                   {searchPostDepartments.map((depart) => (
                                     <MenuItem
                                       key={depart.Ref}
@@ -389,33 +363,33 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
                         </div>
                       ) : (
                         <div className="w-full py-3">
-                        <FormControl fullWidth>
-                          <Controller
-                            control={control}
-                            name="courierAddress"
-                            render={({ field }) => (
-                              <TextField
-                                label="Ваша адреса"
-                                variant="outlined"
-                                error={!!errors?.courierAddress}
-                                helperText={errors.courierAddress?.message}
-                                onChange={(e) => field.onChange(e)}
-                                value={field.value}
-                                className="w-full"
-                                sx={{
-                                  "& label": {
-                                    color: "#02275099",
-                                  },
-                                  "& .MuiOutlinedInput-root": {
-                                    "& fieldset": {
-                                      borderColor: "#02275099",
+                          <FormControl fullWidth>
+                            <Controller
+                              control={control}
+                              name="courierAddress"
+                              render={({ field }) => (
+                                <TextField
+                                  label="Ваша адреса"
+                                  variant="outlined"
+                                  error={!!errors?.courierAddress}
+                                  helperText={errors.courierAddress?.message}
+                                  onChange={(e) => field.onChange(e)}
+                                  value={field.value}
+                                  className="w-full"
+                                  sx={{
+                                    "& label": {
+                                      color: "#02275099",
                                     },
-                                  },
-                                }}
-                              />
-                            )}
-                          />
-                        </FormControl>
+                                    "& .MuiOutlinedInput-root": {
+                                      "& fieldset": {
+                                        borderColor: "#02275099",
+                                      },
+                                    },
+                                  }}
+                                />
+                              )}
+                            />
+                          </FormControl>
                         </div>
                       )}
                     </div>
