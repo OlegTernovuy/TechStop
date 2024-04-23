@@ -1,9 +1,10 @@
-import React from 'react'
+"use client";
+
+import TestFavorites from "@/components/ProductCard/TestFavorites";
+import React from "react";
 
 const Favorites = () => {
-  return (
-    <div>Favorites</div>
-  )
-}
+  return <TestFavorites />;
+};
 
-export default Favorites
+export default Favorites;

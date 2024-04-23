@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Rating } from "@mui/material";
 import MaterialCheckBox from "./MaterialCheckBox";
+import { IData } from "@/types";
 
 import ButtonLabels from "./ButtonLabels";
 
@@ -12,7 +13,6 @@ import novaPost from "/public/product-card-icons/Nova_Poshta_2014_logo 1.svg";
 import ukrPost from "/public/product-card-icons/Ukrposhta-ua 1.svg";
 import arrow from "/public/product-card-icons/ArrowUpwardFilled.svg";
 import feedBack from "/public/product-card-icons/CommentOutlined.svg";
-// import TestFavorites from "./TestFavorites";
 
 const checkboxLabels = [
   { id: "warranty", name: "warranty", label: "Гарантія 24/7", price: 500 },
@@ -36,16 +36,15 @@ const checkboxLabels = [
   },
 ];
 
-const ProductContent: FC = () => {
+const ProductContent: FC<IData> = ({ product }) => {
+  const { title, inStock, price, id } = product.data;
+
   const [value, setValue] = useState<number | null>(0);
-  const [showButton, setShowButton] = useState(false);
+  const [showButton, setShowButton] = useState<boolean>(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY !== 0) {
-        setShowButton(true);
-      }
-      setShowButton(false);
+      setShowButton(window.scrollY !== 0);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -67,13 +66,16 @@ const ProductContent: FC = () => {
   };
 
   return (
-    <div className="md:max-w-[992px] max-w-[390px] relative">
-      <h2 className="mb-4 md:mb-8 text-TechStopBlue font-normal text-2xl lg:text-5xl break-words">
-        Геймпад Microsoft Xbox Series X | S Wireless Controller Velocity Green
-        (QAU-00091)
+    <div className="md:max-w-[992px] relative">
+      <h2 className="mb-4 md:mb-8 text-TechStopBlue font-normal text-2xl md:text-3xl lg:text-5xl break-words md:mt-0 mt-4">
+        {title}
       </h2>
-      <p className="mb-9 text-SuccessLightGreen font-normal text-xl">
-        В наявності
+      <p
+        className={`mb-9  font-normal text-xl ${
+          inStock ? "text-SuccessLightGreen" : "text-deWiseRed"
+        }`}
+      >
+        {inStock ? " В наявності" : "Не має в наявності"}
       </p>
       <ul className="flex gap-10 md:pb-8 pb-6 border-b-[1px] lg:items-center flex-wrap">
         <li>
@@ -85,30 +87,18 @@ const ProductContent: FC = () => {
             precision={0.5}
           />
         </li>
-        <li>
-          <Link href="#">
-            <ul className="flex gap-3">
-              <li>
-                {" "}
-                <Image
-                  src={feedBack}
-                  alt="feedBack_icon"
-                  width={20}
-                  height={20}
-                />
-              </li>
-              <li>
-                {" "}
-                <p className="uppercase text-TechStopBronze font-medium text-base">
-                  Відгуки
-                </p>
-              </li>
-            </ul>
+        <li className="ml-auto md:ml-0">
+          <Link
+            href={`/products/${id}/feedback`}
+            className="uppercase text-TechStopBronze font-medium text-base flex gap-3 "
+          >
+            <Image src={feedBack} alt="feedBack_icon" width={20} height={20} />
+            Відгуки
           </Link>
         </li>
       </ul>
 
-      <ButtonLabels />
+      <ButtonLabels product={product} />
 
       <h3 className="mb-11 text-TechStopBlue text-xl md:text-[34px] font-normal">
         Додаткові послуги
@@ -118,28 +108,36 @@ const ProductContent: FC = () => {
         <MaterialCheckBox options={checkboxLabels} />
       </form>
 
-      <ul className="flex md:gap-16 md:items-center md:mt-10">
-        <h3 className="text-TechStopBlue text-2xl font-normal">Доставка</h3>
-        <li>
-          <Image src={novaPost} alt="nova_post_logo" width={140} height={50} />
-        </li>
-        <li>
-          {" "}
-          <Image src={ukrPost} alt="ukr_post_logo" width={140} height={50} />
-        </li>
-
-        <button
-          onClick={handleClick}
-          type="button"
-          className={`rounded-full bg-TechStopBronze w-14 h-14 flex justify-center items-center bottom-[300px] left-[1788px] right-[76px] fixed ${
-            showButton ? "block" : "hidden"
-          }`}
-        >
-          <Image src={arrow} alt="arrow_icon" width={16} height={16} />
-        </button>
-      </ul>
-      {/* For testing toggle product to favorites */}
-      {/* <TestFavorites /> */}
+      <div className="md:flex items-center flex-wrap md:mt-10 mt-2">
+        <h3 className="text-TechStopBlue text-2xl font-normal md:mr-[38px] mb-6">
+          Доставка
+        </h3>
+        <ul className="flex flex-wrap gap-[38px] md:gap-16  md:items-center ">
+          <li>
+            <Image
+              src={novaPost}
+              alt="nova_post_logo"
+              width={140}
+              height={50}
+            />
+          </li>
+          <li>
+            {" "}
+            <Image src={ukrPost} alt="ukr_post_logo" width={140} height={50} />
+          </li>
+        </ul>
+      </div>
+      <button
+        onClick={handleClick}
+        type="button"
+        className={`rounded-full bg-TechStopBronze w-14 h-14 flex justify-center items-center bottom-[300px] right-[76px] fixed ${
+          showButton
+            ? "block opacity-100 translate-y-0"
+            : "opacity-0 translate-y-10"
+        } hover:bg-yellow-500 focus:bg-yellow-500 transition ease-out duration-300`}
+      >
+        <Image src={arrow} alt="arrow_icon" width={16} height={16} />
+      </button>
     </div>
   );
 };

@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useState } from "react";
 import SearchField from "./ui/SearchField";
 import MobileMenu from "./ui/MobileMenu";
-import MenuIcon from "../../public/MenuIcon.svg";
 import CloseIcon from "../../public/CloseIcon.svg";
 import ButtonCatalogIcon from "../../public/ButtonCatalogIcon.svg";
 import BasketHoverBlock from "./(ShoppingCart)/BasketHoverBlock";
@@ -16,6 +15,12 @@ import {
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import AccountHoverBlock from "@/app/account/(ui)/AccountHoverBlock";
 import { usePathname, useRouter } from "next/navigation";
+
+import menuIcon from "/public/MenuIcon.svg";
+import techLogo from "/public/TechLogo.svg";
+import accountCircleOutline from "/public/AccountCircleOutlined.svg";
+import favorite from "/public/favorite.svg";
+import shoppingCartIcon from "/public/ShoppingCartIcon.svg";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
@@ -41,11 +46,11 @@ const Navbar = () => {
     <header className="bg-TechStopWhite relative flex items-center max-w-full border-b-[1px] border-b-TechStopBlue40 py-2 md:py-0">
       <MaxWidthWrapper className="flex justify-between items-center">
         <button onClick={handleNav} className="flex md:hidden">
-          <Image src={MenuIcon} alt="Menu Icon" width={48} height={48} />
+          <Image src={menuIcon} alt="Menu Icon" width={48} height={48} />
         </button>
         <button onClick={refresh}>
           <Image
-            src="/TechLogo.svg"
+            src={techLogo}
             alt="logo"
             width={116}
             height={89}
@@ -72,7 +77,7 @@ const Navbar = () => {
           <div className="group relative hidden md:block">
             <Link href="/account">
               <Image
-                src="./AccountCircleOutlined.svg"
+                src={accountCircleOutline}
                 alt="AccountCircleOutlined"
                 width={32}
                 height={32}
@@ -83,7 +88,7 @@ const Navbar = () => {
           </div>
           <Link href="/account/favorites" className="hidden md:flex">
             <Image
-              src="./favorite.svg"
+              src={favorite}
               alt="favorite"
               width={32}
               height={32}
@@ -93,7 +98,7 @@ const Navbar = () => {
           <div className="group relative">
             <button onClick={setShowShoppingCart} className="flex items-center">
               <Image
-                src="./ShoppingCartIcon.svg"
+                src={shoppingCartIcon}
                 alt="ShoppingCartIcon"
                 width={32}
                 height={32}

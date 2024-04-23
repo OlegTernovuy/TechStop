@@ -4,20 +4,19 @@ interface Product {
     title: string;
     price: number;
     inStock: boolean;
-    id: number;
+    id: number | string;
     poster: string;
   };
 }
 
 export interface IProductCardProps {
-  product?: Product;
-  params: {
+  params?: {
     id: string;
   };
 }
 
 export interface IParams {
-  params?: {
+  params: {
     id: string;
   };
 }
