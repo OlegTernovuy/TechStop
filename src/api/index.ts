@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Product } from "@/types";
 
-const BASE_URL = "http://13.53.200.86:5001/api";
+const BASE_URL = "http://51.20.18.159/api";
 
 export const getProductById = async (id: string): Promise<Product | any> => {
   try {

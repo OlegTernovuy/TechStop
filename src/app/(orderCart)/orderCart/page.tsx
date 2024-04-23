@@ -28,9 +28,10 @@ function OrderCart() {
     //   setDisabled(false);
     // }
     if (
-      Object.keys(orderContactData).length === 11 &&
+      Object.keys(orderContactData).length === 12 &&
       orderContactData.phone !== "" &&
       orderContactData.name !== "" &&
+      orderContactData.surname !== "" &&
       orderContactData.email !== "" &&
       orderContactData.city !== "" &&
       orderContactData.postOffice !== "" &&
@@ -146,6 +147,7 @@ function OrderCart() {
                     : "text-TechStopWhite"
                 }`}
                 disabled={disabled}
+                onClick={() => console.log(orderContactData)}
               />
               <div className="w-[100%] lg:border-b border-TechStopBlue40 mt-[31px]"></div>
             </div>

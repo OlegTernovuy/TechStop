@@ -3,15 +3,17 @@
 import { useShoppingCartModalStore } from "@/store/modalStore";
 import { useCartStore } from "@/store/useCartStore";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useStore } from "@/store/useStore";
 import ShoppingCardEmpty from "./ShoppingCartEmpty";
 import Button from "../ui/Button";
 import HomePageProducts from "../HomePageProducts";
 import ProductInCard from "./ProductInCard";
-import Link from "next/link";
 import formatPrice from "@/app/utils/formatPrice";
 import { useViewProductsStore } from "@/store/useViewProductsStore";
+import CloseIcon from "../../../public/CloseIcon.svg";
+import { useEffect } from "react";
+import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 
 const ShoppingCartModal = () => {
   const { showShoppingCart, setShowShoppingCart } = useShoppingCartModalStore();
@@ -21,18 +23,39 @@ const ShoppingCartModal = () => {
   const productsPrice = formatPrice(totalPrice?.totalPrice);
   const productsPriceWithAdd = formatPrice(totalPrice?.priceWithAddService);
 
-  typeof window !== "undefined"
-    ? showShoppingCart
-      ? document.body.classList.add("overflow-hidden")
-      : document.body.classList.remove("overflow-hidden")
-    : null;
-
   const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (pathname === "/orderCart" && showShoppingCart) {
+      setShowShoppingCart();
+    }
+  }, [pathname]);
 
   const routerToOrderPage = () => {
-    setShowShoppingCart();
     router.push("/orderCart");
+    if (pathname === "/orderCart") {
+      setShowShoppingCart();
+    }
   };
+
+  useEffect(() => {
+    const closeShoppingCartModal = (e: KeyboardEvent) => {
+      if (e.code == "Escape" && showShoppingCart) {
+        setShowShoppingCart();
+      }
+    };
+    window.addEventListener("keyup", closeShoppingCartModal);
+    if (showShoppingCart) {
+      disableBodyScroll(document.body);
+    } else {
+      enableBodyScroll(document.body);
+    }
+    return () => {
+      window.removeEventListener("keyup", closeShoppingCartModal);
+      enableBodyScroll(document.body);
+    };
+  }, [showShoppingCart]);
 
   const viewProducts = useStore(
     useViewProductsStore,
@@ -53,7 +76,7 @@ const ShoppingCartModal = () => {
             Кошик
           </h3>
           <button onClick={setShowShoppingCart}>
-            <Image src="CloseIcon.svg" alt="close" width={24} height={24} />
+            <Image src={CloseIcon} alt="close" width={24} height={24} />
           </button>
         </div>
         <div>
@@ -135,13 +158,11 @@ const ShoppingCartModal = () => {
                   onClick={setShowShoppingCart}
                   stylesButton="border-[1px] border-TechStopBlue40"
                 />
-                <Link href="./orderCart">
-                  <Button
-                    title="Оформити замовлення"
-                    stylesButton="bg-TechStopBlue text-TechStopWhite w-96"
-                    onClick={setShowShoppingCart}
-                  />
-                </Link>
+                <Button
+                  title="Оформити замовлення"
+                  stylesButton="bg-TechStopBlue text-TechStopWhite w-96"
+                  onClick={routerToOrderPage}
+                />
               </div>
               {viewProducts != undefined && viewProducts?.length > 0 && (
                 <HomePageProducts

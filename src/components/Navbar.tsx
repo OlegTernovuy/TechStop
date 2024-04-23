@@ -5,7 +5,9 @@ import Image from "next/image";
 import { useState } from "react";
 import SearchField from "./ui/SearchField";
 import MobileMenu from "./ui/MobileMenu";
-import Button from "./ui/Button";
+import MenuIcon from "../../public/MenuIcon.svg";
+import CloseIcon from "../../public/CloseIcon.svg";
+import ButtonCatalogIcon from "../../public/ButtonCatalogIcon.svg";
 import BasketHoverBlock from "./(ShoppingCart)/BasketHoverBlock";
 import {
   useCatalogModalStore,
@@ -23,6 +25,7 @@ const Navbar = () => {
   };
 
   const setShowCatalog = useCatalogModalStore((state) => state.setShowCatalog);
+  const showCatalog = useCatalogModalStore((state) => state.showCatalog);
   const setShowShoppingCart = useShoppingCartModalStore(
     (state) => state.setShowShoppingCart
   );
@@ -38,7 +41,7 @@ const Navbar = () => {
     <header className="bg-TechStopWhite relative flex items-center max-w-full border-b-[1px] border-b-TechStopBlue40 py-2 md:py-0">
       <MaxWidthWrapper className="flex justify-between items-center">
         <button onClick={handleNav} className="flex md:hidden">
-          <Image src="./MenuIcon.svg" alt="Menu Icon" width={48} height={48} />
+          <Image src={MenuIcon} alt="Menu Icon" width={48} height={48} />
         </button>
         <button onClick={refresh}>
           <Image
@@ -49,13 +52,21 @@ const Navbar = () => {
             className="w-16 md:w-28"
           />
         </button>
-        <Button
-          icon={true}
-          stylesButton="hidden lg:flex w-80 bg-TechStopWhite text-TechStopBlue border-[1px] border-TechStopBlue40"
-          title="каталог товарів"
+        <button
+          className={`h-[52px] min-w-[200px] hidden lg:flex justify-center items-center py-2 rounded w-80 bg-TechStopWhite text-TechStopBlue border-[1px] border-TechStopBlue40`}
           onClick={setShowCatalog}
-        />
-        {/* <Menu/> */}
+        >
+          <Image
+            src={showCatalog ? CloseIcon : ButtonCatalogIcon}
+            alt="buttonIcon"
+            width={24}
+            height={24}
+            style={{ marginRight: "8px" }}
+          />
+          <span className="text-[15px] tracking-wide font-medium uppercase">
+            каталог товарів
+          </span>
+        </button>
         <SearchField />
         <div className="flex gap-10">
           <div className="group relative hidden md:block">
@@ -65,6 +76,7 @@ const Navbar = () => {
                 alt="AccountCircleOutlined"
                 width={32}
                 height={32}
+                className="hover:[filter:drop-shadow(0px_3px_1px_#02275066)] ease-out duration-200 active:bg-TechStopBlue10 active:rounded-md"
               />
             </Link>
             <AccountHoverBlock />
@@ -75,6 +87,7 @@ const Navbar = () => {
               alt="favorite"
               width={32}
               height={32}
+              className="hover:[filter:drop-shadow(0px_3px_1px_#02275066)] ease-out duration-200 active:bg-TechStopBlue10 active:rounded-md"
             />
           </Link>
           <div className="group relative">
@@ -84,6 +97,7 @@ const Navbar = () => {
                 alt="ShoppingCartIcon"
                 width={32}
                 height={32}
+                className="hover:[filter:drop-shadow(0px_2px_1px_#02275066)] ease-out duration-200"
               />
             </button>
             <BasketHoverBlock />

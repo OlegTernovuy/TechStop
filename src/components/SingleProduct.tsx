@@ -5,25 +5,41 @@ import { Rating } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import Image from "next/image";
 import { DiscountPercentage } from "@/constants";
+import { useViewProductsStore } from "@/store/useViewProductsStore";
 
 type IProduct = {
   product: Product;
 };
 
-const SingleProduct = (product: IProduct) => {
+const SingleProduct = ({ product }: IProduct) => {
   const { addItemToCart } = useCartStore();
-  const addProductToCart = (product: Product) => {
+  const { addItemToViewProducts } = useViewProductsStore();
+
+  const addProductToCart = (
+    product: Product,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e?.preventDefault();
+    e?.stopPropagation();
     addItemToCart(product);
   };
-  const oldPrice = formatPrice(product.product.price * DiscountPercentage);
-  const newPrice = formatPrice(product.product.price);
+
+  const addProductToView = (product: Product) => {
+    addItemToViewProducts(product);
+  };
+
+  const oldPrice = formatPrice(product.price * DiscountPercentage);
+  const newPrice = formatPrice(product.price);
 
   return (
-    <div className="w-full h-full flex flex-col justify-between">
+    <div
+      className="w-full h-full flex flex-col justify-between"
+      onClick={() => addProductToView(product)}
+    >
       <div>
         <div className="relative">
           <Image
-            src={product.product.poster}
+            src={product.poster}
             alt="cartImage"
             height={370}
             width={240}
@@ -42,7 +58,7 @@ const SingleProduct = (product: IProduct) => {
             />
           </div>
         </div>
-        <p className="py-1 text-body1 lg:text-base">{product.product.title} </p>
+        <p className="py-1 text-body1 lg:text-base">{product.title} </p>
       </div>
       <div>
         <Rating name="read-only" value={2.5} precision={0.5} readOnly />
@@ -58,12 +74,13 @@ const SingleProduct = (product: IProduct) => {
               width={32}
               height={32}
             />
-            <button onClick={() => addProductToCart(product.product)}>
+            <button onClick={(e) => addProductToCart(product, e)}>
               <Image
                 src="/ShoppingCartIconBronze.svg"
                 alt="shoppingCard"
                 width={32}
                 height={32}
+                className="hover:[filter:drop-shadow(0px_3px_1px_#02275066)] ease-out duration-200 active:bg-TechStopBlue10 active:rounded-md"
               />
             </button>
           </div>

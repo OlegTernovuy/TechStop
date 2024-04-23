@@ -73,7 +73,7 @@ const HomeDelivery = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col lg:flex-row justify-between gap-6 pt-4">
-        <div className="flex flex-col xl:flex-row gap-6">
+        <div className="flex flex-col 2xl:flex-row gap-6">
           <div className="flex flex-col lg:flex-row gap-6">
             <Controller
               control={control}
