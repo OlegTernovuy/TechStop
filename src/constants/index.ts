@@ -19,7 +19,7 @@ import AccountCircleOutlined from "../../public/AccountCircleOutlined.svg";
 import ShoppingCartIcon from "../../public/ShoppingCartIcon.svg";
 import favorite from "../../public/favorite.svg";
 import CommentOutlined from "../../public/CommentOutlined.svg";
-import RemoveRedEyeOutlined from "../../public/AccountCircleOutlined.svg";
+import RemoveRedEyeOutlined from "../../public/RemoveRedEyeOutlined.svg";
 import NovaPoshtaLogo from "../../public/NovaPoshtaLogo.svg";
 import UkrposhtaLogo from "../../public/UkrposhtaLogo.svg";
 import shoppingCardItemTest from "../../public//shoppingCardItemTest.svg";

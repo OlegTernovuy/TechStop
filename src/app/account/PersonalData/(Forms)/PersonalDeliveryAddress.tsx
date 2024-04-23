@@ -22,7 +22,7 @@ const PersonalDeliveryAddress = () => {
   };
 
   return (
-    <div className="mb-6">
+    <div className="mb-6 w-full">
       <h2 className="text-Headline5 md:text-Headline4 text-TechStopBlue mb-6">
         Адреса доставки
       </h2>

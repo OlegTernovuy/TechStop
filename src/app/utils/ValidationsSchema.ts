@@ -140,7 +140,7 @@ export const HomeDeliveryAddressSchema = yup.object().shape({
     .min(2, "street must be more than 2 characters")
     .max(60, "street must be less than 60 characters")
     .matches(
-      /^[a-zA-Zа-щьюяіїґєА-ЩЬЮЯІЇҐЄ]+$/,
+      /^[a-zA-Zа-щьюяіїґєА-ЩЬЮЯІЇҐЄ]+(?:\s[a-zA-Zа-щьюяіїґєА-ЩЬЮЯІЇҐЄ]+)*$/,
       "User street, must be contain only letters"
     ),
   houseNumber: yup
