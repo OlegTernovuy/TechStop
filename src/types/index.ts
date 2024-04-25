@@ -172,8 +172,23 @@ export interface Category {
 
 //* Product-card types
 
+export interface IOption {
+  id: string;
+  name: string;
+  label: string;
+  price: number;
+  idx?: string;
+}
+
 export interface IData {
   product: {
     data: Product;
   };
+  addService: AddServices[];
+}
+
+export interface IReviewPersonalAccount { 
+  id: number;
+  icon: string;
+  title: string;
 }

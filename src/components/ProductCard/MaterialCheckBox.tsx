@@ -2,35 +2,40 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { FC, useState } from "react";
-
-interface IOption {
-  id: string;
-  name: string;
-  label: string;
-  price: number;
-  idx?: string;
-}
+import { AddServices, IOption } from "@/types";
 
 interface IMaterialCheckBox {
-  options: IOption[];
+  options: AddServices[];
+  addService: AddServices[];
 }
 
-const MaterialCheckBox: FC<IMaterialCheckBox> = ({ options }) => {
+const MaterialCheckBox: FC<IMaterialCheckBox> = ({ options, addService }) => {
   const [checked, setChecked] = useState<boolean[]>(options.map(() => false));
+  // const [addService, setAddService] = useState<IOption[]>([])
+  // console.log(addService);
+  
 
-  const handleChecked = (index: number) => {
+  const handleChecked = (option: AddServices, index: number) => {
     const newItems = [...checked];
     newItems[index] = !newItems[index];
     setChecked(newItems);
+    const serviceIndex = addService.findIndex(
+      (itemService) => itemService.servicesId === option.servicesId
+    );
+    if (serviceIndex !== -1) {
+      addService.splice(serviceIndex, 1);
+    } else {
+      addService.push(option);
+    }
   };
 
   return (
     <>
       <FormGroup>
         <ul className="md:pb-8 pb-4">
-          {options.map(({ id, label, price }, index) => (
+          {options.map((option, index) => (
             <li
-              key={id}
+              key={option.servicesId}
               className="flex items-center text-TechStopBlue text-base font-normal"
             >
               {" "}
@@ -38,13 +43,13 @@ const MaterialCheckBox: FC<IMaterialCheckBox> = ({ options }) => {
                 control={
                   <Checkbox
                     checked={checked[index]}
-                    onChange={() => handleChecked(index)}
+                    onChange={() => handleChecked(option, index)}
                   />
                 }
-                label={label}
+                label={option.servicesDesc}
               />
               <span className="ml-auto font-medium text-[14px] md:text-xl">
-                {price}₴
+                {option.servicesPrice}₴
               </span>
             </li>
           ))}

@@ -11,14 +11,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <MaxWidthWrapper>
-      <div className="flex flex-col md:flex-row">
-        <ul className="flex flex-col pt-0 pb-6 md:pt-6 w-screen ml-[-16px] md:ml-0 md:w-96 h-max text-TechStopBlue md:border-b border-TechStopBlue40">
+      <div className="flex flex-col lg:flex-row">
+        <ul className="flex flex-col pt-0 pb-6 md:pt-6 w-screen ml-[-16px] lg:ml-0 lg:w-96 h-max text-TechStopBlue lg:border-b border-TechStopBlue40">
           {profileNavItems.map((item) => (
             <li
               key={item.title}
               className={`${
-                pathname === item.url ? "bg-TechStopBronze20 md:bg-TechStopBlue10" : ""
-              } "flex justify-between text-body1 py-3 px-4 border-b border-TechStopBlue20 md:border-none hover:bg-TechStopBronze20 hover:md:bg-TechStopBlue10`}
+                pathname === item.url ? "bg-TechStopBronze20 lg:bg-TechStopBlue10" : ""
+              } "flex justify-between text-body1 py-3 px-4 border-b border-TechStopBlue20 lg:border-none hover:bg-TechStopBronze20 hover:md:bg-TechStopBlue10`}
             >
               <Link href={item.url} className="flex gap-8">
                 <Image
@@ -32,7 +32,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </li>
           ))}
         </ul>
-        <div className="min-h-screen w-full md:px-8 md:pt-8 md:border-l border-TechStopBlue40">
+        <div className="min-h-screen w-full md:px-8 md:pt-8 lg:border-l border-TechStopBlue40">
           {children}
         </div>
       </div>

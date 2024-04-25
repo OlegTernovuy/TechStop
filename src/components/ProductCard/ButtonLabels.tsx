@@ -12,13 +12,16 @@ import CustomToast from "../Global/CustomToast";
 import toast from "react-hot-toast";
 import { useFavoritesStore } from "@/store/useFavoritesStore";
 
-const ButtonLabels: FC<IData> = ({ product }) => {
+const ButtonLabels: FC<IData> = ({ product, addService }) => {
   const { price, id, title } = product.data;
   const { addItemToCart } = useCartStore();
   const { toggleProductCardToFavorites, favorites } = useFavoritesStore();
+  const { addArrayOfAdditionalServices } = useCartStore();
+
 
   const handleAddItem = () => {
     addItemToCart(product.data);
+    addArrayOfAdditionalServices(addService, product.data.id);
     toast.success(`Product ${title} was added to basket`);
   };
 

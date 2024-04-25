@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Rating } from "@mui/material";
 import MaterialCheckBox from "./MaterialCheckBox";
-import { IData } from "@/types";
+import { AddServices, IData, IOption } from "@/types";
 
 import ButtonLabels from "./ButtonLabels";
 
@@ -15,24 +15,29 @@ import arrow from "/public/product-card-icons/ArrowUpwardFilled.svg";
 import feedBack from "/public/product-card-icons/CommentOutlined.svg";
 
 const checkboxLabels = [
-  { id: "warranty", name: "warranty", label: "Гарантія 24/7", price: 500 },
   {
-    id: "repairService",
-    name: "repairService",
-    label: "Сервіс “Ремонт після всього”",
-    price: 700,
+    servicesId: 1,
+    servicesTitle: "warranty",
+    servicesDesc: "Гарантія 24/7",
+    servicesPrice: 500,
   },
   {
-    id: "insurance",
-    name: "insurance",
-    label: "Страховка від стихійних лих",
-    price: 1000,
+    servicesId: 2,
+    servicesTitle: "repairService",
+    servicesDesc: "Сервіс “Ремонт після всього”",
+    servicesPrice: 700,
   },
   {
-    id: "nonWarrantyService",
-    name: "nonWarrantyService",
-    label: "Сервіс для негарантійних випадків",
-    price: 1200,
+    servicesId: 3,
+    servicesTitle: "insurance",
+    servicesDesc: "Страховка від стихійних лих",
+    servicesPrice: 1000,
+  },
+  {
+    servicesId: 4,
+    servicesTitle: "nonWarrantyService",
+    servicesDesc: "Сервіс для негарантійних випадків",
+    servicesPrice: 1200,
   },
 ];
 
@@ -41,6 +46,9 @@ const ProductContent: FC<IData> = ({ product }) => {
 
   const [value, setValue] = useState<number | null>(0);
   const [showButton, setShowButton] = useState<boolean>(false);
+
+  const [addService, setAddService] = useState<AddServices[]>([]);
+  // console.log(addService);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -98,14 +106,14 @@ const ProductContent: FC<IData> = ({ product }) => {
         </li>
       </ul>
 
-      <ButtonLabels product={product} />
+      <ButtonLabels product={product} addService={addService} />
 
       <h3 className="mb-11 text-TechStopBlue text-xl md:text-[34px] font-normal">
         Додаткові послуги
       </h3>
 
       <form className="flex flex-col gap-6 border-b-[1px]">
-        <MaterialCheckBox options={checkboxLabels} />
+        <MaterialCheckBox options={checkboxLabels} addService={addService} />
       </form>
 
       <div className="md:flex items-center flex-wrap md:mt-10 mt-2">
