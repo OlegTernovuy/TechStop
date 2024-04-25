@@ -184,6 +184,12 @@ export interface IData {
   product: {
     data: Product;
   };
+}
+
+export interface IDataWithServices {
+  product: {
+    data: Product;
+  };
   addService: AddServices[];
 }
 
