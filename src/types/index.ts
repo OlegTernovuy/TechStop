@@ -193,8 +193,17 @@ export interface IDataWithServices {
   addService: AddServices[];
 }
 
-export interface IReviewPersonalAccount { 
+export interface IReviewPersonalAccount {
   id: number;
   icon: string;
   title: string;
+}
+
+export interface Categories {
+  _id: string;
+  title: string;
+  slug: string;
+  icon: null;
+  parent: string;
+  children: Categories[];
 }

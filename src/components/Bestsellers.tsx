@@ -4,7 +4,13 @@ import HomePageProducts from "./HomePageProducts";
 const Bestsellers = async () => {
   const data = await getProductsData();
 
-  return <HomePageProducts products={data} title="Бестселлери" />;
+  return (
+    <div>
+      {data === undefined || data?.length === 0 ? null : (
+        <HomePageProducts products={data} title="Бестселлери" />
+      )}
+    </div>
+  );
 };
 
 export default Bestsellers;

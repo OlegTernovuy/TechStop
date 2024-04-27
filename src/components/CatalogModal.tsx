@@ -4,19 +4,24 @@ import ArrowForwardFilled from "@mui/icons-material/ArrowForward";
 
 import { useCatalogModalStore } from "@/store/modalStore";
 import Image from "next/image";
-import { categoriesItems } from "@/constants";
 import Link from "next/link";
-import { Category, Subcategory, SubcategoryModel } from "@/types";
+import { Categories } from "@/types";
 import { useEffect, useState } from "react";
 import CloseIcon from "../../public/CloseIcon.svg";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
+import laptop from "../../public/catalogIcons/laptop.svg";
 
-const CatalogModal = () => {
+interface ICategoryProps {
+  categories: Categories[] | undefined;
+}
+
+const CatalogModal = ({ categories }: ICategoryProps) => {
   const showCatalog = useCatalogModalStore((state) => state.showCatalog);
   const setShowCatalog = useCatalogModalStore((state) => state.setShowCatalog);
 
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
+  const [selectedCategory, setSelectedCategory] = useState<Categories | null>(
     null
+    // categories === undefined ? null : categories[9]
   );
 
   useEffect(() => {
@@ -53,21 +58,21 @@ const CatalogModal = () => {
           </button>
         </div>
         <div className="text-deWiseBlack flex lg:p-8">
-          <div className="w-full lg:w-96">
+          <div className="w-full lg:min-w-96 max-w-96 md:border-r border-TechStopBlue60">
             <ul className="flex flex-col py-4 lg:py-0 text-TechStopBlue">
-              {categoriesItems ? (
-                categoriesItems.map((item: Category) => {
+              {categories ? (
+                categories.map((item) => {
                   return (
                     <li key={item.title}>
                       <Link
-                        href={`/categories/${item.id}`}
+                        href={`/categories/${item.slug}`}
                         onMouseEnter={() => setSelectedCategory(item)}
                         onClick={setShowCatalog}
                       >
                         <div className="flex justify-between text-body1 py-3 px-4 hover:bg-TechStopBlue10">
                           <div className="flex">
                             <Image
-                              src={item.icon}
+                              src={item.icon === null ? laptop : item.icon}
                               alt={item.title}
                               width={24}
                               height={24}
@@ -85,48 +90,75 @@ const CatalogModal = () => {
               )}
             </ul>
           </div>
-          <div className="hidden lg:flex flex-grow">
+          <div className="hidden lg:flex flex-grow text-TechStopBlue">
             {selectedCategory && (
-              <div className="flex-grow grid grid-cols-[repeat(4,_1fr)] gap-[1.5rem 1rem]">
-                {selectedCategory?.subcategories.map(
-                  (subcategory: Subcategory) => (
+              <div className="flex w-full">
+                {selectedCategory?.children.length > 0 && (
+                  <div className="flex flex-col min-w-60 border-r border-TechStopBlue60">
+                    <h3 className="text-Headline6 flex justify-center mb-1">
+                      Популярні категорії
+                    </h3>
+                    <ul className="bg-TechStopBlue10 h-full">
+                      {selectedCategory?.children.map(
+                        (subcategory: Categories) => (
+                          <li
+                            key={subcategory._id}
+                            className="w-full text-body1 px-4 py-[6px]"
+                          >
+                            <Link
+                              href={`/categories/${subcategory.slug}`}
+                              onClick={setShowCatalog}
+                            >
+                              {subcategory.title}
+                            </Link>
+                          </li>
+                        )
+                      )}
+                    </ul>
+                  </div>
+                )}
+                <div className="h-full w-full columns-3">
+                  {selectedCategory?.children.map((subcategory: Categories) => (
                     <div
-                      key={subcategory.id}
-                      className="border-l border-TechStopBlue40 px-4 text-Headline6 text-TechStopBlue60"
+                      key={subcategory._id}
+                      className="customBorder w-full px-4 mb-6 text-Headline6 text-TechStopBlue60 h-max break-inside-avoid-column"
                     >
                       <Link
-                        href={`/categories/${subcategory.id}`}
+                        href={`/categories/${subcategory.slug}`}
                         onClick={setShowCatalog}
+                        className="pb-1"
                       >
-                        {subcategory.name}
+                        {subcategory.title}
                       </Link>
-                      {subcategory.model && (
+                      {subcategory.children && (
                         <div className="text-body1 text-TechStopBlue">
-                          {subcategory?.model.map(
-                            (subModel: SubcategoryModel) => (
+                          {subcategory?.children.map((subModel) => (
+                            <div className="px-4 py-[6px]" key={subModel._id}>
                               <Link
-                                key={subModel.id}
-                                href={`/categories/${subModel.id}`}
+                                key={subModel._id}
+                                href={`/categories/${subModel.slug}`}
                                 onClick={setShowCatalog}
                               >
-                                <div key={subModel.id}>{subModel.name}</div>
+                                <h3>{subModel.title}</h3>
                               </Link>
-                            )
-                          )}
+                            </div>
+                          ))}
                         </div>
                       )}
                     </div>
-                  )
-                )}
-                {Array.from(
-                  { length: 4 - (selectedCategory?.subcategories.length % 4) },
-                  (_, i) => (
-                    <div
-                      key={`empty-${i}`}
-                      className="border-l border-TechStopBlue40 "
-                    ></div>
-                  )
-                )}
+                  ))}
+                  {/* <style jsx>{`
+                  .customBorder::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    width: 1px;
+                    background-color: #02275099;
+                    margin-left: -16px;
+                  }
+                `}</style> */}
+                </div>
               </div>
             )}
           </div>

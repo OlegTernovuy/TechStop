@@ -34,8 +34,6 @@ export default function Home() {
           <OpenCatalogMainPage />
           <ViewProducts />
           <Bestsellers />
-          {/* <HomePageProducts products={viewProducts} title="Недавно переглянуті товари"/> */}
-          {/* <HomePageProducts title="Бестселлери"/> */}
         </div>
       </section>
     </main>
