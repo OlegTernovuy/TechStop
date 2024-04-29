@@ -1,15 +1,15 @@
 "use client";
 
-import ArrowForwardFilled from "@mui/icons-material/ArrowForward";
-
 import { useCatalogModalStore } from "@/store/modalStore";
 import Image from "next/image";
 import Link from "next/link";
 import { Categories } from "@/types";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CloseIcon from "../../public/CloseIcon.svg";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
+
 import laptop from "../../public/catalogIcons/laptop.svg";
+import ChevronRightFilled from "../../public/ChevronRightFilled.svg";
 
 interface ICategoryProps {
   categories: Categories[] | undefined;
@@ -79,7 +79,12 @@ const CatalogModal = ({ categories }: ICategoryProps) => {
                             />
                             <p className="pl-8">{item.title}</p>
                           </div>
-                          <ArrowForwardFilled />
+                          <Image
+                            src={ChevronRightFilled}
+                            alt="ChevronRightFilled"
+                            width={24}
+                            height={24}
+                          />
                         </div>
                       </Link>
                     </li>
