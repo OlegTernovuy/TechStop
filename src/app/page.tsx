@@ -5,6 +5,8 @@ import OpenCatalogMainPage from "../components/OpenCatalogMainPage";
 import ViewProducts from "@/components/ViewProducts";
 import Bestsellers from "@/components/Bestsellers";
 import MainBanerTest from "../../public/MainBanerTest.svg";
+import question_mark from "../../public/question_mark.svg";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Home Shop page",
@@ -18,6 +20,17 @@ export default function Home() {
         <div className="border-b-[1px] border-b-TechStopBlue40">
           <Catalog />
         </div>
+        <Link href={`/InformationCenter`}>
+          <div className="flex text-body1 py-3 px-4 mt-6 hover:bg-TechStopBronze20 text-TechStopBlue">
+            <Image
+              src={question_mark}
+              alt={question_mark}
+              width={24}
+              height={24}
+            />
+            <p className="pl-8">Довідковий центр</p>
+          </div>
+        </Link>
       </aside>
       <section className=" lg:w-[calc(100%_-_300px)]">
         <div className="pb-4 pt-2 lg:pt-4 lg:pl-4">

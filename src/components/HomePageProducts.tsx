@@ -15,56 +15,6 @@ interface ProdProps {
 }
 
 const HomePageProducts = ({ ShowAllItems, title, products }: ProdProps) => {
-  // const products = [
-  //   {
-  //     id: 1,
-  //     inStock: true,
-  //     poster: "/shoppingCardItemTest.svg",
-  //     price: 19990,
-  //     oldPrice: 28990,
-  //     title: "Дуже довга назва товару з якимись цифрами HTG-7658",
-  //   },
-  //   {
-  //     id: 2,
-  //     inStock: true,
-  //     poster: "/shoppingCardItemTest.svg",
-  //     price: 29990,
-  //     oldPrice: 38990,
-  //     title: "Дуже довга назва товару з якимись цифрами HTG-7658",
-  //   },
-  //   {
-  //     id: 3,
-  //     inStock: true,
-  //     poster: "/shoppingCardItemTest.svg",
-  //     price: 29990,
-  //     oldPrice: 38990,
-  //     title: "Дуже довга назва товару з якимись цифрами HTG-7658",
-  //   },
-  //   {
-  //     id: 4,
-  //     inStock: true,
-  //     poster: "/shoppingCardItemTest.svg",
-  //     price: 29990,
-  //     oldPrice: 38990,
-  //     title: "Дуже довга назва товару з якимись цифрами HTG-7658",
-  //   },
-  //   {
-  //     id: 5,
-  //     inStock: true,
-  //     poster: "/shoppingCardItemTest.svg",
-  //     price: 29990,
-  //     oldPrice: 38990,
-  //     title: "Дуже довга назва товару з якимись цифрами HTG-7658",
-  //   },
-  //   {
-  //     id: 6,
-  //     inStock: true,
-  //     poster: "/shoppingCardItemTest.svg",
-  //     price: 29990,
-  //     oldPrice: 38990,
-  //     title: "Дуже довга назва товару з якимись цифрами HTG-7658",
-  //   },
-  // ];
 
   const [columnsToShow, setColumnsToShow] = useState(5);
 
@@ -86,7 +36,7 @@ const HomePageProducts = ({ ShowAllItems, title, products }: ProdProps) => {
   };
 
   return (
-    <div className="lg:pl-4 pt-4 md:pt-5 lg:pt-6 text-TechStopBlue">
+    <div className="text-TechStopBlue w-full">
       <div className="flex justify-between lg:justify-normal pl-2 xl:pl-3 gap-4 items-center">
         <h2 className="text-Headline6 md:text-Headline5 lg:text-Headline4">
           {title}
@@ -110,14 +60,14 @@ const HomePageProducts = ({ ShowAllItems, title, products }: ProdProps) => {
             </button>
           ))}
       </div>
-      <div className="justify-center mt-2">
+      <div className="justify-center mt-4">
         <ul className="flex flex-wrap flex-row w-full ">
           {products != undefined ? (
             products?.map((item, index) => {
               return index < columnsToShow ? (
                 <li
                   key={index}
-                  className="w-1/2 md:w-1/4 xl:w-1/5 px-2 py-2 xl:px-3 xl:py-3"
+                  className="w-1/2 md:w-1/4 xl:w-1/5 px-2 xl:px-3"
                 >
                   <Link href={`/products/${item.id}/about-product`}>
                     <SingleProduct product={item} />

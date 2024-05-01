@@ -6,6 +6,7 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import Image from "next/image";
 import { DiscountPercentage } from "@/constants";
 import { useViewProductsStore } from "@/store/useViewProductsStore";
+import defaultProductIcon from '../../public/defaultProductIcon.svg'
 
 type IProduct = {
   product: Product;
@@ -31,6 +32,7 @@ const SingleProduct = ({ product }: IProduct) => {
   const oldPrice = formatPrice(product.price * DiscountPercentage);
   const newPrice = formatPrice(product.price);
 
+
   return (
     <div
       className="w-full h-full flex flex-col justify-between"
@@ -39,7 +41,7 @@ const SingleProduct = ({ product }: IProduct) => {
       <div>
         <div className="relative">
           <Image
-            src={product.poster}
+            src={product.poster ?? defaultProductIcon}
             alt="cartImage"
             height={370}
             width={240}

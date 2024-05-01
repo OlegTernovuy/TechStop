@@ -7,7 +7,7 @@ const Catalog = async ({ children }: { children?: React.ReactNode }) => {
   const categories = await getCategories();
 
   return (
-    <ul className="flex flex-col py-4 text-TechStopBlue">
+    <ul className="flex flex-col py-6 text-TechStopBlue">
       {categories ? (
         categories.map((item) => {
           return (

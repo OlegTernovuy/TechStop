@@ -9,6 +9,7 @@ import { useCartStore } from "@/store/useCartStore";
 import AdditionalServicesDesktop from "./AdditionalServicesDesktop";
 import formatPrice from "@/app/utils/formatPrice";
 import { DiscountPercentage } from "@/constants";
+import defaultProductIcon from '../../../public/defaultProductIcon.svg'
 
 interface CartItemCardProps {
   product: CartProduct;
@@ -37,7 +38,7 @@ const ProductInCard = ({ product }: CartItemCardProps) => {
     <div className="flex flex-col w-full">
       <div className="flex w-full">
         <Image
-          src={product.poster}
+          src={product.poster ?? defaultProductIcon}
           alt="shoppingCardItem"
           width={320}
           height={488}

@@ -5,8 +5,8 @@ import MaxWidthWrapper from "./MaxWidthWrapper";
 const Footer = () => {
   return (
     <footer className="bg-TechStopWhite text-TechStopBlue pt-10 pb-14 border-t-[1px] border-TechStopBlue40">
-      <MaxWidthWrapper className="md:flex md:justify-around md:gap-5">
-        <div className="flex flex-col">
+      <MaxWidthWrapper className="md:flex md:gap-5">
+        <div className="flex flex-col md:mr-24 lg:mr-56 xl:mr-96">
           <Image
             src="/TechLogo.svg"
             alt="Logo"
