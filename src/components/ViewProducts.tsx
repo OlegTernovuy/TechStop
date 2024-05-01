@@ -13,10 +13,12 @@ const ViewProducts = () => {
   return (
     <div>
       {viewProducts != undefined && viewProducts?.length > 0 && (
-        <HomePageProducts
-          products={viewProducts}
-          title="Недавно переглянуті товари"
-        />
+        <div className="lg:pl-4 py-4 md:py-5 lg:py-6">
+          <HomePageProducts
+            products={viewProducts}
+            title="Недавно переглянуті товари"
+          />
+        </div>
       )}
     </div>
   );

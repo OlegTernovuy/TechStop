@@ -6,6 +6,7 @@ import { useCartStore } from "@/store/useCartStore";
 import { useShoppingCartModalStore } from "@/store/modalStore";
 import formatPrice from "../utils/formatPrice";
 import { DiscountPercentage } from "@/constants";
+import defaultProductIcon from '../../../public/defaultProductIcon.svg'
 
 type ProductProps = {
   product: CartProduct;
@@ -31,7 +32,7 @@ function ProductOrderCard(product: ProductProps) {
     <div className="flex w-full justify-between mb-8">
       <div className="flex w-full text-TechStopBlue">
         <Image
-          src={product.product.poster}
+          src={product.product.poster ?? defaultProductIcon}
           alt="basket"
           width={112}
           height={171}
