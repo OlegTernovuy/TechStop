@@ -60,14 +60,14 @@ const HomePageProducts = ({ ShowAllItems, title, products }: ProdProps) => {
             </button>
           ))}
       </div>
-      <div className="justify-center mt-4">
+      <div className="justify-center mt-2">
         <ul className="flex flex-wrap flex-row w-full ">
           {products != undefined ? (
             products?.map((item, index) => {
               return index < columnsToShow ? (
                 <li
                   key={index}
-                  className="w-1/2 md:w-1/4 xl:w-1/5 px-2 xl:px-3"
+                  className="w-1/2 md:w-1/4 xl:w-1/5 px-2 py-2 xl:px-3 xl:py-3"
                 >
                   <Link href={`/products/${item.id}/about-product`}>
                     <SingleProduct product={item} />
