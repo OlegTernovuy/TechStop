@@ -5,7 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Rating } from "@mui/material";
 import MaterialCheckBox from "./MaterialCheckBox";
-import { IData } from "@/types";
+import { IData,AddServices } from "@/types";
+
 
 import ButtonLabels from "./ButtonLabels";
 import novaPost from "/public/product-card-icons/Nova_Poshta_2014_logo 1.svg";
@@ -16,7 +17,8 @@ const ProductContent: FC<IData> = ({ product }) => {
   const { title, inStock, price, id } = product.data;
 
   const [value, setValue] = useState<number | null>(0);
-
+  const [addService, setAddService] = useState<AddServices[]>([]);
+  
   const handleChangeValue = (e: SyntheticEvent, newValue: number | null) => {
     setValue(newValue);
   };
@@ -62,7 +64,7 @@ const ProductContent: FC<IData> = ({ product }) => {
 
       <form className="flex flex-col gap-6 border-b-[1px]">
 
-        <MaterialCheckBox product={product} />
+        <MaterialCheckBox product={product} addService={addService} />
 
       </form>
 
