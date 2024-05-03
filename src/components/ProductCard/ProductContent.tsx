@@ -8,10 +8,40 @@ import MaterialCheckBox from "./MaterialCheckBox";
 import { IData,AddServices } from "@/types";
 
 
+
 import ButtonLabels from "./ButtonLabels";
 import novaPost from "/public/product-card-icons/Nova_Poshta_2014_logo 1.svg";
 import ukrPost from "/public/product-card-icons/Ukrposhta-ua 1.svg";
 import feedBack from "/public/product-card-icons/CommentOutlined.svg";
+
+const checkboxLabels = [
+  {
+    servicesId: 1,
+    servicesTitle: "warranty",
+    servicesDesc: "Гарантія 24/7",
+    servicesPrice: 500,
+  },
+  {
+    servicesId: 2,
+    servicesTitle: "repairService",
+    servicesDesc: "Сервіс “Ремонт після всього”",
+    servicesPrice: 700,
+  },
+  {
+    servicesId: 3,
+    servicesTitle: "insurance",
+    servicesDesc: "Страховка від стихійних лих",
+    servicesPrice: 1000,
+  },
+  {
+    servicesId: 4,
+    servicesTitle: "nonWarrantyService",
+    servicesDesc: "Сервіс для негарантійних випадків",
+    servicesPrice: 1200,
+  },
+];
+
+
 
 const ProductContent: FC<IData> = ({ product }) => {
   const { title, inStock, price, id } = product.data;
@@ -64,7 +94,7 @@ const ProductContent: FC<IData> = ({ product }) => {
 
       <form className="flex flex-col gap-6 border-b-[1px]">
 
-        <MaterialCheckBox product={product} addService={addService} />
+        <MaterialCheckBox options={checkboxLabels} addService={addService} />
 
       </form>
 
