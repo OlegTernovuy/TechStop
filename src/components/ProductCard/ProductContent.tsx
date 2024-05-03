@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Rating } from "@mui/material";
 import MaterialCheckBox from "./MaterialCheckBox";
-import { AddServices, IData, IOption } from "@/types";
+import { AddServices, IData } from "@/types";
 
 import ButtonLabels from "./ButtonLabels";
 

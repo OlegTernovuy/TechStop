@@ -26,7 +26,9 @@ const ProductNavList: FC<IProductNavListProps> = ({ params }) => {
     return <div>Loading...</div>;
   }
 
-  const { id: paramsId } = params?.data;
+  const { id: paramsId, title } = params?.data;
+
+  const joinedPath = join(currentPath, title);
 
   return (
     <>
@@ -53,8 +55,7 @@ const ProductNavList: FC<IProductNavListProps> = ({ params }) => {
               href="/"
               className="text-TechStopBlue60 hover:text-TechStopBronze transition ease-out duration-300"
             >
-              <span>Головна</span> {currentPath} /Тендер на висадку сакур -
-              Совок вишневий біля хати
+              Головна/{joinedPath}
             </Link>
           </div>
         </div>
