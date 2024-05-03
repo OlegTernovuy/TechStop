@@ -6,60 +6,15 @@ import Link from "next/link";
 import { Rating } from "@mui/material";
 import MaterialCheckBox from "./MaterialCheckBox";
 import { IData } from "@/types";
-
 import ButtonLabels from "./ButtonLabels";
-
 import novaPost from "/public/product-card-icons/Nova_Poshta_2014_logo 1.svg";
 import ukrPost from "/public/product-card-icons/Ukrposhta-ua 1.svg";
-import arrow from "/public/product-card-icons/ArrowUpwardFilled.svg";
 import feedBack from "/public/product-card-icons/CommentOutlined.svg";
-
-const checkboxLabels = [
-  { id: "warranty", name: "warranty", label: "Гарантія 24/7", price: 500 },
-  {
-    id: "repairService",
-    name: "repairService",
-    label: "Сервіс “Ремонт після всього”",
-    price: 700,
-  },
-  {
-    id: "insurance",
-    name: "insurance",
-    label: "Страховка від стихійних лих",
-    price: 1000,
-  },
-  {
-    id: "nonWarrantyService",
-    name: "nonWarrantyService",
-    label: "Сервіс для негарантійних випадків",
-    price: 1200,
-  },
-];
 
 const ProductContent: FC<IData> = ({ product }) => {
   const { title, inStock, price, id } = product.data;
 
   const [value, setValue] = useState<number | null>(0);
-  const [showButton, setShowButton] = useState<boolean>(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowButton(window.scrollY !== 0);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const handleClick = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
 
   const handleChangeValue = (e: SyntheticEvent, newValue: number | null) => {
     setValue(newValue);
@@ -105,7 +60,7 @@ const ProductContent: FC<IData> = ({ product }) => {
       </h3>
 
       <form className="flex flex-col gap-6 border-b-[1px]">
-        <MaterialCheckBox options={checkboxLabels} />
+        <MaterialCheckBox product={product} />
       </form>
 
       <div className="md:flex items-center flex-wrap md:mt-10 mt-2">
@@ -127,17 +82,6 @@ const ProductContent: FC<IData> = ({ product }) => {
           </li>
         </ul>
       </div>
-      <button
-        onClick={handleClick}
-        type="button"
-        className={`rounded-full bg-TechStopBronze w-14 h-14 flex justify-center items-center bottom-[300px] right-[76px] fixed ${
-          showButton
-            ? "block opacity-100 translate-y-0"
-            : "opacity-0 translate-y-10"
-        } hover:bg-yellow-500 focus:bg-yellow-500 transition ease-out duration-300`}
-      >
-        <Image src={arrow} alt="arrow_icon" width={16} height={16} />
-      </button>
     </div>
   );
 };

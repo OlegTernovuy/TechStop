@@ -29,7 +29,7 @@ const ButtonLabels: FC<IData> = ({ product }) => {
     <div className="md:flex items-center border-b-[1px] md:py-10 pt-3 pb-[32px] flex-wrap md:flex-nowrap relative">
       <div className="md:mr-20">
         {" "}
-        <p className="line-through text-TechStopBlue font-medium text-xl mb-1">
+        <p className="line-through text-TechStopBlue text-nowrap font-medium text-xl mb-1">
           28 999 ₴
         </p>
         <p className="text-TechStopRed font-normal text-3xl text-nowrap">

@@ -2,21 +2,61 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { FC, useState } from "react";
+import { useCartStore } from "@/store/useCartStore";
+import { AddServices, Product } from "@/types";
+
+const checkboxOptions = [
+  {
+    servicesId: 1,
+    servicesDesc: "warranty",
+    servicesTitle: "Гарантія 24/7",
+    servicesPrice: 500,
+  },
+  {
+    servicesId: 2,
+    servicesDesc: "repairService",
+    servicesTitle: "Сервіс “Ремонт після всього”",
+    servicesPrice: 700,
+  },
+  {
+    servicesId: 3,
+    servicesDesc: "insurance",
+    servicesTitle: "Страховка від стихійних лих",
+    servicesPrice: 1000,
+  },
+  {
+    servicesId: 4,
+    servicesDesc: "nonWarrantyService",
+    servicesTitle: "Сервіс для негарантійних випадків",
+    servicesPrice: 1200,
+  },
+];
 
 interface IOption {
-  id: string;
-  name: string;
-  label: string;
-  price: number;
-  idx?: string;
+  servicesId?: number;
+  servicesTitle: string;
+  servicesDesc: string;
+  servicesPrice: number;
 }
 
 interface IMaterialCheckBox {
-  options: IOption[];
+  product: {
+    data: Product;
+  };
 }
 
-const MaterialCheckBox: FC<IMaterialCheckBox> = ({ options }) => {
-  const [checked, setChecked] = useState<boolean[]>(options.map(() => false));
+const MaterialCheckBox: FC<IMaterialCheckBox> = ({ product }) => {
+  const { id: productId } = product.data;
+
+  const [checked, setChecked] = useState<boolean[]>(
+    checkboxOptions.map(() => false)
+  );
+
+  const { addAdditionalServices, checkAddService } = useCartStore();
+
+  // const handelAddService = (service: AddServices) => {
+  //   addAdditionalServices(service, productId);
+  // };
 
   const handleChecked = (index: number) => {
     const newItems = [...checked];
@@ -28,9 +68,9 @@ const MaterialCheckBox: FC<IMaterialCheckBox> = ({ options }) => {
     <>
       <FormGroup>
         <ul className="md:pb-8 pb-4">
-          {options.map(({ id, label, price }, index) => (
+          {checkboxOptions.map((service, index) => (
             <li
-              key={id}
+              key={service.servicesId}
               className="flex items-center text-TechStopBlue text-base font-normal"
             >
               {" "}
@@ -40,11 +80,17 @@ const MaterialCheckBox: FC<IMaterialCheckBox> = ({ options }) => {
                     checked={checked[index]}
                     onChange={() => handleChecked(index)}
                   />
+                  //   <Checkbox
+                  //   checked={Boolean(
+                  //     checkAddService(service.servicesId, productId)
+                  //   )}
+                  //   onChange={() => handelAddService(service)}
+                  // />
                 }
-                label={label}
+                label={service.servicesTitle}
               />
               <span className="ml-auto font-medium text-[14px] md:text-xl">
-                {price}₴
+                {service.servicesPrice}₴
               </span>
             </li>
           ))}

@@ -6,6 +6,7 @@ interface IButtonProps {
   children: ReactNode;
   color: string;
   bgColor: string;
+  className?: string;
 }
 
 const Button: FC<IButtonProps> = ({
@@ -14,11 +15,16 @@ const Button: FC<IButtonProps> = ({
   children,
   color,
   bgColor,
+  className,
 }) => {
-  const buttonStyles = `bg-${bgColor} hover:bg-${bgColor}-dark text-${color} font-bold py-2 px-4 rounded`;
+  const buttonStyles = `bg-${bgColor} hover:bg-${bgColor}-dark focus:bg-${bgColor} text-${color} font-bold py-2 px-4 rounded transition ease-out duration-300`;
 
   return (
-    <button type={type} onClick={onClick} className={buttonStyles}>
+    <button
+      type={type}
+      onClick={onClick}
+      className={`${buttonStyles} ${className}`}
+    >
       {children}
     </button>
   );

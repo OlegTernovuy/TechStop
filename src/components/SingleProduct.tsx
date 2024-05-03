@@ -6,6 +6,7 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import Image from "next/image";
 import { DiscountPercentage } from "@/constants";
 import { useViewProductsStore } from "@/store/useViewProductsStore";
+import defaultSingleProduct from "/public/product-card-images/single_product.svg";
 
 type IProduct = {
   product: Product;
@@ -39,7 +40,7 @@ const SingleProduct = ({ product }: IProduct) => {
       <div>
         <div className="relative">
           <Image
-            src={product.poster}
+            src={product.poster || defaultSingleProduct}
             alt="cartImage"
             height={370}
             width={240}
