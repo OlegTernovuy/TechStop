@@ -22,7 +22,7 @@ interface IMaterialCheckBox {
 const MaterialCheckBox: FC<IMaterialCheckBox> = ({ options, addService }) => {
 
   const [checked, setChecked] = useState<boolean[]>(
-    checkboxOptions.map(() => false)
+    options.map(() => false)
   );
 
   const { addAdditionalServices, checkAddService } = useCartStore();
