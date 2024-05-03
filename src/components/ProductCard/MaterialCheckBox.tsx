@@ -90,7 +90,7 @@ const MaterialCheckBox: FC<IMaterialCheckBox> = ({ product }) => {
                 control={
                   <Checkbox
                     checked={checked[index]}
-                    onChange={() => handleChecked(option, index)}
+                    onChange={() => handleChecked(service, index)}
                   />
                   //   <Checkbox
                   //   checked={Boolean(
