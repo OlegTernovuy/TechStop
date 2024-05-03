@@ -4,7 +4,15 @@ import HomePageProducts from "./HomePageProducts";
 const Bestsellers = async () => {
   const data = await getProductsData();
 
-  return <HomePageProducts products={data} title="Бестселлери" />;
+  return (
+    <div>
+      {data === undefined || data?.length === 0 ? null : (
+        <div className="lg:pl-4 py-4 md:py-5 lg:py-6">
+          <HomePageProducts products={data} title="Бестселлери" />
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default Bestsellers;

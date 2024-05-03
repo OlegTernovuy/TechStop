@@ -18,6 +18,10 @@ interface CartState {
     service: AddServices,
     productId: AdditionalServicesDesktopType
   ) => void;
+  addArrayOfAdditionalServices: (
+    services: AddServices[],
+    productId: number
+  ) => void;
   checkAddService: (
     servicesId: number,
     productId: AdditionalServicesDesktopType
@@ -91,6 +95,38 @@ export const useCartStore = create(
             set({ cartItems: updatedCartItems });
             get().countTotalPrice();
           }
+        }
+      },
+      addArrayOfAdditionalServices: (servicesToAdd, productId) => {
+        const { cartItems } = get();
+      
+        const itemIndex = cartItems.findIndex(
+          (item) => item.id === productId
+        );
+      
+        if (itemIndex !== -1) {
+          const updatedCartItems = [...cartItems];
+      
+          const services = updatedCartItems[itemIndex].addServices || [];
+      
+          servicesToAdd.forEach(service => {
+            const serviceIndex = services.findIndex(
+              (itemService) => itemService.servicesId === service.servicesId
+            );
+      
+            if (serviceIndex !== -1) {
+              // Якщо сервіс уже існує, можливо оновити дані про нього або пропустити додавання
+              services[serviceIndex] = service; // Оновлення існуючого сервісу, якщо потрібно
+            } else {
+              services.push(service); // Додавання нового сервісу
+            }
+          });
+      
+          // Оновлення масиву сервісів у кошику
+          updatedCartItems[itemIndex].addServices = services;
+      
+          set({ cartItems: updatedCartItems });
+          get().countTotalPrice();
         }
       },
       checkAddService: (id, productId) => {

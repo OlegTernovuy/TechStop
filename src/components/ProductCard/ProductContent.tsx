@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Rating } from "@mui/material";
 import MaterialCheckBox from "./MaterialCheckBox";
 import { IData } from "@/types";
+
 import ButtonLabels from "./ButtonLabels";
 import novaPost from "/public/product-card-icons/Nova_Poshta_2014_logo 1.svg";
 import ukrPost from "/public/product-card-icons/Ukrposhta-ua 1.svg";
@@ -53,14 +54,16 @@ const ProductContent: FC<IData> = ({ product }) => {
         </li>
       </ul>
 
-      <ButtonLabels product={product} />
+      <ButtonLabels product={product} addService={addService} />
 
       <h3 className="mb-11 text-TechStopBlue text-xl md:text-[34px] font-normal">
         Додаткові послуги
       </h3>
 
       <form className="flex flex-col gap-6 border-b-[1px]">
+
         <MaterialCheckBox product={product} />
+
       </form>
 
       <div className="md:flex items-center flex-wrap md:mt-10 mt-2">

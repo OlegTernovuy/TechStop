@@ -58,10 +58,19 @@ const MaterialCheckBox: FC<IMaterialCheckBox> = ({ product }) => {
   //   addAdditionalServices(service, productId);
   // };
 
-  const handleChecked = (index: number) => {
+
+  const handleChecked = (option: AddServices, index: number) => {
     const newItems = [...checked];
     newItems[index] = !newItems[index];
     setChecked(newItems);
+    const serviceIndex = addService.findIndex(
+      (itemService) => itemService.servicesId === option.servicesId
+    );
+    if (serviceIndex !== -1) {
+      addService.splice(serviceIndex, 1);
+    } else {
+      addService.push(option);
+    }
   };
 
   return (
@@ -71,6 +80,7 @@ const MaterialCheckBox: FC<IMaterialCheckBox> = ({ product }) => {
           {checkboxOptions.map((service, index) => (
             <li
               key={service.servicesId}
+
               className="flex items-center text-TechStopBlue text-base font-normal"
             >
               {" "}
@@ -78,7 +88,7 @@ const MaterialCheckBox: FC<IMaterialCheckBox> = ({ product }) => {
                 control={
                   <Checkbox
                     checked={checked[index]}
-                    onChange={() => handleChecked(index)}
+                    onChange={() => handleChecked(option, index)}
                   />
                   //   <Checkbox
                   //   checked={Boolean(
@@ -87,10 +97,12 @@ const MaterialCheckBox: FC<IMaterialCheckBox> = ({ product }) => {
                   //   onChange={() => handelAddService(service)}
                   // />
                 }
+
                 label={service.servicesTitle}
               />
               <span className="ml-auto font-medium text-[14px] md:text-xl">
                 {service.servicesPrice}₴
+
               </span>
             </li>
           ))}

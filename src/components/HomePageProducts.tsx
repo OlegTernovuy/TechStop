@@ -15,56 +15,6 @@ interface ProdProps {
 }
 
 const HomePageProducts = ({ ShowAllItems, title, products }: ProdProps) => {
-  // const products = [
-  //   {
-  //     id: 1,
-  //     inStock: true,
-  //     poster: "/shoppingCardItemTest.svg",
-  //     price: 19990,
-  //     oldPrice: 28990,
-  //     title: "Дуже довга назва товару з якимись цифрами HTG-7658",
-  //   },
-  //   {
-  //     id: 2,
-  //     inStock: true,
-  //     poster: "/shoppingCardItemTest.svg",
-  //     price: 29990,
-  //     oldPrice: 38990,
-  //     title: "Дуже довга назва товару з якимись цифрами HTG-7658",
-  //   },
-  //   {
-  //     id: 3,
-  //     inStock: true,
-  //     poster: "/shoppingCardItemTest.svg",
-  //     price: 29990,
-  //     oldPrice: 38990,
-  //     title: "Дуже довга назва товару з якимись цифрами HTG-7658",
-  //   },
-  //   {
-  //     id: 4,
-  //     inStock: true,
-  //     poster: "/shoppingCardItemTest.svg",
-  //     price: 29990,
-  //     oldPrice: 38990,
-  //     title: "Дуже довга назва товару з якимись цифрами HTG-7658",
-  //   },
-  //   {
-  //     id: 5,
-  //     inStock: true,
-  //     poster: "/shoppingCardItemTest.svg",
-  //     price: 29990,
-  //     oldPrice: 38990,
-  //     title: "Дуже довга назва товару з якимись цифрами HTG-7658",
-  //   },
-  //   {
-  //     id: 6,
-  //     inStock: true,
-  //     poster: "/shoppingCardItemTest.svg",
-  //     price: 29990,
-  //     oldPrice: 38990,
-  //     title: "Дуже довга назва товару з якимись цифрами HTG-7658",
-  //   },
-  // ];
 
   const [columnsToShow, setColumnsToShow] = useState(5);
 
@@ -86,7 +36,7 @@ const HomePageProducts = ({ ShowAllItems, title, products }: ProdProps) => {
   };
 
   return (
-    <div className="lg:pl-4 pt-4 md:pt-5 lg:pt-6 text-TechStopBlue">
+    <div className="text-TechStopBlue w-full">
       <div className="flex justify-between lg:justify-normal pl-2 xl:pl-3 gap-4 items-center">
         <h2 className="text-Headline6 md:text-Headline5 lg:text-Headline4">
           {title}

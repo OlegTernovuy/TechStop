@@ -23,6 +23,7 @@ import RemoveRedEyeOutlined from "../../public/RemoveRedEyeOutlined.svg";
 import NovaPoshtaLogo from "../../public/NovaPoshtaLogo.svg";
 import UkrposhtaLogo from "../../public/UkrposhtaLogo.svg";
 import shoppingCardItemTest from "../../public//shoppingCardItemTest.svg";
+import reviewIconProduct from '../../public/reviewIconProduct.svg'
 
 export const mobileMenuInfo = [
   {
@@ -467,3 +468,21 @@ export const categories = [
   },
   { id: 3, slug: "music", name: "Музика", subcategories: ["Класична", "Рок"] },
 ];
+
+export const reviews = [
+  {
+    id: 1,
+    icon: reviewIconProduct,
+    title: 'Дуже хороший геймпад, чоловік дуже тішився, покликав друзів, вже тиждень граються',
+  },
+  {
+    id: 2,
+    icon: reviewIconProduct,
+    title: 'Дуже хороший геймпад, чоловік дуже тішився, покликав друзів, вже тиждень граються',
+  },
+  {
+    id: 3,
+    icon: reviewIconProduct,
+    title: 'Дуже хороший геймпад, чоловік дуже тішився, покликав друзів, вже тиждень граються',
+  },
+]

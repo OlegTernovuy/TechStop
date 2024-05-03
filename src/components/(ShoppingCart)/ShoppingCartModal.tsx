@@ -165,10 +165,13 @@ const ShoppingCartModal = () => {
                 />
               </div>
               {viewProducts != undefined && viewProducts?.length > 0 && (
-                <HomePageProducts
-                  products={viewProducts}
-                  title="Недавно переглянуті товари"
-                />
+                <div className="hidden md:flex mb-8 w-full">
+                  <HomePageProducts
+                    products={viewProducts}
+                    title="Недавно переглянуті товари"
+                    ShowAllItems={false}
+                  />
+                </div>
               )}
             </div>
           )}

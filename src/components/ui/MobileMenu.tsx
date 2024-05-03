@@ -2,20 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import {
-  mobileMenuInfo,
-  mobileMenuSocialMedia,
-} from "../../constants";
+import { mobileMenuInfo, mobileMenuSocialMedia } from "../../constants";
 import { NavigationProps } from "../../types";
 import {
   useCatalogModalStore,
   useShoppingCartModalStore,
 } from "@/store/modalStore";
 
-import ButtonCatalogIcon from "../../../public/ButtonCatalogIcon.svg"
-import AccountCircleOutlined from "../../../public/AccountCircleOutlined.svg"
-import question_mark from "../../../public/question_mark.svg"
-import cart from "../../../public/cart.svg"
+import ButtonCatalogIcon from "../../../public/ButtonCatalogIcon.svg";
+import AccountCircleOutlined from "../../../public/AccountCircleOutlined.svg";
+import question_mark from "../../../public/question_mark.svg";
+import cart from "../../../public/cart.svg";
 
 const MobileMenu = ({ nav, handleNav }: NavigationProps) => {
   const setShowCatalog = useCatalogModalStore((state) => state.setShowCatalog);
@@ -45,13 +42,13 @@ const MobileMenu = ({ nav, handleNav }: NavigationProps) => {
             <Image src="CloseIcon.svg" alt="close" width={24} height={24} />
           </button>
         </div>
-        <div className="text-base">
-          <ul className="flex flex-col uppercase">
+        <div className="text-body1">
+          <ul className="flex flex-col">
             <li
               className="py-3 pl-4 hover:bg-TechStopBronze20"
               onClick={handleNav}
             >
-              <button onClick={setShowCatalog} className="flex uppercase">
+              <button onClick={setShowCatalog} className="flex">
                 <Image
                   src={ButtonCatalogIcon}
                   alt="buttonIcon"
@@ -66,7 +63,7 @@ const MobileMenu = ({ nav, handleNav }: NavigationProps) => {
               className="py-3 pl-4 hover:bg-TechStopBronze20"
               onClick={handleNav}
             >
-              <Link href={'/account'} className="flex uppercase">
+              <Link href={"/account"} className="flex">
                 <Image
                   src={AccountCircleOutlined}
                   alt="accountIcon"
@@ -81,7 +78,7 @@ const MobileMenu = ({ nav, handleNav }: NavigationProps) => {
               className="py-3 pl-4 hover:bg-TechStopBronze20"
               onClick={handleNav}
             >
-              <Link href="/" className="flex uppercase">
+              <Link href="/" className="flex">
                 <Image
                   src={question_mark}
                   alt="questionIcon"
@@ -96,7 +93,7 @@ const MobileMenu = ({ nav, handleNav }: NavigationProps) => {
               className="py-3 pl-4 hover:bg-TechStopBronze20"
               onClick={handleNav}
             >
-              <button onClick={setShowShoppingCart} className="flex uppercase">
+              <button onClick={setShowShoppingCart} className="flex">
                 <Image
                   src={cart}
                   alt="cartIcon"
@@ -109,7 +106,7 @@ const MobileMenu = ({ nav, handleNav }: NavigationProps) => {
             </li>
           </ul>
           <hr className="my-2 text-slate-300" />
-          <ul className="flex flex-col uppercase ">
+          <ul className="flex flex-col text-body1">
             {mobileMenuInfo.length > 0 ? (
               mobileMenuInfo.map((item: { title: string; href: string }) => {
                 return (
