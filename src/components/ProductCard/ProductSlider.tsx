@@ -29,7 +29,7 @@ const gallery = [
 ];
 
 const ProductSlider: FC<IData> = ({ product }) => {
-  const { poster, title } = product.data;
+  const { poster, title } = product?.data;
 
   const [current, setCurrent] = useState<number>(0);
 
@@ -75,9 +75,9 @@ const ProductSlider: FC<IData> = ({ product }) => {
                 {" "}
                 <Image
                   src={href}
-                  width={700}
+                  width={720}
                   height={500}
-                  alt="img"
+                  alt="img_product"
                   className=" max-h-[249px]  lg:max-w-[720px] lg:max-h-[500px] my-[125px] lg:my-[250px]"
                 />
               </Transition>
