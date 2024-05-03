@@ -47,7 +47,7 @@ interface IMaterialCheckBox {
   };
 }
 
-const MaterialCheckBox: FC<IMaterialCheckBox> = ({ product }) => {
+const MaterialCheckBox: FC<IMaterialCheckBox> = ({ product,addService }) => {
   const { id: productId } = product.data;
 
   const [checked, setChecked] = useState<boolean[]>(
@@ -59,7 +59,6 @@ const MaterialCheckBox: FC<IMaterialCheckBox> = ({ product }) => {
   // const handelAddService = (service: AddServices) => {
   //   addAdditionalServices(service, productId);
   // };
-    const [addService, setAddService] = useState<IOption[]>([])
 
   const handleChecked = (option: AddServices, index: number) => {
     const newItems = [...checked];
