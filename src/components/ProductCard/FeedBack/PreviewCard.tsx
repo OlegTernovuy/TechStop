@@ -8,16 +8,16 @@ import toast from "react-hot-toast";
 import CustomToast from "@/components/Global/CustomToast";
 
 interface IPreviewCardProps {
-  productData?: IProduct | any;
+  productData: IProduct | any;
 }
 
 const PreviewCard: FC<IPreviewCardProps> = ({ productData }) => {
   const { addItemToCart } = useCartStore();
-  const { data } = productData;
+  // const { data } = productData;
 
   const handleAddItem = () => {
-    addItemToCart(data);
-    toast.success(`Товар ${data?.title} додано до кошика ✅`);
+    addItemToCart(productData?.data);
+    toast.success(`Товар ${productData?.data?.title} додано до кошика ✅`);
   };
 
   return (
