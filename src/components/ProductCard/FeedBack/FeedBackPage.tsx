@@ -1,90 +1,72 @@
 "use client";
 
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import { FC } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { FC, useEffect, useMemo, useState } from "react";
 import CustomerReviews from "./CustomerReviews";
 import PreviewCard from "./PreviewCard";
 import Button from "../Button";
+import CustomToast from "@/components/Global/CustomToast";
+import FeedbackForm from "./FeedbackForm";
+import { IParams } from "@/types";
+import { getProductById } from "@/api";
+import { IProduct } from "../ProductCard.types";
+import DefaultFeedbackForm from "./DefaultFeedbackForm";
 
-type Inputs = {
-  example: string;
-  exampleRequired: string;
-};
+const FeedbackPage: FC<IParams> = ({ params }) => {
+  const { id } = params;
+  const [data, setData] = useState<IProduct | null>(null);
 
-const FeedBackPage: FC = () => {
-  // const [value, setValue] = React.useState<number | null>(2);
+  const productData = useMemo(() => {
+    return getProductById(id);
+  }, [id]);
 
-  const {
-    handleSubmit,
-    watch,
-    register,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      feedback: "",
-    },
-  });
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const product = await productData;
 
-  const handleLeaveFeedback = (data: string) => {
-    console.log("тут буде оброблюватись feedback");
-    console.log(data);
-  };
-  console.log(watch("feedback"));
+      setData(product);
+    };
+
+    fetchProduct();
+  }, [productData]);
 
   return (
     <MaxWidthWrapper>
-      <div className="mt-4 mb-[34px]">
+      <div className="mt-4 ">
         {" "}
-        <h2 className="text-TechStopBlue mb-4">
-          Геймпад Microsoft Xbox Series X | S Wireless Controller Velocity Green
-          (QAU-00091)
+        <h2 className="text-TechStopBlue text-[24px] md:text-5xl font-normal mb-4 md:mb-8">
+          Відгуки покупців про {data?.data?.title}
         </h2>
-        <ul className="md:flex items-center gap-10">
+        <h2 className="text-TechStopBlue font-normal text-base md:text-[34px] mb-6 md:mb-8">
+          Будьте першим, хто залишить відгук про товар
+        </h2>
+        <ul className="md:flex gap-10 ">
           {" "}
-          <li>
+          <li className="w-full">
             {" "}
             <Button
               color="TechStopWhite"
               bgColor="TechStopBlue"
               type="button"
               className="md:hidden w-full py-2 px-6 mb-4 rounded font-medium uppercase"
-              onClick={() => {}}
-              // onClick={handleLeaveFeedback}
             >
               Залишити відгук
             </Button>
-            <form
-              // onSubmit={handleSubmit(handleLeaveFeedback)}
-              className="hidden md:flex items-center border border-TechStopBlue rounded p-4 mb-6"
-            >
-              {" "}
-              <input
-                {...register("feedback")}
-                type="text"
-                placeholder="Залиште свій відгук"
-                className="placeholder-black::placeholder text-TechStopBlue"
-              />
-              {/* {errors.exampleRequired && <span>This field is required</span>} */}
-              <button
-                type="submit"
-                className="ml-auto font-medium uppercase text-TechStopBlue bg-TechStopWhite"
-              >
-                Залишити відгук
-              </button>
-            </form>
-            <CustomerReviews />
+            {/* <FeedbackForm /> */}
+            <DefaultFeedbackForm />
+            {/* <CustomerReviews /> */}
           </li>
           <li>
-            <div className="h-[454px] border-l border-TechStopBlue"></div>
+            <div className="min-h-[96%] border-l border-TechStopBlue hidden md:block"></div>
           </li>
-          <li className="hidden md:block">
-            <PreviewCard />
+          <li className="hidden md:block max-w-[522px]">
+            <PreviewCard productData={data} />
           </li>
         </ul>
       </div>
+      <CustomToast />
     </MaxWidthWrapper>
   );
 };
 
-export default FeedBackPage;
+export default FeedbackPage;

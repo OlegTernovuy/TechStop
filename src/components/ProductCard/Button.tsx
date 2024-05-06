@@ -2,10 +2,10 @@ import { FC, ReactNode } from "react";
 
 interface IButtonProps {
   type: "submit" | "reset" | "button";
-  onClick: () => void;
+  onClick?: () => void;
   children: ReactNode;
-  color: string;
-  bgColor: string;
+  color?: string;
+  bgColor?: string;
   className?: string;
 }
 
@@ -17,7 +17,7 @@ const Button: FC<IButtonProps> = ({
   bgColor,
   className,
 }) => {
-  const buttonStyles = `bg-${bgColor} hover:bg-${bgColor}-dark text-${color} font-bold py-2 px-4 rounded transition ease-out duration-300`;
+  const buttonStyles = `uppercase bg-${bgColor} hover:bg-${bgColor}-dark text-${color} font-bold py-2 px-4 rounded transition ease-out duration-300`;
 
   return (
     <button

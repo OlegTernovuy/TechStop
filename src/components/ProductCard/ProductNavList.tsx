@@ -55,13 +55,14 @@ const ProductNavList: FC<IProductNavListProps> = ({ params }) => {
               href="/"
               className="text-TechStopBlue60 hover:text-TechStopBronze transition ease-out duration-300"
             >
-              Головна/{joinedPath}
+              Головна{joinedPath}
             </Link>
           </div>
         </div>
-        <ul className="flex gap-x-8 border-b-[1px] w-full border-b-TechStopBlue40 mt-6 pb-2 overflow-x-scroll md:overflow-x-auto  ">
+
+        <ul className="flex gap-x-8 border-b-[1px] w-full border-b-TechStopBlue40 mt-6 pb-2 overflow-auto">
           {productNavList.map(({ id, title, path }) => {
-            const joinedPath = join("/products", String(paramsId), path);
+            const joinedPath = join("/products", paramsId.toString(), path);
             const isActive = currentPath === joinedPath;
 
             return (

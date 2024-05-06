@@ -1,16 +1,16 @@
 import { FC } from "react";
+import { useCartStore } from "@/store/useCartStore";
+import { IDataWithServices } from "@/types";
+import { useFavoritesStore } from "@/store/useFavoritesStore";
 
+import CustomToast from "../Global/CustomToast";
+import toast from "react-hot-toast";
 import diagram from "/public/product-card-icons/loan.svg";
 import basket from "/public/product-card-icons/basket.svg";
 import heart from "/public/product-card-icons/heart.svg";
 import Image from "next/image";
-import heartActive from "/public/product-card-icons/heart_active.svg";
 
-import { useCartStore } from "@/store/useCartStore";
-import { IData, IDataWithServices } from "@/types";
-import CustomToast from "../Global/CustomToast";
-import toast from "react-hot-toast";
-import { useFavoritesStore } from "@/store/useFavoritesStore";
+import heartActive from "/public/product-card-icons/heart_active.svg";
 
 const ButtonLabels: FC<IDataWithServices> = ({ product, addService }) => {
   const { price, id, title } = product.data;
