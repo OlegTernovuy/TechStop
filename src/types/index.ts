@@ -35,7 +35,8 @@ export interface IRating {
 }
 
 export interface Product {
-  id: number;
+  // id: number;
+  _id: string;
   inStock: boolean;
   poster: string;
   price: number;
@@ -61,7 +62,8 @@ export type CartProduct = Product & {
 };
 
 export type AdditionalServicesDesktopType = {
-  productId: number;
+  // productId: number;
+  productId: string;
 };
 
 export interface IContactContent
