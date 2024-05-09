@@ -7,6 +7,12 @@ export const useCatalogModalStore = create<CatalogModalState>((set) => ({
     set((state) => ({ showCatalog: (state.showCatalog = !state.showCatalog) })),
 }));
 
+export const useCatalogModalMobileStore = create<CatalogModalState>((set) => ({
+  showCatalog: false,
+  setShowCatalog: () =>
+    set((state) => ({ showCatalog: (state.showCatalog = !state.showCatalog) })),
+}));
+
 export const useShoppingCartModalStore = create<ShoppingCartModalState>(
   (set) => ({
     showShoppingCart: false,

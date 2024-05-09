@@ -20,8 +20,24 @@ const ShoppingCartModal = () => {
   const cartItems = useStore(useCartStore, (state) => state.cartItems);
   const totalPrice = useStore(useCartStore, (state) => state.totalPrice);
 
-  const productsPrice = formatPrice(totalPrice?.totalPrice);
   const productsPriceWithAdd = formatPrice(totalPrice?.priceWithAddService);
+  const calculateDiscountPrice = () => {
+    if (totalPrice && totalPrice.totalPrice !== undefined) {
+      return totalPrice.totalPrice / 5;
+    } else {
+      return undefined;
+    }
+  };
+  const discountPrice = calculateDiscountPrice();
+
+  const calculateProductsPrice = () => {
+    if (totalPrice && totalPrice.totalPrice !== undefined) {
+      return totalPrice.totalPrice * 1.2;
+    } else {
+      return undefined;
+    }
+  };
+  const productsPrice = calculateProductsPrice();
 
   const router = useRouter();
   const pathname = usePathname();
@@ -67,7 +83,7 @@ const ShoppingCartModal = () => {
       <div
         className={
           showShoppingCart
-            ? "fixed inset-0 bg-white overflow-y-auto h-full w-full z-10 md:max-w-[1400px] md:h-min md:max-h-[800px] m-auto md:rounded-lg flex flex-col text-TechStopBlue"
+            ? "fixed inset-0 bg-white overflow-y-auto h-full w-full z-10 md:max-w-[1400px] md:h-min md:max-h-[760px] m-auto md:rounded-lg flex flex-col text-TechStopBlue"
             : "hidden"
         }
       >
@@ -102,7 +118,7 @@ const ShoppingCartModal = () => {
                     <div className="flex justify-between items-center">
                       <p className="text-Headline5">Товар на суму</p>
                       <span className="text-Headline5">
-                        {productsPrice + " ₴"}
+                        {formatPrice(productsPrice) + " ₴"}
                       </span>
                     </div>
                     <div className="flex flex-col gap-6">
@@ -118,7 +134,7 @@ const ShoppingCartModal = () => {
                                     {service.servicesTitle}
                                   </p>
                                   <span className="text-Headline5">
-                                    {service.servicesPrice + " ₴"}
+                                    {formatPrice(service.servicesPrice) + " ₴"}
                                   </span>
                                 </div>
                               );
@@ -128,7 +144,9 @@ const ShoppingCartModal = () => {
                     </div>
                     <div className="flex justify-between items-center">
                       <p className="text-Headline5">Знижка</p>
-                      <span className="text-Headline5">9000 ₴</span>
+                      <span className="text-Headline5">
+                        {formatPrice(discountPrice)} ₴
+                      </span>
                     </div>
                   </div>
                   <div className="flex justify-between items-center">

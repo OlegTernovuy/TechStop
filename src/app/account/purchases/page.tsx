@@ -24,17 +24,17 @@ const Purchases = () => {
 
   const { addItemToCart } = useCartStore();
 
-  const repeatOrder = (orderDetail: IInfoAboutPurchase) => {
-    const newOrder = {
-      id: orderDetail.productId,
-      inStock: orderDetail.inStock,
-      poster: orderDetail.orderIcon,
-      price: orderDetail.orderPrice,
-      title: orderDetail.orderTitle,
-      quantity: orderDetail.orderCount,
-    };
-    addItemToCart(newOrder);
-  };
+  // const repeatOrder = (orderDetail: IInfoAboutPurchase) => {
+  //   const newOrder = {
+  //     id: orderDetail.productId,
+  //     inStock: orderDetail.inStock,
+  //     poster: orderDetail.orderIcon,
+  //     price: orderDetail.orderPrice,
+  //     title: orderDetail.orderTitle,
+  //     quantity: orderDetail.orderCount,
+  //   };
+  //   addItemToCart(newOrder);
+  // };
 
   return (
     <div className="w-full">
@@ -187,7 +187,7 @@ const Purchases = () => {
                           <Button
                             title="Повторити замовлення"
                             stylesButton="flex w-full lg:max-w-[255px] px-6 bg-white text-TechStopBlue border border-TechStopBlue60 uppercase"
-                            onClick={() => repeatOrder(purchases)}
+                            // onClick={() => repeatOrder(purchases)}
                           />
                           <Button
                             title="залишити відгук"

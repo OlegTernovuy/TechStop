@@ -3,9 +3,10 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import CatalogModal from "../components/CatalogModal";
+import CatalogModal from "../components/Catalog/CatalogModal";
 import ShoppingCartModal from "../components/(ShoppingCart)/ShoppingCartModal";
 import { getCategories } from "@/api";
+import CatalogModalMobile from "@/components/Catalog/CatalogModalMobile";
 
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
@@ -25,8 +26,9 @@ export default async function RootLayout({
       <body className={roboto.className}>
         <Navbar />
         {children}
-        <ShoppingCartModal/>
-        <CatalogModal categories={categories}/>
+        <ShoppingCartModal />
+        <CatalogModal categories={categories} />
+        <CatalogModalMobile categories={categories} />
         <Footer />
       </body>
     </html>

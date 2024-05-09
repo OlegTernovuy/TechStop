@@ -1,18 +1,20 @@
 import formatPrice from "@/app/utils/formatPrice";
 import { useCartStore } from "@/store/useCartStore";
-import { Product } from "@/types";
+import { IRating, Product } from "@/types";
 import { Rating } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import Image from "next/image";
 import { DiscountPercentage } from "@/constants";
 import { useViewProductsStore } from "@/store/useViewProductsStore";
 import defaultProductIcon from '../../public/defaultProductIcon.svg'
+import calculateRating from "@/app/utils/calculateRating";
 
 type IProduct = {
   product: Product;
 };
 
 const SingleProduct = ({ product }: IProduct) => {
+  
   const { addItemToCart } = useCartStore();
   const { addItemToViewProducts } = useViewProductsStore();
 
@@ -63,7 +65,7 @@ const SingleProduct = ({ product }: IProduct) => {
         <p className="py-1 text-body1 lg:text-base">{product.title} </p>
       </div>
       <div>
-        <Rating name="read-only" value={2.5} precision={0.5} readOnly />
+        <Rating name="read-only" value={calculateRating(product.rating)} precision={0.5} readOnly />
         <div className="flex justify-between mt-2 items-center">
           <div className="flex flex-col">
             <span className="text-sm line-through">{oldPrice}</span>

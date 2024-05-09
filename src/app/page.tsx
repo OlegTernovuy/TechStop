@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Metadata } from "next";
-import Catalog from "../components/Catalog";
+import Catalog from "../components/Catalog/Catalog";
 import OpenCatalogMainPage from "../components/OpenCatalogMainPage";
 import ViewProducts from "@/components/ViewProducts";
 import Bestsellers from "@/components/Bestsellers";

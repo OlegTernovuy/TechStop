@@ -5,11 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Categories } from "@/types";
 import React, { useEffect, useState } from "react";
-import CloseIcon from "../../public/CloseIcon.svg";
+import CloseIcon from "../../../public/CloseIcon.svg";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 
-import laptop from "../../public/catalogIcons/laptop.svg";
-import ChevronRightFilled from "../../public/ChevronRightFilled.svg";
+import laptop from "../../../public/catalogIcons/laptop.svg";
+import ChevronRightFilled from "../../../public/ChevronRightFilled.svg";
 
 interface ICategoryProps {
   categories: Categories[] | undefined;
@@ -58,7 +58,7 @@ const CatalogModal = ({ categories }: ICategoryProps) => {
           </button>
         </div>
         <div className="text-deWiseBlack flex lg:p-8">
-          <div className="w-full lg:min-w-96 max-w-96 md:border-r border-TechStopBlue60">
+          <div className="w-full lg:min-w-96 md:max-w-96 md:border-r border-TechStopBlue40">
             <ul className="flex flex-col py-4 lg:py-0 text-TechStopBlue">
               {categories ? (
                 categories.map((item) => {
@@ -99,7 +99,7 @@ const CatalogModal = ({ categories }: ICategoryProps) => {
             {selectedCategory && (
               <div className="flex w-full">
                 {selectedCategory?.children.length > 0 && (
-                  <div className="flex flex-col min-w-60 border-r border-TechStopBlue60">
+                  <div className="flex flex-col min-w-60 border-r border-TechStopBlue40">
                     <h3 className="text-Headline6 flex justify-center mb-1">
                       Популярні категорії
                     </h3>

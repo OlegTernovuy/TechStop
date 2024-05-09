@@ -26,12 +26,21 @@ export interface ShoppingCartModalState {
   setShowShoppingCart: () => void;
 }
 
+export interface IRating {
+  "1":  number;
+  "2":  number;
+  "3":  number;
+  "4":  number;
+  "5":  number;
+}
+
 export interface Product {
   id: number;
   inStock: boolean;
   poster: string;
   price: number;
   title: string;
+  rating:  IRating;
 }
 
 export interface AddServices {

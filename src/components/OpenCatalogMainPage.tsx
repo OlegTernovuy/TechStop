@@ -1,10 +1,10 @@
 "use client";
 
-import { useCatalogModalStore } from "@/store/modalStore";
+import { useCatalogModalMobileStore } from "@/store/modalStore";
 import Button from "./ui/Button";
 
 const OpenCatalogMainPage = () => {
-  const setShowCatalog = useCatalogModalStore((state) => state.setShowCatalog);
+  const setShowCatalog = useCatalogModalMobileStore((state) => state.setShowCatalog);
 
   return (
     <Button
