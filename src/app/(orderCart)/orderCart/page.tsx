@@ -82,7 +82,7 @@ function OrderCart() {
         <div className=" w-full md:w-[70%] md:pr-6 md:border-TechStopBlue40 md:border-r">
           {cartItems?.length ? (
             cartItems.map((item) => {
-              return <ProductOrderCard product={item} key={item.id} />;
+              return <ProductOrderCard product={item} key={item._id} />;
             })
           ) : (
             <div>Order Cart is Empty</div>
