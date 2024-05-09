@@ -201,7 +201,7 @@ const UkrPostDelivery = () => {
           </div>
         </div>
         <Button
-          stylesButton="w-full lg:w-[200px] bg-white text-TechStopBronze lg:text-TechStopBlue lg:border border-TechStopBlue60 uppercase"
+          stylesButton="w-full lg:w-[200px] bg-white text-TechStopBronze uppercase"
           title="Зберегти"
         />
       </div>
