@@ -11,10 +11,12 @@ import { IParams } from "@/types";
 import { getProductById } from "@/api";
 import { IProduct } from "../ProductCard.types";
 import DefaultFeedbackForm from "./DefaultFeedbackForm";
+import { useFeedbackStore } from "@/store/useFeedbackStore";
 
 const FeedbackPage: FC<IParams> = ({ params }) => {
   const { id } = params;
   const [data, setData] = useState<IProduct | null>(null);
+  const { feedback } = useFeedbackStore();
 
   const productData = useMemo(() => {
     return getProductById(id);
@@ -37,24 +39,31 @@ const FeedbackPage: FC<IParams> = ({ params }) => {
         <h2 className="text-TechStopBlue text-[24px] md:text-5xl font-normal mb-4 md:mb-8">
           Відгуки покупців про {data?.data?.title}
         </h2>
-        <h2 className="text-TechStopBlue font-normal text-base md:text-[34px] mb-6 md:mb-8">
-          Будьте першим, хто залишить відгук про товар
-        </h2>
+        {feedback.length === 0 && (
+          <h2 className="text-TechStopBlue font-normal text-base md:text-[34px] mb-6 md:mb-8">
+            Будьте першим, хто залишить відгук про товар
+          </h2>
+        )}
         <ul className="md:flex gap-10 ">
           {" "}
           <li className="w-full">
             {" "}
-            <Button
-              color="TechStopWhite"
-              bgColor="TechStopBlue"
-              type="button"
-              className="md:hidden w-full py-2 px-6 mb-4 rounded font-medium uppercase"
-            >
-              Залишити відгук
-            </Button>
-            {/* <FeedbackForm /> */}
-            <DefaultFeedbackForm />
-            {/* <CustomerReviews /> */}
+            {feedback.length !== 0 ? (
+              <Button
+                color="TechStopWhite"
+                bgColor="TechStopBlue"
+                type="button"
+                className="md:hidden w-full py-2 px-6 mb-4 rounded font-medium uppercase"
+              >
+                Залишити відгук
+              </Button>
+            ) : (
+              <div className="md:hidden">
+                <DefaultFeedbackForm />
+              </div>
+            )}
+            {feedback.length === 0 ? <FeedbackForm /> : <DefaultFeedbackForm />}
+            <CustomerReviews />
           </li>
           <li>
             <div className="min-h-[96%] border-l border-TechStopBlue hidden md:block"></div>

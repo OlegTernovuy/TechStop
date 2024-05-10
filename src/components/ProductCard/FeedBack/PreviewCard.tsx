@@ -13,7 +13,6 @@ interface IPreviewCardProps {
 
 const PreviewCard: FC<IPreviewCardProps> = ({ productData }) => {
   const { addItemToCart } = useCartStore();
-  // const { data } = productData;
 
   const handleAddItem = () => {
     addItemToCart(productData?.data);

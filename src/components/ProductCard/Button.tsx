@@ -6,11 +6,13 @@ interface IButtonProps {
   children: ReactNode;
   color?: string;
   bgColor?: string;
+  disabled?: boolean;
   className?: string;
 }
 
 const Button: FC<IButtonProps> = ({
   type,
+  disabled,
   onClick,
   children,
   color,
@@ -21,9 +23,12 @@ const Button: FC<IButtonProps> = ({
 
   return (
     <button
+      disabled={disabled}
       type={type}
       onClick={onClick}
-      className={`${buttonStyles} ${className}`}
+      className={`${buttonStyles} ${className} ${
+        disabled ? "hover:bg-none" : `hover:bg-${bgColor}`
+      }`}
     >
       {children}
     </button>

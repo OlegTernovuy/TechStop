@@ -10,7 +10,10 @@ interface ICustomSmallInputProps {
 }
 
 const CustomSmallInput: FC<ICustomSmallInputProps> = ({ name, label }) => {
-  const { control } = useFormContext();
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
 
   return (
     <>
@@ -21,11 +24,17 @@ const CustomSmallInput: FC<ICustomSmallInputProps> = ({ name, label }) => {
         render={({ field }) => (
           <TextField
             {...field}
-            label={label}
-            className="w-1/3"
+            id={name}
+            error={!!errors[name]}
+            className={`w-full xl:min-w-[320px] ${
+              errors[name] ? "mb-0" : "mb-4"
+            }`}
             variant="outlined"
+            label={label}
             InputProps={{
-              className: "border border-TechStopBlue",
+              className: `border border-TechStopBlue60 ${
+                errors[name] ? "border-transparent" : ""
+              }`,
             }}
           />
         )}

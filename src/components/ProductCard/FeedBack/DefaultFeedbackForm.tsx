@@ -1,5 +1,4 @@
 import { FC } from "react";
-
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { InputLabel, MenuItem } from "@mui/material";
@@ -10,27 +9,32 @@ import {
   SubmitHandler,
   useForm,
 } from "react-hook-form";
+import toast from "react-hot-toast";
+import * as yup from "yup";
 
+import CustomToast from "@/components/Global/CustomToast";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useFeedbackStore } from "@/store/useFeedbackStore";
+import { Rating, IFormFeedback, ratingValues } from "./Feedback.types";
 
 import FormRate from "./FormRate";
 
-import * as yup from "yup";
-import toast from "react-hot-toast";
-import CustomToast from "@/components/Global/CustomToast";
-import { useBaseFeedbackStore } from "@/store/useBaseFeedbackStore";
+const nameRegex = /^[A-Aa-Я]+$/i;
+const emailRegex =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-const futureSchema = yup.object({
-  rating: yup.string(),
-  benefits: yup
+const schema = yup.object({
+  value: yup.string().required("Це поле є обов'язковим"),
+  benefits: yup.string().required("Це поле є обов'язковим"),
+  disadvantages: yup.string().required("Це поле є обов'язковим"),
+  comments: yup.string().min(1, "Занадто коротко").max(99, "Занадто довге"),
+  name: yup
     .string()
-    .matches(/^[A-Za-z]+$/i)
+    .min(1, "Занадто коротко")
+    .max(80, "Занадто довге")
+    .matches(nameRegex, "Некоректне ім'я")
     .required(),
-  disadvantages: yup
-    .string()
-    .matches(/^[A-Za-z]+$/i)
-    .required(),
-  comments: yup.string().min(1).max(99),
+  email: yup.string().matches(emailRegex, "Некоректний email").required(),
 });
 
 const MenuProps = {
@@ -41,72 +45,58 @@ const MenuProps = {
   },
 };
 
-enum Rating {
-  excellent = "Excellent",
-  veryGood = "Very good",
-  good = "Good",
-  notToBad = "Not bad",
-  bad = "Bad",
-}
-
-interface IFormFeedback {
-  id: string;
-  comments: string;
-  rating: Rating;
-  benefits: string;
-  disadvantages: string;
-  name: string;
-  email: string;
-}
-
-const ratingValues: Rating[] = [
-  Rating.excellent,
-  Rating.veryGood,
-  Rating.good,
-  Rating.notToBad,
-  Rating.bad,
-];
-
 const DefaultFeedbackForm: FC = () => {
-  const { addNewBaseFeedback } = useBaseFeedbackStore();
+  const { addNewFeedback } = useFeedbackStore();
 
-  const methods = useForm<IFormFeedback>({
+  const methods = useForm({
+    resolver: yupResolver(schema),
     defaultValues: {
       benefits: "",
       disadvantages: "",
       comments: "",
       name: "",
       email: "",
-      rating: Rating.excellent,
+      value: Rating.excellent,
     },
   });
 
-  const { reset, handleSubmit, control } = methods;
+  const {
+    reset,
+    handleSubmit,
+    control,
+    register,
+    formState: { errors },
+  } = methods;
 
   const onSubmit: SubmitHandler<IFormFeedback> = (data) => {
     if (!data) {
       toast.error("Field can`t be is empty");
       return;
     }
-    console.log(data);
-    addNewBaseFeedback(data);
+
+    addNewFeedback(data);
+    toast.success("Дякую за відгук 🙌");
     reset();
   };
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)} className="mb-6">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-4 mb-6"
+      >
         <FormControl className="w-full border mb-4">
-          <InputLabel id="rating">Оцініть товар</InputLabel>
+          <InputLabel id="value">Оцініть товар</InputLabel>
           <Controller
-            name="rating"
+            name="value"
             control={control}
             render={({ field }) => (
               <Select
                 {...field}
+                {...register("value")}
                 className="border border-TechStopBlue"
-                label="rating"
-                id="rating"
+                label="value"
+                id="value"
                 MenuProps={MenuProps}
                 input={<OutlinedInput label="Оцініть товар" />}
               >
@@ -119,7 +109,7 @@ const DefaultFeedbackForm: FC = () => {
             )}
           />
         </FormControl>
-        <FormRate />
+        <FormRate errors={errors} />
 
         <CustomToast />
       </form>

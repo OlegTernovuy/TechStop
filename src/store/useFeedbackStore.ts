@@ -4,11 +4,13 @@ import { persist } from "zustand/middleware";
 
 interface IFeedback {
   id?: string;
-  feedback: string;
-  benefits?: string;
-  disadvantages?: string;
-  name?: string;
-  email?: string;
+  value: string;
+  benefits: string;
+  disadvantages: string;
+  comments?: string;
+  name: string;
+  email: string;
+  date?: string;
 }
 
 interface IFeedbackStore {
@@ -21,13 +23,31 @@ export const useFeedbackStore = create(
     (set, get) => ({
       feedback: [],
       addNewFeedback: (data) => {
-        const { feedback } = data;
+        const { value, benefits, disadvantages, comments, name, email, date } =
+          data;
+
+        const currentDate: Date = new Date();
+        const options: Intl.DateTimeFormatOptions = {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        };
+        const formattedDate: string = currentDate.toLocaleDateString(
+          "uk-UA",
+          options
+        );
 
         const newFeedback: IFeedback = {
           id: nanoid(),
-          feedback,
+          value,
+          benefits,
+          disadvantages,
+          comments,
+          name,
+          email,
+          date: formattedDate,
         };
-
+        console.log(newFeedback);
         set({ feedback: [...get().feedback, newFeedback] });
       },
     }),

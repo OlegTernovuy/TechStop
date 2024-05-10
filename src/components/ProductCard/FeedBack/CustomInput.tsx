@@ -15,7 +15,11 @@ const CustomInput: FC<ICustomInputProps> = ({
   multiline = false,
   rows = 1,
 }) => {
-  const { control } = useFormContext();
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
+  console.log(errors[name] ? "Є помилки" : "немає помилок");
   return (
     <Controller
       name={name}
@@ -25,13 +29,16 @@ const CustomInput: FC<ICustomInputProps> = ({
         <TextField
           {...field}
           id={name}
-          className="w-full mb-4"
+          error={!!errors[name]}
+          className={`w-full ${errors[name] ? "mb-0" : "mb-4"}`}
           label={label}
           variant="outlined"
           multiline={multiline}
           rows={rows}
           InputProps={{
-            className: "border border-TechStopBlue",
+            className: `border border-TechStopBlue60  ${
+              errors[name] ? "border-transparent" : ""
+            }`,
           }}
         />
       )}
