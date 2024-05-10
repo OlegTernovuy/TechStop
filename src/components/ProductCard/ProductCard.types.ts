@@ -1,10 +1,10 @@
-interface Product {
+export interface IProduct {
   data: {
     _id: string;
     title: string;
     price: number;
     inStock: boolean;
-    id: number | string;
+    id: number;
     poster: string;
   };
 }

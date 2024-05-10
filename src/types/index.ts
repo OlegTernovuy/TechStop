@@ -172,6 +172,12 @@ export interface Category {
 
 //* Product-card types
 
+export interface IParams {
+  params: {
+    id: string;
+  };
+}
+
 export interface IOption {
   id: string;
   name: string;

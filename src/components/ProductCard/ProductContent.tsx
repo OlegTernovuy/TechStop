@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useState, SyntheticEvent, useEffect } from "react";
+import { FC, useState, SyntheticEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Rating } from "@mui/material";
@@ -11,7 +11,6 @@ import ButtonLabels from "./ButtonLabels";
 
 import novaPost from "/public/product-card-icons/Nova_Poshta_2014_logo 1.svg";
 import ukrPost from "/public/product-card-icons/Ukrposhta-ua 1.svg";
-import arrow from "/public/product-card-icons/ArrowUpwardFilled.svg";
 import feedBack from "/public/product-card-icons/CommentOutlined.svg";
 
 const checkboxLabels = [
@@ -45,29 +44,8 @@ const ProductContent: FC<IData> = ({ product }) => {
   const { title, inStock, price, id } = product.data;
 
   const [value, setValue] = useState<number | null>(0);
-  const [showButton, setShowButton] = useState<boolean>(false);
 
   const [addService, setAddService] = useState<AddServices[]>([]);
-  // console.log(addService);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowButton(window.scrollY !== 0);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const handleClick = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
 
   const handleChangeValue = (e: SyntheticEvent, newValue: number | null) => {
     setValue(newValue);
@@ -98,10 +76,10 @@ const ProductContent: FC<IData> = ({ product }) => {
         <li className="ml-auto md:ml-0">
           <Link
             href={`/products/${id}/feedback`}
-            className="uppercase text-TechStopBronze font-medium text-base flex gap-3 "
+            className="uppercase text-TechStopBronze font-medium text-base flex gap-3 hover:scale-110 transition ease-out duration-300"
           >
             <Image src={feedBack} alt="feedBack_icon" width={20} height={20} />
-            Відгуки
+            <span> Відгуки (0)</span>
           </Link>
         </li>
       </ul>
@@ -135,17 +113,6 @@ const ProductContent: FC<IData> = ({ product }) => {
           </li>
         </ul>
       </div>
-      <button
-        onClick={handleClick}
-        type="button"
-        className={`rounded-full bg-TechStopBronze w-14 h-14 flex justify-center items-center bottom-[300px] right-[76px] fixed ${
-          showButton
-            ? "block opacity-100 translate-y-0"
-            : "opacity-0 translate-y-10"
-        } hover:bg-yellow-500 focus:bg-yellow-500 transition ease-out duration-300`}
-      >
-        <Image src={arrow} alt="arrow_icon" width={16} height={16} />
-      </button>
     </div>
   );
 };
