@@ -29,7 +29,7 @@ const ProductNavList: FC<IProductNavListProps> = ({ params }) => {
   const { id: paramsId, title } = params?.data;
 
   const joinedPath = join(currentPath, title);
-
+  // console.log(joinedPath);
   return (
     <>
       <nav>

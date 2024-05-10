@@ -1,3 +1,5 @@
+"use client";
+
 import { FC } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { TextField } from "@mui/material";
@@ -19,7 +21,7 @@ const CustomInput: FC<ICustomInputProps> = ({
     control,
     formState: { errors },
   } = useFormContext();
-  console.log(errors[name] ? "Є помилки" : "немає помилок");
+
   return (
     <Controller
       name={name}

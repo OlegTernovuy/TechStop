@@ -1,4 +1,4 @@
-import FeedbackPage from "@/components/ProductCard/FeedBack/FeedbackPage";
+import FeedbackPage from "@/components/ProductCard/FeedBack/Feedback";
 import { IParams } from "@/types";
 import { FC } from "react";
 
