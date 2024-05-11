@@ -26,7 +26,7 @@ const ProductNavList: FC<IProductNavListProps> = ({ params }) => {
     return <div>Loading...</div>;
   }
 
-  const { id: paramsId, title } = params?.data;
+  const { _id: paramsId, title } = params?.data;
 
   const joinedPath = join(currentPath, title);
 

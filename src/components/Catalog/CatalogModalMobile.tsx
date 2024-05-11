@@ -33,6 +33,11 @@ const CatalogModalMobile = ({ categories }: ICategoryProps) => {
     setSubcategory([]);
   };
 
+  const closeCatalogModal = () => {
+    setShowCatalog();
+    setSubcategory([]);
+  }
+
   return (
     <div
       className={
@@ -94,7 +99,7 @@ const CatalogModalMobile = ({ categories }: ICategoryProps) => {
               {subcategory.map((item) => {
                 return (
                   <li key={item.title}>
-                    <Link href={`/categories/${item.slug}`}>
+                    <Link href={`/categories/${item.slug}`} onClick={closeCatalogModal}>
                       <div className="flex justify-between text-body1 py-3 px-4 hover:bg-TechStopBronze20">
                         <p>{item.title}</p>
                       </div>

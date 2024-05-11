@@ -5,6 +5,7 @@ import {
   AdditionalServicesDesktopType,
   CartProduct,
   Product,
+  ProductInCart,
 } from "../types";
 
 interface TotalPrices {
@@ -26,7 +27,7 @@ interface CartState {
     servicesId: number,
     productId: AdditionalServicesDesktopType
   ) => void;
-  addItemToCart: (item: Product) => void;
+  addItemToCart: (item: ProductInCart) => void;
   increaseQuantity: (productId: string) => void;
   decreaseQuantity: (productId: string) => void;
   removeItemFromCart: (productId: string) => void;
@@ -154,7 +155,7 @@ export const useCartStore = create(
           set({
             cartItems: [
               ...get().cartItems,
-              { ...item, quantity: 1, addServices: [] },
+              { ...item, quantity: item.quantity ?? 1, addServices: [] },
             ],
           });
         }

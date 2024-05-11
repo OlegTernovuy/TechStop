@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Categories, Product } from "@/types";
+import { PurchasesData } from "@/app/account/purchases/purchasesType";
 
 const BASE_URL = "https://team-project-server-41ev.onrender.com/api";
 
@@ -46,3 +47,19 @@ export const getCategories = async (): Promise<Categories[] | undefined> => {
     console.log((error as Error).message);
   }
 };
+
+export const getOrders = async (): Promise<PurchasesData[] | undefined> => {
+  try {
+    const res = await fetch(`${BASE_URL}/orders`, {
+      next: { revalidate: 10 },
+    });
+    if (res.status !== 200) {
+      throw new Error("Something went wrong");
+    }
+
+    return res.json().then((res) => res.data);
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+

@@ -34,6 +34,14 @@ export interface IRating {
   "5":  number;
 }
 
+export interface ProductInCart {
+  _id: string;
+  poster: string;
+  price: number;
+  title: string;
+  quantity?: number;
+}
+
 export interface Product {
   // id: number;
   _id: string;
@@ -55,7 +63,12 @@ export type addAdditionalServices = AddServices & {
   productId: number;
 };
 
-export type CartProduct = Product & {
+// export type CartProduct = Product & {
+//   quantity: number;
+// } & {
+//   addServices?: AddServices[];
+// };
+export type CartProduct = ProductInCart & {
   quantity: number;
 } & {
   addServices?: AddServices[];

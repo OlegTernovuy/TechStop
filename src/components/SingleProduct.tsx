@@ -62,13 +62,13 @@ const SingleProduct = ({ product }: IProduct) => {
             />
           </div>
         </div>
-        <p className="py-1 text-body1 lg:text-base">{product.title} </p>
+        <p className="py-1 text-TechStopBlue text-body1 lg:text-base">{product.title} </p>
       </div>
       <div>
         <Rating name="read-only" value={calculateRating(product.rating)} precision={0.5} readOnly />
         <div className="flex justify-between mt-2 items-center">
           <div className="flex flex-col">
-            <span className="text-sm line-through">{oldPrice}</span>
+            <span className="text-sm line-through text-TechStopBlue">{oldPrice}</span>
             <span className="text-TechStopRed text-xl">{newPrice}</span>
           </div>
           <div className="flex space-x-2.5">
