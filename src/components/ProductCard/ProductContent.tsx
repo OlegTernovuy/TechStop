@@ -77,6 +77,7 @@ const ProductContent: FC<IData> = ({ product }) => {
           <Link
             href={`/products/${_id}/feedback`}
             className="uppercase text-TechStopBronze font-medium text-base flex gap-3 hover:scale-110 transition ease-out duration-300"
+          >
             <Image src={feedBack} alt="feedBack_icon" width={20} height={20} />
             <span> Відгуки (0)</span>
           </Link>
