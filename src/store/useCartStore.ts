@@ -5,6 +5,7 @@ import {
   AdditionalServicesDesktopType,
   CartProduct,
   Product,
+  ProductInCart,
 } from "../types";
 
 interface TotalPrices {
@@ -20,16 +21,16 @@ interface CartState {
   ) => void;
   addArrayOfAdditionalServices: (
     services: AddServices[],
-    productId: number
+    productId: string
   ) => void;
   checkAddService: (
     servicesId: number,
     productId: AdditionalServicesDesktopType
   ) => void;
-  addItemToCart: (item: Product) => void;
-  increaseQuantity: (productId: number) => void;
-  decreaseQuantity: (productId: number) => void;
-  removeItemFromCart: (productId: number) => void;
+  addItemToCart: (item: ProductInCart) => void;
+  increaseQuantity: (productId: string) => void;
+  decreaseQuantity: (productId: string) => void;
+  removeItemFromCart: (productId: string) => void;
   totalPrice: { totalPrice: number; priceWithAddService: number };
   countTotalPrice: () => void;
   getTotalPriceOneProduct: (product: CartProduct) => TotalPrices;
@@ -73,7 +74,7 @@ export const useCartStore = create(
         const { cartItems } = get();
 
         const itemIndex = cartItems.findIndex(
-          (item) => item.id === productId.productId
+          (item) => item._id === productId.productId
         );
 
         if (itemIndex !== -1) {
@@ -101,7 +102,7 @@ export const useCartStore = create(
         const { cartItems } = get();
       
         const itemIndex = cartItems.findIndex(
-          (item) => item.id === productId
+          (item) => item._id === productId
         );
       
         if (itemIndex !== -1) {
@@ -133,7 +134,7 @@ export const useCartStore = create(
         const { cartItems } = get();
 
         const product = cartItems.find(
-          (item) => item.id === productId.productId
+          (item) => item._id === productId.productId
         );
 
         if (!product || !product.addServices) {
@@ -144,7 +145,7 @@ export const useCartStore = create(
 
       addItemToCart: (item) => {
         const itemExists = get().cartItems.find(
-          (cartItem) => cartItem.id === item.id
+          (cartItem) => cartItem._id === item._id
         );
 
         if (itemExists) {
@@ -154,7 +155,7 @@ export const useCartStore = create(
           set({
             cartItems: [
               ...get().cartItems,
-              { ...item, quantity: 1, addServices: [] },
+              { ...item, quantity: item.quantity ?? 1, addServices: [] },
             ],
           });
         }
@@ -162,7 +163,7 @@ export const useCartStore = create(
       },
       increaseQuantity: (productId) => {
         const itemExists = get().cartItems.find(
-          (cartItem) => cartItem.id === productId
+          (cartItem) => cartItem._id === productId
         );
         if (itemExists) {
           itemExists.quantity++;
@@ -172,7 +173,7 @@ export const useCartStore = create(
       },
       decreaseQuantity: (productId) => {
         const itemExists = get().cartItems.find(
-          (cartItem) => cartItem.id === productId
+          (cartItem) => cartItem._id === productId
         );
         if (itemExists) {
           if (itemExists?.quantity === 1) {
@@ -187,12 +188,12 @@ export const useCartStore = create(
       },
       removeItemFromCart: (productId) => {
         const itemExists = get().cartItems.find(
-          (item) => item.id === productId
+          (item) => item._id === productId
         );
 
         if (itemExists) {
           const updateCartItems = get().cartItems.filter(
-            (item) => item.id !== productId
+            (item) => item._id !== productId
           );
           set({ cartItems: updateCartItems });
         }

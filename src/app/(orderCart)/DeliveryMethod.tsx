@@ -187,7 +187,7 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
                         setSearch("");
                         setSelectedCity(false);
                       }}
-                      className="text-sm md:text-base"
+                      className="text-sm md:text-base text-TechStopBlue"
                     >
                       {city?.Present}
                     </MenuItem>

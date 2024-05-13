@@ -23,10 +23,10 @@ const ProductInCard = ({ product }: CartItemCardProps) => {
     getTotalPriceOneProduct,
   } = useCartStore();
 
-  const onIncreaseQuantity = (productId: number) => {
+  const onIncreaseQuantity = (productId: string) => {
     increaseQuantity(productId);
   };
-  const onDecreaseQuantity = (productId: number) => {
+  const onDecreaseQuantity = (productId: string) => {
     decreaseQuantity(productId);
   };
 
@@ -48,13 +48,13 @@ const ProductInCard = ({ product }: CartItemCardProps) => {
           <div className="flex justify-between">
             <p className="text-base md:text-Headline5">{product.title}</p>
             <ThreeDotsSymbolMobile
-              onRemoveItem={() => removeItemFromCart(product.id)}
+              onRemoveItem={() => removeItemFromCart(product._id)}
             />
           </div>
 
           <div className="flex md:gap-8 justify-between w-full">
             <div className="flex items-center">
-              <button onClick={() => onDecreaseQuantity(product.id)}>
+              <button onClick={() => onDecreaseQuantity(product._id)}>
                 <Image
                   src="/removeFilled.svg"
                   alt="removeFilled"
@@ -71,7 +71,7 @@ const ProductInCard = ({ product }: CartItemCardProps) => {
                 width={48}
                 height={40}
               />
-              <button onClick={() => onIncreaseQuantity(product.id)}>
+              <button onClick={() => onIncreaseQuantity(product._id)}>
                 <Image
                   src="/addFilled.svg"
                   alt="addFilled"
@@ -91,12 +91,12 @@ const ProductInCard = ({ product }: CartItemCardProps) => {
           </div>
 
           <div className="hidden md:block">
-            <AdditionalServicesDesktop productId={product.id} />
+            <AdditionalServicesDesktop productId={product._id} />
           </div>
         </div>
       </div>
       <div className="md:hidden">
-        <AdditionalServicesMobile productId={product.id} />
+        <AdditionalServicesMobile productId={product._id} />
       </div>
     </div>
   );

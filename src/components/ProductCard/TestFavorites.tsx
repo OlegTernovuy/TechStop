@@ -6,8 +6,8 @@ const TestFavorites: FC = () => {
 
   return (
     <div>
-      {favorites.map(({ id, price, title }) => (
-        <li key={id} className="text-TechStopBlue">
+      {favorites.map(({ _id, price, title }) => (
+        <li key={_id} className="text-TechStopBlue">
           <p>
             PRICE <strong>{price}</strong>
           </p>
@@ -15,7 +15,7 @@ const TestFavorites: FC = () => {
             TITLE <strong>{title}</strong>
           </p>
           <p>
-            ID <strong>{id}</strong>
+            ID <strong>{_id}</strong>
           </p>
         </li>
       ))}

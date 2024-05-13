@@ -13,19 +13,19 @@ import Image from "next/image";
 import heartActive from "/public/product-card-icons/heart_active.svg";
 
 const ButtonLabels: FC<IDataWithServices> = ({ product, addService }) => {
-  const { price, id, title } = product.data;
+  const { price, _id, title } = product.data;
   const { addItemToCart } = useCartStore();
   const { toggleProductCardToFavorites, favorites } = useFavoritesStore();
   const { addArrayOfAdditionalServices } = useCartStore();
 
   const handleAddItem = () => {
     addItemToCart(product.data);
-    addArrayOfAdditionalServices(addService, product.data.id);
+    addArrayOfAdditionalServices(addService, product.data._id);
     toast.success(`Product ${title} was added to basket`);
   };
 
-  const isFavoriteTeacher = (id: number) =>
-    favorites.some((product) => product.id === id);
+  const isFavoriteTeacher = (id: string) =>
+    favorites.some((product) => product._id === id);
 
   return (
     <div className="md:flex items-center border-b-[1px] md:py-10 pt-3 pb-[32px] flex-wrap md:flex-nowrap relative">
@@ -74,7 +74,7 @@ const ButtonLabels: FC<IDataWithServices> = ({ product, addService }) => {
           >
             <div className="flex gap-[10px]">
               {" "}
-              {isFavoriteTeacher(id) ? (
+              {isFavoriteTeacher(_id) ? (
                 <Image src={heartActive} alt="basket" width={20} height={20} />
               ) : (
                 <Image src={heart} alt="basket" width={20} height={20} />

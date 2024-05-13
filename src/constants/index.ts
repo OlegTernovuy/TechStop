@@ -420,7 +420,7 @@ export const InfoAboutPurchase = [
     orderNumber: "123456",
     orderStatus: "Виконано",
     orderDate: "4 квітня 2024",
-    orderIcon: shoppingCardItemTest,
+    orderIcon: reviewIconProduct,
     orderTitle:
       "Геймпад Microsoft Xbox Series X | S Wireless Controller Velocity Green (QAU-00091)",
     orderPrice: 19999,

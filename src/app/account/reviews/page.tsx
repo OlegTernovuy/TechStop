@@ -7,7 +7,7 @@ import { IReviewPersonalAccount } from "@/types";
 const Reviews = () => {
   return (
     <div>
-      <h2 className="w-full text-Headline5 md:text-Headline4 text-TechStopBlue mb-4 md:mb-6">
+      <h2 className="w-full hidden md:flex text-Headline5 md:text-Headline4 text-TechStopBlue mb-4 md:mb-6">
       Мої відгуки
       </h2>
       <ul className="flex flex-col gap-2 w-full">

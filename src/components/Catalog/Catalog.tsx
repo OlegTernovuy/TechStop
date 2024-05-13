@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import laptop from "../../public/catalogIcons/laptop.svg";
+import laptop from "../../../public/catalogIcons/laptop.svg";
 import { getCategories } from "@/api";
+import { CatalogItem } from "@/constants";
 
 const Catalog = async ({ children }: { children?: React.ReactNode }) => {
   const categories = await getCategories();
@@ -10,6 +11,8 @@ const Catalog = async ({ children }: { children?: React.ReactNode }) => {
     <ul className="flex flex-col py-6 text-TechStopBlue">
       {categories ? (
         categories.map((item) => {
+          // const catalogItem = CatalogItem.find((catalogItem) => catalogItem.id === item.id);
+          // const iconSrc = catalogItem ? catalogItem.icon : laptop;
           return (
             <li key={item.title}>
               <Link href={`/categories/${item.slug}`}>

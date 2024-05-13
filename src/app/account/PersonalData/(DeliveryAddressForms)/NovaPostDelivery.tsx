@@ -144,7 +144,7 @@ const NovaPostDelivery = () => {
                   render={({ field }) => (
                     <div
                       className={
-                        "mt-2 border-[2px] bg-white border-TechStopBlue60 rounded max-h-44 overflow-y-auto relative z-50"
+                        "mt-2 border-[2px] bg-white text-TechStopBlue border-TechStopBlue60 rounded max-h-44 overflow-y-auto relative z-50"
                       }
                     >
                       {searchCity.length > 0 &&
@@ -211,7 +211,7 @@ const NovaPostDelivery = () => {
           </div>
         </div>
         <Button
-          stylesButton="w-full lg:w-[200px] bg-white text-TechStopBronze lg:text-TechStopBlue lg:border border-TechStopBlue60 uppercase"
+          stylesButton="w-full lg:w-[200px] bg-white text-TechStopBronze uppercase"
           title="Зберегти"
         />
       </div>

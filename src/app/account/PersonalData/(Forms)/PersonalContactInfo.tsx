@@ -79,8 +79,8 @@ const PersonalContactInfo = () => {
         Контактна інформація
       </h2>
       <div className="flex flex-col lg:flex-row justify-between gap-6 pt-4">
-        <div className="flex flex-col xl:flex-row gap-6">
-          <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-col md:flex-row gap-6">
             <Controller
               control={control}
               name="name"
@@ -91,6 +91,40 @@ const PersonalContactInfo = () => {
                   placeholder="Ім'я"
                   error={!!errors?.name}
                   helperText={errors.name?.message}
+                  onChange={(e) => field.onChange(e)}
+                  value={field.value}
+                  className={`${classes.root} w-full lg:w-80`}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name="surname"
+              render={({ field }) => (
+                <TextField
+                  label="Прізвище"
+                  variant="standard"
+                  placeholder="Прізвище"
+                  error={!!errors?.surname}
+                  helperText={errors.surname?.message}
+                  onChange={(e) => field.onChange(e)}
+                  value={field.value}
+                  className={`${classes.root} w-full lg:w-80`}
+                />
+              )}
+            />
+          </div>
+          <div className="flex flex-col md:flex-row-reverse gap-6">
+            <Controller
+              control={control}
+              name="email"
+              render={({ field }) => (
+                <TextField
+                  label="Email"
+                  variant="standard"
+                  placeholder="Email"
+                  error={!!errors?.email}
+                  helperText={errors.email?.message}
                   onChange={(e) => field.onChange(e)}
                   value={field.value}
                   className={`${classes.root} w-full lg:w-80`}
@@ -113,6 +147,8 @@ const PersonalContactInfo = () => {
                 />
               )}
             />
+          </div>
+          <div className="flex flex-col md:flex-row gap-6">
             <Controller
               control={control}
               name="birthdate"
@@ -130,43 +166,9 @@ const PersonalContactInfo = () => {
               )}
             />
           </div>
-          <div className="flex flex-col gap-6">
-            <Controller
-              control={control}
-              name="surname"
-              render={({ field }) => (
-                <TextField
-                  label="Прізвище"
-                  variant="standard"
-                  placeholder="Прізвище"
-                  error={!!errors?.surname}
-                  helperText={errors.surname?.message}
-                  onChange={(e) => field.onChange(e)}
-                  value={field.value}
-                  className={`${classes.root} w-full lg:w-80`}
-                />
-              )}
-            />
-            <Controller
-              control={control}
-              name="email"
-              render={({ field }) => (
-                <TextField
-                  label="Email"
-                  variant="standard"
-                  placeholder="Email"
-                  error={!!errors?.email}
-                  helperText={errors.email?.message}
-                  onChange={(e) => field.onChange(e)}
-                  value={field.value}
-                  className={`${classes.root} w-full lg:w-80`}
-                />
-              )}
-            />
-          </div>
         </div>
         <Button
-          stylesButton="w-full lg:w-[200px] bg-white text-TechStopBronze lg:text-TechStopBlue lg:border border-TechStopBlue60 uppercase"
+          stylesButton="w-full lg:w-[200px] bg-white text-TechStopBronze uppercase"
           title="Зберегти"
         />
       </div>

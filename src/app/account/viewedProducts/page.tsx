@@ -13,17 +13,17 @@ const ViewedProducts = () => {
 
   return (
     <div>
-      <h2 className="w-full text-Headline5 md:text-Headline4 text-TechStopBlue mb-4 md:mb-6">
+      <h2 className="w-full hidden md:flex text-Headline5 md:text-Headline4 text-TechStopBlue mb-4 md:mb-6">
         Переглянуті товари
       </h2>
       <ul className="flex flex-wrap flex-row w-full">
         {ViewedProducts &&
           ViewedProducts.map((viewedProduct) => (
             <li
-              key={viewedProduct.id}
+              key={viewedProduct._id}
               className="w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-2 py-2"
             >
-              <Link href={`/products/${viewedProduct.id}/about-product`}>
+              <Link href={`/products/${viewedProduct._id}/about-product`}>
                 <SingleProduct product={viewedProduct} />
               </Link>
             </li>
