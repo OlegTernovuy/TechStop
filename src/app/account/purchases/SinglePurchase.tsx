@@ -19,7 +19,6 @@ const SinglePurchase = ({ purchases }: Purchase) => {
   const formattedDate = format(purchases.createdAt, "dd MMMM yyyy", {
     locale: uk,
   });
-  console.log(formattedDate);
 
   const repeatOrder = (purchaseProduct: PurchasesProduct) => {
     const newOrder = {
