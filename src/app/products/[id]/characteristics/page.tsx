@@ -1,12 +1,8 @@
-import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import Characteristics from "@/components/ProductCard/Characteristic/Characteristics";
 import { FC } from "react";
 
 const CharacteristicsPage: FC = () => {
-  return (
-    <MaxWidthWrapper>
-      <h2 className="text-TechStopBlue">CharacteristicsPage</h2>
-    </MaxWidthWrapper>
-  );
+  return <Characteristics />;
 };
 
 export default CharacteristicsPage;

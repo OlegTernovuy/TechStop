@@ -33,6 +33,6 @@ export const useFavoritesStore = create(
         }
       },
     }),
-    { name: "Favorites-product" }
+    { name: "Favorite-products" }
   )
 );
