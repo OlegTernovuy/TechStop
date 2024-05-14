@@ -1,3 +1,5 @@
+"use client";
+
 import { FC } from "react";
 import { Rating } from "@mui/material";
 import { useFeedbackStore } from "@/store/useFeedbackStore";

@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { FC } from "react";
 import previewProduct from "/public/product-card-images/image_preview_feedback.svg";

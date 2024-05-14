@@ -1,3 +1,5 @@
+"use client";
+
 import { FC } from "react";
 import { useFavoritesStore } from "@/store/useFavoritesStore";
 import Image from "next/image";
