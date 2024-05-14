@@ -6,6 +6,7 @@ import { toast } from "react-hot-toast";
 interface IFavoritesStore {
   favorites: Product[];
   toggleProductCardToFavorites: (product: Product) => void;
+  isFavoriteProduct: (_id: string) => boolean;
 }
 
 export const useFavoritesStore = create(
@@ -16,21 +17,28 @@ export const useFavoritesStore = create(
         const { favorites } = get();
         const { title } = product;
 
-        const isFavorites = favorites.some((item) => item.id === product.id);
+        const isFavorites = favorites.some((item) => item._id === product._id);
 
         if (isFavorites) {
           set((state) => ({
-            favorites: state.favorites.filter((item) => item.id !== product.id),
+            favorites: state.favorites.filter(
+              (item) => item._id !== product._id
+            ),
           }));
 
-          toast.success(`Product ${title} was deleted from favorites `);
+          toast.success(`Товар ${title} додано до улюблених ➕`);
         } else {
           set((state) => ({
             favorites: [...state.favorites, product],
           }));
 
-          toast.success(`Product ${title} was added to favorites 🤌`);
+          toast.success(`Товар ${title} видалено з улюблених 🚮`);
         }
+      },
+      isFavoriteProduct: (_id: string) => {
+        const { favorites } = get();
+
+        return favorites.some((product) => product._id === _id);
       },
     }),
     { name: "Favorite-products" }

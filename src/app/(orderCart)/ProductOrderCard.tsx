@@ -6,7 +6,7 @@ import { useCartStore } from "@/store/useCartStore";
 import { useShoppingCartModalStore } from "@/store/modalStore";
 import formatPrice from "../utils/formatPrice";
 import { DiscountPercentage } from "@/constants";
-import defaultProductIcon from '../../../public/defaultProductIcon.svg'
+import defaultProductIcon from "../../../public/defaultProductIcon.svg";
 
 type ProductProps = {
   product: CartProduct;
@@ -21,10 +21,10 @@ function ProductOrderCard(product: ProductProps) {
   const oldPrice = formatPrice(productPrice.totalPrice * DiscountPercentage);
   const newPrice = formatPrice(productPrice.totalPrice);
 
-  const onIncreaseQuantity = (productId: number) => {
+  const onIncreaseQuantity = (productId: string) => {
     increaseQuantity(productId);
   };
-  const onDecreaseQuantity = (productId: number) => {
+  const onDecreaseQuantity = (productId: string) => {
     decreaseQuantity(productId);
   };
 
@@ -62,7 +62,7 @@ function ProductOrderCard(product: ProductProps) {
 
           <div className="flex md:gap-8 justify-between md:justify-end w-full">
             <div className="flex md:hidden items-center">
-              <button onClick={() => onDecreaseQuantity(product.product.id)}>
+              <button onClick={() => onDecreaseQuantity(product.product._id)}>
                 <Image
                   src="/removeFilled.svg"
                   alt="removeFilled"
@@ -79,7 +79,7 @@ function ProductOrderCard(product: ProductProps) {
                 width={48}
                 height={40}
               />
-              <button onClick={() => onIncreaseQuantity(product.product.id)}>
+              <button onClick={() => onIncreaseQuantity(product.product._id)}>
                 <Image
                   src="/addFilled.svg"
                   alt="addFilled"

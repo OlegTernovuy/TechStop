@@ -29,7 +29,7 @@ const gallery = [
 ];
 
 const ProductSlider: FC<IData> = ({ product }) => {
-  const { poster, title } = product?.data;
+  // const { poster, title } = product?.data;
 
   const [current, setCurrent] = useState<number>(0);
 

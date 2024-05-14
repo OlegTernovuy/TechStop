@@ -5,7 +5,7 @@ import { Product } from "../types";
 interface ViewProductsState {
   viewProducts: Product[];
   addItemToViewProducts: (item: Product) => void;
-  removeItemFromViewProducts: (productId: number) => void;
+  removeItemFromViewProducts: (productId: string) => void;
 }
 
 export const useViewProductsStore = create(
@@ -15,7 +15,7 @@ export const useViewProductsStore = create(
 
       addItemToViewProducts: (item) => {
         const itemExists = get().viewProducts.find(
-          (cartItem) => cartItem.id === item.id
+          (cartItem) => cartItem._id === item._id
         );
         if (itemExists) {
           set({ viewProducts: [...get().viewProducts] });
@@ -25,12 +25,12 @@ export const useViewProductsStore = create(
       },
       removeItemFromViewProducts: (productId) => {
         const itemExists = get().viewProducts.find(
-          (item) => item.id === productId
+          (item) => item._id === productId
         );
 
         if (itemExists) {
           const updateCartItems = get().viewProducts.filter(
-            (item) => item.id !== productId
+            (item) => item._id !== productId
           );
           set({ viewProducts: updateCartItems });
         }

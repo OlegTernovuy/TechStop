@@ -13,19 +13,17 @@ import Image from "next/image";
 import heartActive from "/public/product-card-icons/heart_active.svg";
 
 const ButtonLabels: FC<IDataWithServices> = ({ product, addService }) => {
-  const { price, id, title } = product.data;
+  const { price, _id, title } = product.data;
   const { addItemToCart } = useCartStore();
-  const { toggleProductCardToFavorites, favorites } = useFavoritesStore();
+  const { toggleProductCardToFavorites, isFavoriteProduct } =
+    useFavoritesStore();
   const { addArrayOfAdditionalServices } = useCartStore();
 
   const handleAddItem = () => {
     addItemToCart(product.data);
-    addArrayOfAdditionalServices(addService, product.data.id);
+    addArrayOfAdditionalServices(addService, product.data._id);
     toast.success(`Product ${title} was added to basket`);
   };
-
-  const isFavoriteTeacher = (id: number) =>
-    favorites.some((product) => product.id === id);
 
   return (
     <div className="md:flex items-center border-b-[1px] md:py-10 pt-3 pb-[32px] flex-wrap md:flex-nowrap relative">
@@ -74,7 +72,7 @@ const ButtonLabels: FC<IDataWithServices> = ({ product, addService }) => {
           >
             <div className="flex gap-[10px]">
               {" "}
-              {isFavoriteTeacher(id) ? (
+              {!isFavoriteProduct(_id) ? (
                 <Image src={heartActive} alt="basket" width={20} height={20} />
               ) : (
                 <Image src={heart} alt="basket" width={20} height={20} />
@@ -90,35 +88,3 @@ const ButtonLabels: FC<IDataWithServices> = ({ product, addService }) => {
 };
 
 export default ButtonLabels;
-
-// const buttonLabels = [
-//   {
-//     id: 1,
-//     label: "купити",
-//     icon: basket,
-//     color: "#022750",
-//     bgColor: "bg-blue-900",
-//   },
-//   { id: 2, label: "купити частинами", icon: diagram, color: "", bgColor: "" },
-//   { id: 3, label: "В обране", icon: heart, color: "", bgColor: "" },
-// ];
-
-{
-  /* {buttonLabels.map(({ id, label, icon, color, bgColor }) => (
-          <li key={id}>
-            <Button
-              color={color}
-              bgColor={bgColor}
-              type="button"
-              onClick={() => console.log("click")}
-            >
-              <p className="flex gap-2">
-                {" "}
-                <Image src={icon} alt="basket" width={20} height={20} />{" "}
-                <span>{label}</span>
-              </p>
-            </Button>
-          </li>
-         
-        ))} */
-}

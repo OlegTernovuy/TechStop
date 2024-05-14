@@ -19,7 +19,7 @@ const Button: FC<IButtonProps> = ({
   bgColor,
   className,
 }) => {
-  const buttonStyles = `uppercase bg-${bgColor} hover:bg-${bgColor}-dark text-${color} font-bold py-2 px-4 rounded transition ease-out duration-300`;
+  const buttonStyles = `uppercase bg-${bgColor} hover:bg-${bgColor}-dark text-${color} font-normal py-2 px-4 rounded transition ease-out duration-300`;
 
   return (
     <button

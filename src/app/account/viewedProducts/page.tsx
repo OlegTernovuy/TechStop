@@ -20,10 +20,10 @@ const ViewedProducts = () => {
         {ViewedProducts &&
           ViewedProducts.map((viewedProduct) => (
             <li
-              key={viewedProduct.id}
+              key={viewedProduct._id}
               className="w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-2 py-2"
             >
-              <Link href={`/products/${viewedProduct.id}/about-product`}>
+              <Link href={`/products/${viewedProduct._id}/about-product`}>
                 <SingleProduct product={viewedProduct} />
               </Link>
             </li>

@@ -33,7 +33,7 @@ const FormRate: FC<IFormRateProps> = ({ errors }) => {
 
       <ul className="xl:flex justify-between flex-wrap gap-6 ">
         {" "}
-        <li className="xl:flex gap-4 mb-4 xl:mb-0">
+        <li className="xl:flex gap-4 xl:mb-0">
           {" "}
           <div className="md:mb-4 xl-mb-0">
             {" "}
@@ -55,7 +55,7 @@ const FormRate: FC<IFormRateProps> = ({ errors }) => {
           <Button
             disabled={isError}
             type="submit"
-            className={`w-full h-[56px]  xl:min-w-[453px] bg-TechStopBlue text-TechStopWhite   ${
+            className={`w-full h-[56px] xl:min-w-[453px] bg-TechStopBlue text-TechStopWhite   ${
               isError
                 ? "disabled:opacity-50  cursor-not-allowed"
                 : "hover:bg-TechStopBlue60 focus:bg-TechStopBlue60"

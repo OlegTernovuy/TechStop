@@ -41,7 +41,7 @@ const checkboxLabels = [
 ];
 
 const ProductContent: FC<IData> = ({ product }) => {
-  const { title, inStock, price, id } = product.data;
+  const { title, inStock, _id } = product?.data;
 
   const [value, setValue] = useState<number | null>(0);
 
@@ -75,7 +75,7 @@ const ProductContent: FC<IData> = ({ product }) => {
         </li>
         <li className="ml-auto md:ml-0">
           <Link
-            href={`/products/${id}/feedback`}
+            href={`/products/${_id}/feedback`}
             className="uppercase text-TechStopBronze font-medium text-base flex gap-3 hover:scale-110 transition ease-out duration-300"
           >
             <Image src={feedBack} alt="feedBack_icon" width={20} height={20} />

@@ -7,7 +7,7 @@ import { useCartStore } from "@/store/useCartStore";
 import Link from "next/link";
 import formatPrice from "@/app/utils/formatPrice";
 import { DiscountPercentage } from "@/constants";
-import defaultProductIcon from '../../../public/defaultProductIcon.svg'
+import defaultProductIcon from "../../../public/defaultProductIcon.svg";
 
 function BasketHoverBlock() {
   const cartItems = useStore(useCartStore, (state) => state.cartItems);
@@ -29,7 +29,10 @@ function BasketHoverBlock() {
           {cartItems?.length ? (
             cartItems.map((product) => {
               return (
-                <li className="flex justify-between gap-4 pr-11 mb-4" key={product.id}>
+                <li
+                  className="flex justify-between gap-4 pr-11 mb-4"
+                  key={product._id}
+                >
                   <Image
                     src={product.poster ?? defaultProductIcon}
                     alt="test icon"
@@ -39,7 +42,7 @@ function BasketHoverBlock() {
                   <div className=" flex flex-col">
                     <div className="flex w-full items-baseline justify-between">
                       <h2 className="w-[80%] text-body1">{product.title}</h2>
-                      <button onClick={() => removeItemFromCart(product.id)}>
+                      <button onClick={() => removeItemFromCart(product._id)}>
                         <Image
                           src="/basket.svg"
                           alt="basket"

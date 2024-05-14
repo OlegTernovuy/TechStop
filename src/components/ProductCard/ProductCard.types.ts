@@ -11,12 +11,12 @@ export interface IProduct {
 
 export interface IProductCardProps {
   params?: {
-    id: string;
+    _id: string;
   };
 }
 
 export interface IParams {
-  params: {
-    id: string;
+  params?: {
+    _id: string;
   };
 }

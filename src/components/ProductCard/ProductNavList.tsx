@@ -8,9 +8,9 @@ import Image from "next/image";
 import { Product } from "@/types";
 
 const productNavList = [
-  { id: 1, title: "усе про товар", path: "about-product" },
-  { id: 2, title: "Характеристики", path: "characteristics" },
-  { id: 3, title: "Залишити відгук", path: "feedback" },
+  { _id: "1", title: "усе про товар", path: "about-product" },
+  { _id: "2", title: "Характеристики", path: "characteristics" },
+  { _id: "3", title: "Залишити відгук", path: "feedback" },
 ];
 
 interface IProductNavListProps {
@@ -26,10 +26,10 @@ const ProductNavList: FC<IProductNavListProps> = ({ params }) => {
     return <div>Loading...</div>;
   }
 
-  const { id: paramsId, title } = params?.data;
+  const { _id: paramsId, title } = params?.data;
 
   const joinedPath = join(currentPath, title);
-  // console.log(joinedPath);
+
   return (
     <>
       <nav>
@@ -60,13 +60,13 @@ const ProductNavList: FC<IProductNavListProps> = ({ params }) => {
           </div>
         </div>
 
-        <ul className="flex gap-x-8 border-b-[1px] w-full border-b-TechStopBlue40 mt-6 pb-2 overflow-auto">
-          {productNavList.map(({ id, title, path }) => {
+        <ul className="flex gap-x-8 border-b-[1px] w-full border-b-TechStopBlue40 mt-6 pb-2 overflow-auto md:overflow-hidden">
+          {productNavList.map(({ _id, title, path }) => {
             const joinedPath = join("/products", paramsId.toString(), path);
             const isActive = currentPath === joinedPath;
 
             return (
-              <li key={id}>
+              <li key={_id}>
                 <Link
                   href={path}
                   className={`uppercase text-TechStopBlue60 text-base truncate relative pb-3 transition bg-transparent ease-out duration-700 hover:text-TechStopBronze focus:text-TechStopBronze ${

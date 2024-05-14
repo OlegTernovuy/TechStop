@@ -15,7 +15,6 @@ interface ProdProps {
 }
 
 const HomePageProducts = ({ ShowAllItems, title, products }: ProdProps) => {
-
   const [columnsToShow, setColumnsToShow] = useState(5);
 
   const isSmallScreen = useMediaQuery({ query: "(max-width: 767px)" });
@@ -69,7 +68,7 @@ const HomePageProducts = ({ ShowAllItems, title, products }: ProdProps) => {
                   key={index}
                   className="w-1/2 md:w-1/4 xl:w-1/5 px-2 py-2 xl:px-3 xl:py-3"
                 >
-                  <Link href={`/products/${item.id}/about-product`}>
+                  <Link href={`/products/${item._id}/about-product`}>
                     <SingleProduct product={item} />
                   </Link>
                 </li>

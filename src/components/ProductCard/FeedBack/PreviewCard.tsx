@@ -20,7 +20,7 @@ const PreviewCard: FC<IPreviewCardProps> = ({ productData }) => {
   };
 
   return (
-    <div className="max-w-[518px]">
+    <div className="max-w-[518px] mb-16">
       <ul className="flex gap-4  mb-8">
         <li className="bg-TechStopWhite h-full border shadow-sm">
           {" "}

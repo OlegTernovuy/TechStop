@@ -14,13 +14,14 @@ import DefaultFeedbackForm from "./DefaultFeedbackForm";
 import { useFeedbackStore } from "@/store/useFeedbackStore";
 
 const FeedbackPage: FC<IParams> = ({ params }) => {
-  const { id } = params;
+  const { _id } = params;
   const [data, setData] = useState<IProduct | null>(null);
+  const [showFeedback, setShowFeedback] = useState(false);
   const { feedback } = useFeedbackStore();
 
   const productData = useMemo(() => {
-    return getProductById(id);
-  }, [id]);
+    return getProductById(_id);
+  }, [_id]);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -31,6 +32,10 @@ const FeedbackPage: FC<IParams> = ({ params }) => {
 
     fetchProduct();
   }, [productData]);
+
+  const handleLeaveFeedback = () => {
+    setShowFeedback(!showFeedback);
+  };
 
   return (
     <MaxWidthWrapper>
@@ -45,28 +50,34 @@ const FeedbackPage: FC<IParams> = ({ params }) => {
           </h2>
         )}
         <ul className="md:flex gap-10 ">
-          {" "}
           <li className="w-full">
-            {" "}
             {feedback.length !== 0 ? (
               <Button
                 color="TechStopWhite"
                 bgColor="TechStopBlue"
                 type="button"
-                className="md:hidden w-full py-2 px-6 mb-4 rounded font-medium uppercase"
+                className="md:hidden w-full py-2 px-6 h-[56px] mb-4"
+                onClick={handleLeaveFeedback}
               >
                 Залишити відгук
               </Button>
             ) : (
-              <div className="md:hidden">
+              <div className="md:hidden mb-[54px]">
                 <DefaultFeedbackForm />
               </div>
             )}
-            {feedback.length === 0 ? <FeedbackForm /> : <DefaultFeedbackForm />}
+            {showFeedback && <DefaultFeedbackForm />}
+            {feedback.length !== 0 ? (
+              <FeedbackForm />
+            ) : (
+              <div className="mb-[84px]">
+                <DefaultFeedbackForm />
+              </div>
+            )}
             <CustomerReviews />
           </li>
           <li>
-            <div className="min-h-[96%] border-l border-TechStopBlue hidden md:block"></div>
+            <div className="min-h-[96%] border-l border-deWiseGreyLight hidden md:block"></div>
           </li>
           <li className="hidden md:block max-w-[522px]">
             <PreviewCard productData={data} />

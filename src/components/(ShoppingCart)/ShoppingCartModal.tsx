@@ -89,7 +89,7 @@ const ShoppingCartModal = () => {
                   {cartItems.length ? (
                     cartItems.map((product) => {
                       return (
-                        <ProductInCard product={product} key={product.id} />
+                        <ProductInCard product={product} key={product._id} />
                       );
                     })
                   ) : (

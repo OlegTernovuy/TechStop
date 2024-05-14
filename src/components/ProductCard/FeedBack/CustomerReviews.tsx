@@ -45,7 +45,7 @@ const CustomerReviews: FC = () => {
                 <li className="flex items-baseline">
                   {" "}
                   <p className="text-TechStopBlue mt-1 mr-1 text-xl font-bold">
-                    Коментарі{" "}
+                    Коментарі:{" "}
                   </p>
                   <p className="text-TechStopBlue font-normal text-lg ml-1">
                     {comments}
