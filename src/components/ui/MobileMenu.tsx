@@ -5,7 +5,7 @@ import Link from "next/link";
 import { mobileMenuInfo, mobileMenuSocialMedia } from "../../constants";
 import { NavigationProps } from "../../types";
 import {
-  useCatalogModalStore,
+  useCatalogModalMobileStore,
   useShoppingCartModalStore,
 } from "@/store/modalStore";
 
@@ -15,7 +15,7 @@ import question_mark from "../../../public/question_mark.svg";
 import cart from "../../../public/cart.svg";
 
 const MobileMenu = ({ nav, handleNav }: NavigationProps) => {
-  const setShowCatalog = useCatalogModalStore((state) => state.setShowCatalog);
+  const setShowCatalog = useCatalogModalMobileStore((state) => state.setShowCatalog);
   const setShowShoppingCart = useShoppingCartModalStore(
     (state) => state.setShowShoppingCart
   );

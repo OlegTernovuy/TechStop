@@ -13,7 +13,7 @@ const ViewedProducts = () => {
 
   return (
     <div>
-      <h2 className="w-full text-Headline5 md:text-Headline4 text-TechStopBlue mb-4 md:mb-6">
+      <h2 className="w-full hidden md:flex text-Headline5 md:text-Headline4 text-TechStopBlue mb-4 md:mb-6">
         Переглянуті товари
       </h2>
       <ul className="flex flex-wrap flex-row w-full">

@@ -26,6 +26,14 @@ export interface ShoppingCartModalState {
   setShowShoppingCart: () => void;
 }
 
+export interface IRating {
+  "1": number;
+  "2": number;
+  "3": number;
+  "4": number;
+  "5": number;
+}
+
 export interface ProductInCart {
   _id: string;
   poster: string;
@@ -33,12 +41,15 @@ export interface ProductInCart {
   title: string;
   quantity?: number;
 }
+
 export interface Product {
+  // id: number;
   _id: string;
   inStock: boolean;
   poster: string;
   price: number;
   title: string;
+  rating: IRating;
 }
 
 export interface AddServices {
@@ -52,6 +63,11 @@ export type addAdditionalServices = AddServices & {
   productId: string;
 };
 
+// export type CartProduct = Product & {
+//   quantity: number;
+// } & {
+//   addServices?: AddServices[];
+// };
 export type CartProduct = ProductInCart & {
   quantity: number;
 } & {
@@ -59,6 +75,7 @@ export type CartProduct = ProductInCart & {
 };
 
 export type AdditionalServicesDesktopType = {
+  // productId: number;
   productId: string;
 };
 

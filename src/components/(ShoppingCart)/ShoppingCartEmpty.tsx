@@ -3,7 +3,7 @@ import Image from "next/image";
 const ShoppingCardEmpty = () => {
   return (
     <div className="text-TechStopBlue">
-      <div className="flex flex-col pt-16 md:pb-16 px-4 items-center text-center">
+      <div className="flex flex-col pt-16 md:py-8 md:px-4 items-center text-center">
         <Image
           src="/ShoppingCartEmpty.svg"
           alt="ShoppingCartEmpty"

@@ -172,7 +172,7 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
           {searchCity.length > 0 && (
             <div
               className={
-                "mt-2 border-[2px] bg-white border-TechStopBlue60 rounded max-h-44 overflow-y-auto relative z-50"
+                "mt-2 border-[2px] bg-white text-TechStopBlue border-TechStopBlue60 rounded max-h-44 overflow-y-auto relative z-50"
               }
             >
               {searchCity.length > 0 &&

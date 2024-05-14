@@ -14,11 +14,23 @@ import { IAdd } from "@/types";
 
 function OrderCart() {
   const router = useRouter();
+
+  const DeliveryPrice = 150;
+
   const cartItems = useStore(useCartStore, (state) => state.cartItems);
   const totalPrice = useStore(useCartStore, (state) => state.totalPrice);
 
   const productsPrice = formatPrice(totalPrice?.totalPrice);
-  const productsPriceWithAdd = formatPrice(totalPrice?.priceWithAddService);
+  // const productsPriceWithAdd = formatPrice(totalPrice?.priceWithAddService);
+
+  const calculateProductsPriceWithAdd = () => {
+    if (totalPrice && totalPrice.priceWithAddService !== undefined) {
+      return totalPrice.priceWithAddService + DeliveryPrice;
+    } else {
+      return undefined;
+    }
+  };
+  const productsPriceWithAdd = calculateProductsPriceWithAdd();
 
   const [orderContactData, setOrderContactData] = useState<IAdd>({});
   const [disabled, setDisabled] = useState(true);
@@ -77,7 +89,7 @@ function OrderCart() {
           )}
           <div className=" text-Headline6 flex items-center justify-between md:hidden">
             <p>Разом до сплати</p>
-            <p>{productsPriceWithAdd + " ₴"}</p>
+            <p>{formatPrice(productsPriceWithAdd) + " ₴"}</p>
           </div>
           <ContactInfoOrder
             setOrderContactData={setOrderContactData}
@@ -117,7 +129,9 @@ function OrderCart() {
                             key={service.servicesId}
                           >
                             <p>{service.servicesTitle}</p>
-                            <span>{service.servicesPrice + " ₴"}</span>
+                            <span>
+                              {formatPrice(service.servicesPrice) + " ₴"}
+                            </span>
                           </div>
                         );
                       });
@@ -134,7 +148,7 @@ function OrderCart() {
               <div className="w-full flex items-center justify-between mt-[40px] md:mt-24 font-bold mb-4 md:mb-[42px]">
                 <p>До сплати</p>
                 <p className="text-body1 md:text-Headline4">
-                  {productsPriceWithAdd + " ₴"}
+                  {formatPrice(productsPriceWithAdd) + " ₴"}
                 </p>
               </div>
               <Button
