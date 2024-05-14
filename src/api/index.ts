@@ -4,9 +4,9 @@ import { PurchasesData } from "@/app/account/purchases/purchasesType";
 
 const BASE_URL = "https://team-project-server-41ev.onrender.com/api";
 
-export const getProductById = async (id: string): Promise<Product | any> => {
+export const getProductById = async (_id: string): Promise<Product | any> => {
   try {
-    const res = await axios.get(`${BASE_URL}/products/${id}`);
+    const res = await axios.get(`${BASE_URL}/products/${_id}`);
     if (res.status !== 200) {
       throw new Error("Something went wrong");
     }
@@ -22,10 +22,10 @@ export const getProductsData = async (): Promise<Product[] | undefined> => {
     const res = await fetch(`${BASE_URL}/products`, {
       next: { revalidate: 10 },
     });
-    
+
     if (res.status !== 200) {
       throw new Error("Something went wrong");
-    }    
+    }
 
     return res.json().then((res) => res.data);
   } catch (error) {
@@ -62,4 +62,3 @@ export const getOrders = async (): Promise<PurchasesData[] | undefined> => {
     console.log((error as Error).message);
   }
 };
-

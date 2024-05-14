@@ -100,21 +100,19 @@ export const useCartStore = create(
       },
       addArrayOfAdditionalServices: (servicesToAdd, productId) => {
         const { cartItems } = get();
-      
-        const itemIndex = cartItems.findIndex(
-          (item) => item._id === productId
-        );
-      
+
+        const itemIndex = cartItems.findIndex((item) => item._id === productId);
+
         if (itemIndex !== -1) {
           const updatedCartItems = [...cartItems];
-      
+
           const services = updatedCartItems[itemIndex].addServices || [];
-      
-          servicesToAdd.forEach(service => {
+
+          servicesToAdd.forEach((service) => {
             const serviceIndex = services.findIndex(
               (itemService) => itemService.servicesId === service.servicesId
             );
-      
+
             if (serviceIndex !== -1) {
               // Якщо сервіс уже існує, можливо оновити дані про нього або пропустити додавання
               services[serviceIndex] = service; // Оновлення існуючого сервісу, якщо потрібно
@@ -122,10 +120,10 @@ export const useCartStore = create(
               services.push(service); // Додавання нового сервісу
             }
           });
-      
+
           // Оновлення масиву сервісів у кошику
           updatedCartItems[itemIndex].addServices = services;
-      
+
           set({ cartItems: updatedCartItems });
           get().countTotalPrice();
         }

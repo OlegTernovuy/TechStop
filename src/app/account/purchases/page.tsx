@@ -32,7 +32,12 @@ const Purchases = async () => {
         {InfoAboutPurchase !== undefined &&
           (InfoAboutPurchase.length > 0 ? (
             InfoAboutPurchase?.map((purchases: PurchasesData) => {
-              return <SinglePurchase purchases={purchases} key={purchases.orderCode}/>;
+              return (
+                <SinglePurchase
+                  purchases={purchases}
+                  key={purchases.orderCode}
+                />
+              );
             })
           ) : (
             <div>Not found</div>

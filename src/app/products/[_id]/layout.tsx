@@ -6,14 +6,14 @@ import { FC, ReactNode } from "react";
 interface ILayoutProps {
   children: ReactNode;
   params: {
-    id: string;
+    _id: string;
   };
 }
 
 const Layout: FC<ILayoutProps> = async ({ children, params }) => {
-  const { id } = params;
+  const { _id } = params;
 
-  const response = await getProductById(String(id));
+  const response = await getProductById(String(_id));
 
   return (
     <>

@@ -6,7 +6,7 @@ import { useCartStore } from "@/store/useCartStore";
 import { useShoppingCartModalStore } from "@/store/modalStore";
 import formatPrice from "../utils/formatPrice";
 import { DiscountPercentage } from "@/constants";
-import defaultProductIcon from '../../../public/defaultProductIcon.svg'
+import defaultProductIcon from "../../../public/defaultProductIcon.svg";
 
 type ProductProps = {
   product: CartProduct;

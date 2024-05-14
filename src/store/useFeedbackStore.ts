@@ -1,6 +1,8 @@
 import { nanoid } from "nanoid";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { format } from "date-fns";
+import { uk } from "date-fns/locale";
 
 interface IFeedback {
   id?: string;
@@ -27,15 +29,10 @@ export const useFeedbackStore = create(
           data;
 
         const currentDate: Date = new Date();
-        const options: Intl.DateTimeFormatOptions = {
-          day: "numeric",
-          month: "long",
-          year: "numeric",
-        };
-        const formattedDate: string = currentDate.toLocaleDateString(
-          "uk-UA",
-          options
-        );
+
+        const formattedDate2 = format(currentDate, "d MMMM yyyy року", {
+          locale: uk,
+        });
 
         const newFeedback: IFeedback = {
           id: nanoid(),
@@ -45,7 +42,7 @@ export const useFeedbackStore = create(
           comments,
           name,
           email,
-          date: formattedDate,
+          date: formattedDate2,
         };
         console.log(newFeedback);
         set({ feedback: [...get().feedback, newFeedback] });

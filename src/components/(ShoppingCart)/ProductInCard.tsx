@@ -9,7 +9,7 @@ import { useCartStore } from "@/store/useCartStore";
 import AdditionalServicesDesktop from "./AdditionalServicesDesktop";
 import formatPrice from "@/app/utils/formatPrice";
 import { DiscountPercentage } from "@/constants";
-import defaultProductIcon from '../../../public/defaultProductIcon.svg'
+import defaultProductIcon from "../../../public/defaultProductIcon.svg";
 
 interface CartItemCardProps {
   product: CartProduct;

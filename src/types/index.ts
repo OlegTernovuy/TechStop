@@ -27,11 +27,11 @@ export interface ShoppingCartModalState {
 }
 
 export interface IRating {
-  "1":  number;
-  "2":  number;
-  "3":  number;
-  "4":  number;
-  "5":  number;
+  "1": number;
+  "2": number;
+  "3": number;
+  "4": number;
+  "5": number;
 }
 
 export interface ProductInCart {
@@ -49,7 +49,7 @@ export interface Product {
   poster: string;
   price: number;
   title: string;
-  rating:  IRating;
+  rating: IRating;
 }
 
 export interface AddServices {
@@ -60,7 +60,7 @@ export interface AddServices {
 }
 
 export type addAdditionalServices = AddServices & {
-  productId: number;
+  productId: string;
 };
 
 // export type CartProduct = Product & {
@@ -198,7 +198,7 @@ export interface Category {
 
 export interface IParams {
   params: {
-    id: string;
+    _id: string;
   };
 }
 

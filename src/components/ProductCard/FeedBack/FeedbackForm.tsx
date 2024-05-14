@@ -28,12 +28,7 @@ const FeedbackForm: FC = () => {
           Залишити відгук
         </Button>
       </div>
-      {!show && feedback.length === 0 && (
-        <p className="text-TechStopBlue text-Headline5">
-          На цьому товарі ще немає відгуків
-        </p>
-      )}
-      {show && feedback.length === 0 && <DefaultFeedbackForm />}
+      {show && feedback.length !== 0 && <DefaultFeedbackForm />}
     </div>
   );
 };

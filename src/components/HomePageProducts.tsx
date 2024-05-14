@@ -15,7 +15,6 @@ interface ProdProps {
 }
 
 const HomePageProducts = ({ ShowAllItems, title, products }: ProdProps) => {
-
   const [columnsToShow, setColumnsToShow] = useState(5);
 
   const isSmallScreen = useMediaQuery({ query: "(max-width: 767px)" });

@@ -41,7 +41,7 @@ const checkboxLabels = [
 ];
 
 const ProductContent: FC<IData> = ({ product }) => {
-  const { title, inStock, price, _id } = product.data;
+  const { title, inStock, _id } = product?.data;
 
   const [value, setValue] = useState<number | null>(0);
 

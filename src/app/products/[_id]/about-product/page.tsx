@@ -8,12 +8,9 @@ const AboutPage: FC<IProductCardProps> = async ({ params }) => {
     return <div>Loading...</div>;
   }
 
-  const { id } = params;
-console.log(id);
+  const { _id } = params;
 
-  const product = await getProductById(id);
-  console.log(product);
-  
+  const product = await getProductById(_id);
 
   return <ProductCard product={product} />;
 };
