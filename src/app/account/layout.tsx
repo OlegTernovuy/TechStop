@@ -4,11 +4,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { profileNavItems } from "@/constants";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import question_mark from '../../../public/question_mark.svg'
+import { useSession } from "next-auth/react";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const { data: session } = useSession();
+  if(!session?.user) {
+    redirect('/')
+  }
 
   return (
     <MaxWidthWrapper>

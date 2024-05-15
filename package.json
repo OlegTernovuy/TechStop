@@ -25,6 +25,7 @@
     "material-icons": "^1.13.12",
     "nanoid": "^5.0.7",
     "next": "14.0.4",
+    "next-auth": "^4.24.7",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.51.0",

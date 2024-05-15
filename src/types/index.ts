@@ -26,6 +26,11 @@ export interface ShoppingCartModalState {
   setShowShoppingCart: () => void;
 }
 
+export interface LoginModalState {
+  showLoginModal: boolean;
+  setShowLoginModal: () => void;
+}
+
 export interface IRating {
   "1": number;
   "2": number;
@@ -236,4 +241,9 @@ export interface Categories {
   icon: null;
   parent: string;
   children: Categories[];
+}
+
+export interface IAuthData {
+  email: string;
+  password: string;
 }

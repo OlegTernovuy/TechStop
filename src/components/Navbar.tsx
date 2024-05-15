@@ -10,6 +10,7 @@ import ButtonCatalogIcon from "../../public/ButtonCatalogIcon.svg";
 import BasketHoverBlock from "./(ShoppingCart)/BasketHoverBlock";
 import {
   useCatalogModalStore,
+  useLoginModalStore,
   useShoppingCartModalStore,
 } from "@/store/modalStore";
 import MaxWidthWrapper from "./MaxWidthWrapper";
@@ -22,12 +23,18 @@ import accountCircleOutline from "/public/AccountCircleOutlined.svg";
 import favorite from "/public/favorite.svg";
 import shoppingCartIcon from "/public/ShoppingCartIcon.svg";
 
+import { useSession, signOut } from "next-auth/react";
+
 const Navbar = () => {
   const [nav, setNav] = useState(false);
 
   const handleNav = () => {
     setNav(!nav);
   };
+
+  const setShowLoginModal = useLoginModalStore(
+    (state) => state.setShowLoginModal
+  );
 
   const setShowCatalog = useCatalogModalStore((state) => state.setShowCatalog);
   const showCatalog = useCatalogModalStore((state) => state.showCatalog);
@@ -40,6 +47,31 @@ const Navbar = () => {
 
   const refresh = () => {
     pathname === "/" ? window.location.reload() : router.push("/");
+  };
+
+  const { data: session } = useSession();
+  // console.log({session});
+
+  const logout = async () => {
+    const res = await fetch(
+      "https://team-project-server-41ev.onrender.com/api/auth/logout",
+      {
+        method: "POST",
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImVtYWlsIjoidGVybkBnbWFpbC5jb20iLCJ1c2VySWQiOiI2NjQzMWVmZTg0YTg1OGU1NTE2YjljMTAifSwiaWF0IjoxNzE1NjkyNjU4LCJleHAiOjE3MTU2OTM1NTh9.PArSOAm5IMi_d8Svm7BWBMpEw-M3j9HZqn-iDkDkLMU",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (res.status == 401) {
+      console.log(res.statusText);
+
+      return null;
+    }
+    const user = await res.json();
+    return user;
   };
 
   return (
@@ -74,8 +106,35 @@ const Navbar = () => {
         </button>
         <SearchField />
         <div className="flex gap-10">
+          {session && session.user ? (
+            <div className="flex gap-4 ml-auto">
+              {/* <p className="text-sky-600">{session?.user?.email}</p> */}
+              {/* <Link
+                href={"/api/auth/signout"}
+                className="flex gap-4 ml-auto text-red-600"
+              >
+                Sign Out
+              </Link> */}
+              <button onClick={() => signOut({ redirect: false })}>
+                Sign Out
+              </button>
+              {/* <button onClick={logout}>Sign Out</button> */}
+            </div>
+          ) : (
+            <div className="flex items-center">
+              {/* <Link
+                href={"/api/auth/signin"}
+                className="flex gap-4 ml-auto text-green-600"
+              >
+                Sign In
+              </Link> */}
+              <button onClick={setShowLoginModal}>Login</button>
+            </div>
+          )}
           <div className="group relative hidden md:block">
-            <Link href="/account">
+            <Link
+              href={session && session.user ? "/account" : "/InformationCenter"}
+            >
               <Image
                 src={accountCircleOutline}
                 alt="AccountCircleOutlined"
