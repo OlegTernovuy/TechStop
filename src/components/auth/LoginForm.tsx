@@ -6,7 +6,7 @@ import { IAuthData } from "@/types";
 import { AuthValidationsSchema } from "./AuthValidationsSchema";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import Button from "../ui/Button";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { signIn } from "next-auth/react";
@@ -14,9 +14,10 @@ import { useLoginModalStore } from "@/store/modalStore";
 
 interface IAuthModal {
   showLoginForm: boolean;
+  setPending: Dispatch<SetStateAction<boolean>>;
 }
 
-const LoginForm = ({ showLoginForm }: IAuthModal) => {
+const LoginForm = ({ showLoginForm, setPending }: IAuthModal) => {
   const setShowLoginModal = useLoginModalStore(
     (state) => state.setShowLoginModal
   );
@@ -33,73 +34,85 @@ const LoginForm = ({ showLoginForm }: IAuthModal) => {
     resolver: yupResolver(AuthValidationsSchema),
   });
 
-  const BASE_URL = "https://team-project-server-41ev.onrender.com/api";
-
   const submitFields: SubmitHandler<IAuthData> = async (authData) => {
     let email = authData.email;
     let password = authData.password;
     if (showLoginForm) {
-      let login = await signIn("credentials", {
-        redirect: false,
-        email,
-        password,
-      });
-
-      if (login?.error === null) {
-        setShowLoginModal();
-        serServerError({
-          userError: "",
-          passwordError: "",
-        });
-        reset();
-      } else {
-        if (login?.error === "Password are not valid")
-          serServerError({
-            userError: "",
-            passwordError: "Password are not valid",
-          });
-        else if (login?.error === "User not found")
-          serServerError({
-            userError: "User not found",
-            passwordError: "",
-          });
-        else if (login?.error === "Bad Request Exception")
-          serServerError({
-            userError: "Bad Request Exception",
-            passwordError: "Bad Request Exception",
-          });
-      }
-    } else {
-      const res = await fetch(BASE_URL + "/auth/register", {
-        method: "POST",
-        body: JSON.stringify({
+      try {
+        setPending(true);
+        let login = await signIn("credentials", {
+          redirect: false,
           email,
           password,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (res.ok) {
-        setShowLoginModal();
-        serServerError({
-          userError: "",
-          passwordError: "",
         });
-        reset();
-      } else if (!res.ok) {
-        const errorResponse = await res.json();
-        if (errorResponse?.message === "Bad Request Exception")
+        setPending(false);
+        if (login?.error === null) {
+          setShowLoginModal();
           serServerError({
-            userError: "Bad Request Exception",
-            passwordError: "Bad Request Exception",
-          });
-        else if (errorResponse?.message === "E-mail already in use")
-          serServerError({
-            userError: "E-mail already in use",
+            userError: "",
             passwordError: "",
           });
-        return;
+          reset();
+        } else {
+          if (login?.error === "Password are not valid")
+            serServerError({
+              userError: "",
+              passwordError: "Password are not valid",
+            });
+          else if (login?.error === "User not found")
+            serServerError({
+              userError: "User not found",
+              passwordError: "",
+            });
+          else if (login?.error === "Bad Request Exception")
+            serServerError({
+              userError: "Bad Request Exception",
+              passwordError: "Bad Request Exception",
+            });
+        }
+      } catch (error) {
+        setPending(false);
+        console.log((error as Error).message);
+      }
+    } else {
+      try {
+        setPending(true);
+        const res = await fetch(process.env.BASE_URL + "/auth/register", {
+          method: "POST",
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (res.ok) {
+          setPending(false);
+          setShowLoginModal();
+          serServerError({
+            userError: "",
+            passwordError: "",
+          });
+          reset();
+        } else if (!res.ok) {
+          setPending(false);
+          const errorResponse = await res.json();
+          if (errorResponse?.message === "Bad Request Exception")
+            serServerError({
+              userError: "Bad Request Exception",
+              passwordError: "Bad Request Exception",
+            });
+          else if (errorResponse?.message === "E-mail already in use")
+            serServerError({
+              userError: "E-mail already in use",
+              passwordError: "",
+            });
+          return;
+        }
+      } catch (error) {
+        setPending(false);
+        console.log((error as Error).message);
       }
     }
   };

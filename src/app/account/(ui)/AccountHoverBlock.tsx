@@ -5,8 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import LogoutFilled from "../../../../public/LogoutFilled.svg";
 
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 const AccountHoverBlock = () => {
   const currentPath = usePathname();
@@ -39,6 +40,20 @@ const AccountHoverBlock = () => {
                 </Link>
               </li>
             ))}
+            <li className="flex justify-between text-body1 py-3 px-4 hover:bg-TechStopBlue10">
+              <button
+                className="flex gap-8 w-full"
+                onClick={() => signOut({ redirect: false })}
+              >
+                <Image
+                  src={LogoutFilled}
+                  alt="LogoutFilled"
+                  width={24}
+                  height={24}
+                />
+                <p>Вийти</p>
+              </button>
+            </li>
           </ul>
         </div>
       ) : (

@@ -6,6 +6,7 @@ import { mobileMenuInfo, mobileMenuSocialMedia } from "../../constants";
 import { NavigationProps } from "../../types";
 import {
   useCatalogModalMobileStore,
+  useLoginModalStore,
   useShoppingCartModalStore,
 } from "@/store/modalStore";
 
@@ -14,11 +15,22 @@ import AccountCircleOutlined from "../../../public/AccountCircleOutlined.svg";
 import question_mark from "../../../public/question_mark.svg";
 import cart from "../../../public/cart.svg";
 
+import { useSession } from "next-auth/react";
+
 const MobileMenu = ({ nav, handleNav }: NavigationProps) => {
-  const setShowCatalog = useCatalogModalMobileStore((state) => state.setShowCatalog);
+  const setShowCatalog = useCatalogModalMobileStore(
+    (state) => state.setShowCatalog
+  );
   const setShowShoppingCart = useShoppingCartModalStore(
     (state) => state.setShowShoppingCart
   );
+
+  const setShowLoginModal = useLoginModalStore(
+    (state) => state.setShowLoginModal
+  );
+
+  const { data: session } = useSession();
+
   return (
     <>
       <nav
@@ -63,16 +75,29 @@ const MobileMenu = ({ nav, handleNav }: NavigationProps) => {
               className="py-3 pl-4 hover:bg-TechStopBronze20"
               onClick={handleNav}
             >
-              <Link href={"/account"} className="flex">
-                <Image
-                  src={AccountCircleOutlined}
-                  alt="accountIcon"
-                  width={24}
-                  height={24}
-                  className="mr-8"
-                />
-                Особистий кабінет
-              </Link>
+              {session && session.user ? (
+                <Link href={"/account"} className="flex">
+                  <Image
+                    src={AccountCircleOutlined}
+                    alt="accountIcon"
+                    width={24}
+                    height={24}
+                    className="mr-8"
+                  />
+                  Особистий кабінет
+                </Link>
+              ) : (
+                <button onClick={setShowLoginModal} className="flex items-center">
+                  <Image
+                    src={AccountCircleOutlined}
+                    alt="AccountCircleOutlined"
+                    width={24}
+                    height={24}
+                    className="mr-8 hover:[filter:drop-shadow(0px_3px_1px_#02275066)] ease-out duration-200 active:bg-TechStopBlue10 active:rounded-md"
+                  />
+                  <span>Особистий кабінет</span>
+                </button>
+              )}
             </li>
             <li
               className="py-3 pl-4 hover:bg-TechStopBronze20"

@@ -1,8 +1,6 @@
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const BASE_URL = "https://team-project-server-41ev.onrender.com/api";
-
 export const authOptions: AuthOptions = {
   session: {
     strategy: "jwt",
@@ -24,7 +22,7 @@ export const authOptions: AuthOptions = {
       async authorize(credentials, req) {
         if (!credentials?.email || !credentials?.password) return null;
         const { email, password } = credentials;
-        const res = await fetch(BASE_URL + "/auth/login", {
+        const res = await fetch(process.env.BASE_URL + "/auth/login", {
           method: "POST",
           body: JSON.stringify({
             email,

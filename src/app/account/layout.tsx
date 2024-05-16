@@ -4,14 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { profileNavItems } from "@/constants";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import { redirect, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import question_mark from "../../../public/question_mark.svg";
-import { useSession } from "next-auth/react";
+import LogoutFilled from '../../../public/LogoutFilled.svg'
+import { signOut } from "next-auth/react";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const { data: session } = useSession();
-  if (!session || !session?.user) redirect("/");
 
   return (
     <MaxWidthWrapper>
@@ -38,9 +37,23 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </Link>
               </li>
             ))}
+            <li className="flex justify-between text-body1 py-3 px-4 hover:bg-TechStopBlue10">
+              <button
+                className="flex gap-8 w-full"
+                onClick={() => signOut({ callbackUrl: '/', redirect:true })}
+              >
+                <Image
+                  src={LogoutFilled}
+                  alt="LogoutFilled"
+                  width={24}
+                  height={24}
+                />
+                <p>Вийти</p>
+              </button>
+            </li>
           </ul>
-          <Link href={`/InformationCenter`} className="hidden md:flex">
-            <div className="flex text-body1 py-3 px-4 mt-6 hover:bg-TechStopBronze20 text-TechStopBlue">
+          <Link href={`/InformationCenter`} className="hidden lg:flex">
+            <div className="flex text-body1 w-full py-3 px-4 mt-6 hover:bg-TechStopBronze20 text-TechStopBlue">
               <Image
                 src={question_mark}
                 alt={question_mark}
