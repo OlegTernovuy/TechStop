@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { join } from "path";
 import Image from "next/image";
 import { Product } from "@/types";
@@ -21,6 +21,8 @@ interface IProductNavListProps {
 
 const ProductNavList: FC<IProductNavListProps> = ({ params }) => {
   const currentPath = usePathname();
+
+  const [isHover, setIsHover] = useState(false);
 
   if (!params) {
     return <div>Loading...</div>;
@@ -77,7 +79,7 @@ const ProductNavList: FC<IProductNavListProps> = ({ params }) => {
                   <span
                     className={`absolute left-0 bottom-0 w-full h-1 border-2 transition bg-transparent ease-out duration-700 ${
                       isActive ? "border-TechStopBronze" : "border-none"
-                    }`}
+                    } `}
                   ></span>
                 </Link>
               </li>
