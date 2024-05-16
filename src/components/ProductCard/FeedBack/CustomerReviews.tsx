@@ -9,7 +9,6 @@ import Button from "../Button";
 import Image from "next/image";
 
 import bucket from "/public/product-card-icons/bin.svg";
-import { IParams } from "@/types";
 import CustomToast from "@/components/Global/CustomToast";
 
 const CustomerReviews: FC = () => {
@@ -77,7 +76,7 @@ const CustomerReviews: FC = () => {
                 {formatDate(createdAt)}
               </p>
               <Button
-                className="absolute right-4 bottom-4"
+                className="absolute right-0 bottom-4"
                 type="button"
                 onClick={() => deleteFeedback(String(_id))}
               >

@@ -15,6 +15,8 @@ const CustomSmallInput: FC<ICustomSmallInputProps> = ({ name, label }) => {
     formState: { errors },
   } = useFormContext();
 
+  const isError = !!errors[name];
+
   return (
     <>
       <Controller
@@ -25,15 +27,14 @@ const CustomSmallInput: FC<ICustomSmallInputProps> = ({ name, label }) => {
           <TextField
             {...field}
             id={name}
-            error={!!errors[name]}
-            className={`w-full xl:min-w-[320px] ${
-              errors[name] ? "mb-0" : "mb-4"
-            }`}
+            error={isError}
+            className={`w-full xl:min-w-[320px] ${isError ? "mb-0" : "mb-4"}`}
+            style={isError ? { marginBottom: "0" } : { marginBottom: "16px" }}
             variant="outlined"
             label={label}
             InputProps={{
               className: `border border-TechStopBlue60 ${
-                errors[name] ? "border-transparent" : ""
+                isError ? "border-transparent" : ""
               }`,
             }}
           />
