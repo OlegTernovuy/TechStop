@@ -52,28 +52,6 @@ const Navbar = () => {
   const { data: session } = useSession();
   // console.log({session});
 
-  const logout = async () => {
-    const res = await fetch(
-      "https://team-project-server-41ev.onrender.com/api/auth/logout",
-      {
-        method: "POST",
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImVtYWlsIjoidGVybkBnbWFpbC5jb20iLCJ1c2VySWQiOiI2NjQzMWVmZTg0YTg1OGU1NTE2YjljMTAifSwiaWF0IjoxNzE1NjkyNjU4LCJleHAiOjE3MTU2OTM1NTh9.PArSOAm5IMi_d8Svm7BWBMpEw-M3j9HZqn-iDkDkLMU",
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    if (res.status == 401) {
-      console.log(res.statusText);
-
-      return null;
-    }
-    const user = await res.json();
-    return user;
-  };
-
   return (
     <header className="bg-TechStopWhite relative flex items-center max-w-full border-b-[1px] border-b-TechStopBlue40 py-2 md:py-0">
       <MaxWidthWrapper className="flex justify-between items-center">
@@ -108,33 +86,17 @@ const Navbar = () => {
         <div className="flex gap-10">
           {session && session.user ? (
             <div className="flex gap-4 ml-auto">
-              {/* <p className="text-sky-600">{session?.user?.email}</p> */}
-              {/* <Link
-                href={"/api/auth/signout"}
-                className="flex gap-4 ml-auto text-red-600"
-              >
-                Sign Out
-              </Link> */}
               <button onClick={() => signOut({ redirect: false })}>
                 Sign Out
               </button>
-              {/* <button onClick={logout}>Sign Out</button> */}
             </div>
           ) : (
             <div className="flex items-center">
-              {/* <Link
-                href={"/api/auth/signin"}
-                className="flex gap-4 ml-auto text-green-600"
-              >
-                Sign In
-              </Link> */}
               <button onClick={setShowLoginModal}>Login</button>
             </div>
           )}
           <div className="group relative hidden md:block">
-            <Link
-              href={session && session.user ? "/account" : "/InformationCenter"}
-            >
+            <Link href={session && session.user ? "/account" : "/"}>
               <Image
                 src={accountCircleOutline}
                 alt="AccountCircleOutlined"

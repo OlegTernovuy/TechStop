@@ -11,14 +11,21 @@ import { useCartStore } from "@/store/useCartStore";
 import { useStore } from "@/store/useStore";
 import formatPrice from "@/app/utils/formatPrice";
 import { IAdd } from "@/types";
+import { useSession } from "next-auth/react";
+import { useLoginModalStore } from "@/store/modalStore";
 
 function OrderCart() {
   const router = useRouter();
+
+  const { data: session } = useSession();
 
   const DeliveryPrice = 150;
 
   const cartItems = useStore(useCartStore, (state) => state.cartItems);
   const totalPrice = useStore(useCartStore, (state) => state.totalPrice);
+  const setShowLoginModal = useLoginModalStore(
+    (state) => state.setShowLoginModal
+  );
 
   const productsPrice = formatPrice(totalPrice?.totalPrice);
   // const productsPriceWithAdd = formatPrice(totalPrice?.priceWithAddService);
@@ -56,6 +63,13 @@ function OrderCart() {
       setDisabled(false);
     }
   }, [orderContactData]);
+
+  const makeOrder = () => {
+    if (!session) {
+      setShowLoginModal();
+    }
+    console.log(orderContactData);
+  };
 
   // console.log(orderContactData);
 
@@ -161,7 +175,7 @@ function OrderCart() {
                     : "text-TechStopWhite"
                 }`}
                 disabled={disabled}
-                onClick={() => console.log(orderContactData)}
+                onClick={makeOrder}
               />
               <div className="w-[100%] lg:border-b border-TechStopBlue40 mt-[31px]"></div>
             </div>
