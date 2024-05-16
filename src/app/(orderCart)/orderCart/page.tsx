@@ -67,8 +67,10 @@ function OrderCart() {
   const makeOrder = () => {
     if (!session) {
       setShowLoginModal();
+    } else {
+      alert("Order");
     }
-    console.log(orderContactData);
+    // console.log(orderContactData);
   };
 
   // console.log(orderContactData);
