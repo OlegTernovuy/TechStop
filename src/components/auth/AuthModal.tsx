@@ -39,7 +39,7 @@ const AuthModal = () => {
 
   const googleAuth = async () => {
     try {
-      const res = await axios.get(`${process.env.BASE_URL}/google`);
+      const res = await axios.get(process.env.NEXT_PUBLIC_BASE_URL + "/google");
       if (res.status !== 200) {
         throw new Error("Something went wrong");
       }
@@ -55,7 +55,7 @@ const AuthModal = () => {
       <div
         className={
           showLoginModal
-            ? "fixed lg:absolute lg:top-[162px] mx-auto p-4 lg:p-10 inset-0 bg-white overflow-y-auto h-full w-full z-10 lg:max-w-[560px] lg:h-min lg:max-h-[648px] lg:rounded-lg flex flex-col text-TechStopBlue"
+            ? "fixed lg:absolute lg:top-[162px] mx-auto p-4 lg:p-10 inset-0 bg-white overflow-y-auto h-full w-full z-10 lg:max-w-[560px] lg:h-min lg:rounded-lg flex flex-col text-TechStopBlue"
             : "hidden"
         }
       >

@@ -18,9 +18,11 @@ interface IAuthModal {
 }
 
 const LoginForm = ({ showLoginForm, setPending }: IAuthModal) => {
+  
   const setShowLoginModal = useLoginModalStore(
     (state) => state.setShowLoginModal
   );
+
   const {
     handleSubmit,
     control,
@@ -77,17 +79,25 @@ const LoginForm = ({ showLoginForm, setPending }: IAuthModal) => {
     } else {
       try {
         setPending(true);
-        const res = await fetch(process.env.BASE_URL + "/auth/register", {
-          method: "POST",
-          body: JSON.stringify({
+        const res = await fetch(
+          process.env.NEXT_PUBLIC_BASE_URL + "/auth/register",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              email,
+              password,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (res.ok) {
+          await signIn("credentials", {
+            redirect: false,
             email,
             password,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        if (res.ok) {
+          });
           setPending(false);
           setShowLoginModal();
           serServerError({

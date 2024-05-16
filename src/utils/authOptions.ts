@@ -1,5 +1,6 @@
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions: AuthOptions = {
   session: {
@@ -9,6 +10,11 @@ export const authOptions: AuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,
   },
   providers: [
+    // GoogleProvider({
+    //   clientId: process.env.GOOGLE_CLIENT_ID,
+    //   clientSecret: process.env.GOOGLE_CLIENT_SECRET
+    //   // authorization: `${process.env.NEXT_PUBLIC_BASE_URL}/api/google`,
+    // }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -22,7 +28,7 @@ export const authOptions: AuthOptions = {
       async authorize(credentials, req) {
         if (!credentials?.email || !credentials?.password) return null;
         const { email, password } = credentials;
-        const res = await fetch(process.env.BASE_URL + "/auth/login", {
+        const res = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/auth/login", {
           method: "POST",
           body: JSON.stringify({
             email,
