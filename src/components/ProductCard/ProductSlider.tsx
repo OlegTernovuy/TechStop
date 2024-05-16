@@ -51,14 +51,6 @@ const ProductSlider: FC<IData> = ({ product }) => {
     <div className="lg:max-w-full ">
       <div className="relative">
         <ul className="top-0 left-[104px] bg-TechStopWhite h-full border shadow-sm">
-          {" "}
-          {/* <Image
-            src={poster || defaultImg}
-            alt={title}
-            className="bg-TechStopWhite w-[358px] h-[249] md:w-[720px] md:h-[500px]"
-            width={700}
-            height={500}
-          /> */}
           {gallery.map(({ id, href }, idx) => (
             <li key={id} className={`${idx === current ? "block" : "hidden"} `}>
               {" "}

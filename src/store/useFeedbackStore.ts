@@ -1,53 +1,49 @@
-import { nanoid } from "nanoid";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { format } from "date-fns";
-import { uk } from "date-fns/locale";
 
-interface IFeedback {
-  id?: string;
-  value: string;
-  benefits: string;
-  disadvantages: string;
-  comments?: string;
-  name: string;
-  email: string;
-  date?: string;
-}
+import { Review, IFeedback } from "@/types";
+
+import axios from "axios";
+
+const BASE_URL = "https://team-project-server-41ev.onrender.com/api";
 
 interface IFeedbackStore {
-  feedback: IFeedback[];
-  addNewFeedback: (data: IFeedback) => void;
+  reviews: IFeedback[];
+  getAllFeedbacks: () => Promise<void>;
+  addNewFeedback: (newReview: Review) => Promise<void>;
 }
 
 export const useFeedbackStore = create(
   persist<IFeedbackStore>(
     (set, get) => ({
-      feedback: [],
-      addNewFeedback: (data) => {
-        const { value, benefits, disadvantages, comments, name, email, date } =
-          data;
+      reviews: [],
+      addNewFeedback: async (newReview) => {
+        try {
+          const resp = await axios.post(`${BASE_URL}/reviews`, newReview);
+          const reviewData = resp.data;
 
-        const currentDate: Date = new Date();
+          set({ reviews: [...get().reviews, reviewData.data] });
+        } catch (error) {
+          console.log((error as Error).message);
+        }
+      },
 
-        const formattedDate2 = format(currentDate, "d MMMM yyyy року", {
-          locale: uk,
-        });
+      getAllFeedbacks: async () => {
+        try {
+          const res = await axios.get(`${BASE_URL}/reviews`);
+          if (res.status !== 200) {
+            throw new Error("Something went wrong");
+          }
 
-        const newFeedback: IFeedback = {
-          id: nanoid(),
-          value,
-          benefits,
-          disadvantages,
-          comments,
-          name,
-          email,
-          date: formattedDate2,
-        };
-        console.log(newFeedback);
-        set({ feedback: [...get().feedback, newFeedback] });
+          const { data } = res.data;
+
+          set({ reviews: data });
+        } catch (error) {
+          console.log((error as Error).message);
+        }
       },
     }),
+
     { name: "FEEDBACK" }
   )
 );

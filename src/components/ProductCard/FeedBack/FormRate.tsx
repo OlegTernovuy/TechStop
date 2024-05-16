@@ -9,13 +9,13 @@ import { IFormRateProps } from "./Feedback.types";
 const FormRate: FC<IFormRateProps> = ({ errors }) => {
   const isError = Object.values(errors).some((error) => error !== undefined);
 
-  const { benefits, disadvantages, comments, name, email } = errors;
+  const { advantages, disadvantages, comment, userName, userEmail } = errors;
 
   return (
     <>
       <div>
-        <CustomInput name="benefits" label="Переваги" />
-        {benefits && <p className="text-red-500 ">{benefits.message}</p>}
+        <CustomInput name="advantages" label="Переваги" />
+        {advantages && <p className="text-red-500 ">{advantages.message}</p>}
       </div>
       <div>
         {" "}
@@ -27,26 +27,26 @@ const FormRate: FC<IFormRateProps> = ({ errors }) => {
 
       <div>
         {" "}
-        <CustomInput name="comments" label="Коментарі" multiline rows={4} />
-        {comments && <p className="text-red-500">{comments.message}</p>}
+        <CustomInput name="comment" label="Коментарі" multiline rows={4} />
+        {comment && <p className="text-red-500">{comment.message}</p>}
       </div>
 
       <ul className="xl:flex justify-between flex-wrap gap-6 ">
         {" "}
         <li className="xl:flex gap-4 xl:mb-0">
           {" "}
-          <div className="md:mb-4 xl-mb-0">
+          <div className="md:mb-4 xl:mb-0">
             {" "}
-            <CustomSmallInput name="name" label="Ім'я" />
-            {name && (
-              <p className=" text-red-500 mb-4 md:mb-0">{name.message}</p>
+            <CustomSmallInput name="userName" label="Ім'я" />
+            {userName && (
+              <p className=" text-red-500 mb-4 md:mb-0">{userName.message}</p>
             )}
           </div>
           <div>
             {" "}
-            <CustomSmallInput name="email" label="example@email.com" />
-            {email && (
-              <p className="text-red-500 mb-6 md:mb-0">{email.message}</p>
+            <CustomSmallInput name="userEmail" label="example@email.com" />
+            {userEmail && (
+              <p className="text-red-500 mb-6 md:mb-0">{userEmail.message}</p>
             )}
           </div>
         </li>

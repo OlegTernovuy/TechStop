@@ -17,6 +17,31 @@ export const getProductById = async (_id: string): Promise<Product | any> => {
   }
 };
 
+export const getReviews = async () => {
+  try {
+    const res = await axios.get(`${BASE_URL}/reviews`);
+    if (res.status !== 200) {
+      throw new Error("Something went wrong");
+    }
+
+    return res.data;
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+export const rateProduct = async (_id: string, value: number) => {
+  try {
+    const res = await axios.patch(`${BASE_URL}/api/products/${_id}/rate`, {
+      value: value,
+    });
+
+    return res.data;
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
 export const getProductsData = async (): Promise<Product[] | undefined> => {
   try {
     const res = await fetch(`${BASE_URL}/products`, {
