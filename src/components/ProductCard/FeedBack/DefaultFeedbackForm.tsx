@@ -126,6 +126,7 @@ const DefaultFeedbackForm: FC<IParams> = ({ params }) => {
         <CustomToast />
 
         <TextField
+          style={{ display: "none" }}
           className="hidden"
           id="productId"
           name="productId"
