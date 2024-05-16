@@ -4,6 +4,12 @@ import CredentialsProvider from "next-auth/providers/credentials";
 const BASE_URL = "https://team-project-server-41ev.onrender.com/api";
 
 export const authOptions: AuthOptions = {
+  session: {
+    strategy: "jwt",
+  },
+  jwt: {
+    secret: process.env.NEXTAUTH_SECRET,
+  },
   providers: [
     CredentialsProvider({
       name: "Credentials",
