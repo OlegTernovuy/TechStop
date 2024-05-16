@@ -62,7 +62,9 @@ const FeedbackPage: FC<IParams> = ({ params }) => {
               </Button>
             ) : (
               <div className="md:hidden mb-[54px]">
-                <DefaultFeedbackForm params={params} />
+                {showFeedback && reviews.length === 0 && (
+                  <DefaultFeedbackForm params={params} />
+                )}
               </div>
             )}
             {showFeedback && <DefaultFeedbackForm params={params} />}
