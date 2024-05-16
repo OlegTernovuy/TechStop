@@ -15,6 +15,7 @@ import feedBack from "/public/product-card-icons/CommentOutlined.svg";
 import { useRatingStore } from "@/store/useRatingStore";
 import toast from "react-hot-toast";
 import CustomToast from "../Global/CustomToast";
+import { useFeedbackStore } from "@/store/useFeedbackStore";
 
 const checkboxLabels = [
   {
@@ -46,6 +47,7 @@ const checkboxLabels = [
 const ProductContent: FC<IData> = ({ product }) => {
   const { title, inStock, _id } = product?.data;
   const { value, leaveRating } = useRatingStore();
+  const { reviews } = useFeedbackStore();
   const {
     data: { rating },
   } = value;
@@ -94,7 +96,7 @@ const ProductContent: FC<IData> = ({ product }) => {
             className="uppercase text-TechStopBronze font-medium text-base flex gap-3 hover:scale-110 transition ease-out duration-300"
           >
             <Image src={feedBack} alt="feedBack_icon" width={20} height={20} />
-            <span> Відгуки (0)</span>
+            <span> Відгуки ({reviews.length})</span>
           </Link>
         </li>
       </ul>
