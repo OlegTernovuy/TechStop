@@ -90,7 +90,13 @@ export interface IContactContent
   surname: string;
   email: string;
   phone: string;
-  anotherPersonReceive: boolean;
+  // anotherPersonReceive: boolean;
+}
+
+export interface courierAddress {
+  street: string | undefined;
+  houseNumber: string | undefined;
+  apartmentNumber: string | undefined;
 }
 
 export interface IDeliveryContent {
@@ -99,7 +105,11 @@ export interface IDeliveryContent {
   novaPostDepart?: string | undefined;
   ukrPostDepart?: string | undefined;
   shopDepart?: string | undefined;
-  courierAddress?: string | undefined;
+  courierAddress: {
+    street?: string | undefined;
+    houseNumber?: string | undefined;
+    apartmentNumber?: string | undefined;
+  } | null;
   // postOfficeData: string;
 }
 
@@ -115,7 +125,12 @@ export interface IAdd {
 
 export interface formDat {
   setOrderContactData: React.Dispatch<React.SetStateAction<IAdd>>;
+  // setCourierAddress: React.Dispatch<React.SetStateAction<{}>>;
   toggle: (i: any) => void;
+}
+
+export interface formDatAddress extends formDat {
+  setCourierAddress: React.Dispatch<React.SetStateAction<courierAddress>>;
 }
 
 export interface INPCity {

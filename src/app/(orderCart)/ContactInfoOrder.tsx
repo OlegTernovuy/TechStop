@@ -3,16 +3,18 @@ import React, { useState } from "react";
 import ContactContent from "./ContactContent";
 import PaymentMethod from "./PaymentMethod";
 import DeliveryMethod from "./DeliveryMethod";
-import { IAdd } from "@/types";
+import { courierAddress, IAdd } from "@/types";
 
 interface TContactInfoOrder {
   orderContactData: IAdd;
   setOrderContactData: React.Dispatch<React.SetStateAction<IAdd>>;
+  setCourierAddress: React.Dispatch<React.SetStateAction<courierAddress>>;
 }
 
 const ContactInfoOrder = ({
   orderContactData,
   setOrderContactData,
+  setCourierAddress
 }: TContactInfoOrder) => {
   const [selected, setSelected] = useState(null);
 
@@ -38,6 +40,7 @@ const ContactInfoOrder = ({
       content: (
         <DeliveryMethod
           setOrderContactData={setOrderContactData}
+          setCourierAddress={setCourierAddress}
           toggle={toggle}
         />
       ),

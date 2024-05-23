@@ -17,7 +17,7 @@ export const ContactValidationsSchema = yup.object().shape({
     .max(60, "Surname must be less than 60 characters")
     .matches(
       /^[a-zA-Zа-щьюяіїґєА-ЩЬЮЯІЇҐЄ]+$/,
-      "User Surname, must be contain only letters"
+      "User surname, must be contain only letters"
     ),
   email: yup
     .string()
@@ -34,7 +34,7 @@ export const ContactValidationsSchema = yup.object().shape({
     .required("Required")
     .matches(/^[\+]{0,1}380/, "Number should start with code of Ukraine +380")
     .matches(/^[\+]{0,1}380([0-9]{9})$/, "And contain 9 numbers"),
-  anotherPersonReceive: yup.boolean().default(false),
+  // anotherPersonReceive: yup.boolean().default(false),
 });
 
 export const DeliveryValidationsSchema = yup.object().shape({
@@ -42,30 +42,29 @@ export const DeliveryValidationsSchema = yup.object().shape({
     .string()
     .required("Required")
     .max(100, "Post must be less than 100 characters"),
-  // postOfficeData: yup
-  // .string()
-  // .required("Required")
-  // .max(100, "Post name must be less than 100 characters")
-  // novaPostDepart: '',
-  //   ukrPostDepart: '',
-  //   shopDepart: '',
-  //   courierAddress: '',
   novaPostDepart: yup
     .string()
-    // .required("Required")
     .max(100, "novaPostDepart must be less than 100 characters"),
   ukrPostDepart: yup
     .string()
-    // .required("Required")
     .max(100, "ukrPostDepart must be less than 100 characters"),
   shopDepart: yup
     .string()
-    // .required("Required")
     .max(100, "shopDepart must be less than 100 characters"),
-  courierAddress: yup
-    .string()
-    // .required("Required")
-    .max(100, "courierAddress must be less than 100 characters")
+  // courierAddress: yup
+  //   .string()
+  //   .max(100, "courierAddress must be less than 100 characters")
+  courierAddress: yup.object().shape({
+    street: yup
+      .string()
+      .max(100, "Street must be less than 100 characters"),
+    houseNumber: yup
+      .string()
+      .max(10, "House number must be less than 10 characters"),
+    apartmentNumber: yup
+      .string()
+      .max(10, "Apartment number must be less than 10 characters")
+  }).nullable(),
 });
 
 export const PayMethodValidationsSchema = yup.object().shape({

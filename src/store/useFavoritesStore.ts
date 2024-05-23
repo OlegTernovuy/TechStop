@@ -26,13 +26,13 @@ export const useFavoritesStore = create(
             ),
           }));
 
-          toast.success(`Товар ${title} додано до улюблених ➕`);
+          toast.success(`Товар ${title} видалено з улюблених 🚮`);
         } else {
           set((state) => ({
             favorites: [...state.favorites, product],
           }));
 
-          toast.success(`Товар ${title} видалено з улюблених 🚮`);
+          toast.success(`Товар ${title} додано до улюблених ➕`);
         }
       },
       isFavoriteProduct: (_id: string) => {

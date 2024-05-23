@@ -113,7 +113,7 @@ const ShoppingCartModal = () => {
                   )}
                 </div>
                 <div className="md:hidden"></div>
-                <div className="w-full lg:w-[30%] flex flex-col justify-between lg:pl-6 pt-6 lg:pt-0">
+                <div className="w-full lg:w-[30%] flex flex-col justify-between max-h-[488px] lg:pl-6 pt-6 lg:pt-0">
                   <div className="hidden md:flex flex-col gap-6">
                     <div className="flex justify-between items-center">
                       <p className="text-Headline5">Товар на суму</p>
@@ -149,7 +149,8 @@ const ShoppingCartModal = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center">
+                  <div>
+                    <div className="flex justify-between items-center lg:mb-12">
                     <p className="hidden md:flex text-subtitle1 md:text-Headline5">
                       Загальна сума
                     </p>
@@ -159,6 +160,12 @@ const ShoppingCartModal = () => {
                     <span className="text-subtitle1 md:text-Headline4">
                       {productsPriceWithAdd + " ₴"}
                     </span>
+                    </div>
+                    <Button
+                      title="Оформити замовлення"
+                      stylesButton="bg-TechStopBlue text-TechStopWhite w-96 hidden md:flex"
+                      onClick={routerToOrderPage}
+                    />
                   </div>
                 </div>
                 {/*Element only for mobile */}
@@ -175,11 +182,6 @@ const ShoppingCartModal = () => {
                   title="продовжити покупки"
                   onClick={setShowShoppingCart}
                   stylesButton="border-[1px] border-TechStopBlue40"
-                />
-                <Button
-                  title="Оформити замовлення"
-                  stylesButton="bg-TechStopBlue text-TechStopWhite w-96"
-                  onClick={routerToOrderPage}
                 />
               </div>
               {viewProducts != undefined && viewProducts?.length > 0 && (

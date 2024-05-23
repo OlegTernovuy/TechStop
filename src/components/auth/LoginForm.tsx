@@ -11,6 +11,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { signIn } from "next-auth/react";
 import { useLoginModalStore } from "@/store/modalStore";
+import toast from "react-hot-toast";
 
 interface IAuthModal {
   showLoginForm: boolean;
@@ -18,7 +19,6 @@ interface IAuthModal {
 }
 
 const LoginForm = ({ showLoginForm, setPending }: IAuthModal) => {
-  
   const setShowLoginModal = useLoginModalStore(
     (state) => state.setShowLoginModal
   );
@@ -50,6 +50,7 @@ const LoginForm = ({ showLoginForm, setPending }: IAuthModal) => {
         setPending(false);
         if (login?.error === null) {
           setShowLoginModal();
+          toast.success(`Ви успішно увійшли)`);
           serServerError({
             userError: "",
             passwordError: "",
@@ -99,6 +100,7 @@ const LoginForm = ({ showLoginForm, setPending }: IAuthModal) => {
             password,
           });
           setPending(false);
+          toast.success(`Ви успішно зареєструвалися)`);
           setShowLoginModal();
           serServerError({
             userError: "",

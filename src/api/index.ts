@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Categories, Product } from "@/types";
 import { PurchasesData } from "@/app/account/purchases/purchasesType";
+import { IRewiewData } from "@/app/account/reviews/typeRewiew";
 
 const BASE_URL = "https://team-project-server-41ev.onrender.com/api";
 
@@ -58,6 +59,18 @@ export const getOrders = async (): Promise<PurchasesData[] | undefined> => {
     }
 
     return res.json().then((res) => res.data);
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+export const getAllFeedbacks = async (userId: string) => {
+  try {
+    const res = await axios.get(`${BASE_URL}/reviews?userId=${userId}`);
+    if (res.status !== 200) {
+      throw new Error("Something went wrong");
+    }
+    return res.data.data as IRewiewData[];
   } catch (error) {
     console.log((error as Error).message);
   }

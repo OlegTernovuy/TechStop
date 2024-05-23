@@ -10,7 +10,7 @@ import MaxWidthWrapper from "../../../components/MaxWidthWrapper";
 import { useCartStore } from "@/store/useCartStore";
 import { useStore } from "@/store/useStore";
 import formatPrice from "@/app/utils/formatPrice";
-import { IAdd } from "@/types";
+import { courierAddress, IAdd } from "@/types";
 import { useSession } from "next-auth/react";
 import { useLoginModalStore } from "@/store/modalStore";
 
@@ -40,14 +40,16 @@ function OrderCart() {
   const productsPriceWithAdd = calculateProductsPriceWithAdd();
 
   const [orderContactData, setOrderContactData] = useState<IAdd>({});
+  const [courierAddress, setCourierAddress] = useState<courierAddress>({
+    street: "",
+    houseNumber: "",
+    apartmentNumber: "",
+  });
   const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
-    // if (Object.keys(orderContactData).length > 8) {
-    //   setDisabled(false);
-    // }
     if (
-      Object.keys(orderContactData).length === 12 &&
+      Object.keys(orderContactData).length === 8 &&
       orderContactData.phone !== "" &&
       orderContactData.name !== "" &&
       orderContactData.surname !== "" &&
@@ -55,10 +57,8 @@ function OrderCart() {
       orderContactData.city !== "" &&
       orderContactData.postOffice !== "" &&
       orderContactData.payMethod_id !== "" &&
-      (orderContactData.courierAddress !== "" ||
-        orderContactData.novaPostDepart !== "" ||
-        orderContactData.shopDepart !== "" ||
-        orderContactData.ukrPostDepart)
+      (orderContactData.ukrPostDepart !== "" ||
+        (courierAddress?.street !== "" && courierAddress?.houseNumber !== ""))
     ) {
       setDisabled(false);
     }
@@ -69,11 +69,13 @@ function OrderCart() {
       setShowLoginModal();
     } else {
       alert("Order");
+      const combinedObject = {
+        ...orderContactData,
+        courierAddress: courierAddress,
+      };
+      console.log(combinedObject);
     }
-    // console.log(orderContactData);
   };
-
-  // console.log(orderContactData);
 
   return (
     <MaxWidthWrapper className="min-h-screen">
@@ -103,12 +105,13 @@ function OrderCart() {
           ) : (
             <div>Order Cart is Empty</div>
           )}
-          <div className=" text-Headline6 flex items-center justify-between md:hidden">
+          <div className=" text-Headline6 text-TechStopBlue flex items-center justify-between md:hidden">
             <p>Разом до сплати</p>
             <p>{formatPrice(productsPriceWithAdd) + " ₴"}</p>
           </div>
           <ContactInfoOrder
             setOrderContactData={setOrderContactData}
+            setCourierAddress={setCourierAddress}
             orderContactData={orderContactData}
           />
           <div className=" w-full mb-4 md:mb-[122px]">

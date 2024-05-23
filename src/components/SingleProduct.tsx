@@ -2,12 +2,15 @@ import formatPrice from "@/app/utils/formatPrice";
 import { useCartStore } from "@/store/useCartStore";
 import { IRating, Product } from "@/types";
 import { Rating } from "@mui/material";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import Image from "next/image";
 import { DiscountPercentage } from "@/constants";
 import { useViewProductsStore } from "@/store/useViewProductsStore";
 import defaultProductIcon from '../../public/defaultProductIcon.svg'
+import favorite from '../../public/favorite.svg'
+import heartActive from "../../public/product-card-icons/heart_active.svg";
+
 import calculateRating from "@/app/utils/calculateRating";
+import { useFavoritesStore } from "@/store/useFavoritesStore";
 
 type IProduct = {
   product: Product;
@@ -17,6 +20,8 @@ const SingleProduct = ({ product }: IProduct) => {
   
   const { addItemToCart } = useCartStore();
   const { addItemToViewProducts } = useViewProductsStore();
+  const { toggleProductCardToFavorites, isFavoriteProduct } =
+  useFavoritesStore();
 
   const addProductToCart = (
     product: Product,
@@ -25,6 +30,15 @@ const SingleProduct = ({ product }: IProduct) => {
     e?.preventDefault();
     e?.stopPropagation();
     addItemToCart(product);
+  };
+
+  const addProductToFavorite = (
+    product: Product,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+    toggleProductCardToFavorites(product);
   };
 
   const addProductToView = (product: Product) => {
@@ -49,18 +63,16 @@ const SingleProduct = ({ product }: IProduct) => {
             width={240}
             className="w-full min-h-[260px] md:min-h-[370px] object-cover"
           />
-          <div
+          <button
             className="absolute bottom-4 right-4 cursor-pointer"
-            onClick={() => console.log("like")}
+            onClick={(e) => addProductToFavorite(product, e)}
           >
-            <FavoriteBorderOutlinedIcon
-              className="relative"
-              style={{
-                width: "32px",
-                height: "32px",
-              }}
-            />
-          </div>
+            {isFavoriteProduct(product._id) ? (
+                <Image src={heartActive} alt="favorite" width={32} height={32} />
+              ) : (
+                <Image src={favorite} alt="favorite" width={32} height={32} />
+              )}
+          </button>
         </div>
         <p className="py-1 text-TechStopBlue text-body1 lg:text-base">{product.title} </p>
       </div>
@@ -68,8 +80,8 @@ const SingleProduct = ({ product }: IProduct) => {
         <Rating name="read-only" value={calculateRating(product.rating)} precision={0.5} readOnly />
         <div className="flex justify-between mt-2 items-center">
           <div className="flex flex-col">
-            <span className="text-sm line-through text-TechStopBlue">{oldPrice}</span>
-            <span className="text-TechStopRed text-xl">{newPrice}</span>
+            <span className="text-sm line-through text-TechStopBlue">{oldPrice + ' ₴'}</span>
+            <span className="text-TechStopRed text-xl">{newPrice + ' ₴'}</span>
           </div>
           <div className="flex space-x-2.5">
             <Image

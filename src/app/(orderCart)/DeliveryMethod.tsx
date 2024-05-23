@@ -13,7 +13,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { DeliveryValidationsSchema } from "../utils/ValidationsSchema";
-import { IDeliveryContent, INPCity, formDat } from "@/types";
+import { IDeliveryContent, INPCity, formDat, formDatAddress } from "@/types";
 import Button from "@/components/ui/Button";
 import { checkIsContact } from "../utils/CheckIsData";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
@@ -22,7 +22,11 @@ import { useDebounce } from "../utils/useDebounce";
 
 import { OurShops, Posts, UkrPostDepartments } from "@/constants";
 
-const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
+const DeliveryMethod = ({
+  setOrderContactData,
+  setCourierAddress,
+  toggle,
+}: formDatAddress) => {
   const [selected, setSelected] = useState(null);
   const [selectedCity, setSelectedCity] = useState(false);
   const [search, setSearch] = useState("");
@@ -51,12 +55,6 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
     response.data.length > 0 && setSearchPostDepartments(response.data);
   };
 
-  // const [searchTerm, setSearchTerm] = useState("");
-
-  // const filteredOptions = searchPostDepartments.filter((option) =>
-  //   option.Description.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
-
   useEffect(() => {
     findNovaPostDepartments("8d5a980d-391c-11dd-90d9-001a92567626");
   }, []);
@@ -73,11 +71,14 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
   } = useForm<IDeliveryContent>({
     defaultValues: {
       postOffice: "",
-      // postOfficeData: "",
       novaPostDepart: "",
       ukrPostDepart: "",
       shopDepart: "",
-      courierAddress: "",
+      courierAddress: {
+        street: "",
+        houseNumber: "",
+        apartmentNumber: "",
+      },
     },
     resolver: yupResolver(DeliveryValidationsSchema),
   });
@@ -85,35 +86,24 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
   const submitFields = handleSubmit((contact) => {
     try {
       checkIsContact(city, setOrderContactData);
-      checkIsContact({ ...contact }, setOrderContactData);
-
-      // const {
-      //   courierAddress,
-      //   novaPostDepart,
-      //   postOffice,
-      //   shopDepart,
-      //   ukrPostDepart,
-      // } = contact;
-
-      // const courierAddressObject = { courierAddress };
-      // const novaPostDepartObject = { novaPostDepart };
-      // const postOfficeObject = { postOffice };
-      // const shopDepartObject = { shopDepart };
-      // const ukrPostDepartObject = { ukrPostDepart };
-
-      // checkIsContact(search, setOrderContactData);
-      // checkIsContact(postOfficeObject, setOrderContactData);
-      // postOffice === "Курʼєром" ?
-      // checkIsContact(courierAddressObject, setOrderContactData) :
-      // postOffice === "Нова Пошта" ?
-      // checkIsContact(novaPostDepartObject, setOrderContactData) :
-      // postOffice === "УкрПошта" ?
-      // checkIsContact(ukrPostDepartObject, setOrderContactData) :
-      // checkIsContact(shopDepartObject, setOrderContactData)
-
+      checkIsContact({ postOffice: contact.postOffice }, setOrderContactData);
+      checkIsContact(
+        { ukrPostDepart: contact.ukrPostDepart },
+        setOrderContactData
+      );
+      if (
+        contact.courierAddress?.street !== "" ||
+        contact.courierAddress?.houseNumber !== undefined
+      ) {
+        setCourierAddress({
+          street: contact.courierAddress?.street,
+          houseNumber: contact.courierAddress?.houseNumber,
+          apartmentNumber: contact.courierAddress?.apartmentNumber,
+        });
+      }
       toggle(2);
     } catch (error: any) {
-      console.error("Error post user: ", error);
+      console.error("Error: ", error);
       throw error;
     }
   });
@@ -246,7 +236,7 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
                             <InputLabel>Відділення</InputLabel>
                             <Controller
                               control={control}
-                              name="novaPostDepart"
+                              name="ukrPostDepart"
                               render={({ field }) => (
                                 <Select
                                   label="Відділення"
@@ -329,7 +319,7 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
                             </InputLabel>
                             <Controller
                               control={control}
-                              name="shopDepart"
+                              name="ukrPostDepart"
                               render={({ field }) => (
                                 <Select
                                   label="Магазин"
@@ -363,16 +353,75 @@ const DeliveryMethod = ({ setOrderContactData, toggle }: formDat) => {
                         </div>
                       ) : (
                         <div className="w-full py-3">
-                          <FormControl fullWidth>
+                          <FormControl className="flex flex-row gap-6">
                             <Controller
                               control={control}
-                              name="courierAddress"
+                              name="courierAddress.street"
                               render={({ field }) => (
                                 <TextField
-                                  label="Ваша адреса"
+                                  label="Street"
                                   variant="outlined"
-                                  error={!!errors?.courierAddress}
-                                  helperText={errors.courierAddress?.message}
+                                  error={!!errors?.courierAddress?.street}
+                                  helperText={
+                                    errors.courierAddress?.street?.message
+                                  }
+                                  onChange={(e) => field.onChange(e)}
+                                  value={field.value}
+                                  className="w-full"
+                                  sx={{
+                                    "& label": {
+                                      color: "#02275099",
+                                    },
+                                    "& .MuiOutlinedInput-root": {
+                                      "& fieldset": {
+                                        borderColor: "#02275099",
+                                      },
+                                    },
+                                  }}
+                                />
+                              )}
+                            />
+                            <Controller
+                              control={control}
+                              name="courierAddress.houseNumber"
+                              render={({ field }) => (
+                                <TextField
+                                  label="HouseNumber"
+                                  variant="outlined"
+                                  error={!!errors?.courierAddress?.houseNumber}
+                                  helperText={
+                                    errors.courierAddress?.houseNumber?.message
+                                  }
+                                  onChange={(e) => field.onChange(e)}
+                                  value={field.value}
+                                  className="w-full"
+                                  sx={{
+                                    "& label": {
+                                      color: "#02275099",
+                                    },
+                                    "& .MuiOutlinedInput-root": {
+                                      "& fieldset": {
+                                        borderColor: "#02275099",
+                                      },
+                                    },
+                                  }}
+                                />
+                              )}
+                            />
+                            <Controller
+                              control={control}
+                              name="courierAddress.apartmentNumber"
+                              render={({ field }) => (
+                                <TextField
+                                  label="ApartmentNumber"
+                                  variant="outlined"
+                                  error={
+                                    !!errors?.courierAddress?.apartmentNumber
+                                  }
+                                  helperText={
+                                    errors.courierAddress?.apartmentNumber
+                                      ?.message
+                                  }
                                   onChange={(e) => field.onChange(e)}
                                   value={field.value}
                                   className="w-full"

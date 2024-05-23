@@ -291,7 +291,7 @@ export const additionalServices = [
 export const paymentsMethods = [
   {
     id: 1,
-    title: "Оплата після отриманні",
+    title: "Оплата після отримання",
   },
   {
     id: 2,
