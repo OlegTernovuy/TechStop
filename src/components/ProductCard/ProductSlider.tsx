@@ -2,7 +2,6 @@ import React, { FC, useState } from "react";
 import Image from "next/image";
 import { Transition } from "@headlessui/react";
 
-// import defaultImg from "/public/product-card-images/product.png";
 import { IData } from "@/types";
 
 import rightArrow from "/public/product-card-icons/ChevronRightFilled.svg";
@@ -11,7 +10,6 @@ import leftArrow from "/public/icon_left.svg";
 import first from "/public/product-card-icons/test_svg_1.svg";
 import second from "/public/product-card-icons/test_svg_2.svg";
 import third from "/public/product-card-icons/test_svg.svg";
-// import fourth from "/public/product-card-images/fourth.jpg";
 
 const gallery = [
   {

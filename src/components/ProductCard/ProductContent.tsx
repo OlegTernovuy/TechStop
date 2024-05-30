@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Rating } from "@mui/material";
@@ -45,9 +45,9 @@ const checkboxLabels = [
 ];
 
 const ProductContent: FC<IData> = ({ product }) => {
-  const { title, inStock, _id } = product?.data;
-  const { value, leaveRating } = useRatingStore();
-  const { reviews } = useFeedbackStore();
+  const { title, inStock, _id, id } = product?.data;
+  const { value, rateProduct } = useRatingStore();
+  const { reviews, getAllFeedbacks, isError } = useFeedbackStore();
   const {
     data: { rating },
   } = value;
@@ -55,13 +55,18 @@ const ProductContent: FC<IData> = ({ product }) => {
   const [addService, setAddService] = useState<AddServices[]>([]);
   const [hasReviewed, setHasReviewed] = useState<boolean>(false);
 
-  const handleChangeValue = (newValue: number | null) => {
-    if (newValue) {
-      leaveRating(_id, Number(newValue));
-      setHasReviewed(true);
-      toast.success("Дякуємо за відгук 🙌");
+  useEffect(() => {
+    getAllFeedbacks(_id);
+  }, [getAllFeedbacks, _id]);
+
+  const handleChangeValue = async (newValue: number | null) => {
+    if (!newValue || isError) {
+      // toast.error("Something went wrong");
+      return;
     }
-    return;
+    await rateProduct(_id, Number(newValue));
+
+    setHasReviewed(true);
   };
 
   return (
@@ -96,7 +101,12 @@ const ProductContent: FC<IData> = ({ product }) => {
             className="uppercase text-TechStopBronze font-medium text-base flex gap-3 hover:scale-110 transition ease-out duration-300"
           >
             <Image src={feedBack} alt="feedBack_icon" width={20} height={20} />
-            <span> Відгуки ({reviews.length})</span>
+            <span>
+              Відгуки
+              <span className="hidden md:inline-block ml-1">
+                ({reviews.length})
+              </span>
+            </span>
           </Link>
         </li>
       </ul>
@@ -112,7 +122,7 @@ const ProductContent: FC<IData> = ({ product }) => {
       </form>
 
       <div className="md:flex items-center flex-wrap md:mt-10 mt-2">
-        <h3 className="text-TechStopBlue text-2xl font-normal md:mr-[38px] mb-6">
+        <h3 className="text-TechStopBlue text-xl md:text-[34px] font-normal md:mr-[38px] mb-6">
           Доставка
         </h3>
         <ul className="flex flex-wrap gap-[38px] md:gap-16  md:items-center ">

@@ -1,10 +1,11 @@
 "use client";
 
 import { FC, useState } from "react";
-import Button from "../Button";
-import { useFeedbackStore } from "@/store/useFeedbackStore";
-import DefaultFeedbackForm from "./DefaultFeedbackForm";
 import { IParams } from "@/types";
+import DefaultFeedbackForm from "./DefaultFeedbackForm";
+import Button from "../Button";
+
+import { useFeedbackStore } from "@/store/useFeedbackStore";
 
 const FeedbackForm: FC<IParams> = ({ params }) => {
   const [show, setShow] = useState(false);

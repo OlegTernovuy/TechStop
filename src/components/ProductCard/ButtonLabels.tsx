@@ -5,18 +5,16 @@ import { useFavoritesStore } from "@/store/useFavoritesStore";
 
 import CustomToast from "../Global/CustomToast";
 import toast from "react-hot-toast";
-import diagram from "/public/product-card-icons/loan.svg";
+import diagram from "/public/product-card-icons/diagram_White.svg";
 import basket from "/public/product-card-icons/basket.svg";
-import heart from "/public/product-card-icons/heart.svg";
 import Image from "next/image";
 
-import heartActive from "/public/product-card-icons/heart_active.svg";
+import ToggleButton from "./ToggleButton";
 
 const ButtonLabels: FC<IDataWithServices> = ({ product, addService }) => {
   const { price, _id, title } = product.data;
   const { addItemToCart } = useCartStore();
-  const { toggleProductCardToFavorites, isFavoriteProduct } =
-    useFavoritesStore();
+  const { toggleProductCardToFavorites } = useFavoritesStore();
   const { addArrayOfAdditionalServices } = useCartStore();
 
   const handleAddItem = () => {
@@ -70,15 +68,7 @@ const ButtonLabels: FC<IDataWithServices> = ({ product, addService }) => {
             onClick={() => toggleProductCardToFavorites(product.data)}
             className=" md:flex justify-center items-center text-TechStopBlue uppercase md:w-[122px] h-[52px] w-full  hover:scale-110 transition ease-out duration-300"
           >
-            <div className="flex gap-[10px]">
-              {" "}
-              {!isFavoriteProduct(_id) ? (
-                <Image src={heartActive} alt="basket" width={20} height={20} />
-              ) : (
-                <Image src={heart} alt="basket" width={20} height={20} />
-              )}
-              <span> в обране</span>
-            </div>
+            <ToggleButton _id={_id} text="В оборане" />
           </button>
         </li>
       </ul>

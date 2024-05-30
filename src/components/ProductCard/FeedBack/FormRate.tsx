@@ -1,15 +1,21 @@
-import React from "react";
-import { FC } from "react";
+"use  client";
+
+import React, { FC } from "react";
+import { IFormRateProps } from "./Feedback.types";
+
 import Button from "../Button";
 import CustomToast from "@/components/Global/CustomToast";
 import CustomInput from "./CustomInput";
 import CustomSmallInput from "./CustomSmallInput";
-import { IFormRateProps } from "./Feedback.types";
+import { useFeedbackStore } from "@/store/useFeedbackStore";
+import CustomSpinner from "@/components/Global/CustomSpinner";
 
 const FormRate: FC<IFormRateProps> = ({ errors }) => {
   const isError = Object.values(errors).some((error) => error !== undefined);
 
   const { advantages, disadvantages, comment, userName, userEmail } = errors;
+
+  const { isLoading } = useFeedbackStore();
 
   return (
     <>
@@ -39,7 +45,7 @@ const FormRate: FC<IFormRateProps> = ({ errors }) => {
             {" "}
             <CustomSmallInput name="userName" label="Ім'я" />
             {userName && (
-              <p className=" text-red-500 mb-4 md:mb-0">{userName.message}</p>
+              <p className="text-red-500 mb-4 md:mb-0">{userName.message}</p>
             )}
           </div>
           <div>
@@ -53,7 +59,7 @@ const FormRate: FC<IFormRateProps> = ({ errors }) => {
         <li>
           {" "}
           <Button
-            disabled={isError}
+            disabled={isError || !!isLoading}
             type="submit"
             className={`w-full h-[56px] xl:min-w-[453px] bg-TechStopBlue text-TechStopWhite   ${
               isError
@@ -61,7 +67,11 @@ const FormRate: FC<IFormRateProps> = ({ errors }) => {
                 : "hover:bg-TechStopBlue60 focus:bg-TechStopBlue60"
             }`}
           >
-            Залишити відгук
+            {isLoading ? (
+              <CustomSpinner width={40} height={40} />
+            ) : (
+              " Залишити відгук"
+            )}
           </Button>
         </li>
       </ul>

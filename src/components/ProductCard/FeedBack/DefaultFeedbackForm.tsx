@@ -1,9 +1,9 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { InputLabel, MenuItem, TextField } from "@mui/material";
+import { InputLabel, MenuItem } from "@mui/material";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import {
   Controller,
@@ -23,8 +23,7 @@ import FormRate from "./FormRate";
 import { Review, IParams } from "@/types";
 
 const nameRegex = /^[A-Aa-Я]+$/i;
-const emailRegex =
-  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const schema = yup.object({
   rating: yup.number().required("Це поле є обов'язковим"),
@@ -38,7 +37,6 @@ const schema = yup.object({
     .matches(nameRegex, "Некоректне ім'я")
     .required(),
   userEmail: yup.string().matches(emailRegex, "Некоректний email").required(),
-  productId: yup.string(),
 });
 
 const MenuProps = {
@@ -50,9 +48,19 @@ const MenuProps = {
 };
 
 const DefaultFeedbackForm: FC<IParams> = ({ params }) => {
-  const { addNewFeedback } = useFeedbackStore();
+  const [isFocused, setIsFocused] = useState(false);
 
-  const { _id } = params;
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
+
+  const { addNewFeedback, isError } = useFeedbackStore();
+
+  const { _id: productId } = params;
 
   const methods = useForm({
     resolver: yupResolver(schema),
@@ -62,7 +70,6 @@ const DefaultFeedbackForm: FC<IParams> = ({ params }) => {
       comment: "",
       userName: "",
       userEmail: "",
-      productId: "",
       rating: Number(Rating.excellent),
     },
   });
@@ -74,66 +81,68 @@ const DefaultFeedbackForm: FC<IParams> = ({ params }) => {
     register,
     formState: { errors },
   } = methods;
+  const userId = "6622e62c5f5fd48246c5fa2a";
+  console.log(isError);
+  const onSubmit: SubmitHandler<Review> = async (data) => {
+    const newData = { ...data, productId, userId };
+    const { userEmail, ...filteredData } = newData;
 
-  const onSubmit: SubmitHandler<Review> = (data) => {
-    if (!data) {
-      toast.error("Field can`t be is empty");
-      return;
+    try {
+      await addNewFeedback(filteredData);
+      toast.success("Дякуємо за відгук 🙌");
+      reset();
+    } catch (error) {
+      toast.error("Something went wrong");
     }
-
-    data.productId = _id;
-    console.log(data);
-
-    addNewFeedback(data);
-
-    toast.success("Дякую за відгук 🙌");
-    reset();
   };
 
   return (
-    <FormProvider {...methods}>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-4 mb-6"
-      >
-        <FormControl className="w-full border mb-4">
-          <InputLabel id="rating">Оцініть товар</InputLabel>
-          <Controller
-            name="rating"
-            control={control}
-            render={({ field }) => (
-              <Select
-                {...field}
-                {...register("rating")}
-                className="border border-TechStopBlue"
-                label="rating"
-                id="rating"
-                MenuProps={MenuProps}
-                input={<OutlinedInput label="Оцініть товар" />}
-              >
-                {ratingValues.map((name) => (
-                  <MenuItem key={name} value={name}>
-                    {name}
-                  </MenuItem>
-                ))}
-              </Select>
-            )}
-          />
-        </FormControl>
+    <>
+      <FormProvider {...methods}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-4 mb-6"
+        >
+          <FormControl className="w-full border mb-4">
+            <InputLabel id="rating">Оцініть товар</InputLabel>
+            <Controller
+              name="rating"
+              control={control}
+              render={({ field }) => (
+                <Select
+                  // {...field}
+                  {...register("rating")}
+                  label="Оцініть товар"
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                  labelId="rating"
+                  id="rating"
+                  MenuProps={MenuProps}
+                  input={<OutlinedInput />}
+                  inputProps={{
+                    className: `${
+                      isFocused
+                        ? "border-transparent"
+                        : "border border-TechStopBlue60"
+                    }`,
+                  }}
+                >
+                  {ratingValues.map((name) => (
+                    <MenuItem key={name} value={name}>
+                      {name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              )}
+            />
+          </FormControl>
 
-        <FormRate errors={errors} />
+          <FormRate errors={errors} />
 
-        <CustomToast />
-
-        <TextField
-          style={{ display: "none" }}
-          className="hidden"
-          id="productId"
-          name="productId"
-          value={_id}
-        />
-      </form>
-    </FormProvider>
+          <CustomToast />
+        </form>
+      </FormProvider>
+    </>
   );
 };
 
