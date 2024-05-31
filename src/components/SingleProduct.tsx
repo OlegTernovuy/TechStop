@@ -6,17 +6,20 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import Image from "next/image";
 import { DiscountPercentage } from "@/constants";
 import { useViewProductsStore } from "@/store/useViewProductsStore";
-import defaultProductIcon from '../../public/defaultProductIcon.svg'
+import defaultProductIcon from "../../public/defaultProductIcon.svg";
 import calculateRating from "@/app/utils/calculateRating";
+import { useEffect } from "react";
+import { getAllProducts } from "@/api/lib";
 
 type IProduct = {
   product: Product;
 };
 
 const SingleProduct = ({ product }: IProduct) => {
-  
   const { addItemToCart } = useCartStore();
   const { addItemToViewProducts } = useViewProductsStore();
+
+  useEffect(() => {}, []);
 
   const addProductToCart = (
     product: Product,
@@ -33,7 +36,6 @@ const SingleProduct = ({ product }: IProduct) => {
 
   const oldPrice = formatPrice(product.price * DiscountPercentage);
   const newPrice = formatPrice(product.price);
-
 
   return (
     <div
@@ -62,13 +64,22 @@ const SingleProduct = ({ product }: IProduct) => {
             />
           </div>
         </div>
-        <p className="py-1 text-TechStopBlue text-body1 lg:text-base">{product.title} </p>
+        <p className="py-1 text-TechStopBlue text-body1 lg:text-base">
+          {product.title}{" "}
+        </p>
       </div>
       <div>
-        <Rating name="read-only" value={calculateRating(product.rating)} precision={0.5} readOnly />
+        <Rating
+          name="read-only"
+          value={calculateRating(product.rating)}
+          precision={0.5}
+          readOnly
+        />
         <div className="flex justify-between mt-2 items-center">
           <div className="flex flex-col">
-            <span className="text-sm line-through text-TechStopBlue">{oldPrice}</span>
+            <span className="text-sm line-through text-TechStopBlue">
+              {oldPrice}
+            </span>
             <span className="text-TechStopRed text-xl">{newPrice}</span>
           </div>
           <div className="flex space-x-2.5">

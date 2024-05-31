@@ -2,7 +2,7 @@ import { getProductsData } from "@/api";
 import HomePageProducts from "./HomePageProducts";
 
 const Bestsellers = async () => {
-  const data = await getProductsData();  
+  const data = await getProductsData();
 
   return (
     <div>
