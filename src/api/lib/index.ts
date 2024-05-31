@@ -2,7 +2,7 @@ import axios from "axios";
 
 const BASE_STRAPI_API_URL = "http://localhost:1337";
 
-export const addProduct = async (data) => {
+export const addProduct = async (data: string[]) => {
   try {
     console.log(data);
     const resp = await axios.post(`${BASE_STRAPI_API_URL}/api/testproduct`, {
@@ -11,11 +11,11 @@ export const addProduct = async (data) => {
 
     return resp.data;
   } catch (error) {
-    console.log(error.message);
+    console.log((error as Error).message);
   }
 };
 
-export const updateProductById = async (_id: string, data) => {
+export const updateProductById = async (_id: string, data: string[]) => {
   try {
     console.log(_id);
     const resp = await axios.patch(
@@ -27,7 +27,7 @@ export const updateProductById = async (_id: string, data) => {
 
     return resp.data;
   } catch (error) {
-    console.log(error.message);
+    console.log((error as Error).message);
   }
 };
 
@@ -37,7 +37,7 @@ export const getAllProducts = async () => {
     console.log(resp.data);
     return resp.data;
   } catch (error) {
-    console.log(error.message);
+    console.log((error as Error).message);
   }
 };
 
@@ -49,6 +49,6 @@ export const deleteProductById = async (_id: string) => {
     console.log(resp.data);
     return resp.data;
   } catch (error) {
-    console.log(error.message);
+    console.log((error as Error).message);
   }
 };

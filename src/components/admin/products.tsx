@@ -7,7 +7,7 @@ export const PostList = (props: any) => (
       <TextField source="id" />
       <TextField source="title" />
       <DateField source="published_at" />
-      <EditButton basePath="/products" />
+      {/* <EditButton basePath="/products" /> */}
     </Datagrid>
   </List>
 );
