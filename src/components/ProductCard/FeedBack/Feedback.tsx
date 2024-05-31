@@ -1,20 +1,23 @@
 "use client";
 
-import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { FC, useEffect, useMemo, useState } from "react";
+import { IParams } from "@/types";
+import { IProduct } from "../ProductCard.types";
+import { getProductById } from "@/api";
+import { useFeedbackStore } from "@/store/useFeedbackStore";
+
+import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import CustomerReviews from "./CustomerReviews";
 import PreviewCard from "./PreviewCard";
 import Button from "../Button";
-import CustomToast from "@/components/Global/CustomToast";
 import FeedbackForm from "./FeedbackForm";
-import { IParams } from "@/types";
-import { getProductById } from "@/api";
-import { IProduct } from "../ProductCard.types";
 import DefaultFeedbackForm from "./DefaultFeedbackForm";
-import { useFeedbackStore } from "@/store/useFeedbackStore";
+
+import CustomToast from "@/components/Global/CustomToast";
 
 const FeedbackPage: FC<IParams> = ({ params }) => {
   const { _id } = params;
+
   const [data, setData] = useState<IProduct | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
   const { reviews } = useFeedbackStore();
@@ -75,7 +78,7 @@ const FeedbackPage: FC<IParams> = ({ params }) => {
                 <DefaultFeedbackForm params={params} />
               </div>
             )}
-            <CustomerReviews />
+            <CustomerReviews productId={_id} />
           </li>
           <li>
             <div className="min-h-[99%] border-l border-deWiseGreyLight hidden md:block"></div>

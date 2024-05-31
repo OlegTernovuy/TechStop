@@ -43,12 +43,13 @@ export interface ProductInCart {
 }
 
 export interface Product {
-  // id: number;
+  id: number;
   _id: string;
   inStock: boolean;
   poster: string;
   price: number;
   title: string;
+  categories: string[];
   rating: IRating;
 }
 
@@ -221,7 +222,7 @@ export interface Review {
   advantages: string;
   disadvantages: string;
   comment?: string;
-  userEmail: string;
+  userEmail?: string;
   userName?: string;
   productId?: string;
   date?: string;

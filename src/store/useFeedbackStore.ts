@@ -1,70 +1,160 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { devtools, persist } from "zustand/middleware";
 
 import { Review, IFeedback } from "@/types";
 
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const BASE_URL = "https://team-project-server-41ev.onrender.com/api";
+import { env } from "../../next.config";
+
+const { NEXT_PUBLIC_BASE_URL } = env;
 
 interface IFeedbackStore {
   reviews: IFeedback[];
-  getAllFeedbacks: () => Promise<void>;
+  isLoading?: boolean;
+  isError?: null | Error;
+  getAllFeedbacks: (productId: string) => Promise<void>;
+  getFeedbacksList: (productId: string) => Promise<void>;
   addNewFeedback: (newReview: Review) => Promise<void>;
   deleteFeedback: (id: string) => Promise<void>;
 }
 
-export const useFeedbackStore = create(
-  persist<IFeedbackStore>(
-    (set, get) => ({
+export const useFeedbackStore = create<IFeedbackStore>()(
+  persist(
+    devtools((set, get) => ({
       reviews: [],
-      getAllFeedbacks: async () => {
+      isError: null,
+      isLoading: false,
+      getAllFeedbacks: async (productId) => {
+        const { isError } = get();
         try {
-          const res = await axios.get(`${BASE_URL}/reviews`);
-          if (res.status !== 200) {
+          set({ isLoading: true, isError: null }, false, "getAllFeedbacks");
+
+          const res = await axios.get(
+            `${NEXT_PUBLIC_BASE_URL}/reviews?productId=${productId}`
+          );
+
+          if (res.status !== 200 || isError) {
             throw new Error("Something went wrong");
           }
 
           const { data } = res.data;
 
-          set({ reviews: data });
+          set(
+            { isLoading: false, reviews: data, isError: null },
+            false,
+            "getAllFeedbacks"
+          );
+        } catch (error) {
+          set(
+            { isLoading: false, isError: error as Error },
+            false,
+            "getAllFeedbacks"
+          );
+        }
+      },
+
+      getFeedbacksList: async (productId) => {
+        const { isError } = get();
+        try {
+          set({ isLoading: true, isError: null }, false, "getFeedbacksList");
+
+          const res = await axios.get(
+            `${NEXT_PUBLIC_BASE_URL}/reviews?productId=${productId}`
+          );
+
+          if (res.status !== 200 || isError) {
+            throw new Error("Something went wrong");
+          }
+
+          const { data } = res.data;
+
+          console.log(res.data);
+          set(
+            { isLoading: false, reviews: data, isError: null },
+            false,
+            "getFeedbacksList"
+          );
         } catch (error) {
           console.log((error as Error).message);
+          toast.error("Something went wrong");
+          set(
+            { isLoading: false, isError: error as Error },
+            false,
+            "getFeedbacksList"
+          );
         }
       },
       addNewFeedback: async (newReview) => {
-        try {
-          const resp = await axios.post(`${BASE_URL}/reviews`, newReview);
-          const reviewData = resp.data;
+        const { isError } = get();
 
-          set({ reviews: [...get().reviews, reviewData.data] });
+        try {
+          set({ isLoading: true, isError: null }, false, "addNewFeedback");
+
+          const resp = await axios.post(
+            `${NEXT_PUBLIC_BASE_URL}/reviews`,
+            newReview
+          );
+
+          if (resp.status !== 201 || isError) {
+            throw new Error("Something went wrong");
+          }
+
+          const { data } = resp.data;
+
+          set(
+            {
+              isLoading: false,
+              reviews: [...get().reviews, data],
+              isError: null,
+            },
+            false,
+            "addNewFeedback"
+          );
         } catch (error) {
           console.log((error as Error).message);
+          set(
+            { isLoading: false, isError: error as Error },
+            false,
+            "addNewFeedback"
+          );
         }
       },
 
       deleteFeedback: async (id) => {
-        const { reviews } = get();
+        const { reviews, isError } = get();
         try {
-          const resp = await axios.delete(`${BASE_URL}/reviews/${id}`);
+          set({ isLoading: true, isError: null }, false, "deleteFeedback");
 
-          if (resp.status !== 200) {
-            return;
+          const resp = await axios.delete(
+            `${NEXT_PUBLIC_BASE_URL}/reviews/${id}`
+          );
+
+          if (resp.status !== 200 || isError) {
+            throw new Error("Something went wrong");
           }
-          toast.success(resp?.data?.message);
 
           const filteredFeedbacks = reviews.filter(
             (feedback) => feedback._id !== id
           );
 
-          set({ reviews: filteredFeedbacks });
+          set(
+            { isLoading: false, reviews: filteredFeedbacks, isError: null },
+            false,
+            "deleteFeedback"
+          );
         } catch (error) {
           console.log((error as Error).message);
+
+          set(
+            { isLoading: false, isError: error as Error },
+            false,
+            "deleteFeedback"
+          );
         }
       },
-    }),
-
-    { name: "FEEDBACK" }
+    })),
+    { name: "Feedback", version: 1 }
   )
 );

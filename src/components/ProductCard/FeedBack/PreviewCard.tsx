@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import { FC } from "react";
-import previewProduct from "/public/product-card-images/image_preview_feedback.svg";
-import Button from "../Button";
 import { IProduct } from "../ProductCard.types";
 import { useCartStore } from "@/store/useCartStore";
+
+import previewProduct from "/public/product-card-images/image_preview_feedback.svg";
+import Button from "../Button";
 import toast from "react-hot-toast";
 import CustomToast from "@/components/Global/CustomToast";
 
