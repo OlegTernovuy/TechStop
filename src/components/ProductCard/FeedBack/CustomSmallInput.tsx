@@ -7,9 +7,14 @@ import { TextField } from "@mui/material";
 interface ICustomSmallInputProps {
   name: string;
   label: string;
+  placeholder?: string;
 }
 
-const CustomSmallInput: FC<ICustomSmallInputProps> = ({ name, label }) => {
+const CustomSmallInput: FC<ICustomSmallInputProps> = ({
+  name,
+  label,
+  placeholder,
+}) => {
   const {
     control,
     formState: { errors },
@@ -42,6 +47,7 @@ const CustomSmallInput: FC<ICustomSmallInputProps> = ({ name, label }) => {
             className={`w-full min-w-[320px] ${isError ? "mb-0" : "mb-4"} `}
             style={isError ? { marginBottom: "0" } : { marginBottom: "16px" }}
             variant="outlined"
+            placeholder={placeholder}
             label={label}
             InputProps={{
               className: `${

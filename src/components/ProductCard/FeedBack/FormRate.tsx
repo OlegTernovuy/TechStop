@@ -50,7 +50,11 @@ const FormRate: FC<IFormRateProps> = ({ errors }) => {
           </div>
           <div>
             {" "}
-            <CustomSmallInput name="userEmail" label="example@email.com" />
+            <CustomSmallInput
+              name="userEmail"
+              label="Email"
+              placeholder="example@email.com"
+            />
             {userEmail && (
               <p className="text-red-500 mb-6 md:mb-0">{userEmail.message}</p>
             )}

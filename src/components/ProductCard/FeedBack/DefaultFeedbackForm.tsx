@@ -81,8 +81,9 @@ const DefaultFeedbackForm: FC<IParams> = ({ params }) => {
     register,
     formState: { errors },
   } = methods;
+
   const userId = "6622e62c5f5fd48246c5fa2a";
-  console.log(isError);
+
   const onSubmit: SubmitHandler<Review> = async (data) => {
     const newData = { ...data, productId, userId };
     const { userEmail, ...filteredData } = newData;
@@ -118,14 +119,12 @@ const DefaultFeedbackForm: FC<IParams> = ({ params }) => {
                   labelId="rating"
                   id="rating"
                   MenuProps={MenuProps}
-                  input={<OutlinedInput />}
-                  inputProps={{
-                    className: `${
-                      isFocused
-                        ? "border-transparent"
-                        : "border border-TechStopBlue60"
-                    }`,
-                  }}
+                  className={`${
+                    isFocused
+                      ? "border-transparent"
+                      : "border border-TechStopBlue60"
+                  }`}
+                  input={<OutlinedInput label="Оцініть товар" />}
                 >
                   {ratingValues.map((name) => (
                     <MenuItem key={name} value={name}>
