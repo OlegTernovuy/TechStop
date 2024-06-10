@@ -64,7 +64,7 @@ const AuthModal = () => {
         </div>
         <div>
           <h3 className="flex justify-center lg:hidden text-Headline5 text-TechStopBlue mb-6">
-            Вхід
+            {showLoginForm ? "Вхід" : "Реєстрація"}
           </h3>
           <LoginForm showLoginForm={showLoginForm} setPending={setPending} />
           <div className="w-full flex justify-between items-center mt-14 mb-6 text-TechStopBlue60 text-Headline6">

@@ -34,6 +34,22 @@ export const getProductsData = async (): Promise<Product[] | undefined> => {
   }
 };
 
+export const getProductsByQuery = async (query: string): Promise<Product[] | undefined> => {
+  try {
+    const res = await fetch(`${BASE_URL}/products?category=${query}`, {
+      next: { revalidate: 10 },
+    });
+
+    if (res.status !== 200) {
+      throw new Error("Something went wrong");
+    }
+
+    return res.json().then((res) => res.data);
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
 export const getCategories = async (): Promise<Categories[] | undefined> => {
   try {
     const res = await fetch(`${BASE_URL}/categories`, {
@@ -71,6 +87,91 @@ export const getAllFeedbacks = async (userId: string) => {
       throw new Error("Something went wrong");
     }
     return res.data.data as IRewiewData[];
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+export const getMe = async (token: string) => {
+  try {
+    const res = await axios.get(`${BASE_URL}/auth/me`, {
+      headers: {
+        withCredentials: true,
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (res.status !== 200) {
+      throw new Error("Something went wrong");
+    }
+    return res.data.data;
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+export const editMe = async (token: string, body: any) => {
+  try {
+    const res = await axios.patch(
+      `${BASE_URL}/auth/me`,
+      {
+        ...body,
+      },
+      {
+        headers: {
+          withCredentials: true,
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (res.status !== 200) {
+      throw new Error("Something went wrong");
+    }
+    return res.data.data;
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+
+  // const res = await fetch(
+  //   process.env.NEXT_PUBLIC_BASE_URL + "/auth/me",
+  //   {
+  //     method: "PATCH",
+  //     body: JSON.stringify({
+  //      ...body
+  //     }),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Authorization": `Bearer ${token}`,
+  //     },
+  //   }
+  // );
+  // if (res.status === 200) {
+  //   try {
+  //     const user = await res.json();
+  //     return user.data;
+  //   } catch (error) {
+  //     console.error("Error parsing response:", error);
+  //     return null;
+  //   }
+  // } else {
+  //   try {
+  //     const errorResponse = await res.json();
+  //     return { error: errorResponse.message };
+  //   } catch (error) {
+  //     console.error("Error parsing error response:", error);
+  //   }
+  //   return null;
+  // }
+};
+
+export const makeOrder = async (body: any) => {
+  try {
+    const res = await axios.post(`${BASE_URL}/orders`, {
+      ...body,
+    });
+    if (res.status !== 201) {
+      throw new Error("Something went wrong");
+    }
+    return res.data;
   } catch (error) {
     console.log((error as Error).message);
   }

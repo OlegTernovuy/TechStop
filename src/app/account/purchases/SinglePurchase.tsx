@@ -5,6 +5,7 @@ import Image from "next/image";
 import formatPrice from "@/app/utils/formatPrice";
 import Button from "@/components/ui/Button";
 import { PurchasesData, PurchasesProduct } from "./purchasesType";
+import defaultProductIcon from "../../../../public/defaultProductIcon.svg";
 import { useCartStore } from "@/store/useCartStore";
 import { format } from "date-fns";
 import { uk } from "date-fns/locale";
@@ -84,7 +85,7 @@ const SinglePurchase = ({ purchases }: Purchase) => {
                       </div>
                       <div className="flex items-center">
                         <Image
-                          src={purchaseProduct.poster}
+                          src={purchaseProduct.poster ?? defaultProductIcon}
                           alt="shoppingCardItemTest"
                           width={90}
                           height={62}
@@ -154,15 +155,14 @@ const SinglePurchase = ({ purchases }: Purchase) => {
                       <p className="flex flex-col">
                         <span className="text-sm mb-2">Адреса доставки</span>
                         <span className="text-subtitle1 max-w-64">
-                          {/* {purchases.deliveryAddress} */}
-                          {`${purchases.deliveryAddress.city}, ${purchases.deliveryAddress.street} ${purchases.deliveryAddress.house}/${purchases.deliveryAddress.apartment} `}
+                          {`${purchases?.deliveryAddress?.city} ${purchases?.deliveryAddress?.street !== undefined ? `, ${purchases?.deliveryAddress?.street} ${purchases?.deliveryAddress?.house}/${purchases?.deliveryAddress?.apartment}` : ''} `}
                         </span>
                       </p>
                       <p className="flex flex-col">
                         <span className="text-sm mb-2">Отримувач</span>
                         <span className="text-subtitle1">
-                          {purchases.recepient.name} <br />
-                          {purchases.recepient.phone}
+                          {purchases?.recepient?.name} <br />
+                          {purchases?.recepient?.phone}
                         </span>
                       </p>
                     </div>

@@ -5,8 +5,13 @@ import { ContactValidationsSchema } from "../utils/ValidationsSchema";
 import { IContactContent, formDat } from "@/types";
 import Button from "@/components/ui/Button";
 import { checkIsContact } from "../utils/CheckIsData";
+import { useEffect } from "react";
+import { useSession } from "next-auth/react";
 
 const ContactContent = ({ toggle, setOrderContactData }: formDat) => {
+
+  const { data: session } = useSession();  
+
   const {
     handleSubmit,
     control,
@@ -21,6 +26,17 @@ const ContactContent = ({ toggle, setOrderContactData }: formDat) => {
     },
     resolver: yupResolver(ContactValidationsSchema),
   });
+
+  useEffect(() => {    
+    if (session !== null) {      
+      reset({
+        name: session?.user?.first_name,
+        surname: session?.user?.last_name,
+        email: session?.user?.email,
+        phone: session?.user?.phone_number,
+      });
+    }
+  }, [reset, session]);
 
   const submitFields: SubmitHandler<IContactContent> = (contact) => {
     try {

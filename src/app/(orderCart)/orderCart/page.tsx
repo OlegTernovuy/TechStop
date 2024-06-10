@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Button from "../../../components/ui/Button";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import TextField from "@mui/material/TextField";
 import ProductOrderCard from "../ProductOrderCard";
 import ContactInfoOrder from "../ContactInfoOrder";
@@ -10,9 +10,11 @@ import MaxWidthWrapper from "../../../components/MaxWidthWrapper";
 import { useCartStore } from "@/store/useCartStore";
 import { useStore } from "@/store/useStore";
 import formatPrice from "@/app/utils/formatPrice";
-import { courierAddress, IAdd } from "@/types";
+import { IAdd, ICourierAddress } from "@/types";
 import { useSession } from "next-auth/react";
 import { useLoginModalStore } from "@/store/modalStore";
+import { makeOrder } from "@/api";
+import toast from "react-hot-toast";
 
 function OrderCart() {
   const router = useRouter();
@@ -20,6 +22,8 @@ function OrderCart() {
   const { data: session } = useSession();
 
   const DeliveryPrice = 150;
+
+  const { clearTheCart } = useCartStore();
 
   const cartItems = useStore(useCartStore, (state) => state.cartItems);
   const totalPrice = useStore(useCartStore, (state) => state.totalPrice);
@@ -39,11 +43,14 @@ function OrderCart() {
   };
   const productsPriceWithAdd = calculateProductsPriceWithAdd();
 
+  const [orderedProducts, setOrderedProducts] = useState<any>([]);
+  console.log(orderedProducts);
+
   const [orderContactData, setOrderContactData] = useState<IAdd>({});
-  const [courierAddress, setCourierAddress] = useState<courierAddress>({
+  const [courierAddress, setCourierAddress] = useState<ICourierAddress>({
     street: "",
-    houseNumber: "",
-    apartmentNumber: "",
+    house: "",
+    apartment: undefined,
   });
   const [disabled, setDisabled] = useState(true);
 
@@ -55,25 +62,59 @@ function OrderCart() {
       orderContactData.surname !== "" &&
       orderContactData.email !== "" &&
       orderContactData.city !== "" &&
-      orderContactData.postOffice !== "" &&
+      orderContactData.postalOperator !== "" &&
       orderContactData.payMethod_id !== "" &&
-      (orderContactData.ukrPostDepart !== "" ||
-        (courierAddress?.street !== "" && courierAddress?.houseNumber !== ""))
+      (orderContactData.postalDepartment !== "" ||
+        (courierAddress?.street !== "" && courierAddress?.house !== ""))
     ) {
       setDisabled(false);
     }
   }, [orderContactData]);
 
-  const makeOrder = () => {
+  useEffect(() => {
+    cartItems?.map((product) => {
+        const updatedOrderedProducts = cartItems.map((product) => ({
+          quantity: product.quantity,
+          productId: product._id,
+        }));
+        setOrderedProducts(updatedOrderedProducts);
+      });
+  }, [cartItems]);
+
+  const Order = async () => {
     if (!session) {
       setShowLoginModal();
     } else {
-      alert("Order");
       const combinedObject = {
-        ...orderContactData,
-        courierAddress: courierAddress,
+        customerPhone: orderContactData.phone,
+        totalPrice: productsPriceWithAdd,
+        paymentStatus: "string",
+        paymentMethod: orderContactData.payMethod_id,
+        products: orderedProducts,
+        recepient: {
+          name: orderContactData.name,
+          phone: orderContactData.phone,
+        },
+        deliveryAddress: {
+          city: orderContactData.city,
+          postalOperator: orderContactData.postalOperator,
+          postalDepartment: orderContactData.postalDepartment,
+          // personalAddress: courierAddress,
+          ...(courierAddress.street ? { personalAddress: courierAddress } : {}),
+        },
       };
-      console.log(combinedObject);
+      // console.log(combinedObject);
+      try {
+        const res = await makeOrder(combinedObject);
+        if (res.status == 201) {
+          toast.success(`Your order has been successfully completed`);
+          router.push("/");
+          clearTheCart();
+        }
+      } catch (error) {
+        console.error("Error post order: ", error);
+        throw error;
+      }
     }
   };
 
@@ -113,6 +154,7 @@ function OrderCart() {
             setOrderContactData={setOrderContactData}
             setCourierAddress={setCourierAddress}
             orderContactData={orderContactData}
+            courierAddress={courierAddress}
           />
           <div className=" w-full mb-4 md:mb-[122px]">
             <TextField
@@ -180,7 +222,7 @@ function OrderCart() {
                     : "text-TechStopWhite"
                 }`}
                 disabled={disabled}
-                onClick={makeOrder}
+                onClick={Order}
               />
               <div className="w-[100%] lg:border-b border-TechStopBlue40 mt-[31px]"></div>
             </div>

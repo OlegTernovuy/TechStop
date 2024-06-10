@@ -1,3 +1,4 @@
+import { getMe } from "@/api";
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
@@ -28,16 +29,19 @@ export const authOptions: AuthOptions = {
       async authorize(credentials, req) {
         if (!credentials?.email || !credentials?.password) return null;
         const { email, password } = credentials;
-        const res = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/auth/login", {
-          method: "POST",
-          body: JSON.stringify({
-            email,
-            password,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const res = await fetch(
+          process.env.NEXT_PUBLIC_BASE_URL + "/auth/login",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              email,
+              password,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         if (res.status === 200) {
           try {
             const user = await res.json();
@@ -67,9 +71,9 @@ export const authOptions: AuthOptions = {
     },
     async jwt({ token, user }) {
       if (user) {
-        // return { ...token, ...user };
-        token.user = user;
-        token.token = token.token;
+        return { ...token, ...user };
+        // token.user = user;
+        // token.token = token.token;
       }
       return token;
     },
@@ -77,6 +81,12 @@ export const authOptions: AuthOptions = {
     async session({ token, session }) {
       session.user = token.user;
       session.token = token.token;
+
+      if (token.token) {
+        const me = await getMe(token.token);
+        session.user = me.user;
+        session.token = me.token;
+      }
 
       return session;
     },

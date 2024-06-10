@@ -21,12 +21,15 @@ import { getData, getNovaPostDepartments } from "../utils/NovaPostaApi";
 import { useDebounce } from "../utils/useDebounce";
 
 import { OurShops, Posts, UkrPostDepartments } from "@/constants";
+import { useSession } from "next-auth/react";
 
 const DeliveryMethod = ({
   setOrderContactData,
   setCourierAddress,
   toggle,
 }: formDatAddress) => {
+  const { data: session } = useSession();
+
   const [selected, setSelected] = useState(null);
   const [selectedCity, setSelectedCity] = useState(false);
   const [search, setSearch] = useState("");
@@ -51,7 +54,10 @@ const DeliveryMethod = ({
   }, [debouncedSearch]);
 
   const findNovaPostDepartments = async (DeliveryCity: string) => {
+    console.log(DeliveryCity);
+    
     const response = await getNovaPostDepartments(DeliveryCity);
+
     response.data.length > 0 && setSearchPostDepartments(response.data);
   };
 
@@ -70,35 +76,51 @@ const DeliveryMethod = ({
     formState: { errors },
   } = useForm<IDeliveryContent>({
     defaultValues: {
-      postOffice: "",
-      novaPostDepart: "",
-      ukrPostDepart: "",
-      shopDepart: "",
+      postalOperator: "",
+      postalDepartment: "",
       courierAddress: {
         street: "",
-        houseNumber: "",
-        apartmentNumber: "",
+        house: "",
+        // apartment: ,
       },
     },
     resolver: yupResolver(DeliveryValidationsSchema),
   });
 
+  useEffect(() => {
+    if (session !== null && session?.user?.address?.city !== undefined) {
+      reset({
+        postalOperator: session?.user?.address?.postalOperator,
+        postalDepartment: session?.user?.address?.postalDepartment,
+        courierAddress: {
+          street: session?.user?.address?.personalAddress?.street,
+          house: session?.user?.address?.personalAddress?.house,
+          apartment: session?.user?.address?.personalAddress?.apartament,
+        },
+      });
+      setCity({ city: session.user.address.city });
+    }
+  }, [reset, session]);
+
   const submitFields = handleSubmit((contact) => {
     try {
       checkIsContact(city, setOrderContactData);
-      checkIsContact({ postOffice: contact.postOffice }, setOrderContactData);
       checkIsContact(
-        { ukrPostDepart: contact.ukrPostDepart },
+        { postalOperator: contact.postalOperator },
+        setOrderContactData
+      );
+      checkIsContact(
+        { postalDepartment: contact.postalDepartment },
         setOrderContactData
       );
       if (
         contact.courierAddress?.street !== "" ||
-        contact.courierAddress?.houseNumber !== undefined
+        contact.courierAddress?.house !== undefined
       ) {
         setCourierAddress({
           street: contact.courierAddress?.street,
-          houseNumber: contact.courierAddress?.houseNumber,
-          apartmentNumber: contact.courierAddress?.apartmentNumber,
+          house: contact.courierAddress?.house,
+          apartment: contact.courierAddress?.apartment,
         });
       }
       toggle(2);
@@ -166,7 +188,7 @@ const DeliveryMethod = ({
               }
             >
               {searchCity.length > 0 &&
-                searchCity.map((city, i) => {
+                searchCity.map((city, i) => {                  
                   return (
                     <MenuItem
                       key={i}
@@ -187,8 +209,8 @@ const DeliveryMethod = ({
           )}
         </div>
       </div>
-      <FormControl sx={{ width: "100%" }} error={!!errors?.postOffice}>
-        {errors?.postOffice && (
+      <FormControl sx={{ width: "100%" }} error={!!errors?.postalOperator}>
+        {errors?.postalOperator && (
           <FormLabel className="pb-4">Select your post office</FormLabel>
         )}
         <RadioGroup className="gap-4">
@@ -196,7 +218,7 @@ const DeliveryMethod = ({
             return (
               <Controller
                 control={control}
-                name="postOffice"
+                name="postalOperator"
                 key={post.id}
                 render={({ field }) => (
                   <div
@@ -231,12 +253,12 @@ const DeliveryMethod = ({
                         <div className="py-3 w-full">
                           <FormControl
                             fullWidth
-                            error={!!errors?.novaPostDepart}
+                            error={!!errors?.postalDepartment}
                           >
                             <InputLabel>Відділення</InputLabel>
                             <Controller
                               control={control}
-                              name="ukrPostDepart"
+                              name="postalDepartment"
                               render={({ field }) => (
                                 <Select
                                   label="Відділення"
@@ -272,14 +294,14 @@ const DeliveryMethod = ({
                         <div className="py-3 w-full">
                           <FormControl
                             fullWidth
-                            error={!!errors?.ukrPostDepart}
+                            error={!!errors?.postalDepartment}
                           >
                             <InputLabel id="demo-simple-select-label">
                               Відділення
                             </InputLabel>
                             <Controller
                               control={control}
-                              name="ukrPostDepart"
+                              name="postalDepartment"
                               render={({ field }) => (
                                 <Select
                                   label="Відділення"
@@ -313,13 +335,16 @@ const DeliveryMethod = ({
                         </div>
                       ) : post.id === 3 ? (
                         <div className="py-3 w-full">
-                          <FormControl fullWidth error={!!errors?.shopDepart}>
+                          <FormControl
+                            fullWidth
+                            error={!!errors?.postalDepartment}
+                          >
                             <InputLabel id="demo-simple-select-label">
                               Магазин
                             </InputLabel>
                             <Controller
                               control={control}
-                              name="ukrPostDepart"
+                              name="postalDepartment"
                               render={({ field }) => (
                                 <Select
                                   label="Магазин"
@@ -383,14 +408,14 @@ const DeliveryMethod = ({
                             />
                             <Controller
                               control={control}
-                              name="courierAddress.houseNumber"
+                              name="courierAddress.house"
                               render={({ field }) => (
                                 <TextField
                                   label="HouseNumber"
                                   variant="outlined"
-                                  error={!!errors?.courierAddress?.houseNumber}
+                                  error={!!errors?.courierAddress?.house}
                                   helperText={
-                                    errors.courierAddress?.houseNumber?.message
+                                    errors.courierAddress?.house?.message
                                   }
                                   onChange={(e) => field.onChange(e)}
                                   value={field.value}
@@ -410,16 +435,16 @@ const DeliveryMethod = ({
                             />
                             <Controller
                               control={control}
-                              name="courierAddress.apartmentNumber"
+                              name="courierAddress.apartment"
                               render={({ field }) => (
                                 <TextField
                                   label="ApartmentNumber"
                                   variant="outlined"
                                   error={
-                                    !!errors?.courierAddress?.apartmentNumber
+                                    !!errors?.courierAddress?.apartment
                                   }
                                   helperText={
-                                    errors.courierAddress?.apartmentNumber
+                                    errors.courierAddress?.apartment
                                       ?.message
                                   }
                                   onChange={(e) => field.onChange(e)}

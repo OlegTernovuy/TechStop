@@ -3,18 +3,20 @@ import React, { useState } from "react";
 import ContactContent from "./ContactContent";
 import PaymentMethod from "./PaymentMethod";
 import DeliveryMethod from "./DeliveryMethod";
-import { courierAddress, IAdd } from "@/types";
+import { IAdd, ICourierAddress } from "@/types";
 
 interface TContactInfoOrder {
   orderContactData: IAdd;
   setOrderContactData: React.Dispatch<React.SetStateAction<IAdd>>;
-  setCourierAddress: React.Dispatch<React.SetStateAction<courierAddress>>;
+  setCourierAddress: React.Dispatch<React.SetStateAction<ICourierAddress>>;
+  courierAddress: ICourierAddress
 }
 
 const ContactInfoOrder = ({
   orderContactData,
   setOrderContactData,
-  setCourierAddress
+  setCourierAddress,
+  courierAddress
 }: TContactInfoOrder) => {
   const [selected, setSelected] = useState(null);
 
@@ -86,26 +88,10 @@ const ContactInfoOrder = ({
                         ) : selected !== i && i === 1 ? (
                           orderContactData?.city ? (
                             <div className="text-TechStopBlue60 pt-4 md:pt-6">
-                              <span className="flex mb-1">{`${orderContactData?.city} / ${orderContactData?.postOffice}`}</span>
-                              {orderContactData?.postOffice === "Нова Пошта" ? (
-                                <span className="flex text-start">
-                                  {orderContactData?.novaPostDepart}
-                                </span>
-                              ) : orderContactData?.postOffice ===
-                                "УкрПошта" ? (
-                                <span className="flex text-start">
-                                  {orderContactData?.ukrPostDepart}
-                                </span>
-                              ) : orderContactData?.postOffice ===
-                                "Самовивіз з магазину" ? (
-                                <span className="flex text-start">
-                                  {orderContactData?.shopDepart}
-                                </span>
-                              ) : (
-                                <span className="flex text-start">
-                                  {orderContactData?.courierAddress}
-                                </span>
-                              )}
+                              <span className="flex mb-1">{`${orderContactData?.city} / ${orderContactData?.postalOperator}`}</span>
+                              <span className="flex text-start">
+                                {orderContactData?.postalOperator === `Курʼєром` ? `${courierAddress.street} / ${courierAddress.house} ${courierAddress?.apartment !== undefined ? `/ ${courierAddress?.apartment}` : ''}` : orderContactData?.postalDepartment}
+                              </span>
                             </div>
                           ) : null
                         ) : selected !== i && i === 2 ? (

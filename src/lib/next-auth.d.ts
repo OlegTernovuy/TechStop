@@ -8,6 +8,20 @@ declare module "next-auth" {
     createdAt: Date;
     updatedAt: Date;
     error?: string;
+    first_name?: string;
+    last_name?: string;
+    phone_number?: string;
+    b_day?: string;
+    address?: {
+      city?: string;
+      postalOperator?: string;
+      postalDepartment?: string;
+      personalAddress?: {
+        street?: string;
+        house?: string;
+        apartament?: number;
+      };
+    };
   }
 
   interface Session {

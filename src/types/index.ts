@@ -93,24 +93,20 @@ export interface IContactContent
   // anotherPersonReceive: boolean;
 }
 
-export interface courierAddress {
+export interface ICourierAddress {
   street: string | undefined;
-  houseNumber: string | undefined;
-  apartmentNumber: string | undefined;
+  house: string | undefined;
+  apartment: number | undefined;
 }
 
 export interface IDeliveryContent {
-  // extends Record<string, string | number | boolean> {
-  postOffice: string;
-  novaPostDepart?: string | undefined;
-  ukrPostDepart?: string | undefined;
-  shopDepart?: string | undefined;
+  postalOperator: string;
+  postalDepartment?: string | undefined;
   courierAddress: {
     street?: string | undefined;
-    houseNumber?: string | undefined;
-    apartmentNumber?: string | undefined;
+    house?: string | undefined;
+    apartment?: number | undefined;
   } | null;
-  // postOfficeData: string;
 }
 
 export interface IPayMethodContent
@@ -130,7 +126,7 @@ export interface formDat {
 }
 
 export interface formDatAddress extends formDat {
-  setCourierAddress: React.Dispatch<React.SetStateAction<courierAddress>>;
+  setCourierAddress: React.Dispatch<React.SetStateAction<ICourierAddress>>;
 }
 
 export interface INPCity {
@@ -151,11 +147,11 @@ export interface INPCity {
 }
 
 export interface IPersonalContactInfo {
-  name: string;
-  surname: string;
-  phone: string;
+  first_name: string;
+  last_name: string;
+  phone_number: string;
   email: string;
-  birthdate?: string | null;
+  b_day?: string | null | undefined;
 }
 
 export interface IPersonalLoginInfo {
@@ -165,8 +161,8 @@ export interface IPersonalLoginInfo {
 export interface IHomeDeliveryAddress {
   city: string;
   street: string;
-  houseNumber: string;
-  appartamentNumber?: string | undefined;
+  house: string;
+  apartament?: number | null | undefined;
 }
 
 export interface INovaPostDeliveryAddress {
@@ -261,4 +257,10 @@ export interface Categories {
 export interface IAuthData {
   email: string;
   password: string;
+}
+
+export interface IProductFilters {
+  priceFrom: number;
+  priceTo: number;
+  brand: string[];
 }

@@ -181,7 +181,7 @@ const ShoppingCartModal = () => {
                 <Button
                   title="продовжити покупки"
                   onClick={setShowShoppingCart}
-                  stylesButton="border-[1px] border-TechStopBlue40"
+                  stylesButton="border-[1px] border-TechStopBlue40 px-6"
                 />
               </div>
               {viewProducts != undefined && viewProducts?.length > 0 && (

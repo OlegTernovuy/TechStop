@@ -9,7 +9,7 @@ import Button from "../ui/Button";
 import { Dispatch, SetStateAction, useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useLoginModalStore } from "@/store/modalStore";
 import toast from "react-hot-toast";
 
@@ -19,6 +19,9 @@ interface IAuthModal {
 }
 
 const LoginForm = ({ showLoginForm, setPending }: IAuthModal) => {
+
+  const {data: session} = useSession()
+
   const setShowLoginModal = useLoginModalStore(
     (state) => state.setShowLoginModal
   );

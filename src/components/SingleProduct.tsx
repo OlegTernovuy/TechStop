@@ -1,27 +1,31 @@
 import formatPrice from "@/app/utils/formatPrice";
 import { useCartStore } from "@/store/useCartStore";
-import { IRating, Product } from "@/types";
+import { Product } from "@/types";
 import { Rating } from "@mui/material";
 import Image from "next/image";
 import { DiscountPercentage } from "@/constants";
 import { useViewProductsStore } from "@/store/useViewProductsStore";
-import defaultProductIcon from '../../public/defaultProductIcon.svg'
-import favorite from '../../public/favorite.svg'
-import heartActive from "../../public/product-card-icons/heart_active.svg";
+import defaultProductIcon from "../../public/defaultProductIcon.svg";
+import favorite from "../../public/favorite.svg";
+import activeFavorite from "../../public/activeFavorite.svg";
 
 import calculateRating from "@/app/utils/calculateRating";
 import { useFavoritesStore } from "@/store/useFavoritesStore";
+import toast from "react-hot-toast";
+import { useStore } from "@/store/useStore";
+import NoSsr from "@/app/utils/NoSsr";
 
 type IProduct = {
   product: Product;
 };
 
 const SingleProduct = ({ product }: IProduct) => {
-  
   const { addItemToCart } = useCartStore();
   const { addItemToViewProducts } = useViewProductsStore();
   const { toggleProductCardToFavorites, isFavoriteProduct } =
-  useFavoritesStore();
+    useFavoritesStore();    
+
+  // const isFavoriteProduct = useStore(useFavoritesStore, (state) => state.isFavoriteProduct);
 
   const addProductToCart = (
     product: Product,
@@ -30,6 +34,7 @@ const SingleProduct = ({ product }: IProduct) => {
     e?.preventDefault();
     e?.stopPropagation();
     addItemToCart(product);
+    toast.success(`Product ${product.title} was added to basket`);
   };
 
   const addProductToFavorite = (
@@ -47,7 +52,6 @@ const SingleProduct = ({ product }: IProduct) => {
 
   const oldPrice = formatPrice(product.price * DiscountPercentage);
   const newPrice = formatPrice(product.price);
-
 
   return (
     <div
@@ -67,21 +71,37 @@ const SingleProduct = ({ product }: IProduct) => {
             className="absolute bottom-4 right-4 cursor-pointer"
             onClick={(e) => addProductToFavorite(product, e)}
           >
-            {isFavoriteProduct(product._id) ? (
-                <Image src={heartActive} alt="favorite" width={32} height={32} />
+            <NoSsr>
+              {isFavoriteProduct(product._id) ? (
+                <Image
+                  src={activeFavorite}
+                  alt="favorite"
+                  width={32}
+                  height={32}
+                />
               ) : (
                 <Image src={favorite} alt="favorite" width={32} height={32} />
               )}
+            </NoSsr>
           </button>
         </div>
-        <p className="py-1 text-TechStopBlue text-body1 lg:text-base">{product.title} </p>
+        <p className="py-1 text-TechStopBlue text-body1 lg:text-base">
+          {product.title}{" "}
+        </p>
       </div>
       <div>
-        <Rating name="read-only" value={calculateRating(product.rating)} precision={0.5} readOnly />
+        <Rating
+          name="read-only"
+          value={calculateRating(product.rating)}
+          precision={0.5}
+          readOnly
+        />
         <div className="flex justify-between mt-2 items-center">
           <div className="flex flex-col">
-            <span className="text-sm line-through text-TechStopBlue">{oldPrice + ' ₴'}</span>
-            <span className="text-TechStopRed text-xl">{newPrice + ' ₴'}</span>
+            <span className="text-sm line-through text-TechStopBlue">
+              {oldPrice + " ₴"}
+            </span>
+            <span className="text-TechStopRed text-xl">{newPrice + " ₴"}</span>
           </div>
           <div className="flex space-x-2.5">
             <Image
