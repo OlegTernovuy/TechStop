@@ -11,7 +11,7 @@ interface ILayoutProps {
   children: ReactNode;
 }
 
-const layout = ({ children }: ILayoutProps) => {
+const Layout = ({ children }: ILayoutProps) => {
   const pathname = usePathname();
 
   const { categoryFilter, setCategoryFilter, clearAllFilter } =
@@ -38,4 +38,4 @@ const layout = ({ children }: ILayoutProps) => {
   );
 };
 
-export default layout;
+export default Layout;
