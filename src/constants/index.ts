@@ -345,16 +345,16 @@ export const DeliveryAddressData = [
     title: "Адресна доставка",
     // icon: "",
   },
-  {
-    id: 2,
-    title: "Нова Пошта",
-    // icon: NovaPoshtaLogo,
-  },
-  {
-    id: 3,
-    title: "УкрПошта",
-    // icon: UkrposhtaLogo,
-  },
+  // {
+  //   id: 2,
+  //   title: "Нова Пошта",
+  //   // icon: NovaPoshtaLogo,
+  // },
+  // {
+  //   id: 3,
+  //   title: "УкрПошта",
+  //   // icon: UkrposhtaLogo,
+  // },
 ];
 
 export const Posts = [

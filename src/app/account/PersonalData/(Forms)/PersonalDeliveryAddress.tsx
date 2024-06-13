@@ -8,8 +8,6 @@ import {
 import { useState } from "react";
 import { DeliveryAddressData } from "@/constants";
 import HomeDelivery from "../(DeliveryAddressForms)/HomeDelivery";
-import NovaPostDelivery from "../(DeliveryAddressForms)/NovaPostDelivery";
-import UkrPostDelivery from "../(DeliveryAddressForms)/UkrPostDelivery";
 
 const PersonalDeliveryAddress = () => {
   const [selected, setSelected] = useState(null);
@@ -58,7 +56,7 @@ const PersonalDeliveryAddress = () => {
                       ".css-ahj2mt-MuiTypography-root": {
                         fontSize: "16px",
                         fontWeight: "400",
-                        paddingLeft: '8px',
+                        paddingLeft: "8px",
                       },
                     }}
                   />
@@ -67,13 +65,7 @@ const PersonalDeliveryAddress = () => {
                       selected === i ? "h-auto mb-4" : "max-h-0 overflow-hidden"
                     }
                   >
-                    {item.id === 1 ? (
-                      <HomeDelivery />
-                    ) : item.id === 2 ? (
-                      <NovaPostDelivery />
-                    ) : (
-                      <UkrPostDelivery />
-                    )}
+                    {item.id === 1 && <HomeDelivery />}
                   </div>
                 </div>
               );
