@@ -3,12 +3,13 @@
 import { Categories } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import laptop from "../../../public/catalogIcons/laptop.svg";
 import CloseIcon from "../../../public/CloseIcon.svg";
 import ChevronLeftFilled from "../../../public/ChevronLeftFilled.svg";
 import ChevronRightFilled from "../../../public/ChevronRightFilled.svg";
 import { useCatalogModalMobileStore } from "@/store/modalStore";
+import { useRouter } from "next/navigation";
 
 interface ICategoryProps {
   categories: Categories[] | undefined;
@@ -21,12 +22,9 @@ const CatalogModalMobile = ({ categories }: ICategoryProps) => {
   );
 
   const [title, setTitle] = useState("Каталог товарів");
-  const [subcategory, setSubcategory] = useState<Categories[]>([]);
+  const [subcategory, setSubcategory] = useState<Categories[]>([]);  
 
-  const selectSubcategory = (title: string, subcategory: Categories[]) => {
-    setTitle(title);
-    setSubcategory(subcategory);
-  };
+  const router = useRouter();
 
   const backToCategory = () => {
     setTitle("Каталог товарів");
@@ -36,7 +34,23 @@ const CatalogModalMobile = ({ categories }: ICategoryProps) => {
   const closeCatalogModal = () => {
     setShowCatalog();
     setSubcategory([]);
-  }
+    setTitle("Каталог товарів");
+  };
+
+  const selectSubcategory = (
+    title: string,
+    subcategory: Categories[],
+    slug: string
+  ) => {
+    if (subcategory.length === 0) {
+      router.push(`/categories/${slug}`);
+      setTimeout(() => {
+        setShowCatalog();
+      }, 200);
+    }
+    setTitle(title);
+    setSubcategory(subcategory);
+  };
 
   return (
     <div
@@ -59,7 +73,7 @@ const CatalogModalMobile = ({ categories }: ICategoryProps) => {
           )}
           <h3 className="text-Headline5 text-TechStopBlue">{title}</h3>
         </button>
-        <button onClick={setShowCatalog}>
+        <button onClick={closeCatalogModal}>
           <Image src={CloseIcon} alt="close" width={24} height={24} />
         </button>
       </div>
@@ -70,7 +84,9 @@ const CatalogModalMobile = ({ categories }: ICategoryProps) => {
               return (
                 <li key={item.title}>
                   <button
-                    onClick={() => selectSubcategory(item.title, item.children)}
+                    onClick={() =>
+                      selectSubcategory(item.title, item.children, item.slug)
+                    }
                     className="w-full"
                   >
                     <div className="flex justify-between text-body1 py-3 px-4 hover:bg-TechStopBronze20">
@@ -95,19 +111,39 @@ const CatalogModalMobile = ({ categories }: ICategoryProps) => {
               );
             })
           ) : (
-            <div>
+            <>
               {subcategory.map((item) => {
                 return (
-                  <li key={item.title}>
-                    <Link href={`/categories/${item.slug}`} onClick={closeCatalogModal}>
-                      <div className="flex justify-between text-body1 py-3 px-4 hover:bg-TechStopBronze20">
-                        <p>{item.title}</p>
-                      </div>
-                    </Link>
-                  </li>
+                  <div key={item.title}>
+                    <li key={item.title}>
+                      <Link
+                        href={`/categories/${item.slug}`}
+                        onClick={closeCatalogModal}
+                      >
+                        <div className="flex justify-between text-body1 py-3 px-4 hover:bg-TechStopBronze20">
+                          <p>{item.title}</p>
+                        </div>
+                      </Link>
+                    </li>
+                    {item.children && (
+                        <div className="text-body1 text-TechStopBlue60">
+                          {item?.children.map((subModel) => (
+                            <div className="px-4 py-[6px]" key={subModel._id}>
+                              <Link
+                                key={subModel._id}
+                                href={`/categories/${subModel.slug}`}
+                                onClick={closeCatalogModal}
+                              >
+                                <h3>{subModel.title}</h3>
+                              </Link>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                  </div>
                 );
               })}
-            </div>
+            </>
           )
         ) : (
           <div>Not found</div>
