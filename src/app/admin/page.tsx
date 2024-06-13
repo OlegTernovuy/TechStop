@@ -2,7 +2,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import { NextPage } from "next";
 
-const AdminPanel = dynamic(() => import("@/components/admin/AdminApp"), {
+const AdminPanel = dynamic(() => import("../../components/admin/AdminApp"), {
   ssr: false,
 });
 

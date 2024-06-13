@@ -1,8 +1,4 @@
-import React, { FC, ReactNode } from "react";
-import dynamic from "next/dynamic";
-const AdminPanel = dynamic(() => import("../../components/admin/AdminApp"), {
-  ssr: false,
-});
+import { FC, ReactNode } from "react";
 
 interface RootLayoutProps {
   children: ReactNode;
