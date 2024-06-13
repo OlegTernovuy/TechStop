@@ -56,12 +56,6 @@ const HomeDelivery = () => {
   const onSubmit: SubmitHandler<IHomeDeliveryAddress> = async (data) => {
     const address = {
       address: {
-        // city: data.city,
-        // personalAddress: {
-        //   street: data.street,
-        //   house: data.house,
-        //   apartament: data.apartament
-        // }
         city: "м. Львів, Львівська обл.",
         // postalOperator: "Нова Пошта",
         // postalDepartment: "Відділення №16 (до 30 кг): вул. Вербова, 24",

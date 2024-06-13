@@ -69,7 +69,7 @@ function OrderCart() {
     ) {
       setDisabled(false);
     }
-  }, [orderContactData]);
+  }, [orderContactData, courierAddress?.house, courierAddress?.street]);
 
   useEffect(() => {
     cartItems?.map((product) => {

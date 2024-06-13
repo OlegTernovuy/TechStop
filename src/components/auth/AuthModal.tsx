@@ -33,7 +33,7 @@ const AuthModal = () => {
       window.removeEventListener("keyup", closeShoppingCartModal);
       enableBodyScroll(document.body);
     };
-  }, [showLoginModal]);
+  }, [showLoginModal, setShowLoginModal]);
 
   const [showLoginForm, setShowLoginForm] = useState(true);
   const [pending, setPending] = useState(false);

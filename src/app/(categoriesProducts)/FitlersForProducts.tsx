@@ -47,7 +47,7 @@ const FitlersForProducts = () => {
       priceFrom: priceFilter.priceFrom,
       priceTo: priceFilter.priceTo,
     });
-  }, [reset]);
+  }, [reset, priceFilter.priceFrom, priceFilter.priceTo]);
 
   return (
     <aside className="hidden md:flex min-h-screen min-w-80 pt-8 pr-6 border-r-[1px] border-r-TechStopBlue40">

@@ -40,7 +40,7 @@ const CatalogModal = ({ categories }: ICategoryProps) => {
       window.removeEventListener("keyup", closeShoppingCartModal);
       enableBodyScroll(document.body);
     };
-  }, [showCatalog]);
+  }, [showCatalog, setShowCatalog]);
 
   return (
     <>

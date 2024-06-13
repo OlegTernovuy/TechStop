@@ -51,7 +51,7 @@ const UkrPostDelivery = () => {
         ukrPostDepart: userUkrPostAddress.ukrPostDepart,
       });
     }
-  }, [reset]);
+  }, [reset, userUkrPostAddress]);
 
   const [selectedCity, setSelectedCity] = useState(false);
   const [search, setSearch] = useState("");
@@ -70,7 +70,7 @@ const UkrPostDelivery = () => {
 
   useEffect(() => {
     city.city.length === 0 ? setSearchCity([]) : findCity();
-  }, [debouncedSearch]);
+  }, [debouncedSearch, city.city.length, findCity]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

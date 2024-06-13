@@ -46,7 +46,7 @@ const ShoppingCartModal = () => {
     if (pathname === "/orderCart" && showShoppingCart) {
       setShowShoppingCart();
     }
-  }, [pathname]);
+  }, [pathname, showShoppingCart, setShowShoppingCart]);
 
   const routerToOrderPage = () => {
     router.push("/orderCart");
@@ -71,7 +71,7 @@ const ShoppingCartModal = () => {
       window.removeEventListener("keyup", closeShoppingCartModal);
       enableBodyScroll(document.body);
     };
-  }, [showShoppingCart]);
+  }, [showShoppingCart, setShowShoppingCart]);
 
   const viewProducts = useStore(
     useViewProductsStore,

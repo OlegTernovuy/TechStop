@@ -32,7 +32,7 @@ const CatalogItem: FC<ICatalogItemsProps> = ({ params }) => {
     };
 
     fetchProducts();
-  }, [sortFilter, priceFilter]);
+  }, [sortFilter, priceFilter, id]);
 
   return (
     <div className="w-full">

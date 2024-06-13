@@ -71,7 +71,7 @@ const NovaPostDelivery = () => {
 
   useEffect(() => {
     city.city.length === 0 ? setSearchCity([]) : findCity();
-  }, [debouncedSearch]);
+  }, [debouncedSearch, city.city.length, findCity]);
 
   useEffect(() => {
     if (userNovaPostAddress) {

@@ -23,7 +23,7 @@ const Layout = ({ children }: ILayoutProps) => {
       clearAllFilter();
       setCategoryFilter(pathname);
     }
-  }, [pathname]);
+  }, [pathname, categoryFilter, clearAllFilter, setCategoryFilter]);
 
   return (
     <>
