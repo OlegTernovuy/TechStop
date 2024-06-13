@@ -36,12 +36,6 @@ const FitlersForProducts = () => {
     setPriceToValue(priceToValue);
   }
 
-  // const [priceFilterValue, setPriceFilterValue] = useState<{ priceFromValue?: number; priceToValue?: number }>({});
-
-  // const handlePriceFilterChange = (minPrice: number, maxPrice: number) => {
-  //   setPriceFilter({ priceFromValue: minPrice, priceToValue: maxPrice });
-  // };
-
   return (
     <aside className="hidden md:flex min-h-screen min-w-80 pt-8 pr-6 border-r-[1px] border-r-TechStopBlue40">
       <div className="flex flex-col">

@@ -63,8 +63,8 @@ const HomeDelivery = () => {
         //   apartament: data.apartament
         // }
         city: "м. Львів, Львівська обл.",
-        postalOperator: "Нова Пошта",
-        postalDepartment: "Відділення №16 (до 30 кг): вул. Вербова, 24",
+        // postalOperator: "Нова Пошта",
+        // postalDepartment: "Відділення №16 (до 30 кг): вул. Вербова, 24",
         personalAddress: {
           street: "string",
           house: "1",

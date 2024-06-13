@@ -1,8 +1,10 @@
+"use client";
+
 import { getProductsByQuery } from "@/api";
 import { Product } from "@/types";
-import { FC } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import ProductsByCategory from "../../ProductsByCategory";
-import NoSsr from "@/app/utils/NoSsr";
+import { useFilterStore } from "@/store/useFiltersStore";
 
 interface ICatalogItemsProps {
   params: {
@@ -10,32 +12,31 @@ interface ICatalogItemsProps {
   };
 }
 
-const CatalogItem: FC<ICatalogItemsProps> = async ({ params }) => {
+const CatalogItem: FC<ICatalogItemsProps> = ({ params }) => {
   const { id } = params;
 
-  const products = await getProductsByQuery(id);
+  const { sortFilter, priceFilter } = useFilterStore();
 
-  //   const [data, setData] = useState<Product[] | undefined>();
+  const [data, setData] = useState<Product[] | undefined>();
 
-  //   const productsData = useMemo(() => {
-  //     return getProductsByQuery(id);
-  //   }, [id]);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const product = await getProductsByQuery({
+        category: id,
+        minPrice: priceFilter.priceFrom,
+        maxPrice: priceFilter.priceTo,
+        sort: sortFilter,
+      });
 
-  //   useEffect(() => {
-  //     const fetchProducts = async () => {
-  //       const product = await productsData;
+      setData(product);
+    };
 
-  //       setData(product);
-  //     };
-
-  //     fetchProducts();
-  //   }, [productsData]);
-
-  //   console.log(data);
+    fetchProducts();
+  }, [sortFilter, priceFilter]);
 
   return (
     <div className="w-full">
-        <ProductsByCategory products={products} />
+      <ProductsByCategory products={data} />
     </div>
   );
 };

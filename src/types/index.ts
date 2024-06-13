@@ -264,3 +264,10 @@ export interface IProductFilters {
   priceTo: number;
   brand: string[];
 }
+
+export interface IFilteredProducts {
+  minPrice?: number;
+  maxPrice?: number;
+  category?: string;
+  sort?: string;
+}
