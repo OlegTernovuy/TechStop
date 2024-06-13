@@ -10,6 +10,7 @@ import ButtonCatalogIcon from "../../public/ButtonCatalogIcon.svg";
 import BasketHoverBlock from "./(ShoppingCart)/BasketHoverBlock";
 import {
   useCatalogModalStore,
+  useLoginModalStore,
   useShoppingCartModalStore,
 } from "@/store/modalStore";
 import MaxWidthWrapper from "./MaxWidthWrapper";
@@ -22,12 +23,18 @@ import accountCircleOutline from "/public/AccountCircleOutlined.svg";
 import favorite from "/public/favorite.svg";
 import shoppingCartIcon from "/public/ShoppingCartIcon.svg";
 
+import { useSession } from "next-auth/react";
+
 const Navbar = () => {
   const [nav, setNav] = useState(false);
 
   const handleNav = () => {
     setNav(!nav);
   };
+
+  const setShowLoginModal = useLoginModalStore(
+    (state) => state.setShowLoginModal
+  );
 
   const setShowCatalog = useCatalogModalStore((state) => state.setShowCatalog);
   const showCatalog = useCatalogModalStore((state) => state.showCatalog);
@@ -41,6 +48,8 @@ const Navbar = () => {
   const refresh = () => {
     pathname === "/" ? window.location.reload() : router.push("/");
   };
+
+  const { data: session } = useSession();
 
   return (
     <header className="bg-TechStopWhite relative flex items-center max-w-full border-b-[1px] border-b-TechStopBlue40 py-2 md:py-0">
@@ -75,26 +84,40 @@ const Navbar = () => {
         <SearchField />
         <div className="flex gap-10">
           <div className="group relative hidden md:block">
-            <Link href="/account">
+            {session && session.user ? (
+              <Link href={"/account"}>
+                <Image
+                  src={accountCircleOutline}
+                  alt="AccountCircleOutlined"
+                  width={32}
+                  height={32}
+                  className="hover:[filter:drop-shadow(0px_3px_1px_#02275066)] ease-out duration-200 active:bg-TechStopBlue10 active:rounded-md"
+                />
+              </Link>
+            ) : (
+              <button onClick={setShowLoginModal}>
+                <Image
+                  src={accountCircleOutline}
+                  alt="AccountCircleOutlined"
+                  width={32}
+                  height={32}
+                  className="hover:[filter:drop-shadow(0px_3px_1px_#02275066)] ease-out duration-200 active:bg-TechStopBlue10 active:rounded-md"
+                />
+              </button>
+            )}
+            <AccountHoverBlock />
+          </div>
+          {session && session.user && (
+            <Link href="/account/favorites" className="hidden md:flex">
               <Image
-                src={accountCircleOutline}
-                alt="AccountCircleOutlined"
+                src={favorite}
+                alt="favorite"
                 width={32}
                 height={32}
                 className="hover:[filter:drop-shadow(0px_3px_1px_#02275066)] ease-out duration-200 active:bg-TechStopBlue10 active:rounded-md"
               />
             </Link>
-            <AccountHoverBlock />
-          </div>
-          <Link href="/account/favorites" className="hidden md:flex">
-            <Image
-              src={favorite}
-              alt="favorite"
-              width={32}
-              height={32}
-              className="hover:[filter:drop-shadow(0px_3px_1px_#02275066)] ease-out duration-200 active:bg-TechStopBlue10 active:rounded-md"
-            />
-          </Link>
+          )}
           <div className="group relative">
             <button onClick={setShowShoppingCart} className="flex items-center">
               <Image

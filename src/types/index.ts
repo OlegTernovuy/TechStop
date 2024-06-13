@@ -26,6 +26,11 @@ export interface ShoppingCartModalState {
   setShowShoppingCart: () => void;
 }
 
+export interface LoginModalState {
+  showLoginModal: boolean;
+  setShowLoginModal: () => void;
+}
+
 export interface IRating {
   "1": number;
   "2": number;
@@ -86,17 +91,23 @@ export interface IContactContent
   surname: string;
   email: string;
   phone: string;
-  anotherPersonReceive: boolean;
+  // anotherPersonReceive: boolean;
+}
+
+export interface ICourierAddress {
+  street: string | undefined;
+  house: string | undefined;
+  apartment: number | undefined;
 }
 
 export interface IDeliveryContent {
-  // extends Record<string, string | number | boolean> {
-  postOffice: string;
-  novaPostDepart?: string | undefined;
-  ukrPostDepart?: string | undefined;
-  shopDepart?: string | undefined;
-  courierAddress?: string | undefined;
-  // postOfficeData: string;
+  postalOperator: string;
+  postalDepartment?: string | undefined;
+  courierAddress: {
+    street?: string | undefined;
+    house?: string | undefined;
+    apartment?: number | undefined;
+  } | null;
 }
 
 export interface IPayMethodContent
@@ -111,7 +122,12 @@ export interface IAdd {
 
 export interface formDat {
   setOrderContactData: React.Dispatch<React.SetStateAction<IAdd>>;
+  // setCourierAddress: React.Dispatch<React.SetStateAction<{}>>;
   toggle: (i: any) => void;
+}
+
+export interface formDatAddress extends formDat {
+  setCourierAddress: React.Dispatch<React.SetStateAction<ICourierAddress>>;
 }
 
 export interface INPCity {
@@ -132,11 +148,11 @@ export interface INPCity {
 }
 
 export interface IPersonalContactInfo {
-  name: string;
-  surname: string;
-  phone: string;
+  first_name: string;
+  last_name: string;
+  phone_number: string;
   email: string;
-  birthdate?: string | null;
+  b_day?: string | null | undefined;
 }
 
 export interface IPersonalLoginInfo {
@@ -146,8 +162,8 @@ export interface IPersonalLoginInfo {
 export interface IHomeDeliveryAddress {
   city: string;
   street: string;
-  houseNumber: string;
-  appartamentNumber?: string | undefined;
+  house: string;
+  apartament?: number | null | undefined;
 }
 
 export interface INovaPostDeliveryAddress {
@@ -287,4 +303,22 @@ export interface Categories {
   icon: null;
   parent: string;
   children: Categories[];
+}
+
+export interface IAuthData {
+  email: string;
+  password: string;
+}
+
+export interface IProductFilters {
+  priceFrom: number;
+  priceTo: number;
+  brand: string[];
+}
+
+export interface IFilteredProducts {
+  minPrice?: number;
+  maxPrice?: number;
+  category?: string;
+  sort?: string;
 }

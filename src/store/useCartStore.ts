@@ -34,6 +34,7 @@ interface CartState {
   totalPrice: { totalPrice: number; priceWithAddService: number };
   countTotalPrice: () => void;
   getTotalPriceOneProduct: (product: CartProduct) => TotalPrices;
+  clearTheCart: () => void;
 }
 
 export const useCartStore = create(
@@ -196,6 +197,15 @@ export const useCartStore = create(
           set({ cartItems: updateCartItems });
         }
         get().countTotalPrice();
+      },
+      clearTheCart: () => {
+        set({ cartItems: [] });
+        set({
+          totalPrice: {
+            totalPrice: 0,
+            priceWithAddService: 0,
+          },
+        });
       },
     }),
     {

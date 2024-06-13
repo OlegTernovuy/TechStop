@@ -1,7 +1,7 @@
 
 import { IAdd } from "@/types";
 
-export const checkIsContact = <T extends Record<string, string | number | boolean>>(
+export const checkIsContact = <T extends Record<string, string | number | boolean | undefined>>(
     formValues: T,
     setAdd: React.Dispatch<React.SetStateAction<IAdd>>
   ) => {

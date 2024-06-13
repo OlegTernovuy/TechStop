@@ -1,5 +1,9 @@
 import { create } from "zustand";
-import { CatalogModalState, ShoppingCartModalState } from "../types";
+import {
+  CatalogModalState,
+  LoginModalState,
+  ShoppingCartModalState,
+} from "../types";
 
 export const useCatalogModalStore = create<CatalogModalState>((set) => ({
   showCatalog: false,
@@ -22,3 +26,11 @@ export const useShoppingCartModalStore = create<ShoppingCartModalState>(
       })),
   })
 );
+
+export const useLoginModalStore = create<LoginModalState>((set) => ({
+  showLoginModal: false,
+  setShowLoginModal: () =>
+    set((state) => ({
+      showLoginModal: (state.showLoginModal = !state.showLoginModal),
+    })),
+}));

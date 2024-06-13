@@ -7,6 +7,8 @@ import CatalogModal from "../components/Catalog/CatalogModal";
 import ShoppingCartModal from "../components/(ShoppingCart)/ShoppingCartModal";
 import { getCategories } from "@/api";
 import CatalogModalMobile from "@/components/Catalog/CatalogModalMobile";
+import Providers from "@/providers/Providers";
+import AuthModal from "@/components/auth/AuthModal";
 
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
@@ -24,12 +26,15 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={roboto.className}>
-        <Navbar />
-        {children}
-        <ShoppingCartModal />
-        <CatalogModal categories={categories} />
-        <CatalogModalMobile categories={categories} />
-        <Footer />
+        <Providers>
+          <Navbar />
+          {children}
+          <ShoppingCartModal />
+          <CatalogModal categories={categories} />
+          <CatalogModalMobile categories={categories} />
+          <AuthModal/>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

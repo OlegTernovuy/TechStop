@@ -1,12 +1,14 @@
 "use client";
 
+import { editMe } from "@/api";
 import { PersonalContactInfoSchema } from "@/app/utils/ValidationsSchema";
 import Button from "@/components/ui/Button";
 import { IPersonalContactInfo } from "@/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TextField } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { useCallback, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 export const CustomTextField = makeStyles({
@@ -33,7 +35,10 @@ export const CustomTextField = makeStyles({
 });
 
 const PersonalContactInfo = () => {
+  const { data: session } = useSession();
+
   const classes = CustomTextField();
+
   const {
     handleSubmit,
     control,
@@ -41,38 +46,33 @@ const PersonalContactInfo = () => {
     reset,
   } = useForm<IPersonalContactInfo>({
     defaultValues: {
-      name: "",
-      surname: "",
-      phone: "",
+      first_name: "",
+      last_name: "",
+      phone_number: "",
       email: "",
-      birthdate: "",
+      b_day: "",
     },
     resolver: yupResolver(PersonalContactInfoSchema),
   });
 
-  const onSubmit: SubmitHandler<IPersonalContactInfo> = useCallback((data) => {
-    console.log(data);
-  }, []);
-
-  const user = {
-    name: "John",
-    surname: "Trewis",
-    phone: "+380875565656",
-    birthdate: "23.06.2015",
-    email: "james@gmail.com",
+  const onSubmit: SubmitHandler<IPersonalContactInfo> = async (data) => {
+    if (session?.token !== undefined) {
+      await editMe(session?.token, data);
+    }
   };
 
   useEffect(() => {
-    if (user) {
+    if (session !== null) {
       reset({
-        email: user.email,
-        name: user.name,
-        surname: user.surname,
-        phone: user.phone,
-        birthdate: user.birthdate,
+        email: session?.user?.email,
+        first_name: session?.user?.first_name,
+        last_name: session?.user?.last_name,
+        phone_number: session?.user?.phone_number,
+        b_day: session?.user?.b_day?.split('T')[0],
       });
     }
-  }, [reset]);
+  }, [reset, session]);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <h2 className="w-full text-Headline5 md:text-Headline4 text-TechStopBlue md:pb-2 md:pt-0">
@@ -83,14 +83,14 @@ const PersonalContactInfo = () => {
           <div className="flex flex-col md:flex-row gap-6">
             <Controller
               control={control}
-              name="name"
+              name="first_name"
               render={({ field }) => (
                 <TextField
                   label="Ім'я"
                   variant="standard"
                   placeholder="Ім'я"
-                  error={!!errors?.name}
-                  helperText={errors.name?.message}
+                  error={!!errors?.first_name}
+                  helperText={errors.first_name?.message}
                   onChange={(e) => field.onChange(e)}
                   value={field.value}
                   className={`${classes.root} w-full lg:w-80`}
@@ -99,14 +99,14 @@ const PersonalContactInfo = () => {
             />
             <Controller
               control={control}
-              name="surname"
+              name="last_name"
               render={({ field }) => (
                 <TextField
                   label="Прізвище"
                   variant="standard"
                   placeholder="Прізвище"
-                  error={!!errors?.surname}
-                  helperText={errors.surname?.message}
+                  error={!!errors?.last_name}
+                  helperText={errors.last_name?.message}
                   onChange={(e) => field.onChange(e)}
                   value={field.value}
                   className={`${classes.root} w-full lg:w-80`}
@@ -133,14 +133,14 @@ const PersonalContactInfo = () => {
             />
             <Controller
               control={control}
-              name="phone"
+              name="phone_number"
               render={({ field }) => (
                 <TextField
                   label="Номер телефону"
                   variant="standard"
                   placeholder="+38 - ( ) -   - -"
-                  error={!!errors?.phone}
-                  helperText={errors.phone?.message}
+                  error={!!errors?.phone_number}
+                  helperText={errors.phone_number?.message}
                   onChange={(e) => field.onChange(e)}
                   value={field.value}
                   className={`${classes.root} w-full lg:w-80`}
@@ -151,14 +151,14 @@ const PersonalContactInfo = () => {
           <div className="flex flex-col md:flex-row gap-6">
             <Controller
               control={control}
-              name="birthdate"
+              name="b_day"
               render={({ field }) => (
                 <TextField
                   label="Дата народження"
                   variant="standard"
                   placeholder="Дата народження"
-                  error={!!errors?.birthdate}
-                  helperText={errors.birthdate?.message}
+                  error={!!errors?.b_day}
+                  helperText={errors.b_day?.message}
                   onChange={(e) => field.onChange(e)}
                   value={field.value}
                   className={`${classes.root} w-full lg:w-80`}

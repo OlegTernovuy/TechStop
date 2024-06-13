@@ -10,14 +10,14 @@ export const ContactValidationsSchema = yup.object().shape({
       /^[a-zA-Zа-щьюяіїґєА-ЩЬЮЯІЇҐЄ]+$/,
       "User name, must be contain only letters"
     ),
-    surname: yup
+  surname: yup
     .string()
     .required("Required")
     .min(2, "Surname must be more than 2 characters")
     .max(60, "Surname must be less than 60 characters")
     .matches(
       /^[a-zA-Zа-щьюяіїґєА-ЩЬЮЯІЇҐЄ]+$/,
-      "User Surname, must be contain only letters"
+      "User surname, must be contain only letters"
     ),
   email: yup
     .string()
@@ -34,38 +34,29 @@ export const ContactValidationsSchema = yup.object().shape({
     .required("Required")
     .matches(/^[\+]{0,1}380/, "Number should start with code of Ukraine +380")
     .matches(/^[\+]{0,1}380([0-9]{9})$/, "And contain 9 numbers"),
-  anotherPersonReceive: yup.boolean().default(false),
+  // anotherPersonReceive: yup.boolean().default(false),
 });
 
 export const DeliveryValidationsSchema = yup.object().shape({
-  postOffice: yup
+  postalOperator: yup
     .string()
     .required("Required")
     .max(100, "Post must be less than 100 characters"),
-  // postOfficeData: yup
-  // .string()
-  // .required("Required")
-  // .max(100, "Post name must be less than 100 characters")
-  // novaPostDepart: '',
-  //   ukrPostDepart: '',
-  //   shopDepart: '',
-  //   courierAddress: '',
-  novaPostDepart: yup
+  postalDepartment: yup
     .string()
-    // .required("Required")
-    .max(100, "novaPostDepart must be less than 100 characters"),
-  ukrPostDepart: yup
-    .string()
-    // .required("Required")
     .max(100, "ukrPostDepart must be less than 100 characters"),
-  shopDepart: yup
-    .string()
-    // .required("Required")
-    .max(100, "shopDepart must be less than 100 characters"),
   courierAddress: yup
-    .string()
-    // .required("Required")
-    .max(100, "courierAddress must be less than 100 characters")
+    .object()
+    .shape({
+      street: yup.string().max(100, "Street must be less than 100 characters"),
+      house: yup
+        .string()
+        .max(10, "House number must be less than 10 characters"),
+      apartment: yup.number(),
+      // .string()
+      // .max(10, "Apartment number must be less than 10 characters")
+    })
+    .nullable(),
 });
 
 export const PayMethodValidationsSchema = yup.object().shape({
@@ -73,7 +64,7 @@ export const PayMethodValidationsSchema = yup.object().shape({
 });
 
 export const PersonalContactInfoSchema = yup.object().shape({
-  name: yup
+  first_name: yup
     .string()
     .required("Required")
     .min(2, "Name must be more than 2 characters")
@@ -82,7 +73,7 @@ export const PersonalContactInfoSchema = yup.object().shape({
       /^[a-zA-Zа-щьюяіїґєА-ЩЬЮЯІЇҐЄ]+$/,
       "User Name, must be contain only letters"
     ),
-  surname: yup
+  last_name: yup
     .string()
     .required("Required")
     .min(2, "Surname must be more than 2 characters")
@@ -91,7 +82,7 @@ export const PersonalContactInfoSchema = yup.object().shape({
       /^[a-zA-Zа-щьюяіїґєА-ЩЬЮЯІЇҐЄ]+$/,
       "User Surname, must be contain only letters"
     ),
-  phone: yup
+  phone_number: yup
     .string()
     .required("Required")
     .matches(/^[\+]{0,1}380/, "Number should start with code of Ukraine +380")
@@ -106,13 +97,13 @@ export const PersonalContactInfoSchema = yup.object().shape({
       /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/,
       "User email, must be valid"
     ),
-  birthdate: yup
+  b_day: yup
     .string()
-    // .required("Required")
-    .notRequired()
+    .nullable()
+    // .notRequired()
     .matches(
-      /^(\d{2})\.(\d{2})\.(\d{4})$/,
-      "Дата народження повинна бути у форматі ДД.ММ.РРРР"
+      /^(\d{4})\-(\d{2})\-(\d{2})$/,
+      "Дата народження повинна бути у форматі РРРР-ММ-ДД"
     ),
 });
 
@@ -129,11 +120,11 @@ export const HomeDeliveryAddressSchema = yup.object().shape({
     .string()
     .required("Required")
     .min(2, "city must be more than 2 characters")
-    .max(60, "city must be less than 60 characters")
-    .matches(
-      /^[a-zA-Zа-щьюяіїґєА-ЩЬЮЯІЇҐЄ]+$/,
-      "User city, must be contain only letters"
-    ),
+    .max(60, "city must be less than 60 characters"),
+    // .matches(
+    //   /^[a-zA-Zа-щьюяіїґєА-ЩЬЮЯІЇҐЄ]+$/,
+    //   "User city, must be contain only letters"
+    // ),
   street: yup
     .string()
     .required("Required")
@@ -143,16 +134,16 @@ export const HomeDeliveryAddressSchema = yup.object().shape({
       /^[a-zA-Zа-щьюяіїґєА-ЩЬЮЯІЇҐЄ]+(?:\s[a-zA-Zа-щьюяіїґєА-ЩЬЮЯІЇҐЄ]+)*$/,
       "User street, must be contain only letters"
     ),
-  houseNumber: yup
+  house: yup
     .string()
     .required("Required")
     .min(1, "houseNumber must be more than 1 characters")
     .max(10, "houseNumber must be less than 10 characters"),
-  appartamentNumber: yup
-    .string()
-    // .required("Required")
-    .min(1, "appartamentNumber must be more than 1 characters")
-    .max(10, "appartamentNumber must be less than 10 characters"),
+    apartament: yup.number()
+  .nullable(),
+  // .required("Required")
+  // .min(1, "appartamentNumber must be more than 1 characters")
+  // .max(10, "appartamentNumber must be less than 10 characters"),
 });
 
 export const NovaPostNDeliveryAddressSchema = yup.object().shape({
@@ -174,7 +165,7 @@ export const UkrPostNDeliveryAddressSchema = yup.object().shape({
     .required("Required")
     .min(2, "city must be more than 2 characters")
     .max(60, "city must be less than 60 characters"),
-    ukrPostDepart: yup
+  ukrPostDepart: yup
     .string()
     .required("Required")
     .min(2, "street must be more than 2 characters")

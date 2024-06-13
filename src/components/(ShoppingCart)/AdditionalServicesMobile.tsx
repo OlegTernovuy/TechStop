@@ -13,7 +13,7 @@ const AdditionalServicesMobile = (productId: AdditionalServicesDesktopType) => {
   return (
     <div className="w-full">
       <div className="mx-auto w-full mt-4 p-4 border-[1px] border-[#26262680] rounded-lg bg-white">
-        <Disclosure>
+        <Disclosure defaultOpen={true}>
           {({ open }) => (
             <>
               <Disclosure.Button className="flex w-full justify-between items-center rounded-lg text-left text-subtitle1  focus:outline-none focus-visible:ring ">

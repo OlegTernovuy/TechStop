@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Button from "../../../components/ui/Button";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import TextField from "@mui/material/TextField";
 import ProductOrderCard from "../ProductOrderCard";
 import ContactInfoOrder from "../ContactInfoOrder";
@@ -10,15 +10,26 @@ import MaxWidthWrapper from "../../../components/MaxWidthWrapper";
 import { useCartStore } from "@/store/useCartStore";
 import { useStore } from "@/store/useStore";
 import formatPrice from "@/app/utils/formatPrice";
-import { IAdd } from "@/types";
+import { IAdd, ICourierAddress } from "@/types";
+import { useSession } from "next-auth/react";
+import { useLoginModalStore } from "@/store/modalStore";
+import { makeOrder } from "@/api";
+import toast from "react-hot-toast";
 
 function OrderCart() {
   const router = useRouter();
 
+  const { data: session } = useSession();
+
   const DeliveryPrice = 150;
+
+  const { clearTheCart } = useCartStore();
 
   const cartItems = useStore(useCartStore, (state) => state.cartItems);
   const totalPrice = useStore(useCartStore, (state) => state.totalPrice);
+  const setShowLoginModal = useLoginModalStore(
+    (state) => state.setShowLoginModal
+  );
 
   const productsPrice = formatPrice(totalPrice?.totalPrice);
   // const productsPriceWithAdd = formatPrice(totalPrice?.priceWithAddService);
@@ -32,32 +43,80 @@ function OrderCart() {
   };
   const productsPriceWithAdd = calculateProductsPriceWithAdd();
 
+  const [orderedProducts, setOrderedProducts] = useState<any>([]);
+  console.log(orderedProducts);
+
   const [orderContactData, setOrderContactData] = useState<IAdd>({});
+  const [courierAddress, setCourierAddress] = useState<ICourierAddress>({
+    street: "",
+    house: "",
+    apartment: undefined,
+  });
   const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
-    // if (Object.keys(orderContactData).length > 8) {
-    //   setDisabled(false);
-    // }
     if (
-      Object.keys(orderContactData).length === 12 &&
+      Object.keys(orderContactData).length === 8 &&
       orderContactData.phone !== "" &&
       orderContactData.name !== "" &&
       orderContactData.surname !== "" &&
       orderContactData.email !== "" &&
       orderContactData.city !== "" &&
-      orderContactData.postOffice !== "" &&
+      orderContactData.postalOperator !== "" &&
       orderContactData.payMethod_id !== "" &&
-      (orderContactData.courierAddress !== "" ||
-        orderContactData.novaPostDepart !== "" ||
-        orderContactData.shopDepart !== "" ||
-        orderContactData.ukrPostDepart)
+      (orderContactData.postalDepartment !== "" ||
+        (courierAddress?.street !== "" && courierAddress?.house !== ""))
     ) {
       setDisabled(false);
     }
-  }, [orderContactData]);
+  }, [orderContactData, courierAddress?.house, courierAddress?.street]);
 
-  // console.log(orderContactData);
+  useEffect(() => {
+    cartItems?.map((product) => {
+        const updatedOrderedProducts = cartItems.map((product) => ({
+          quantity: product.quantity,
+          productId: product._id,
+        }));
+        setOrderedProducts(updatedOrderedProducts);
+      });
+  }, [cartItems]);
+
+  const Order = async () => {
+    if (!session) {
+      setShowLoginModal();
+    } else {
+      const combinedObject = {
+        customerPhone: orderContactData.phone,
+        totalPrice: productsPriceWithAdd,
+        paymentStatus: "string",
+        paymentMethod: orderContactData.payMethod_id,
+        products: orderedProducts,
+        recepient: {
+          name: orderContactData.name,
+          phone: orderContactData.phone,
+        },
+        deliveryAddress: {
+          city: orderContactData.city,
+          postalOperator: orderContactData.postalOperator,
+          postalDepartment: orderContactData.postalDepartment,
+          // personalAddress: courierAddress,
+          ...(courierAddress.street ? { personalAddress: courierAddress } : {}),
+        },
+      };
+      // console.log(combinedObject);
+      try {
+        const res = await makeOrder(combinedObject);
+        if (res.status == 201) {
+          toast.success(`Your order has been successfully completed`);
+          router.push("/");
+          clearTheCart();
+        }
+      } catch (error) {
+        console.error("Error post order: ", error);
+        throw error;
+      }
+    }
+  };
 
   return (
     <MaxWidthWrapper className="min-h-screen">
@@ -87,13 +146,15 @@ function OrderCart() {
           ) : (
             <div>Order Cart is Empty</div>
           )}
-          <div className=" text-Headline6 flex items-center justify-between md:hidden">
+          <div className=" text-Headline6 text-TechStopBlue flex items-center justify-between md:hidden">
             <p>Разом до сплати</p>
             <p>{formatPrice(productsPriceWithAdd) + " ₴"}</p>
           </div>
           <ContactInfoOrder
             setOrderContactData={setOrderContactData}
+            setCourierAddress={setCourierAddress}
             orderContactData={orderContactData}
+            courierAddress={courierAddress}
           />
           <div className=" w-full mb-4 md:mb-[122px]">
             <TextField
@@ -161,7 +222,7 @@ function OrderCart() {
                     : "text-TechStopWhite"
                 }`}
                 disabled={disabled}
-                onClick={() => console.log(orderContactData)}
+                onClick={Order}
               />
               <div className="w-[100%] lg:border-b border-TechStopBlue40 mt-[31px]"></div>
             </div>

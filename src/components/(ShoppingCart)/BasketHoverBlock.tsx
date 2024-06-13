@@ -39,7 +39,7 @@ function BasketHoverBlock() {
                     width={63}
                     height={96}
                   />
-                  <div className=" flex flex-col">
+                  <div className=" flex flex-col w-full">
                     <div className="flex w-full items-baseline justify-between">
                       <h2 className="w-[80%] text-body1">{product.title}</h2>
                       <button onClick={() => removeItemFromCart(product._id)}>
@@ -51,7 +51,7 @@ function BasketHoverBlock() {
                         />
                       </button>
                     </div>
-                    <div className="w-full text-end">
+                    <div className="w-full text-end pr-10">
                       <p className=" text-sm text-TechStopBlue60 line-through">
                         {formatPrice(product.price * DiscountPercentage) + " ₴"}
                       </p>

@@ -1,11 +1,13 @@
 "use client";
 
+import { editMe } from "@/api";
 import { HomeDeliveryAddressSchema } from "@/app/utils/ValidationsSchema";
 import Button from "@/components/ui/Button";
 import { IHomeDeliveryAddress, IPersonalContactInfo } from "@/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TextField } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import { useSession } from "next-auth/react";
 import { useCallback, useEffect } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
@@ -33,6 +35,8 @@ export const CustomTextField = makeStyles({
 });
 
 const HomeDelivery = () => {
+  const { data: session } = useSession();  
+
   const classes = CustomTextField();
   const {
     handleSubmit,
@@ -43,33 +47,41 @@ const HomeDelivery = () => {
     defaultValues: {
       city: "",
       street: "",
-      houseNumber: "",
-      appartamentNumber: "",
+      house: "",
+      // apartament: 1,
     },
     resolver: yupResolver(HomeDeliveryAddressSchema),
   });
 
-  const onSubmit: SubmitHandler<IHomeDeliveryAddress> = useCallback((data) => {
-    console.log(data);
-  }, []);
-
-  const userAddress = {
-    city: "Kyiv",
-    street: "Lorem Ipsum",
-    houseNumber: "10a",
-    appartamentNumber: "34",
+  const onSubmit: SubmitHandler<IHomeDeliveryAddress> = async (data) => {
+    const address = {
+      address: {
+        city: "м. Львів, Львівська обл.",
+        // postalOperator: "Нова Пошта",
+        // postalDepartment: "Відділення №16 (до 30 кг): вул. Вербова, 24",
+        personalAddress: {
+          street: "string",
+          house: "1",
+          apartament: undefined,
+        },
+      },
+    };
+    if (session?.token !== undefined) {
+      await editMe(session?.token, address);
+    }
   };
 
-  useEffect(() => {
-    if (userAddress) {
+  useEffect(() => {    
+    if (session !== null) {      
       reset({
-        city: userAddress.city,
-        street: userAddress.street,
-        houseNumber: userAddress.houseNumber,
-        appartamentNumber: userAddress.appartamentNumber,
+        city: session?.user?.address?.city,
+        street: session?.user?.address?.personalAddress?.street,
+        house: session?.user?.address?.personalAddress?.house,
+        apartament: session?.user?.address?.personalAddress?.apartament,
       });
     }
-  }, [reset]);
+  }, [reset, session]);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col lg:flex-row justify-between gap-6 pt-4">
@@ -111,14 +123,14 @@ const HomeDelivery = () => {
           <div className="flex gap-6">
             <Controller
               control={control}
-              name="houseNumber"
+              name="house"
               render={({ field }) => (
                 <TextField
                   label="Будинок"
                   variant="standard"
                   placeholder="Будинок"
-                  error={!!errors?.houseNumber}
-                  helperText={errors.houseNumber?.message}
+                  error={!!errors?.house}
+                  helperText={errors.house?.message}
                   onChange={(e) => field.onChange(e)}
                   value={field.value}
                   className={`${classes.root} w-full lg:w-40`}
@@ -127,14 +139,14 @@ const HomeDelivery = () => {
             />
             <Controller
               control={control}
-              name="appartamentNumber"
+              name="apartament"
               render={({ field }) => (
                 <TextField
                   label="Квартира"
                   variant="standard"
                   placeholder="Квартира"
-                  error={!!errors?.appartamentNumber}
-                  helperText={errors.appartamentNumber?.message}
+                  error={!!errors?.apartament}
+                  helperText={errors.apartament?.message}
                   onChange={(e) => field.onChange(e)}
                   value={field.value}
                   className={`${classes.root} w-full lg:w-40`}

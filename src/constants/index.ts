@@ -291,7 +291,7 @@ export const additionalServices = [
 export const paymentsMethods = [
   {
     id: 1,
-    title: "Оплата після отриманні",
+    title: "Оплата після отримання",
   },
   {
     id: 2,
@@ -345,16 +345,16 @@ export const DeliveryAddressData = [
     title: "Адресна доставка",
     // icon: "",
   },
-  {
-    id: 2,
-    title: "Нова Пошта",
-    // icon: NovaPoshtaLogo,
-  },
-  {
-    id: 3,
-    title: "УкрПошта",
-    // icon: UkrposhtaLogo,
-  },
+  // {
+  //   id: 2,
+  //   title: "Нова Пошта",
+  //   // icon: NovaPoshtaLogo,
+  // },
+  // {
+  //   id: 3,
+  //   title: "УкрПошта",
+  //   // icon: UkrposhtaLogo,
+  // },
 ];
 
 export const Posts = [
@@ -485,4 +485,215 @@ export const reviews = [
     icon: reviewIconProduct,
     title: 'Дуже хороший геймпад, чоловік дуже тішився, покликав друзів, вже тиждень граються',
   },
+]
+
+export const productFilters = [
+  {
+    brandId: 1,
+    brandTitle: 'Apple'
+  },
+  {
+    brandId: 2,
+    brandTitle: 'Samsung'
+  },
+  {
+    brandId: 3,
+    brandTitle: 'LG'
+  },
+  {
+    brandId: 4,
+    brandTitle: 'HP'
+  },
+  {
+    brandId: 5,
+    brandTitle: 'DELL'
+  },
+  {
+    brandId: 6,
+    brandTitle: 'Lenovo'
+  },
+]
+
+export const prodData = [
+  {
+      "_id": "663790a407afc3888c102d6c",
+      "title": "Product 1",
+      "price": 1000,
+      "poster": null,
+      "inStock": true,
+      "rating": {
+          "1": 6,
+          "2": 8,
+          "3": 6,
+          "4": 15,
+          "5": 22,
+          "_id": "663796769626aee8727539e5"
+      },
+      "categories": [
+          "kruti-smartfoni"
+      ],
+      "id": 22
+  },
+  {
+      "_id": "6637e74db64e5923f598df64",
+      "title": "Product 2",
+      "price": 0,
+      "poster": null,
+      "inStock": true,
+      "categories": [
+          "tovari-dlya-gejmeriv"
+      ],
+      "id": 23,
+      "rating": {
+          "1": 16,
+          "2": 2,
+          "3": 8,
+          "4": 26,
+          "5": 25
+      }
+  },
+  {
+      "_id": "664df5d9cf7ca7042199d030",
+      "title": "This is a new product",
+      "price": 99.99,
+      "poster": null,
+      "inStock": true,
+      "rating": {
+          "1": 1,
+          "2": 0,
+          "3": 4,
+          "4": 7,
+          "5": 12
+      },
+      "categories": [
+          "kruti-smartfoni"
+      ],
+      "id": 26
+  },
+  {
+      "_id": "664df5d9cf7ca7042199d032",
+      "title": "This is a new product",
+      "price": 99.99,
+      "poster": null,
+      "inStock": true,
+      "rating": {
+          "1": 2,
+          "2": 2,
+          "3": 1,
+          "4": 4,
+          "5": 7
+      },
+      "categories": [
+          "kruti-smartfoni"
+      ],
+      "id": 25
+  },
+  {
+      "_id": "664df5d9cf7ca7042199d036",
+      "title": "This is a new product",
+      "price": 99.99,
+      "poster": null,
+      "inStock": true,
+      "rating": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 2,
+          "5": 2
+      },
+      "categories": [
+          "kruti-smartfoni"
+      ],
+      "id": 28
+  },
+  {
+      "_id": "664df5f7cf7ca7042199d049",
+      "title": "This is a new product",
+      "price": 99.99,
+      "poster": null,
+      "inStock": true,
+      "rating": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 0
+      },
+      "categories": [
+          "kruti-smartfoni"
+      ],
+      "id": 29
+  },
+  {
+      "_id": "664df5f7cf7ca7042199d04f",
+      "title": "This is a new product",
+      "price": 99.99,
+      "poster": null,
+      "inStock": true,
+      "rating": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 0
+      },
+      "categories": [
+          "kruti-smartfoni"
+      ],
+      "id": 30
+  },
+  {
+      "_id": "664df5f7cf7ca7042199d053",
+      "title": "This is a new product",
+      "price": 99.99,
+      "poster": null,
+      "inStock": true,
+      "rating": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 0
+      },
+      "categories": [
+          "kruti-smartfoni"
+      ],
+      "id": 31
+  },
+  {
+      "_id": "664df5f8cf7ca7042199d05b",
+      "title": "This is a new product",
+      "price": 99.99,
+      "poster": null,
+      "inStock": true,
+      "rating": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 0
+      },
+      "categories": [
+          "kruti-smartfoni"
+      ],
+      "id": 32
+  },
+  {
+      "_id": "664df609cf7ca7042199d066",
+      "title": "This is a new product",
+      "price": 99.99,
+      "poster": null,
+      "inStock": true,
+      "rating": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 0
+      },
+      "categories": [
+          "kruti-smartfoni"
+      ],
+      "id": 33
+  }
 ]
