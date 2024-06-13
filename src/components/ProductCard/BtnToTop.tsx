@@ -31,7 +31,7 @@ const BtnToTop: FC = () => {
       <button
         onClick={handleClick}
         type="button"
-        className={`rounded-full bg-TechStopBronze w-14 h-14 flex justify-center items-center bottom-[300px] right-[76px] fixed ${
+        className={`rounded-full bg-TechStopBronze w-14 h-14 flex justify-center items-center bottom-[100px] right-4 md:bottom-[300px] md:right-[76px] fixed ${
           showButton
             ? "block opacity-100 translate-y-0"
             : "opacity-0 translate-y-10"

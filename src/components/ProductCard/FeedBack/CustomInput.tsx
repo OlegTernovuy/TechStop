@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { TextField } from "@mui/material";
 
@@ -22,6 +22,16 @@ const CustomInput: FC<ICustomInputProps> = ({
     formState: { errors },
   } = useFormContext();
 
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
+
   return (
     <Controller
       name={name}
@@ -31,6 +41,8 @@ const CustomInput: FC<ICustomInputProps> = ({
         <TextField
           {...field}
           id={name}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           error={!!errors[name]}
           className={`w-full ${errors[name] ? "mb-0" : "mb-4"}`}
           label={label}
@@ -38,9 +50,9 @@ const CustomInput: FC<ICustomInputProps> = ({
           multiline={multiline}
           rows={rows}
           InputProps={{
-            className: `border border-TechStopBlue60  ${
-              errors[name] ? "border-transparent" : ""
-            }`,
+            className: `${
+              isFocused ? "border-transparent" : "border border-TechStopBlue60"
+            } ${errors[name] ? "border-transparent" : ""}`,
           }}
         />
       )}

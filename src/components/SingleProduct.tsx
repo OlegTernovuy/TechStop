@@ -6,6 +6,7 @@ import Image from "next/image";
 import { DiscountPercentage } from "@/constants";
 import { useViewProductsStore } from "@/store/useViewProductsStore";
 import defaultProductIcon from "../../public/defaultProductIcon.svg";
+
 import favorite from "../../public/favorite.svg";
 import activeFavorite from "../../public/activeFavorite.svg";
 
@@ -14,6 +15,9 @@ import { useFavoritesStore } from "@/store/useFavoritesStore";
 import toast from "react-hot-toast";
 import { useStore } from "@/store/useStore";
 import NoSsr from "@/app/utils/NoSsr";
+
+import { useEffect } from "react";
+import { getAllProducts } from "@/api/lib";
 
 type IProduct = {
   product: Product;
@@ -26,6 +30,8 @@ const SingleProduct = ({ product }: IProduct) => {
     useFavoritesStore();    
 
   // const isFavoriteProduct = useStore(useFavoritesStore, (state) => state.isFavoriteProduct);
+
+  useEffect(() => {}, []);
 
   const addProductToCart = (
     product: Product,

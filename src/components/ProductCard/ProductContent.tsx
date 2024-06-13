@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useState, SyntheticEvent } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Rating } from "@mui/material";
@@ -12,6 +12,10 @@ import ButtonLabels from "./ButtonLabels";
 import novaPost from "/public/product-card-icons/Nova_Poshta_2014_logo 1.svg";
 import ukrPost from "/public/product-card-icons/Ukrposhta-ua 1.svg";
 import feedBack from "/public/product-card-icons/CommentOutlined.svg";
+import { useRatingStore } from "@/store/useRatingStore";
+import toast from "react-hot-toast";
+import CustomToast from "../Global/CustomToast";
+import { useFeedbackStore } from "@/store/useFeedbackStore";
 
 const checkboxLabels = [
   {
@@ -41,14 +45,28 @@ const checkboxLabels = [
 ];
 
 const ProductContent: FC<IData> = ({ product }) => {
-  const { title, inStock, _id } = product?.data;
-
-  const [value, setValue] = useState<number | null>(0);
+  const { title, inStock, _id, id } = product?.data;
+  const { value, rateProduct } = useRatingStore();
+  const { reviews, getAllFeedbacks, isError } = useFeedbackStore();
+  const {
+    data: { rating },
+  } = value;
 
   const [addService, setAddService] = useState<AddServices[]>([]);
+  const [hasReviewed, setHasReviewed] = useState<boolean>(false);
 
-  const handleChangeValue = (e: SyntheticEvent, newValue: number | null) => {
-    setValue(newValue);
+  useEffect(() => {
+    getAllFeedbacks(_id);
+  }, [getAllFeedbacks, _id]);
+
+  const handleChangeValue = async (newValue: number | null) => {
+    if (!newValue || isError) {
+      // toast.error("Something went wrong");
+      return;
+    }
+    await rateProduct(_id, Number(newValue));
+
+    setHasReviewed(true);
   };
 
   return (
@@ -67,9 +85,13 @@ const ProductContent: FC<IData> = ({ product }) => {
         <li>
           <Rating
             name="product-rating"
-            onChange={handleChangeValue}
-            value={value}
+            onChange={(e, newValue) => {
+              console.log(newValue);
+              handleChangeValue(newValue);
+            }}
+            value={rating}
             defaultValue={2.5}
+            readOnly={hasReviewed}
             precision={0.5}
           />
         </li>
@@ -79,7 +101,12 @@ const ProductContent: FC<IData> = ({ product }) => {
             className="uppercase text-TechStopBronze font-medium text-base flex gap-3 hover:scale-110 transition ease-out duration-300"
           >
             <Image src={feedBack} alt="feedBack_icon" width={20} height={20} />
-            <span> Відгуки (0)</span>
+            <span>
+              Відгуки
+              <span className="hidden md:inline-block ml-1">
+                ({reviews.length})
+              </span>
+            </span>
           </Link>
         </li>
       </ul>
@@ -95,7 +122,7 @@ const ProductContent: FC<IData> = ({ product }) => {
       </form>
 
       <div className="md:flex items-center flex-wrap md:mt-10 mt-2">
-        <h3 className="text-TechStopBlue text-2xl font-normal md:mr-[38px] mb-6">
+        <h3 className="text-TechStopBlue text-xl md:text-[34px] font-normal md:mr-[38px] mb-6">
           Доставка
         </h3>
         <ul className="flex flex-wrap gap-[38px] md:gap-16  md:items-center ">
@@ -113,6 +140,8 @@ const ProductContent: FC<IData> = ({ product }) => {
           </li>
         </ul>
       </div>
+
+      <CustomToast />
     </div>
   );
 };

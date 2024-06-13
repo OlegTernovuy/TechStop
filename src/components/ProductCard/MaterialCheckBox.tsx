@@ -2,15 +2,7 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { FC, useState } from "react";
-import { useCartStore } from "@/store/useCartStore";
-import { AddServices, Product } from "@/types";
-
-interface IOption {
-  servicesId?: number;
-  servicesTitle: string;
-  servicesDesc: string;
-  servicesPrice: number;
-}
+import { AddServices } from "@/types";
 
 interface IMaterialCheckBox {
   options: AddServices[];
@@ -19,8 +11,6 @@ interface IMaterialCheckBox {
 
 const MaterialCheckBox: FC<IMaterialCheckBox> = ({ options, addService }) => {
   const [checked, setChecked] = useState<boolean[]>(options.map(() => false));
-  // const [addService, setAddService] = useState<IOption[]>([])
-  // console.log(addService);
 
   const handleChecked = (option: AddServices, index: number) => {
     const newItems = [...checked];

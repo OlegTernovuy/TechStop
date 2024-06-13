@@ -17,7 +17,7 @@ const ToggleButton: FC<IToggleButtonProps> = ({ _id, text }) => {
 
   return (
     <div className="flex gap-[10px]">
-      {!isFavoriteProduct(_id) ? (
+      {isFavoriteProduct(_id) ? (
         <Image src={heartActive} alt="basket" width={20} height={20} />
       ) : (
         <Image src={heart} alt="basket" width={20} height={20} />

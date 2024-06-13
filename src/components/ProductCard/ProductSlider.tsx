@@ -2,7 +2,6 @@ import React, { FC, useState } from "react";
 import Image from "next/image";
 import { Transition } from "@headlessui/react";
 
-// import defaultImg from "/public/product-card-images/product.png";
 import { IData } from "@/types";
 
 import rightArrow from "/public/product-card-icons/ChevronRightFilled.svg";
@@ -11,7 +10,6 @@ import leftArrow from "/public/icon_left.svg";
 import first from "/public/product-card-icons/test_svg_1.svg";
 import second from "/public/product-card-icons/test_svg_2.svg";
 import third from "/public/product-card-icons/test_svg.svg";
-// import fourth from "/public/product-card-images/fourth.jpg";
 
 const gallery = [
   {
@@ -51,14 +49,6 @@ const ProductSlider: FC<IData> = ({ product }) => {
     <div className="lg:max-w-full ">
       <div className="relative">
         <ul className="top-0 left-[104px] bg-TechStopWhite h-full border shadow-sm">
-          {" "}
-          {/* <Image
-            src={poster || defaultImg}
-            alt={title}
-            className="bg-TechStopWhite w-[358px] h-[249] md:w-[720px] md:h-[500px]"
-            width={700}
-            height={500}
-          /> */}
           {gallery.map(({ id, href }, idx) => (
             <li key={id} className={`${idx === current ? "block" : "hidden"} `}>
               {" "}

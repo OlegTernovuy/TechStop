@@ -2,21 +2,23 @@
 
 import { FC } from "react";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import PreviewCard from "../FeedBack/PreviewCard";
+import CharacteristicsInfo from "./CharacteristicsInfo";
+import ToggleButton from "../ToggleButton";
+import Button from "../Button";
+
 import { IData } from "@/types";
 import { Rating } from "@mui/material";
 
 import Link from "next/link";
 import Image from "next/image";
-import CharacteristicsInfo from "./CharacteristicsInfo";
-import PreviewCard from "../FeedBack/PreviewCard";
+import { useFavoritesStore } from "@/store/useFavoritesStore";
+import { useCartStore } from "@/store/useCartStore";
+
+import CustomToast from "@/components/Global/CustomToast";
+import toast from "react-hot-toast";
 
 import feedback from "/public/product-card-icons/CommentOutlined.svg";
-import { useFavoritesStore } from "@/store/useFavoritesStore";
-import ToggleButton from "../ToggleButton";
-import Button from "../Button";
-import CustomToast from "@/components/Global/CustomToast";
-import { useCartStore } from "@/store/useCartStore";
-import toast from "react-hot-toast";
 
 const Characteristics: FC<IData> = ({ product }) => {
   const { title, _id, price } = product.data;

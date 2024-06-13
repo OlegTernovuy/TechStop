@@ -1,13 +1,15 @@
 "use client";
 
 import { FC, useState } from "react";
-import Button from "../Button";
-import { useFeedbackStore } from "@/store/useFeedbackStore";
+import { IParams } from "@/types";
 import DefaultFeedbackForm from "./DefaultFeedbackForm";
+import Button from "../Button";
 
-const FeedbackForm: FC = () => {
+import { useFeedbackStore } from "@/store/useFeedbackStore";
+
+const FeedbackForm: FC<IParams> = ({ params }) => {
   const [show, setShow] = useState(false);
-  const { feedback } = useFeedbackStore();
+  const { reviews } = useFeedbackStore();
 
   const handleClick = () => {
     setShow(!show);
@@ -28,7 +30,7 @@ const FeedbackForm: FC = () => {
           Залишити відгук
         </Button>
       </div>
-      {show && feedback.length !== 0 && <DefaultFeedbackForm />}
+      {show && reviews.length !== 0 && <DefaultFeedbackForm params={params} />}
     </div>
   );
 };

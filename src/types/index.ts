@@ -48,12 +48,13 @@ export interface ProductInCart {
 }
 
 export interface Product {
-  // id: number;
+  id: number;
   _id: string;
   inStock: boolean;
   poster: string;
   price: number;
   title: string;
+  categories: string[];
   rating: IRating;
 }
 
@@ -230,6 +231,56 @@ export interface IData {
   product: {
     data: Product;
   };
+}
+
+export interface Review {
+  rating: number;
+  advantages: string;
+  disadvantages: string;
+  comment?: string;
+  userEmail?: string;
+  userName?: string;
+  productId?: string;
+  date?: string;
+}
+
+export interface User {
+  userEmail: string;
+  userName: string;
+}
+
+export interface Product {
+  _id: string;
+  title: string;
+  price: number;
+  inStock: boolean;
+  id: number;
+  poster: string;
+  rating: IRating;
+}
+
+export interface IFeedback {
+  _id?: string;
+  rating: number;
+  advantages: string;
+  disadvantages: string;
+  comment?: string;
+  product: Product;
+  user: User;
+  createdAt: string;
+  updatedAt?: string;
+}
+
+export interface IReviewCollection {
+  _id: string;
+  rating: number;
+  advantages: string;
+  disadvantages: string;
+  comment?: string;
+  product: Product;
+  user: User;
+  createdAt: string;
+  updatedAt?: string;
 }
 
 export interface IDataWithServices {
