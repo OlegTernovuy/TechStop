@@ -32,11 +32,13 @@ const CustomerReviews: FC<ICustomerReviewsProps> = ({ productId }) => {
   }, [getAllFeedbacks, productId]);
 
   const handleDeleteFeedback = async (id: string) => {
+    await deleteFeedback(id);
+
     if (isError) {
       toast.error("Помилка видалення");
       return;
     }
-    await deleteFeedback(id);
+
     toast.success("Відгук успішно видалено");
   };
 

@@ -19,15 +19,26 @@ import CustomToast from "@/components/Global/CustomToast";
 import toast from "react-hot-toast";
 
 import feedback from "/public/product-card-icons/CommentOutlined.svg";
+import { useRatingStore } from "@/store/useRatingStore";
+import { handleChangeValue } from "../utils";
 
 const Characteristics: FC<IData> = ({ product }) => {
   const { title, _id, price } = product.data;
   const { toggleProductCardToFavorites } = useFavoritesStore();
+  const { rateProduct, value } = useRatingStore();
   const { addItemToCart } = useCartStore();
 
   const handleAddItem = () => {
     addItemToCart(product.data);
     toast.success(`Товар ${title} додано до кошика`);
+  };
+
+  const handleRatingChange = async (newValue: number) => {
+    await handleChangeValue(
+      newValue,
+      _id,
+      async () => await rateProduct(_id, newValue)
+    );
   };
 
   return (
@@ -41,9 +52,11 @@ const Characteristics: FC<IData> = ({ product }) => {
           <div>
             <Rating
               name="characteristics-rating"
-              readOnly
-              // onChange={handleChangeValue}
-              // value={value}
+              onChange={(e, newValue) =>
+                handleRatingChange(Math.floor(newValue ?? 0))
+              }
+              value={value}
+              // readOnly={hasReview}
               defaultValue={2.5}
               precision={0.5}
             />

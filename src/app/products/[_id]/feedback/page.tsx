@@ -1,9 +1,8 @@
-import FeedbackPage from "@/components/ProductCard/FeedBack/Feedback";
-import { IParams } from "@/types";
 import { FC } from "react";
+import { IParams } from "@/types";
 
-const Page: FC<IParams> = ({ params }) => {
-  return <FeedbackPage params={params} />;
-};
+import FeedbackPage from "@/components/ProductCard/FeedBack/Feedback";
+
+const Page: FC<IParams> = ({ params }) => <FeedbackPage params={params} />;
 
 export default Page;

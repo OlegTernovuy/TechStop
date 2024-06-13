@@ -6,8 +6,8 @@ const AdminPanel = dynamic(() => import("@/components/admin/AdminApp"), {
   ssr: false,
 });
 
-const AdminPage: NextPage = () => {
+const HomePage: NextPage = () => {
   return <AdminPanel />;
 };
 
-export default AdminPage;
+export default HomePage;

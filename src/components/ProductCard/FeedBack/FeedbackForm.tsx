@@ -18,18 +18,21 @@ const FeedbackForm: FC<IParams> = ({ params }) => {
   return (
     <div className="hidden md:block">
       {" "}
-      <div className="border border-TechStopBlue60 flex justify-between items-center p-4 rounded mb-4">
-        <p className="text-TechStopBlue60">
-          Залишити свій відгук про цей товар
-        </p>
-        <Button
-          type="button"
-          className="text-TechStopBlue font-medium hover:bg-TechStopBlue60"
-          onClick={handleClick}
-        >
-          Залишити відгук
-        </Button>
-      </div>
+      {!show && (
+        <div className="border border-TechStopBlue60 flex justify-between items-center p-4 rounded mb-4">
+          <p className="text-TechStopBlue60">
+            Залишити свій відгук про цей товар
+          </p>
+
+          <Button
+            type="button"
+            className="text-TechStopBlue font-medium hover:bg-TechStopBlue60"
+            onClick={handleClick}
+          >
+            Залишити відгук
+          </Button>
+        </div>
+      )}
       {show && reviews.length !== 0 && <DefaultFeedbackForm params={params} />}
     </div>
   );
