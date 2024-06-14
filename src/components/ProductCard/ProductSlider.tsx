@@ -94,7 +94,7 @@ const ProductSlider: FC<IData> = ({ product }) => {
                 width={120}
                 height={100}
                 alt="mini"
-                className="my-8 w-[120px] h-[100px]"
+                className="my-8 max-w-[120px] h-[100px]"
               />
             </button>
           </li>

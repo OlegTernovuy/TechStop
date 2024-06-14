@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 
 export const handleChangeValue = async (
-  newValue: number | null,
+  newValue: number,
   _id: string,
   handler: (_id: string, newValue: number) => Promise<void>
 ): Promise<void> => {
