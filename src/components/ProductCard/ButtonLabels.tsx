@@ -68,7 +68,7 @@ const ButtonLabels: FC<IDataWithServices> = ({ product, addService }) => {
             onClick={() => toggleProductCardToFavorites(product.data)}
             className=" md:flex justify-center items-center text-TechStopBlue uppercase md:w-[122px] h-[52px] w-full  hover:scale-110 transition ease-out duration-300"
           >
-            <ToggleButton _id={_id} text="В оборане" />
+            <ToggleButton _id={_id} text="В обране" />
           </button>
         </li>
       </ul>

@@ -18,25 +18,21 @@ interface ICustomerReviewsProps {
 }
 
 const CustomerReviews: FC<ICustomerReviewsProps> = ({ productId }) => {
-  const {
-    reviews,
-    getFeedbacksList,
-    isLoading,
-    isError,
-    getAllFeedbacks,
-    deleteFeedback,
-  } = useFeedbackStore();
+  const { reviews, isLoading, isError, getAllFeedbacks, deleteFeedback } =
+    useFeedbackStore();
 
   useEffect(() => {
     getAllFeedbacks(productId);
   }, [getAllFeedbacks, productId]);
 
   const handleDeleteFeedback = async (id: string) => {
+    await deleteFeedback(id);
+
     if (isError) {
       toast.error("Помилка видалення");
       return;
     }
-    await deleteFeedback(id);
+
     toast.success("Відгук успішно видалено");
   };
 

@@ -1,5 +1,4 @@
 import axios from "axios";
-import toast from "react-hot-toast";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
@@ -8,28 +7,18 @@ const BASE_URL = "https://team-project-server-41ev.onrender.com/api";
 interface IRatingStore {
   isLoading?: boolean;
   isError?: null | Error;
-  value: {
-    data: {
-      rating: number;
-      message?: string;
-      status?: number;
-    };
-  };
+  value: number;
   rateProduct: (id: string, ratingValue: number) => Promise<void>;
 }
 
 export const useRatingStore = create<IRatingStore>()(
   persist(
     devtools((set, get) => ({
-      value: {
-        data: {
-          rating: 0,
-        },
-      },
+      value: 0,
       rateProduct: async (id, ratingValue) => {
         const { isError } = get();
         try {
-          set({ isLoading: true, isError: null }, false, "Product-rating");
+          set({ isLoading: true, isError: null }, false, "Rate-product");
           const resp = await axios.patch(`${BASE_URL}/products/${id}/rate`, {
             value: ratingValue,
           });
@@ -38,17 +27,23 @@ export const useRatingStore = create<IRatingStore>()(
             throw new Error("Something went wrong");
           }
 
-          const data = resp.data;
+          const {
+            data: { rating },
+          } = resp.data;
 
-          set({ value: data });
+          set(
+            { isLoading: false, isError: null, value: rating },
+            false,
+            "Rate-product"
+          );
         } catch (error) {
           console.log((error as Error).message);
           set(
             { isLoading: false, isError: error as Error },
             false,
-            "Product-rating"
+            "Rate-product"
           );
-          toast.error("Something went wrong");
+          console.log((error as Error).message);
         }
       },
     })),
