@@ -113,12 +113,12 @@ export const useFeedbackStore = create<IFeedbackStore>()(
             "addNewFeedback"
           );
         } catch (error) {
-          console.log((error as Error).message);
           set(
             { isLoading: false, isError: error as Error },
             false,
             "addNewFeedback"
           );
+          console.log((error as Error).message);
         }
       },
 

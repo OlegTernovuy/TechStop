@@ -1,56 +1,29 @@
 "use client";
 
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Rating } from "@mui/material";
 import MaterialCheckBox from "./MaterialCheckBox";
 import { AddServices, IData } from "@/types";
 
+import { useRatingStore } from "@/store/useRatingStore";
+import { useFeedbackStore } from "@/store/useFeedbackStore";
+
 import ButtonLabels from "./ButtonLabels";
+import CustomToast from "../Global/CustomToast";
 
 import novaPost from "/public/product-card-icons/Nova_Poshta_2014_logo 1.svg";
 import ukrPost from "/public/product-card-icons/Ukrposhta-ua 1.svg";
 import feedBack from "/public/product-card-icons/CommentOutlined.svg";
-import { useRatingStore } from "@/store/useRatingStore";
-import toast from "react-hot-toast";
-import CustomToast from "../Global/CustomToast";
-import { useFeedbackStore } from "@/store/useFeedbackStore";
 
-const checkboxLabels = [
-  {
-    servicesId: 1,
-    servicesTitle: "warranty",
-    servicesDesc: "Гарантія 24/7",
-    servicesPrice: 500,
-  },
-  {
-    servicesId: 2,
-    servicesTitle: "repairService",
-    servicesDesc: "Сервіс “Ремонт після всього”",
-    servicesPrice: 700,
-  },
-  {
-    servicesId: 3,
-    servicesTitle: "insurance",
-    servicesDesc: "Страховка від стихійних лих",
-    servicesPrice: 1000,
-  },
-  {
-    servicesId: 4,
-    servicesTitle: "nonWarrantyService",
-    servicesDesc: "Сервіс для негарантійних випадків",
-    servicesPrice: 1200,
-  },
-];
+import { handleChangeValue } from "./utils";
+import { checkboxLabels } from "@/constants/productCard";
 
 const ProductContent: FC<IData> = ({ product }) => {
-  const { title, inStock, _id, id } = product?.data;
+  const { title, inStock, _id } = product?.data;
   const { value, rateProduct } = useRatingStore();
-  const { reviews, getAllFeedbacks, isError } = useFeedbackStore();
-  const {
-    data: { rating },
-  } = value;
+  const { reviews, getAllFeedbacks } = useFeedbackStore();
 
   const [addService, setAddService] = useState<AddServices[]>([]);
   const [hasReviewed, setHasReviewed] = useState<boolean>(false);
@@ -59,13 +32,12 @@ const ProductContent: FC<IData> = ({ product }) => {
     getAllFeedbacks(_id);
   }, [getAllFeedbacks, _id]);
 
-  const handleChangeValue = async (newValue: number | null) => {
-    if (!newValue || isError) {
-      // toast.error("Something went wrong");
-      return;
-    }
-    await rateProduct(_id, Number(newValue));
-
+  const handleRatingChange = async (newValue: number) => {
+    await handleChangeValue(
+      newValue,
+      _id,
+      async () => await rateProduct(_id, newValue)
+    );
     setHasReviewed(true);
   };
 
@@ -79,17 +51,16 @@ const ProductContent: FC<IData> = ({ product }) => {
           inStock ? "text-SuccessLightGreen" : "text-deWiseRed"
         }`}
       >
-        {inStock ? " В наявності" : "Не має в наявності"}
+        {inStock ? " В наявності" : "Немає в наявності"}
       </p>
       <ul className="flex gap-10 md:pb-8 pb-6 border-b-[1px] lg:items-center flex-wrap">
         <li>
           <Rating
             name="product-rating"
-            onChange={(e, newValue) => {
-              console.log(newValue);
-              handleChangeValue(newValue);
-            }}
-            value={rating}
+            onChange={(e, newValue) =>
+              handleRatingChange(Math.floor(newValue ?? 0))
+            }
+            value={Number(value.toFixed(2)) ?? 0}
             defaultValue={2.5}
             readOnly={hasReviewed}
             precision={0.5}
@@ -104,7 +75,7 @@ const ProductContent: FC<IData> = ({ product }) => {
             <span>
               Відгуки
               <span className="hidden md:inline-block ml-1">
-                ({reviews.length})
+                ({reviews?.length})
               </span>
             </span>
           </Link>
@@ -147,3 +118,13 @@ const ProductContent: FC<IData> = ({ product }) => {
 };
 
 export default ProductContent;
+
+// const handleChangeValue = async (newValue: number | null) => {
+//   if (!newValue || isError) {
+//     toast.error("Something went wrong");
+//     return;
+//   }
+//   await rateProduct(_id, Number(newValue));
+//   setHasReviewed(true);
+//   toast.success("Дякуємо за оцінку 🤝");
+// };

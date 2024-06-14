@@ -21,20 +21,20 @@ const FormRate: FC<IFormRateProps> = ({ errors }) => {
     <>
       <div>
         <CustomInput name="advantages" label="Переваги" />
-        {advantages && <p className="text-red-500 ">{advantages.message}</p>}
+        {advantages && <p className="text-red-500 ">{advantages?.message}</p>}
       </div>
       <div>
         {" "}
         <CustomInput name="disadvantages" label="Недоліки" />
         {disadvantages && (
-          <p className="text-red-500 ">{disadvantages.message}</p>
+          <p className="text-red-500 ">{disadvantages?.message}</p>
         )}
       </div>
 
       <div>
         {" "}
         <CustomInput name="comment" label="Коментарі" multiline rows={4} />
-        {comment && <p className="text-red-500">{comment.message}</p>}
+        {comment && <p className="text-red-500">{comment?.message}</p>}
       </div>
 
       <ul className="xl:flex justify-between flex-wrap gap-6 ">
@@ -45,7 +45,7 @@ const FormRate: FC<IFormRateProps> = ({ errors }) => {
             {" "}
             <CustomSmallInput name="userName" label="Ім'я" />
             {userName && (
-              <p className="text-red-500 mb-4 md:mb-0">{userName.message}</p>
+              <p className="text-red-500 mb-4 md:mb-0">{userName?.message}</p>
             )}
           </div>
           <div>
@@ -56,7 +56,7 @@ const FormRate: FC<IFormRateProps> = ({ errors }) => {
               placeholder="example@email.com"
             />
             {userEmail && (
-              <p className="text-red-500 mb-6 md:mb-0">{userEmail.message}</p>
+              <p className="text-red-500 mb-6 md:mb-0">{userEmail?.message}</p>
             )}
           </div>
         </li>
