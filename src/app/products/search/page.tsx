@@ -5,7 +5,7 @@ import { Product } from '@/types';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
-const page = () => {
+const SearchPage = () => {
     const router = useRouter();
     const searchParams = useSearchParams()
     
@@ -31,7 +31,7 @@ const page = () => {
 
     fetchProducts();
   }, [search]);
-  
+
   return (
     <div className="w-full min-h-screen">
         <button onClick={addQueryParams}>addQuery</button>
@@ -40,4 +40,4 @@ const page = () => {
   )
 }
 
-export default page
+export default SearchPage
