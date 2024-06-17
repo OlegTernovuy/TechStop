@@ -53,9 +53,7 @@ const DeliveryMethod = ({
     response.data.length > 0 && setSearchCity(response.data[0].Addresses);
   }, [debouncedSearch]);
 
-  const findNovaPostDepartments = async (DeliveryCity: string) => {
-    console.log(DeliveryCity);
-    
+  const findNovaPostDepartments = async (DeliveryCity: string) => {    
     const response = await getNovaPostDepartments(DeliveryCity);
 
     response.data.length > 0 && setSearchPostDepartments(response.data);
@@ -378,7 +376,7 @@ const DeliveryMethod = ({
                         </div>
                       ) : (
                         <div className="w-full py-3">
-                          <FormControl className="flex flex-row gap-6">
+                          <FormControl style={{'display': 'flex', 'flexDirection': 'row', 'gap': '1.5rem'}}>
                             <Controller
                               control={control}
                               name="courierAddress.street"

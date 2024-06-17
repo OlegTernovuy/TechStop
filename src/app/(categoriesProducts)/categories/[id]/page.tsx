@@ -5,6 +5,7 @@ import { Product } from "@/types";
 import { FC, useEffect, useMemo, useState } from "react";
 import ProductsByCategory from "../../ProductsByCategory";
 import { useFilterStore } from "@/store/useFiltersStore";
+import { useSearchParams } from "next/navigation";
 
 interface ICatalogItemsProps {
   params: {
@@ -16,6 +17,12 @@ const CatalogItem: FC<ICatalogItemsProps> = ({ params }) => {
   const { id } = params;
 
   const { sortFilter, priceFilter } = useFilterStore();
+
+  const searchParams = useSearchParams()
+    
+  const search = searchParams.get('category')
+  console.log(search);
+  
 
   const [data, setData] = useState<Product[] | undefined>();
 

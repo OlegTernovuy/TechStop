@@ -48,7 +48,7 @@ const HomeDelivery = () => {
       city: "",
       street: "",
       house: "",
-      // apartament: 1,
+      apartament: 0,
     },
     resolver: yupResolver(HomeDeliveryAddressSchema),
   });

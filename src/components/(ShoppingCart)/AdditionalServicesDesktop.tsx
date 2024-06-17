@@ -33,7 +33,8 @@ const AdditionalServicesDesktop = (
                         checkAddService(service.servicesId, productId)
                       )}
                       onChange={() => addServiceToCart(service)}
-                      className=" mr-2 w-[18px] h-[18px] "
+                      className=" mr-2 w-[18px] h-[18px]"
+                      style={{accentColor: "#667f9abd"}}
                     />
                     <label className="text-body1">
                       {service.servicesTitle}

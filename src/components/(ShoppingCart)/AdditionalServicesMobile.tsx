@@ -52,6 +52,7 @@ const AdditionalServicesMobile = (productId: AdditionalServicesDesktopType) => {
                                 )}
                                 onChange={() => addServiceToCart(service)}
                                 className="w-5 h-5 "
+                                style={{accentColor: "#667f9abd"}}
                               />
                               <label className="w-full py-3 ms-3 text-sm">
                                 {service.servicesTitle}

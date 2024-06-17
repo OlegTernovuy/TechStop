@@ -322,3 +322,7 @@ export interface IFilteredProducts {
   category?: string;
   sort?: string;
 }
+
+export interface ISearchedProducts extends IFilteredProducts {
+  search: string | null;
+}

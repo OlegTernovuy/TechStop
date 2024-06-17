@@ -8,6 +8,7 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 import NoSsr from "../utils/NoSsr";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface IPropsParams {
   pathname: string;
@@ -19,11 +20,21 @@ const HeaderBlockProductsByCategory = ({ pathname }: IPropsParams) => {
 
   const { sortFilter, setSortFilter } = useFilterStore() 
 
+  const router = useRouter();
+  const searchParams = useSearchParams()
+
+  const addQueryParams = (event: SelectChangeEvent) => {
+    const currentParams = new URLSearchParams(searchParams.toString());
+    currentParams.set('sort', event.target.value as string);
+
+    router.push(`/products/search/?${currentParams.toString()}`);
+}
+
   // const [sort, setSort] = useState("популярні");
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setSortFilter(event.target.value as string);
-  };
+  // const handleChange = (event: SelectChangeEvent) => {
+  //   setSortFilter(event.target.value as string);
+  // };
 
   return (
     <div className="md:border-b-[1px] border-b-TechStopBlue40 px-4 md:px-4 lg:px-6 xl:px-8">
@@ -35,7 +46,7 @@ const HeaderBlockProductsByCategory = ({ pathname }: IPropsParams) => {
           / {category}
         </div>
         <div className="flex justify-between gap-4">
-          <h2 className="hidden md:flex text-Headline3">{category}</h2>
+          <h2 className="hidden md:flex text-Headline3 text-TechStopBlue">{category}</h2>
           <div className="w-full max-w-[220px]">
             <FormControl fullWidth>
               <NoSsr>
@@ -43,7 +54,7 @@ const HeaderBlockProductsByCategory = ({ pathname }: IPropsParams) => {
                 value={sortFilter}
                 displayEmpty
                 inputProps={{ "aria-label": "Without label" }}
-                onChange={handleChange}
+                onChange={addQueryParams}
                 className="h-[42px] md:h-14 text-body1 text-TechStopBlue60"
               >
                 <MenuItem value={"популярні"}>популярні</MenuItem>
