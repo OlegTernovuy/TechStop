@@ -11,7 +11,7 @@ import { useRatingStore } from "@/store/useRatingStore";
 import { useFeedbackStore } from "@/store/useFeedbackStore";
 
 import ButtonLabels from "./ButtonLabels";
-import CustomToast from "../Global/CustomToast";
+import CustomToast from "../Global/Toaster/CustomToast";
 
 import novaPost from "/public/product-card-icons/Nova_Poshta_2014_logo 1.svg";
 import ukrPost from "/public/product-card-icons/Ukrposhta-ua 1.svg";
@@ -74,9 +74,7 @@ const ProductContent: FC<IData> = ({ product }) => {
             <Image src={feedBack} alt="feedBack_icon" width={20} height={20} />
             <span>
               Відгуки
-              <span className="hidden md:inline-block ml-1">
-                ({reviews?.length})
-              </span>
+              <span className="ml-1"> ({reviews.length})</span>
             </span>
           </Link>
         </li>

@@ -2,7 +2,6 @@
 
 import { FC, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { TextField } from "@mui/material";
 import { CssTextField } from "@/constants/customStyles";
 
 interface ICustomInputProps {

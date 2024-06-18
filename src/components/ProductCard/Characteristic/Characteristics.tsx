@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import PreviewCard from "../FeedBack/PreviewCard";
 import CharacteristicsInfo from "./CharacteristicsInfo";
@@ -17,16 +17,22 @@ import { useCartStore } from "@/store/useCartStore";
 import { useRatingStore } from "@/store/useRatingStore";
 import { handleChangeValue } from "../utils";
 
-import CustomToast from "@/components/Global/CustomToast";
+import CustomToast from "@/components/Global/Toaster/CustomToast";
 import toast from "react-hot-toast";
 
 import feedback from "/public/product-card-icons/CommentOutlined.svg";
+import { useFeedbackStore } from "@/store/useFeedbackStore";
 
 const Characteristics: FC<IData> = ({ product }) => {
   const { title, _id, price } = product.data;
   const { toggleProductCardToFavorites } = useFavoritesStore();
+  const { reviews, getAllFeedbacks } = useFeedbackStore();
   const { rateProduct, value } = useRatingStore();
   const { addItemToCart } = useCartStore();
+
+  useEffect(() => {
+    getAllFeedbacks(_id);
+  }, [getAllFeedbacks, _id]);
 
   const handleAddItem = () => {
     addItemToCart(product.data);
@@ -72,7 +78,9 @@ const Characteristics: FC<IData> = ({ product }) => {
                 height={20}
                 alt="feedBack_icon"
               />
-              <span className="text-TechStopBronze ml-[10px]">Відгуки</span>
+              <span className="text-TechStopBronze ml-[10px]">
+                Відгуки ({reviews?.length})
+              </span>
             </Link>
           </div>
         </div>

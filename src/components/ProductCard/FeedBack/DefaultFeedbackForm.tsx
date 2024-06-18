@@ -1,8 +1,7 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import { InputLabel, MenuItem } from "@mui/material";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import {
@@ -14,7 +13,7 @@ import {
 import toast from "react-hot-toast";
 import * as yup from "yup";
 
-import CustomToast from "@/components/Global/CustomToast";
+import CustomToast from "@/components/Global/Toaster";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useFeedbackStore } from "@/store/useFeedbackStore";
 import { ratingValues, Rating } from "./Feedback.types";
@@ -22,6 +21,7 @@ import { CssSelect } from "@/constants/customStyles";
 
 import FormRate from "./FormRate";
 import { Review, IParams } from "@/types";
+import { TOAST_MESSAGES } from "@/constants/toastMessages";
 
 const nameRegex = /^[A-Aa-Я]+$/i;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -48,8 +48,11 @@ const MenuProps = {
   },
 };
 
+const { REVIEW_SUCCESS } = TOAST_MESSAGES();
+
 const DefaultFeedbackForm: FC<IParams> = ({ params }) => {
   const { addNewFeedback, isError } = useFeedbackStore();
+  const [leaveFeedback, setLeaveFeedback] = useState(false);
 
   const { _id: productId } = params;
 
@@ -73,20 +76,27 @@ const DefaultFeedbackForm: FC<IParams> = ({ params }) => {
     formState: { errors },
   } = methods;
 
-  const userId = "6622e62c5f5fd48246c5fa2a";
+  const userId = "6670068dd86670039a07c324";
 
   const onSubmit: SubmitHandler<Review> = async (data) => {
     const newData = { ...data, productId, userId };
+
     const { userEmail, ...filteredData } = newData;
 
-    await addNewFeedback(filteredData);
+    try {
+      await addNewFeedback(filteredData);
 
-    if (isError) {
-      return toast.error(isError?.message);
+      if (leaveFeedback) {
+        throw new Error("Ви вже залишили відгук");
+      }
+
+      setLeaveFeedback(true);
+
+      toast.success(REVIEW_SUCCESS);
+      reset();
+    } catch (error) {
+      toast.error((error as Error)?.message);
     }
-
-    toast.success("Дякуємо за відгук 🙌");
-    reset();
   };
 
   return (

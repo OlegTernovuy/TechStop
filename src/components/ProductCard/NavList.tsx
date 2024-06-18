@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC } from "react";
+import { FC } from "react";
 import Link from "next/link";
 import { join } from "path";
 import { usePathname } from "next/navigation";

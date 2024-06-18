@@ -4,11 +4,11 @@ import React, { FC } from "react";
 import { IFormRateProps } from "./Feedback.types";
 
 import Button from "../Button";
-import CustomToast from "@/components/Global/CustomToast";
+import CustomToast from "@/components/Global/Toaster/CustomToast";
 import CustomInput from "./CustomInput";
 import CustomSmallInput from "./CustomSmallInput";
 import { useFeedbackStore } from "@/store/useFeedbackStore";
-import CustomSpinner from "@/components/Global/CustomSpinner";
+import CustomSpinner from "@/components/Global/Spinner";
 
 const FormRate: FC<IFormRateProps> = ({ errors }) => {
   const isError = Object.values(errors).some((error) => error !== undefined);
