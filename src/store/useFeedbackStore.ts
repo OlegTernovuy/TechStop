@@ -15,7 +15,7 @@ interface IFeedbackStore {
   isLoading?: boolean;
   isError?: null | Error;
   getAllFeedbacks: (productId: string) => Promise<void>;
-  getFeedbacksList: (productId: string) => Promise<void>;
+  // getFeedbacksList: (productId: string) => Promise<void>;
   addNewFeedback: (newReview: Review) => Promise<void>;
   deleteFeedback: (id: string) => Promise<void>;
 }
@@ -34,8 +34,7 @@ export const useFeedbackStore = create<IFeedbackStore>()(
           const res = await axios.get(
             `${NEXT_PUBLIC_BASE_URL}/reviews?productId=${productId}`
           );
-
-          if (res.status !== 200 || isError) {
+          if (res.status !== 200) {
             throw new Error("Something went wrong");
           }
 
@@ -52,53 +51,21 @@ export const useFeedbackStore = create<IFeedbackStore>()(
             false,
             "getAllFeedbacks"
           );
+          toast.error((error as Error).message);
         }
       },
 
-      getFeedbacksList: async (productId) => {
-        const { isError } = get();
-        try {
-          set({ isLoading: true, isError: null }, false, "getFeedbacksList");
-
-          const res = await axios.get(
-            `${NEXT_PUBLIC_BASE_URL}/reviews?productId=${productId}`
-          );
-
-          if (res.status !== 200 || isError) {
-            throw new Error("Something went wrong");
-          }
-
-          const { data } = res.data;
-
-          console.log(res.data);
-          set(
-            { isLoading: false, reviews: data, isError: null },
-            false,
-            "getFeedbacksList"
-          );
-        } catch (error) {
-          console.log((error as Error).message);
-          toast.error("Something went wrong");
-          set(
-            { isLoading: false, isError: error as Error },
-            false,
-            "getFeedbacksList"
-          );
-        }
-      },
       addNewFeedback: async (newReview) => {
-        const { isError } = get();
-
+        const { isError, reviews } = get();
+        set({ isLoading: true, isError: null }, false, "addNewFeedback");
         try {
-          set({ isLoading: true, isError: null }, false, "addNewFeedback");
-
           const resp = await axios.post(
             `${NEXT_PUBLIC_BASE_URL}/reviews`,
             newReview
           );
 
           if (resp.status !== 201 || isError) {
-            throw new Error("Something went wrong");
+            throw new Error(isError?.message);
           }
 
           const { data } = resp.data;
@@ -106,7 +73,7 @@ export const useFeedbackStore = create<IFeedbackStore>()(
           set(
             {
               isLoading: false,
-              reviews: [...get().reviews, data],
+              reviews: [...reviews, data],
               isError: null,
             },
             false,
@@ -123,16 +90,15 @@ export const useFeedbackStore = create<IFeedbackStore>()(
       },
 
       deleteFeedback: async (id) => {
-        const { reviews, isError } = get();
+        const { reviews } = get();
+        set({ isLoading: true, isError: null }, false, "deleteFeedback");
         try {
-          set({ isLoading: true, isError: null }, false, "deleteFeedback");
-
           const resp = await axios.delete(
             `${NEXT_PUBLIC_BASE_URL}/reviews/${id}`
           );
 
-          if (resp.status !== 200 || isError) {
-            throw new Error("Something went wrong");
+          if (resp.status !== 200) {
+            throw new Error();
           }
 
           const filteredFeedbacks = reviews.filter(
@@ -158,3 +124,35 @@ export const useFeedbackStore = create<IFeedbackStore>()(
     { name: "Feedback", version: 1 }
   )
 );
+
+//  getFeedbacksList: async (productId) => {
+//         const { isError } = get();
+//         try {
+//           set({ isLoading: true, isError: null }, false, "getFeedbacksList");
+
+//           const res = await axios.get(
+//             `${NEXT_PUBLIC_BASE_URL}/reviews?productId=${productId}`
+//           );
+
+//           if (res.status !== 200 || isError) {
+//             throw new Error("Something went wrong");
+//           }
+
+//           const { data } = res.data;
+
+//           console.log(res.data);
+//           set(
+//             { isLoading: false, reviews: data, isError: null },
+//             false,
+//             "getFeedbacksList"
+//           );
+//         } catch (error) {
+//           console.log((error as Error).message);
+//           toast.error("Something went wrong");
+//           set(
+//             { isLoading: false, isError: error as Error },
+//             false,
+//             "getFeedbacksList"
+//           );
+//         }
+//       },

@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      flexBasis: {
+        "1/6-minus-gap": "calc((100% - 12px) / 3)",
+      },
       variants: {
         display: ["group-hover"],
       },

@@ -13,7 +13,7 @@ import Button from "../Button";
 import FeedbackForm from "./FeedbackForm";
 import DefaultFeedbackForm from "./DefaultFeedbackForm";
 
-import CustomToast from "@/components/Global/CustomToast";
+import CustomToast from "@/components/Global/Toaster";
 
 const FeedbackPage: FC<IParams> = ({ params }) => {
   const { _id } = params;
@@ -69,7 +69,7 @@ const FeedbackPage: FC<IParams> = ({ params }) => {
                 <DefaultFeedbackForm params={params} />
               )}
             </div>
-            {showFeedback && <DefaultFeedbackForm params={params} />}
+
             {reviews.length !== 0 ? (
               <FeedbackForm params={params} />
             ) : (
