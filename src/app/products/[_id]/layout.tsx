@@ -27,8 +27,8 @@ const Layout: FC<ILayoutProps> = async ({ children, params }) => {
       <MaxWidthWrapper>
         <RecommendationList title="Також Вас можуть зацікавити" />
         {/* <Bestsellers /> */}
+        <BtnToTop />
       </MaxWidthWrapper>
-      <BtnToTop />
     </>
   );
 };
