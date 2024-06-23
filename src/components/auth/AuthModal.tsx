@@ -9,7 +9,7 @@ import TechLogo from "../../../public/TechLogo.svg";
 import googleIcon from "../../../public/googleIcon.svg";
 import LoginForm from "./LoginForm";
 import axios from "axios";
-import CustomToast from "../Global/CustomToast";
+import CustomToast from "../Global/Toaster/CustomToast";
 
 const AuthModal = () => {
   const showLoginModal = useLoginModalStore((state) => state.showLoginModal);

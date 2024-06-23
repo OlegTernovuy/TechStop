@@ -9,35 +9,34 @@ import Button from "../Button";
 import Image from "next/image";
 
 import bucket from "/public/product-card-icons/bin.svg";
-import CustomToast from "@/components/Global/CustomToast";
-import CustomSpinner from "@/components/Global/CustomSpinner";
+import CustomToast from "@/components/Global/Toaster";
+import CustomSpinner from "@/components/Global/Spinner";
 import toast from "react-hot-toast";
+import { TOAST_MESSAGES } from "@/constants/toastMessages";
 
 interface ICustomerReviewsProps {
   productId: string;
 }
 
 const CustomerReviews: FC<ICustomerReviewsProps> = ({ productId }) => {
-  const {
-    reviews,
-    getFeedbacksList,
-    isLoading,
-    isError,
-    getAllFeedbacks,
-    deleteFeedback,
-  } = useFeedbackStore();
+  const { reviews, isLoading, isError, getAllFeedbacks, deleteFeedback } =
+    useFeedbackStore();
 
   useEffect(() => {
     getAllFeedbacks(productId);
   }, [getAllFeedbacks, productId]);
 
+  const { DELETE_REVIEW_ERROR, DELETE_REVIEW_SUCCESS } = TOAST_MESSAGES();
+
   const handleDeleteFeedback = async (id: string) => {
+    await deleteFeedback(id);
+
     if (isError) {
-      toast.error("Помилка видалення");
+      toast.error(DELETE_REVIEW_ERROR);
       return;
     }
-    await deleteFeedback(id);
-    toast.success("Відгук успішно видалено");
+
+    toast.success(DELETE_REVIEW_SUCCESS);
   };
 
   return (

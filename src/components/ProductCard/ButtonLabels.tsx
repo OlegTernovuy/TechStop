@@ -3,13 +3,14 @@ import { useCartStore } from "@/store/useCartStore";
 import { IDataWithServices } from "@/types";
 import { useFavoritesStore } from "@/store/useFavoritesStore";
 
-import CustomToast from "../Global/CustomToast";
+import CustomToast from "../Global/Toaster/CustomToast";
 import toast from "react-hot-toast";
 import diagram from "/public/product-card-icons/diagram_White.svg";
 import basket from "/public/product-card-icons/basket.svg";
 import Image from "next/image";
 
 import ToggleButton from "./ToggleButton";
+import { TOAST_MESSAGES } from "@/constants/toastMessages";
 
 const ButtonLabels: FC<IDataWithServices> = ({ product, addService }) => {
   const { price, _id, title } = product.data;
@@ -17,10 +18,12 @@ const ButtonLabels: FC<IDataWithServices> = ({ product, addService }) => {
   const { toggleProductCardToFavorites } = useFavoritesStore();
   const { addArrayOfAdditionalServices } = useCartStore();
 
+  const { ADD_SUCCESS } = TOAST_MESSAGES(title);
+
   const handleAddItem = () => {
     addItemToCart(product.data);
-    addArrayOfAdditionalServices(addService, product.data._id);
-    toast.success(`Product ${title} was added to basket`);
+    addArrayOfAdditionalServices(addService, _id);
+    toast.success(ADD_SUCCESS);
   };
 
   return (
@@ -68,7 +71,7 @@ const ButtonLabels: FC<IDataWithServices> = ({ product, addService }) => {
             onClick={() => toggleProductCardToFavorites(product.data)}
             className=" md:flex justify-center items-center text-TechStopBlue uppercase md:w-[122px] h-[52px] w-full  hover:scale-110 transition ease-out duration-300"
           >
-            <ToggleButton _id={_id} text="В оборане" />
+            <ToggleButton _id={_id} text="В обране" />
           </button>
         </li>
       </ul>

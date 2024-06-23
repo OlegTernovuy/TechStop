@@ -2,6 +2,7 @@ import { Product } from "@/types";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import { toast } from "react-hot-toast";
+import { TOAST_MESSAGES } from "@/constants/toastMessages";
 
 interface IFavoritesStore {
   favorites: Product[];
@@ -16,31 +17,29 @@ export const useFavoritesStore = create<IFavoritesStore>()(
       toggleProductCardToFavorites: (product: Product) => {
         const { favorites } = get();
         const { title } = product;
+        const { ADD_SUCCESS_TO_FAVORITES, DELETE_SUCCESS_FROM_FAVORITES } =
+          TOAST_MESSAGES(title);
 
         const isFavorites = favorites.some((item) => item._id === product._id);
 
         if (isFavorites) {
           set(
-            (state) => ({
-              favorites: state.favorites.filter(
-                (item) => item._id !== product._id
-              ),
-            }),
+            {
+              favorites: favorites.filter((item) => item._id !== product._id),
+            },
             false,
             "toggleProductCardToFavorites"
           );
 
-          toast.success(`Товар ${title} видалено з улюблених 🚮`);
+          toast.success(DELETE_SUCCESS_FROM_FAVORITES);
         } else {
           set(
-            (state) => ({
-              favorites: [...state.favorites, product],
-            }),
+            { favorites: [...favorites, product] },
             false,
             "toggleProductCardToFavorites"
           );
 
-          toast.success(`Товар ${title} додано до улюблених ➕`);
+          toast.success(ADD_SUCCESS_TO_FAVORITES);
         }
       },
       isFavoriteProduct: (_id: string) => {
