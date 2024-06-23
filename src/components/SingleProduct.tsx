@@ -17,6 +17,7 @@ import { useStore } from "@/store/useStore";
 import NoSsr from "@/app/utils/NoSsr";
 
 import { useEffect } from "react";
+import { useSession } from "next-auth/react";
 
 type IProduct = {
   product: Product;
@@ -29,6 +30,7 @@ const SingleProduct = ({ product }: IProduct) => {
     useFavoritesStore();
 
   // const isFavoriteProduct = useStore(useFavoritesStore, (state) => state.isFavoriteProduct);
+  const { data: session } = useSession();
 
   useEffect(() => {}, []);
 
@@ -48,7 +50,9 @@ const SingleProduct = ({ product }: IProduct) => {
   ) => {
     e?.preventDefault();
     e?.stopPropagation();
-    toggleProductCardToFavorites(product);
+    session !== null
+      ? toggleProductCardToFavorites(product)
+      : toast.error(`Please log in`);
   };
 
   const addProductToView = (product: Product) => {
