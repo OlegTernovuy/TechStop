@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Button from "../../../components/ui/Button";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import TextField from "@mui/material/TextField";
 import ProductOrderCard from "../ProductOrderCard";
 import ContactInfoOrder from "../ContactInfoOrder";
@@ -44,8 +44,6 @@ function OrderCart() {
   const productsPriceWithAdd = calculateProductsPriceWithAdd();
 
   const [orderedProducts, setOrderedProducts] = useState<any>([]);
-  console.log(orderedProducts);
-
   const [orderContactData, setOrderContactData] = useState<IAdd>({});
   const [courierAddress, setCourierAddress] = useState<ICourierAddress>({
     street: "",
@@ -168,6 +166,7 @@ function OrderCart() {
                 },
               }}
               fullWidth
+              inputProps={{ maxLength: 80 }}
             />
           </div>
         </div>
@@ -179,25 +178,6 @@ function OrderCart() {
                 <p className="font-bold md:font-normal">
                   {productsPrice + " ₴"}
                 </p>
-              </div>
-              <div className="flex flex-col gap-3 md:gap-6 text-body1 lg:text-Headline5">
-                {cartItems?.length
-                  ? cartItems?.map((product) => {
-                      return product.addServices?.map((service) => {
-                        return (
-                          <div
-                            className="flex justify-between items-center"
-                            key={service.servicesId}
-                          >
-                            <p>{service.servicesTitle}</p>
-                            <span>
-                              {formatPrice(service.servicesPrice) + " ₴"}
-                            </span>
-                          </div>
-                        );
-                      });
-                    })
-                  : null}
               </div>
               <div className="w-full flex items-center justify-between">
                 <p>Вартість доставки</p>

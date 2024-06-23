@@ -48,7 +48,7 @@ const HomeDelivery = () => {
       city: "",
       street: "",
       house: "",
-      // apartament: 1,
+      apartament: 0,
     },
     resolver: yupResolver(HomeDeliveryAddressSchema),
   });
@@ -57,8 +57,8 @@ const HomeDelivery = () => {
     const address = {
       address: {
         city: "м. Львів, Львівська обл.",
-        // postalOperator: "Нова Пошта",
-        // postalDepartment: "Відділення №16 (до 30 кг): вул. Вербова, 24",
+        postalOperator: "Нова Пошта",
+        postalDepartment: "Відділення №16 (до 30 кг): вул. Вербова, 24",
         personalAddress: {
           street: "string",
           house: "1",

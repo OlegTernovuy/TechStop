@@ -3,7 +3,6 @@ import { Button } from "@mui/material";
 import Image from "next/image";
 import { Fragment } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useShoppingCartModalStore } from "@/store/modalStore";
 
 type IdProps = {
@@ -15,7 +14,10 @@ const ThreeDotsSymbolMobile = ({ onRemoveItem, isOrderPage }: IdProps) => {
   const RemoveItemFromCart = () => {
     if (onRemoveItem) onRemoveItem();
   };
-  const { setShowShoppingCart } = useShoppingCartModalStore();
+  // const { setShowShoppingCart } = useShoppingCartModalStore();
+  const setShowShoppingCart = useShoppingCartModalStore(
+    (state) => state.setShowShoppingCart
+  );
 
   return (
     <div>
@@ -68,18 +70,6 @@ const ThreeDotsSymbolMobile = ({ onRemoveItem, isOrderPage }: IdProps) => {
                         onClick={RemoveItemFromCart}
                       >
                         Видалити
-                      </Button>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <Button
-                        variant="text"
-                        size="medium"
-                        startIcon={<FavoriteIcon />}
-                        sx={{ color: "#CC7E00" }}
-                      >
-                        Обране
                       </Button>
                     )}
                   </Menu.Item>
