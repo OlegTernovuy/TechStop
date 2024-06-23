@@ -1,5 +1,10 @@
 import axios from "axios";
-import { Categories, IFilteredProducts, ISearchedProducts, Product } from "@/types";
+import {
+  Categories,
+  IFilteredProducts,
+  ISearchedProducts,
+  Product,
+} from "@/types";
 import { PurchasesData } from "@/app/account/purchases/purchasesType";
 import { IRewiewData } from "@/app/account/reviews/typeRewiew";
 
@@ -72,17 +77,23 @@ export const getProductsByQuery = async (
   }
 };
 
-export const searchedProducts = async (filters: ISearchedProducts, req?: any): Promise<Product[] | undefined> => {  
+export const searchedProducts = async (
+  filters: ISearchedProducts,
+  req?: any
+): Promise<Product[] | undefined> => {
   try {
     // const url = new URLSearchParams()
-    const res = await fetch(`${BASE_URL}/products/search?search=${filters.search}&category=kruti-smartfoni`, {
-      next: { revalidate: 10 },
-    });
+    const res = await fetch(
+      `${NEXT_PUBLIC_BASE_URL}/products/search?search=${filters.search}&category=kruti-smartfoni`,
+      {
+        next: { revalidate: 10 },
+      }
+    );
 
     if (res.status !== 200) {
       throw new Error("Something went wrong");
     }
-    
+
     return res.json().then((res) => res.data);
   } catch (error) {
     console.log((error as Error).message);
