@@ -264,27 +264,30 @@ export const footerBlock = [
   },
 ];
 
-export const additionalServices = [
+export const checkboxLabels = [
   {
     servicesId: 1,
-    servicesTitle: "service 1",
-    servicesDesc:
-      "Короткий опис послуги, в якому описані основні переваги тут може бути достатньо тексту, але все залежить від кількості послуг",
-    servicesPrice: 1000,
+    servicesTitle: "warranty",
+    servicesDesc: "Гарантія 24/7",
+    servicesPrice: 500,
   },
   {
     servicesId: 2,
-    servicesTitle: "service 2",
-    servicesDesc:
-      "Короткий опис послуги, в якому описані основні переваги тут може бути достатньо тексту, але все залежить від кількості послуг",
-    servicesPrice: 2000,
+    servicesTitle: "repairService",
+    servicesDesc: "Сервіс “Ремонт після всього”",
+    servicesPrice: 700,
   },
   {
     servicesId: 3,
-    servicesTitle: "service 3",
-    servicesDesc:
-      "Короткий опис послуги, в якому описані основні переваги тут може бути достатньо тексту, але все залежить від кількості послуг",
-    servicesPrice: 3000,
+    servicesTitle: "insurance",
+    servicesDesc: "Страховка від стихійних лих",
+    servicesPrice: 1000,
+  },
+  {
+    servicesId: 4,
+    servicesTitle: "nonWarrantyService",
+    servicesDesc: "Сервіс для негарантійних випадків",
+    servicesPrice: 1200,
   },
 ];
 
@@ -333,7 +336,7 @@ export const profileNavItems = [
     icon: CommentOutlined,
   },
   {
-    title: "Переглянути товари",
+    title: "Переглянуті товари",
     url: "/account/viewedProducts",
     icon: RemoveRedEyeOutlined,
   },

@@ -44,9 +44,9 @@ const CatalogModalMobile = ({ categories }: ICategoryProps) => {
   ) => {
     if (subcategory.length === 0) {
       router.push(`/categories/${slug}`);
-      setTimeout(() => {
+      // setTimeout(() => {
         setShowCatalog();
-      }, 200);
+      // }, 200);
     }
     setTitle(title);
     setSubcategory(subcategory);
@@ -91,13 +91,7 @@ const CatalogModalMobile = ({ categories }: ICategoryProps) => {
                   >
                     <div className="flex justify-between text-body1 py-3 px-4 hover:bg-TechStopBronze20">
                       <div className="flex">
-                        <Image
-                          src={item.icon === null ? laptop : item.icon}
-                          alt={item.title}
-                          width={24}
-                          height={24}
-                        />
-                        <p className="pl-8">{item.title}</p>
+                        <p>{item.title}</p>
                       </div>
                       <Image
                         src={ChevronRightFilled}
