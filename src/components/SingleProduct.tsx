@@ -17,7 +17,6 @@ import { useStore } from "@/store/useStore";
 import NoSsr from "@/app/utils/NoSsr";
 
 import { useEffect } from "react";
-import { getAllProducts } from "@/api/lib";
 
 type IProduct = {
   product: Product;
@@ -27,7 +26,7 @@ const SingleProduct = ({ product }: IProduct) => {
   const { addItemToCart } = useCartStore();
   const { addItemToViewProducts } = useViewProductsStore();
   const { toggleProductCardToFavorites, isFavoriteProduct } =
-    useFavoritesStore();    
+    useFavoritesStore();
 
   // const isFavoriteProduct = useStore(useFavoritesStore, (state) => state.isFavoriteProduct);
 
