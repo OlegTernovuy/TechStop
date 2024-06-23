@@ -6,7 +6,7 @@ import { IRewiewData } from "@/app/account/reviews/typeRewiew";
 import { env } from "../../next.config";
 
 const { NEXT_PUBLIC_BASE_URL } = env;
-
+console.log(NEXT_PUBLIC_BASE_URL);
 axios.defaults.baseURL = NEXT_PUBLIC_BASE_URL;
 
 export const getProductById = async (_id: string): Promise<Product | any> => {
