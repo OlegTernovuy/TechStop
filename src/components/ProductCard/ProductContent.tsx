@@ -16,33 +16,7 @@ import { useRatingStore } from "@/store/useRatingStore";
 import toast from "react-hot-toast";
 import CustomToast from "../Global/CustomToast";
 import { useFeedbackStore } from "@/store/useFeedbackStore";
-
-const checkboxLabels = [
-  {
-    servicesId: 1,
-    servicesTitle: "warranty",
-    servicesDesc: "Гарантія 24/7",
-    servicesPrice: 500,
-  },
-  {
-    servicesId: 2,
-    servicesTitle: "repairService",
-    servicesDesc: "Сервіс “Ремонт після всього”",
-    servicesPrice: 700,
-  },
-  {
-    servicesId: 3,
-    servicesTitle: "insurance",
-    servicesDesc: "Страховка від стихійних лих",
-    servicesPrice: 1000,
-  },
-  {
-    servicesId: 4,
-    servicesTitle: "nonWarrantyService",
-    servicesDesc: "Сервіс для негарантійних випадків",
-    servicesPrice: 1200,
-  },
-];
+import { checkboxLabels } from "@/constants";
 
 const ProductContent: FC<IData> = ({ product }) => {
   const { title, inStock, _id, id } = product?.data;

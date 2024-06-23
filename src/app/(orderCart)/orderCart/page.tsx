@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Button from "../../../components/ui/Button";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import TextField from "@mui/material/TextField";
 import ProductOrderCard from "../ProductOrderCard";
 import ContactInfoOrder from "../ContactInfoOrder";
@@ -166,6 +166,7 @@ function OrderCart() {
                 },
               }}
               fullWidth
+              inputProps={{ maxLength: 80 }}
             />
           </div>
         </div>

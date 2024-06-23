@@ -1,4 +1,4 @@
-import { additionalServices } from "@/constants";
+import { checkboxLabels } from "@/constants";
 import { useCartStore } from "@/store/useCartStore";
 import { AddServices, AdditionalServicesDesktopType } from "@/types";
 
@@ -16,8 +16,8 @@ const AdditionalServicesDesktop = (
         Додаткові послуги
       </h3>
       <ul className="flex flex-col gap-4">
-        {additionalServices.length ? (
-          additionalServices.map(
+        {checkboxLabels.length ? (
+          checkboxLabels.map(
             (service: {
               servicesId: number;
               servicesTitle: string;
@@ -37,7 +37,7 @@ const AdditionalServicesDesktop = (
                       style={{accentColor: "#667f9abd"}}
                     />
                     <label className="text-body1">
-                      {service.servicesTitle}
+                      {service.servicesDesc}
                     </label>
                   </div>
                   <span className="text-Headline6">

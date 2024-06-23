@@ -382,7 +382,7 @@ const DeliveryMethod = ({
                               name="courierAddress.street"
                               render={({ field }) => (
                                 <TextField
-                                  label="Street"
+                                  label="Вулиця"
                                   variant="outlined"
                                   error={!!errors?.courierAddress?.street}
                                   helperText={
@@ -409,7 +409,7 @@ const DeliveryMethod = ({
                               name="courierAddress.house"
                               render={({ field }) => (
                                 <TextField
-                                  label="HouseNumber"
+                                  label="Будинок"
                                   variant="outlined"
                                   error={!!errors?.courierAddress?.house}
                                   helperText={
@@ -436,7 +436,7 @@ const DeliveryMethod = ({
                               name="courierAddress.apartment"
                               render={({ field }) => (
                                 <TextField
-                                  label="ApartmentNumber"
+                                  label="Квартира"
                                   variant="outlined"
                                   error={
                                     !!errors?.courierAddress?.apartment
