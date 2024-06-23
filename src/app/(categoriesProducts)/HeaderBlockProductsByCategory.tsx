@@ -35,11 +35,13 @@ const HeaderBlockProductsByCategory = ({ pathname }: IPropsParams) => {
           <Link href={"/"} className="hover:text-TechStopBronze">
             Головна
           </Link>
-          / {category}
+          {
+            searchQuery ? '' :  `/ ${category}`
+          }
         </div>
         <div className="flex justify-between gap-4">
           <h2 className="hidden md:flex text-Headline3 text-TechStopBlue">
-            {searchQuery}
+            {searchQuery ? searchQuery  : category}
           </h2>
           <div className="w-full max-w-[220px]">
             <FormControl fullWidth>
