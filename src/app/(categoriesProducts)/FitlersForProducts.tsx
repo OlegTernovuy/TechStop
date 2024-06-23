@@ -2,7 +2,6 @@
 
 import Button from "@/components/ui/Button";
 import { productFilters } from "@/constants";
-import { IBrandFilter, useFilterStore } from "@/store/useFiltersStore";
 import {
   Checkbox,
   FormControl,
@@ -13,6 +12,7 @@ import {
 import NoSsr from "../utils/NoSsr";
 import { useEffect } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 interface IPriceFilter {
   priceFrom: number;
@@ -20,15 +20,18 @@ interface IPriceFilter {
 }
 
 const FitlersForProducts = () => {
-  const {
-    addProductBrandFilter,
-    checkBrandFilter,
-    priceFilter,
-    setPriceFilter,
-  } = useFilterStore();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const minPriceQuery = searchParams.get("minPrice");
+  const maxPriceQuery = searchParams.get("maxPrice");
 
-  const addBrandFilter = (filterBrand: IBrandFilter) => {
-    addProductBrandFilter(filterBrand);
+  const addQueryParams = (minPrice?: number, maxPrice?: number) => {
+    const currentParams = new URLSearchParams(searchParams.toString());
+    minPrice && currentParams.set("minPrice", String(minPrice));
+    maxPrice && currentParams.set("maxPrice", String(maxPrice));
+
+    router.push(`${pathname}/?${currentParams.toString()}`);
   };
 
   const {
@@ -39,15 +42,15 @@ const FitlersForProducts = () => {
   } = useForm<IPriceFilter>({});
 
   const onSubmit: SubmitHandler<IPriceFilter> = (data) => {
-    setPriceFilter(data.priceFrom, data.priceTo);
+    addQueryParams(data.priceFrom, data.priceTo);
   };
 
   useEffect(() => {
     reset({
-      priceFrom: priceFilter.priceFrom,
-      priceTo: priceFilter.priceTo,
+      priceFrom: minPriceQuery === null ? undefined : Number(minPriceQuery),
+      priceTo: maxPriceQuery === null ? undefined : Number(maxPriceQuery),
     });
-  }, [reset, priceFilter.priceFrom, priceFilter.priceTo]);
+  }, [reset, maxPriceQuery, minPriceQuery]);
 
   return (
     <aside className="hidden md:flex min-h-screen min-w-80 pt-8 pr-6 border-r-[1px] border-r-TechStopBlue40">
@@ -100,12 +103,8 @@ const FitlersForProducts = () => {
                           control={
                             <NoSsr>
                               <Checkbox
-                                checked={Boolean(
-                                  checkBrandFilter(filter.brandId)
-                                )}
                                 name={filter.brandTitle}
                                 sx={{ color: "#02275099" }}
-                                onChange={() => addBrandFilter(filter)}
                               />
                             </NoSsr>
                           }

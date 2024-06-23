@@ -1,10 +1,10 @@
 "use client";
 
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import { ReactNode, useEffect } from "react";
-import HeaderBlockProductsByCategory from "../../HeaderBlockProductsByCategory";
+import { ReactNode } from "react";
 import { usePathname } from "next/navigation";
-import FitlersForProducts from "../../FitlersForProducts";
+import HeaderBlockProductsByCategory from "@/app/(categoriesProducts)/HeaderBlockProductsByCategory";
+import FitlersForProducts from "@/app/(categoriesProducts)/FitlersForProducts";
 
 interface ILayoutProps {
   children: ReactNode;
