@@ -43,7 +43,7 @@ const AuthModal = () => {
       <div
         className={
           showLoginModal
-            ? "fixed lg:absolute lg:top-[162px] mx-auto p-4 lg:p-10 inset-0 bg-white overflow-y-auto h-full w-full z-10 lg:max-w-[560px] lg:h-min lg:rounded-lg flex flex-col text-TechStopBlue"
+            ? "fixed m-auto p-4 lg:p-10 inset-0 bg-white overflow-y-auto h-full w-full z-10 lg:max-w-[560px] lg:h-min lg:rounded-lg flex flex-col text-TechStopBlue"
             : "hidden"
         }
       >

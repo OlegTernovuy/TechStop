@@ -53,7 +53,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </li>
           </ul>
           <Link href={`/InformationCenter`} className="hidden lg:flex">
-            <div className="flex text-body1 w-full py-3 px-4 mt-6 hover:bg-TechStopBronze20 text-TechStopBlue">
+            <div className="flex text-body1 w-full py-3 px-4 mt-6 hover:bg-TechStopBlue10 text-TechStopBlue">
               <Image
                 src={question_mark}
                 alt={question_mark}

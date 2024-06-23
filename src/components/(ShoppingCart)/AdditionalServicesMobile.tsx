@@ -2,7 +2,7 @@ import { Disclosure } from "@headlessui/react";
 import Image from "next/image";
 import { useCartStore } from "@/store/useCartStore";
 import { AddServices, AdditionalServicesDesktopType } from "../../types";
-import { additionalServices } from "../../constants";
+import { checkboxLabels } from "../../constants";
 
 const AdditionalServicesMobile = (productId: AdditionalServicesDesktopType) => {
   const { addAdditionalServices, checkAddService } = useCartStore();
@@ -30,8 +30,8 @@ const AdditionalServicesMobile = (productId: AdditionalServicesDesktopType) => {
               </Disclosure.Button>
               <Disclosure.Panel className="px-4 text-sm text-gray-500">
                 <ul>
-                  {additionalServices.length ? (
-                    additionalServices.map(
+                  {checkboxLabels.length ? (
+                    checkboxLabels.map(
                       (service: {
                         servicesId: number;
                         servicesTitle: string;
@@ -52,9 +52,10 @@ const AdditionalServicesMobile = (productId: AdditionalServicesDesktopType) => {
                                 )}
                                 onChange={() => addServiceToCart(service)}
                                 className="w-5 h-5 "
+                                style={{accentColor: "#667f9abd"}}
                               />
                               <label className="w-full py-3 ms-3 text-sm">
-                                {service.servicesTitle}
+                                {service.servicesDesc}
                               </label>
                             </div>
                             <span>{service.servicesPrice + ' ₴'}</span>

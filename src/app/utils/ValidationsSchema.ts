@@ -52,9 +52,12 @@ export const DeliveryValidationsSchema = yup.object().shape({
       house: yup
         .string()
         .max(10, "House number must be less than 10 characters"),
-      apartment: yup.number(),
-      // .string()
-      // .max(10, "Apartment number must be less than 10 characters")
+      apartment: yup
+        .number()
+        .label("Appartment")
+        .typeError("The value must be a number")
+        .positive("Appartment be a positive value")
+        .integer(),
     })
     .nullable(),
 });
@@ -121,29 +124,31 @@ export const HomeDeliveryAddressSchema = yup.object().shape({
     .required("Required")
     .min(2, "city must be more than 2 characters")
     .max(60, "city must be less than 60 characters"),
-    // .matches(
-    //   /^[a-zA-Zа-щьюяіїґєА-ЩЬЮЯІЇҐЄ]+$/,
-    //   "User city, must be contain only letters"
-    // ),
+  // .matches(
+  //   /^[a-zA-Zа-щьюяіїґєА-ЩЬЮЯІЇҐЄ]+$/,
+  //   "User city, must be contain only letters"
+  // ),
   street: yup
     .string()
     .required("Required")
     .min(2, "street must be more than 2 characters")
-    .max(60, "street must be less than 60 characters")
-    .matches(
-      /^[a-zA-Zа-щьюяіїґєА-ЩЬЮЯІЇҐЄ]+(?:\s[a-zA-Zа-щьюяіїґєА-ЩЬЮЯІЇҐЄ]+)*$/,
-      "User street, must be contain only letters"
-    ),
+    .max(60, "street must be less than 60 characters"),
+    // .matches(
+    //   /^[a-zA-Zа-щьюяіїґєА-ЩЬЮЯІЇҐЄ]+(?:\s[a-zA-Zа-щьюяіїґєА-ЩЬЮЯІЇҐЄ]+)*$/,
+    //   "User street, must be contain only letters"
+    // ),
   house: yup
     .string()
     .required("Required")
     .min(1, "houseNumber must be more than 1 characters")
     .max(10, "houseNumber must be less than 10 characters"),
-    apartament: yup.number()
-  .nullable(),
-  // .required("Required")
-  // .min(1, "appartamentNumber must be more than 1 characters")
-  // .max(10, "appartamentNumber must be less than 10 characters"),
+  apartament: yup
+    .number()
+    .label("Appartment")
+    .typeError("The value must be a number")
+    // .positive("Appartment be a positive value")
+    .integer()
+    .nullable(),
 });
 
 export const NovaPostNDeliveryAddressSchema = yup.object().shape({

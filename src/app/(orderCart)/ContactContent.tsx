@@ -9,8 +9,7 @@ import { useEffect } from "react";
 import { useSession } from "next-auth/react";
 
 const ContactContent = ({ toggle, setOrderContactData }: formDat) => {
-
-  const { data: session } = useSession();  
+  const { data: session } = useSession();
 
   const {
     handleSubmit,
@@ -27,8 +26,8 @@ const ContactContent = ({ toggle, setOrderContactData }: formDat) => {
     resolver: yupResolver(ContactValidationsSchema),
   });
 
-  useEffect(() => {    
-    if (session !== null) {      
+  useEffect(() => {
+    if (session !== null) {
       reset({
         name: session?.user?.first_name,
         surname: session?.user?.last_name,
@@ -52,32 +51,6 @@ const ContactContent = ({ toggle, setOrderContactData }: formDat) => {
     <form onSubmit={handleSubmit(submitFields)}>
       <div>
         <div className="flex flex-col gap-4 mb-4 md:mb-10">
-          <Controller
-            control={control}
-            name="phone"
-            render={({ field }) => (
-              <TextField
-                label="Номер телефону"
-                variant="outlined"
-                placeholder="+38 - ( ) -   - -"
-                error={!!errors?.phone}
-                helperText={errors.phone?.message}
-                onChange={(e) => field.onChange(e)}
-                value={field.value}
-                className="w-full md:w-80"
-                sx={{
-                  "& label": {
-                    color: "#02275099",
-                  },
-                  "& .MuiOutlinedInput-root": {
-                    "& fieldset": {
-                      borderColor: "#02275099",
-                    },
-                  },
-                }}
-              />
-            )}
-          />
           <Controller
             control={control}
             name="name"
@@ -114,6 +87,32 @@ const ContactContent = ({ toggle, setOrderContactData }: formDat) => {
                 placeholder="Бандера"
                 error={!!errors?.surname}
                 helperText={errors?.surname?.message}
+                onChange={(e) => field.onChange(e)}
+                value={field.value}
+                className="w-full md:w-80"
+                sx={{
+                  "& label": {
+                    color: "#02275099",
+                  },
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "#02275099",
+                    },
+                  },
+                }}
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name="phone"
+            render={({ field }) => (
+              <TextField
+                label="Номер телефону"
+                variant="outlined"
+                placeholder="+38 - ( ) -   - -"
+                error={!!errors?.phone}
+                helperText={errors.phone?.message}
                 onChange={(e) => field.onChange(e)}
                 value={field.value}
                 className="w-full md:w-80"

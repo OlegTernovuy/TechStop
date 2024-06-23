@@ -3,7 +3,7 @@
 import { useShoppingCartModalStore } from "@/store/modalStore";
 import { useCartStore } from "@/store/useCartStore";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useStore } from "@/store/useStore";
 import ShoppingCardEmpty from "./ShoppingCartEmpty";
 import Button from "../ui/Button";
@@ -40,19 +40,12 @@ const ShoppingCartModal = () => {
   const productsPrice = calculateProductsPrice();
 
   const router = useRouter();
-  const pathname = usePathname();
-
-  useEffect(() => {
-    if (pathname === "/orderCart" && showShoppingCart) {
-      setShowShoppingCart();
-    }
-  }, [pathname, showShoppingCart, setShowShoppingCart]);
 
   const routerToOrderPage = () => {
     router.push("/orderCart");
-    if (pathname === "/orderCart") {
+    // setTimeout(() => {
       setShowShoppingCart();
-    }
+    // }, 200)
   };
 
   useEffect(() => {
@@ -120,27 +113,6 @@ const ShoppingCartModal = () => {
                       <span className="text-Headline5">
                         {formatPrice(productsPrice) + " ₴"}
                       </span>
-                    </div>
-                    <div className="flex flex-col gap-6">
-                      {cartItems.length
-                        ? cartItems.map((product) => {
-                            return product.addServices?.map((service) => {
-                              return (
-                                <div
-                                  className="flex justify-between items-center"
-                                  key={service.servicesId}
-                                >
-                                  <p className="text-Headline5">
-                                    {service.servicesTitle}
-                                  </p>
-                                  <span className="text-Headline5">
-                                    {formatPrice(service.servicesPrice) + " ₴"}
-                                  </span>
-                                </div>
-                              );
-                            });
-                          })
-                        : null}
                     </div>
                     <div className="flex justify-between items-center">
                       <p className="text-Headline5">Знижка</p>
