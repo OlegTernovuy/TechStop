@@ -3,6 +3,7 @@ import { env } from "../../../next.config";
 import {
   ICreateProductData,
   IUpdateProductFields,
+  IUpdateReview,
 } from "@/components/admin/types";
 
 const token = {
@@ -84,6 +85,19 @@ export const uploadPoster = async (formData: FormData, _id: string) => {
 export const deleteById = async (_id: string) => {
   try {
     const { data } = await axios.delete(`/products/${_id}`);
+
+    return data;
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+export const updateReviewById = async (
+  _id: string,
+  reviewData: IUpdateReview
+) => {
+  try {
+    const { data } = await axios.patch(`/reviews/${_id}`, reviewData);
 
     return data;
   } catch (error) {

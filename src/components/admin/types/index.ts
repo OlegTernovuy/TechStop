@@ -1,4 +1,5 @@
-import { Product } from "@/types";
+import { Product, User } from "@/types";
+import { FieldErrors } from "react-hook-form";
 
 export interface Children {
   children: React.ReactNode;
@@ -29,4 +30,22 @@ export interface IProductsListItemProps {
   idx: number;
   listItem: Product;
   handleDelete: (_id: string) => void;
+}
+
+export interface IUpdateInputsErrors {
+  errors: FieldErrors<{
+    title: string;
+    parent?: string;
+    icon?: string;
+  }>;
+}
+
+export interface IUpdateReview {
+  rating?: number;
+  advantages?: string;
+  disadvantages?: string;
+  comment?: string;
+  product?: Product;
+  user?: User;
+  userId?: string;
 }

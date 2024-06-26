@@ -1,4 +1,4 @@
-export const thList = [
+export const productThList = [
   {
     id: 1,
     title: "No",
@@ -44,5 +44,58 @@ export const thList = [
   {
     id: 11,
     title: "Delete",
+  },
+];
+
+export const reviewsThList = [
+  {
+    id: 1,
+    title: "No",
+  },
+  {
+    id: 2,
+    title: "ID",
+  },
+  {
+    id: 3,
+    title: "createdAt",
+  },
+  {
+    id: 4,
+    title: "advantages",
+  },
+  ,
+  {
+    id: 5,
+    title: "disadvantages",
+  },
+  {
+    id: 6,
+    title: "comment",
+  },
+  {
+    id: 7,
+    title: "userId",
+  },
+  {
+    id: 8,
+    title: "update",
+  },
+  {
+    id: 9,
+    title: "delete",
+  },
+];
+
+export const updateInputsList = [
+  {
+    id: 2,
+    name: "parent",
+    label: "Parent",
+  },
+  {
+    id: 3,
+    name: "icon",
+    label: "Icon",
   },
 ];

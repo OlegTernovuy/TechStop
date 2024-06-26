@@ -26,6 +26,7 @@ import AdminTHList from "@/components/admin/AdminTHList";
 import CharacteristicsFields from "@/components/admin/CharacteristicsFields";
 import FieldArray from "@/components/admin/FieldArray";
 import ProductsList from "@/components/admin/Products/ProductsList";
+import Button from "@/components/ProductCard/Button";
 
 const defaultValues = {
   title: "",
@@ -105,13 +106,13 @@ const ProductsPage = () => {
     <>
       <div>
         <h1 className="text-5xl text-TechStopBlue font-bold mb-4">Products</h1>
-        <button
+        <Button
           type="button"
           className="text-white bg-slate-900 px-10 py-2 my-4 rounded-full hover:bg-slate-700 "
           onClick={toggleModal}
         >
           Create Product
-        </button>{" "}
+        </Button>{" "}
         <div className="overflow-auto z-1000000">
           <table className="min-w-full bg-white">
             <thead className="bg-gray-800 text-white">
@@ -161,7 +162,7 @@ const ProductsPage = () => {
                   characteristicFields={characteristicFields}
                   control={control}
                 />
-                <button
+                <Button
                   type="button"
                   onClick={() =>
                     appendCharacteristic({ name: "", description: [""] })
@@ -169,7 +170,7 @@ const ProductsPage = () => {
                   className="text-blue-500 hover:text-blue-700 mt-2"
                 >
                   Add Characteristic
-                </button>
+                </Button>
               </div>
 
               <div className="mb-4">
@@ -186,19 +187,19 @@ const ProductsPage = () => {
               </div>
 
               <div className="flex justify-end">
-                <button
+                <Button
                   type="button"
                   onClick={toggleModal}
                   className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
                 >
                   Cancel
-                </button>
-                <button
+                </Button>
+                <Button
                   type="submit"
                   className="bg-blue-500 text-white px-4 py-2 rounded"
                 >
                   Create
-                </button>
+                </Button>
               </div>
             </form>
           </FormProvider>
