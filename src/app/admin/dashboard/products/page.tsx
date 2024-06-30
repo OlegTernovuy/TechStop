@@ -109,6 +109,10 @@ const ProductsPage = () => {
     setModalIsOpen(!modalIsOpen);
   };
 
+  if (!products) {
+    return <div>Loading....</div>;
+  }
+
   return (
     <>
       <div>

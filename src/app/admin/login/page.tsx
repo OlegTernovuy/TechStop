@@ -12,6 +12,10 @@ const LoginPage = () => {
   const [password, setPassword] = React.useState("");
   const router = useRouter();
 
+  if (!email || !password) {
+    return <div>Loading...</div>;
+  }
+
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     setIsLoading(true);

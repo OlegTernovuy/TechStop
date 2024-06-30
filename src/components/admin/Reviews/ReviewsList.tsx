@@ -25,7 +25,11 @@ const ReviewsList = () => {
   } = useFeedbackStore();
 
   useEffect(() => {
-    getAll();
+    const fetchAllReviews = async () => {
+      getAll();
+    };
+
+    fetchAllReviews();
   }, [getAll]);
 
   const toggleUpdateModal = (productId: string | null = null) => {
