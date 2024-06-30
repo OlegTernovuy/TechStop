@@ -1,10 +1,10 @@
 import React from "react";
-import { productThList } from "./constants";
+import { ordersThList } from "../constants";
 
-const AdminTHList = () => {
+const OrdersTHList = () => {
   return (
     <tr>
-      {productThList.map((item) => (
+      {ordersThList.map((item) => (
         <th className="w-1/6 p-3 text-lef" key={item?.id}>
           {item?.title}
         </th>
@@ -13,4 +13,4 @@ const AdminTHList = () => {
   );
 };
 
-export default AdminTHList;
+export default OrdersTHList;

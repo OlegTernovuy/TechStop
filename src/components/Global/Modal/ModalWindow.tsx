@@ -11,6 +11,7 @@ interface ModalProps {
   onClose: () => void;
   maxwidth?: string;
   maxheight?: string;
+  alignitems?: string;
   children: ReactNode;
 }
 
@@ -19,6 +20,7 @@ const Modal: React.FC<ModalProps> = ({
   maxwidth,
   maxheight,
   children,
+  alignitems,
 }) => {
   useEffect(() => {
     const handleEscClick = ({ code }: KeyboardEvent) => {
@@ -44,7 +46,11 @@ const Modal: React.FC<ModalProps> = ({
   };
 
   return (
-    <Backdrop onClick={handleBackdropClick} maxheight={maxheight}>
+    <Backdrop
+      onClick={handleBackdropClick}
+      maxheight={maxheight}
+      alignItems={alignitems}
+    >
       <ModalContent maxwidth={maxwidth}>
         <CloseButton onClick={onClose} />
         {children}

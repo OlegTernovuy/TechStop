@@ -256,13 +256,14 @@ export interface Product {
 }
 
 export interface IFeedback {
-  _id?: string;
+  _id: string;
   rating: number;
   advantages: string;
   disadvantages: string;
   comment?: string;
   product: Product;
   user: User;
+  userId: string;
   createdAt: string;
   updatedAt?: string;
 }

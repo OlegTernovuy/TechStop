@@ -14,8 +14,9 @@ import { updateProduct } from "@/api/admin";
 import Rating from "../Rating";
 import UploadPoster from "../UploadPoster";
 import Modal from "@/components/Global/Modal/ModalWindow";
-import CustomInput from "@/components/ProductCard/FeedBack/CustomInput";
 import CustomToast from "@/components/Global/Toaster/CustomToast";
+import UpdateInputsList from "../UpdateInputs/UpdateInputsList";
+import Button from "@/components/ProductCard/Button";
 
 const defaultValues = {
   title: "",
@@ -76,6 +77,8 @@ const ProductsListItem: FC<IProductsListItemProps> = ({
     setIsDeleteModal(!deleteModal);
   };
 
+  const isError = Object.values(errors).some((error) => error !== undefined);
+
   return (
     <>
       {" "}
@@ -98,13 +101,13 @@ const ProductsListItem: FC<IProductsListItemProps> = ({
         <td className="p-3">{categories && categories?.map((item) => item)}</td>
         <td>
           {" "}
-          <button
+          <Button
             onClick={() => togglePosterModal(_id)}
             className="text-white border px-4 py-2 bg-yellow-900 hover:bg-yellow-700"
             type="button"
           >
             Upload poster
-          </button>
+          </Button>
           {modalPosterIsOpen && currentProductId === _id && (
             <Modal
               onClose={() => togglePosterModal()}
@@ -117,51 +120,53 @@ const ProductsListItem: FC<IProductsListItemProps> = ({
                   togglePosterModal();
                 }}
               />
-              <button
+              <Button
                 type="button"
                 onClick={() => togglePosterModal()}
                 className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
               >
                 Cancel
-              </button>
+              </Button>
             </Modal>
           )}
         </td>
         <td>
           {" "}
-          <button
+          <Button
             onClick={() => toggleUpdateModal(_id)}
             className="text-white border px-4 py-2 bg-green-900 hover:bg-green-700"
             type="button"
           >
             Update
-          </button>
+          </Button>
         </td>
         <td className="p-3">
           {" "}
-          <button
+          <Button
             type="button"
             className="text-white border px-4 py-2 bg-red-900 hover:bg-red-700 "
             onClick={() => toggleDeleteModal(_id)}
           >
             Delete
-          </button>{" "}
+          </Button>{" "}
         </td>
       </tr>
       {updateModal && currentProductId === _id && (
         <Modal onClose={toggleUpdateModal}>
-          <h1 className="text-TechStopBlue text-3xl mb-4">Update Modal</h1>
+          <h1 className="text-TechStopBlue text-3xl mb-4">Update Product</h1>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <CustomInput name="title" label="Title" />
-              <CustomInput name="parent" label="Parent" />
-              <CustomInput name="icon" label="Icon" />
-              <button
+              <UpdateInputsList errors={errors} />
+
+              <Button
+                disabled={!!isError}
                 type="submit"
-                className="bg-green-500 text-white px-4 py-2 rounded mr-2"
+                className={`${
+                  isError ? "bg-slate-400 cursor-not-allowed" : "bg-green-500"
+                } text-white px-4 py-2 rounded mr-2`}
               >
                 Update
-              </button>
+              </Button>
             </form>
           </FormProvider>
           <button
@@ -181,20 +186,20 @@ const ProductsListItem: FC<IProductsListItemProps> = ({
           </h2>
           <div className="flex justify-center items-center gap-4">
             {" "}
-            <button
+            <Button
               type="button"
               onClick={() => toggleDeleteModal()}
               className="bg-gray-500 text-white px-6 py-4 rounded mr-2"
             >
               Cancel
-            </button>
-            <button
+            </Button>
+            <Button
               type="button"
               onClick={() => handleDelete(_id)}
               className="bg-red-800 text-white px-6 py-4 rounded mr-2"
             >
               Delete
-            </button>
+            </Button>
           </div>
         </Modal>
       )}
