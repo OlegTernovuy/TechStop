@@ -50,9 +50,38 @@ export const updateReviewsSchema = yup.object({
   advantages: yup.string(),
   disadvantages: yup.string(),
   comment: yup.string(),
-  userName: yup
-    .string()
-    .max(80, "Занадто довге")
-    .matches(nameRegex, "Некоректне ім'я"),
-  userEmail: yup.string().email().matches(emailRegex, "Некоректний email"),
+  userName: yup.string().max(80, "Занадто довге"),
+  userEmail: yup.string().email(),
+});
+
+export const updateOrderSchema = yup.object().shape({
+  email: yup.string().email(),
+  orderStatus: yup.string(),
+  customerPhone: yup.string(),
+  totalPrice: yup.number(),
+  paymentStatus: yup.string(),
+  paymentMethod: yup.string(),
+  products: yup.array().of(
+    yup.object().shape({
+      productId: yup.string(),
+      title: yup.string(),
+      price: yup.number(),
+      quantity: yup.number(),
+      poster: yup.string(),
+    })
+  ),
+  recepient: yup.object().shape({
+    name: yup.string(),
+    phone: yup.string(),
+  }),
+  deliveryAddress: yup.object().shape({
+    city: yup.string(),
+    postalOperator: yup.string(),
+    postalDepartment: yup.string(),
+    personalAddress: yup.object().shape({
+      street: yup.string(),
+      house: yup.string(),
+      apartment: yup.number().min(0),
+    }),
+  }),
 });

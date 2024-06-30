@@ -27,6 +27,7 @@ import CharacteristicsFields from "@/components/admin/CharacteristicsFields";
 import FieldArray from "@/components/admin/FieldArray";
 import ProductsList from "@/components/admin/Products/ProductsList";
 import Button from "@/components/ProductCard/Button";
+import { adminToastMessages } from "@/components/admin/constants/adminToastMessages";
 
 const defaultValues = {
   title: "",
@@ -35,6 +36,7 @@ const defaultValues = {
   characteristics: [{ name: "", description: [""] }],
   inStock: false,
 };
+const { CREATE_PRODUCT_ERROR, CREATE_PRODUCT_SUCCESS } = adminToastMessages();
 
 const ProductsPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -57,7 +59,10 @@ const ProductsPage = () => {
     const fetchProducts = async () => {
       setIsLoading(true);
       const productsList = await getProductsData();
+      localStorage.setItem("AdminProducts", JSON.stringify(productsList));
       setIsLoading(false);
+      const get = localStorage.getItem("AdminProducts");
+      console.log(JSON.parse(get ?? ""));
       setProducts(productsList ?? []);
     };
     fetchProducts();
@@ -78,23 +83,25 @@ const ProductsPage = () => {
       const createdProduct = await createProduct(data);
 
       setProducts((prevProducts) => [...prevProducts, createdProduct]);
-      toast.success("Product created successfully");
+      toast.success(CREATE_PRODUCT_SUCCESS);
       toggleModal();
       reset();
     } catch (error) {
-      toast.error("Failed to create product");
+      toast.error(CREATE_PRODUCT_ERROR);
     }
   };
 
   const handleDelete = async (_id: string) => {
+    const { DELETE_PRODUCT_ERROR, DELETE_PRODUCT_SUCCESS } =
+      adminToastMessages(_id);
     try {
       await deleteById(_id);
       setProducts((prevProducts) =>
         prevProducts.filter((product) => product._id !== _id)
       );
-      toast.success(`Products with ID ${_id} was deleted`);
+      toast.success(DELETE_PRODUCT_SUCCESS);
     } catch (error) {
-      toast.error(`Failed to delete product with ID ${_id}`);
+      toast.error(DELETE_PRODUCT_ERROR);
     }
   };
 
@@ -118,17 +125,13 @@ const ProductsPage = () => {
             <thead className="bg-gray-800 text-white">
               <AdminTHList />
             </thead>
-            <tbody>
-              {isLoading ? (
-                <tr>
-                  <td className="text-center p-3">
-                    <CustomSpinner />
-                  </td>
-                </tr>
-              ) : (
+            {isLoading ? (
+              <CustomSpinner />
+            ) : (
+              <tbody>
                 <ProductsList products={products} handleDelete={handleDelete} />
-              )}
-            </tbody>
+              </tbody>
+            )}
           </table>
         </div>
         <CustomToast />

@@ -4,6 +4,7 @@ import {
   ICreateProductData,
   IUpdateProductFields,
   IUpdateReview,
+  UpdatePurchasesData,
 } from "@/components/admin/types";
 
 const token = {
@@ -98,6 +99,29 @@ export const updateReviewById = async (
 ) => {
   try {
     const { data } = await axios.patch(`/reviews/${_id}`, reviewData);
+
+    return data;
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+export const deleteOrderById = async (orderCode: string) => {
+  try {
+    const { data } = await axios.delete(`/orders/${orderCode}`);
+
+    return data;
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+export const updateOrderById = async (
+  orderCode: string,
+  orderData: UpdatePurchasesData
+) => {
+  try {
+    const { data } = await axios.patch(`/orders/${orderCode}`, orderData);
 
     return data;
   } catch (error) {

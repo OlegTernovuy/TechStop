@@ -8,6 +8,7 @@ import { updateReviewsSchema } from "../schemas";
 import Button from "@/components/ProductCard/Button";
 import { updateReviewById } from "@/api/admin";
 import { filterEmptyFields } from "../utils";
+import { TOAST_MESSAGES } from "@/constants/toastMessages";
 
 const defaultValues = {
   advantages: "",
@@ -21,6 +22,8 @@ const defaultValues = {
 interface IUpdateReviewFormProps {
   productId: string;
 }
+
+const { REVIEW_SUCCESS } = TOAST_MESSAGES();
 
 const UpdateReviewForm: React.FC<IUpdateReviewFormProps> = ({ productId }) => {
   const {
@@ -43,11 +46,15 @@ const UpdateReviewForm: React.FC<IUpdateReviewFormProps> = ({ productId }) => {
     }
 
     const filteredData = filterEmptyFields(newData);
+
     console.log(filteredData);
-
-    await updateReviewById(productId, newData);
-
-    reset();
+    try {
+      await updateReviewById(productId, filteredData);
+      toast.success(REVIEW_SUCCESS);
+      reset();
+    } catch (error) {
+      toast.error((error as Error).message);
+    }
   };
 
   return (
