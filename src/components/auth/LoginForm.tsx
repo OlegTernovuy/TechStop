@@ -6,7 +6,7 @@ import { IAuthData } from "@/types";
 import { AuthValidationsSchema } from "./AuthValidationsSchema";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import Button from "../ui/Button";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { signIn, useSession } from "next-auth/react";
@@ -25,6 +25,14 @@ const LoginForm = ({ showLoginForm, setPending }: IAuthModal) => {
   const setShowLoginModal = useLoginModalStore(
     (state) => state.setShowLoginModal
   );
+
+  const showLoginModal = useLoginModalStore(
+    (state) => state.showLoginModal
+  );
+
+  useEffect(() => {
+    reset()
+  }, [showLoginForm, showLoginModal])
 
   const {
     handleSubmit,
@@ -60,20 +68,15 @@ const LoginForm = ({ showLoginForm, setPending }: IAuthModal) => {
           });
           reset();
         } else {
-          if (login?.error === "Password are not valid")
-            serServerError({
-              userError: "",
-              passwordError: "Password are not valid",
-            });
-          else if (login?.error === "User not found")
-            serServerError({
-              userError: "User not found",
-              passwordError: "",
-            });
-          else if (login?.error === "Bad Request Exception")
+          if (login?.error === "Bad Request Exception")
             serServerError({
               userError: "Bad Request Exception",
               passwordError: "Bad Request Exception",
+            });
+          else (login?.error)
+            serServerError({
+              userError: "Invalid user or password",
+              passwordError: "Invalid user or password",
             });
         }
       } catch (error) {

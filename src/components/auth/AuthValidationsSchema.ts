@@ -17,6 +17,6 @@ export const AuthValidationsSchema = yup.object().shape({
     .max(60, "Password must be less than 60 characters")
     .matches(
       /^(?=.*[a-zA-Z].*[a-zA-Z])\S{4,}$/,
-      "Пароль повинен містити хоча б дві букви без пробілів"
+      "Password can contain only latin letters"
     ),
 });

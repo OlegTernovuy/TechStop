@@ -6,6 +6,7 @@ const SearchField = () => {
   const searchParams = useSearchParams()
   const searchQuery = searchParams.get('search')
   const [search, setSearch] = useState(searchQuery)
+
   return (
     <form className="flex bg-white text-TechStopBlue">
       <input
@@ -17,6 +18,7 @@ const SearchField = () => {
       <Link
         className="hidden md:flex justify-center items-center w-[100px] h-[40px] md:h-[52px] bg-TechStopWhite border-[1px] border-TechStopBlue40 shadow-[0_4px_4px_0px_#00000040] rounded-r"
         href={`/products/search?search=${search}`}
+        onClick={() => setSearch('')}
       >
         ПОШУК
       </Link>
