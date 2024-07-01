@@ -8,7 +8,6 @@ import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import TechLogo from "../../../public/TechLogo.svg";
 import googleIcon from "../../../public/googleIcon.svg";
 import LoginForm from "./LoginForm";
-import axios from "axios";
 import CustomToast from "../Global/CustomToast";
 
 const AuthModal = () => {

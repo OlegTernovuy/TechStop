@@ -320,9 +320,6 @@ export interface IFilteredProducts {
   minPrice?: number;
   maxPrice?: number;
   category?: string;
-  sort?: string;
-}
-
-export interface ISearchedProducts extends IFilteredProducts {
-  search: string | null;
+  sort?: string | null;
+  search?: string | null;
 }
