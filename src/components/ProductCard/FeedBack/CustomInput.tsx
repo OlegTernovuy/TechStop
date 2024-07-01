@@ -2,7 +2,7 @@
 
 import { FC, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { TextField } from "@mui/material";
+import { CssTextField } from "@/constants/customStyles";
 
 interface ICustomInputProps {
   name: string;
@@ -38,7 +38,7 @@ const CustomInput: FC<ICustomInputProps> = ({
       control={control}
       defaultValue=""
       render={({ field }) => (
-        <TextField
+        <CssTextField
           {...field}
           id={name}
           onFocus={handleFocus}
@@ -50,9 +50,7 @@ const CustomInput: FC<ICustomInputProps> = ({
           multiline={multiline}
           rows={rows}
           InputProps={{
-            className: `${
-              isFocused ? "border-transparent" : "border border-TechStopBlue60"
-            } ${errors[name] ? "border-transparent" : ""}`,
+            className: `${errors[name] ? "border-transparent" : ""}`,
           }}
         />
       )}

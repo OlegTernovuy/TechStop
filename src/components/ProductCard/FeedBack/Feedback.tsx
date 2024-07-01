@@ -13,7 +13,7 @@ import Button from "../Button";
 import FeedbackForm from "./FeedbackForm";
 import DefaultFeedbackForm from "./DefaultFeedbackForm";
 
-import CustomToast from "@/components/Global/CustomToast";
+import CustomToast from "@/components/Global/Toaster";
 
 const FeedbackPage: FC<IParams> = ({ params }) => {
   const { _id } = params;
@@ -53,24 +53,23 @@ const FeedbackPage: FC<IParams> = ({ params }) => {
         )}
         <ul className="md:flex gap-10 ">
           <li className="w-full">
-            {reviews.length !== 0 ? (
-              <Button
-                color="TechStopWhite"
-                bgColor="TechStopBlue"
-                type="button"
-                className="md:hidden w-full py-2 px-6 h-[56px] mb-4"
-                onClick={handleLeaveFeedback}
-              >
-                Залишити відгук
-              </Button>
-            ) : (
-              <div className="md:hidden mb-[54px]">
-                {showFeedback && reviews.length === 0 && (
-                  <DefaultFeedbackForm params={params} />
-                )}
-              </div>
-            )}
-            {showFeedback && <DefaultFeedbackForm params={params} />}
+            <div className="md:hidden">
+              {!showFeedback && reviews.length !== 0 && (
+                <Button
+                  color="TechStopWhite"
+                  bgColor="TechStopBlue"
+                  type="button"
+                  className="w-full py-2 px-6 h-[56px] mb-4"
+                  onClick={handleLeaveFeedback}
+                >
+                  Залишити відгук
+                </Button>
+              )}
+              {showFeedback && reviews.length !== 0 && (
+                <DefaultFeedbackForm params={params} />
+              )}
+            </div>
+
             {reviews.length !== 0 ? (
               <FeedbackForm params={params} />
             ) : (

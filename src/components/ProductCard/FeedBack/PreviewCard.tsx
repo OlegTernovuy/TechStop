@@ -8,7 +8,7 @@ import { useCartStore } from "@/store/useCartStore";
 import previewProduct from "/public/product-card-images/image_preview_feedback.svg";
 import Button from "../Button";
 import toast from "react-hot-toast";
-import CustomToast from "@/components/Global/CustomToast";
+import CustomToast from "@/components/Global/Toaster";
 
 interface IPreviewCardProps {
   productData: IProduct | any;
