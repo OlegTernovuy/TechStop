@@ -1,15 +1,12 @@
-import React from "react";
-import dynamic from "next/dynamic";
-const AdminPanel = dynamic(() => import("../../components/admin/AdminApp"), {
-  ssr: false,
-});
+import React, { FC } from "react";
+import { Children } from "@/components/admin/types";
 
-const Layout = () => {
+const RootLayout: FC<Children> = ({ children }) => {
   return (
-    <>
-      <AdminPanel />
-    </>
+    <html lang="en">
+      <body>{children}</body>
+    </html>
   );
 };
 
-export default Layout;
+export default RootLayout;

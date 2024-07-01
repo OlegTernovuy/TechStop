@@ -4,27 +4,10 @@ import { Transition } from "@headlessui/react";
 
 import { IData } from "@/types";
 
+import { gallery } from "@/constants/productCard";
+
 import rightArrow from "/public/product-card-icons/ChevronRightFilled.svg";
 import leftArrow from "/public/icon_left.svg";
-
-import first from "/public/product-card-icons/test_svg_1.svg";
-import second from "/public/product-card-icons/test_svg_2.svg";
-import third from "/public/product-card-icons/test_svg.svg";
-
-const gallery = [
-  {
-    id: 1,
-    href: first,
-  },
-  {
-    id: 2,
-    href: second,
-  },
-  {
-    id: 3,
-    href: third,
-  },
-];
 
 const ProductSlider: FC<IData> = ({ product }) => {
   // const { poster, title } = product?.data;
@@ -48,7 +31,7 @@ const ProductSlider: FC<IData> = ({ product }) => {
   return (
     <div className="lg:max-w-full ">
       <div className="relative">
-        <ul className="top-0 left-[104px] bg-TechStopWhite h-full border shadow-sm">
+        <ul className="top-0 left-[104px] w-full bg-TechStopWhite h-full border shadow-sm">
           {gallery.map(({ id, href }, idx) => (
             <li key={id} className={`${idx === current ? "block" : "hidden"} `}>
               {" "}
