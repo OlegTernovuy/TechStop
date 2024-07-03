@@ -1,42 +1,42 @@
-"use client";
+// "use client";
 
-import Button from "@/components/ProductCard/Button";
-import AdminReviews from "@/components/admin/Reviews/Reviews";
-import React, { useState } from "react";
-import Modal from "@/components/Global/Modal/ModalWindow";
-import { FormProvider, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import FormRate from "@/components/ProductCard/FeedBack/FormRate";
-import { updateReviewsSchema } from "@/components/admin/schemas";
-import { Rating } from "@/components/ProductCard/FeedBack/Feedback.types";
+// import Button from "@/components/ProductCard/Button";
+// import AdminReviews from "@/components/admin/Reviews/Reviews";
+// import React, { useState } from "react";
+// import Modal from "@/components/Global/Modal/ModalWindow";
+// import { FormProvider, useForm } from "react-hook-form";
+// import { yupResolver } from "@hookform/resolvers/yup";
+// import FormRate from "@/components/ProductCard/FeedBack/FormRate";
+// import { updateReviewsSchema } from "@/components/admin/schemas";
+// import { Rating } from "@/components/ProductCard/FeedBack/Feedback.types";
 
 const ReviewsPage = () => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  // const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const methods = useForm({
-    resolver: yupResolver(updateReviewsSchema),
-    defaultValues: {
-      advantages: "",
-      disadvantages: "",
-      comment: "",
-      userName: "",
-      userEmail: "",
-      rating: Number(Rating.excellent),
-    },
-  });
+  // const methods = useForm({
+  //   resolver: yupResolver(updateReviewsSchema),
+  //   defaultValues: {
+  //     advantages: "",
+  //     disadvantages: "",
+  //     comment: "",
+  //     userName: "",
+  //     userEmail: "",
+  //     rating: Number(Rating.excellent),
+  //   },
+  // });
 
-  const {
-    formState: { errors },
-  } = methods;
+  // const {
+  //   formState: { errors },
+  // } = methods;
 
-  const toggleModal = () => {
-    setModalIsOpen(!modalIsOpen);
-  };
+  // const toggleModal = () => {
+  //   setModalIsOpen(!modalIsOpen);
+  // };
 
   return (
     <div>
       <h1 className="text-5xl text-TechStopBlue font-bold mb-4">Reviews</h1>
-      <Button
+      {/* <Button
         type="button"
         className="text-white bg-slate-900 px-10 py-2 my-4 rounded-full hover:bg-slate-700 "
         onClick={toggleModal}
@@ -60,7 +60,7 @@ const ReviewsPage = () => {
             Cancel
           </Button>
         </Modal>
-      )}
+      )} */}
     </div>
   );
 };

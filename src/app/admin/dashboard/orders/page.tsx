@@ -1,21 +1,21 @@
-"use client";
+// "use client";
 
-import React from "react";
-import AdminOrders from "@/components/admin/Orders";
-import Button from "@/components/ProductCard/Button";
-import Modal from "@/components/Global/Modal/ModalWindow";
+// import React from "react";
+// import AdminOrders from "@/components/admin/Orders";
+// import Button from "@/components/ProductCard/Button";
+// import Modal from "@/components/Global/Modal/ModalWindow";
 
 const Orders = () => {
-  const [modalIsOpen, setModalIsOpen] = React.useState(false);
+  // const [modalIsOpen, setModalIsOpen] = React.useState(false);
 
-  const toggleModal = () => {
-    setModalIsOpen(!modalIsOpen);
-  };
+  // const toggleModal = () => {
+  //   setModalIsOpen(!modalIsOpen);
+  // };
 
   return (
     <div>
       <h1 className="text-5xl text-TechStopBlue font-bold mb-4">Orders</h1>
-      <Button
+      {/* <Button
         type="button"
         className="text-white bg-slate-900 px-10 py-2 my-4 rounded-full hover:bg-slate-700 "
         onClick={toggleModal}
@@ -34,7 +34,7 @@ const Orders = () => {
             Cancel
           </Button>
         </Modal>
-      )}
+      )} */}
     </div>
   );
 };
