@@ -7,14 +7,31 @@ import {
 import Link from "next/link";
 import NoSsr from "../utils/NoSsr";
 import { useRouter, useSearchParams } from "next/navigation";
+import { getCategories } from "@/api";
+import { useEffect, useState } from "react";
+import { Categories } from "@/types";
+import { findTitleBySlug } from "../utils/findTitleBySlug";
 
 interface IPropsParams {
   pathname: string;
 }
 
 const HeaderBlockProductsByCategory = ({ pathname }: IPropsParams) => {
+  const [categories, setCategories] = useState<Categories[] | undefined>();
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const categories = await getCategories();      
+
+      setCategories(categories);
+    };
+    fetchProducts();
+  }, [])
+
   const parts = pathname.split("/");
   const category = parts[2];
+
+  const CategoryTitle = findTitleBySlug(categories, category);  
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -41,7 +58,7 @@ const HeaderBlockProductsByCategory = ({ pathname }: IPropsParams) => {
         </div>
         <div className="flex justify-between gap-4">
           <h2 className="hidden md:flex text-Headline3 text-TechStopBlue">
-            {searchQuery ? searchQuery  : category}
+            {searchQuery ? searchQuery  : CategoryTitle}
           </h2>
           <div className="w-full max-w-[220px]">
             <FormControl fullWidth>
