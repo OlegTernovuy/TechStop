@@ -1,7 +1,7 @@
 "use client";
 
 import React, { SyntheticEvent, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { signIn } from "@/api/admin";
 import Link from "next/link";
 import CustomSpinner from "@/components/Global/Spinner/CustomSpinner";
