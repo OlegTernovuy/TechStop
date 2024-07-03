@@ -26,6 +26,8 @@ import AdminTHList from "@/components/admin/AdminTHList";
 import CharacteristicsFields from "@/components/admin/CharacteristicsFields";
 import FieldArray from "@/components/admin/FieldArray";
 import ProductsList from "@/components/admin/Products/ProductsList";
+import Button from "@/components/ProductCard/Button";
+import { adminToastMessages } from "@/components/admin/constants/adminToastMessages";
 
 const defaultValues = {
   title: "",
@@ -34,6 +36,7 @@ const defaultValues = {
   characteristics: [{ name: "", description: [""] }],
   inStock: false,
 };
+const { CREATE_PRODUCT_ERROR, CREATE_PRODUCT_SUCCESS } = adminToastMessages();
 
 const ProductsPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -56,7 +59,10 @@ const ProductsPage = () => {
     const fetchProducts = async () => {
       setIsLoading(true);
       const productsList = await getProductsData();
+      localStorage.setItem("AdminProducts", JSON.stringify(productsList));
       setIsLoading(false);
+      const get = localStorage.getItem("AdminProducts");
+      console.log(JSON.parse(get ?? ""));
       setProducts(productsList ?? []);
     };
     fetchProducts();
@@ -77,23 +83,25 @@ const ProductsPage = () => {
       const createdProduct = await createProduct(data);
 
       setProducts((prevProducts) => [...prevProducts, createdProduct]);
-      toast.success("Product created successfully");
+      toast.success(CREATE_PRODUCT_SUCCESS);
       toggleModal();
       reset();
     } catch (error) {
-      toast.error("Failed to create product");
+      toast.error(CREATE_PRODUCT_ERROR);
     }
   };
 
   const handleDelete = async (_id: string) => {
+    const { DELETE_PRODUCT_ERROR, DELETE_PRODUCT_SUCCESS } =
+      adminToastMessages(_id);
     try {
       await deleteById(_id);
       setProducts((prevProducts) =>
         prevProducts.filter((product) => product._id !== _id)
       );
-      toast.success(`Products with ID ${_id} was deleted`);
+      toast.success(DELETE_PRODUCT_SUCCESS);
     } catch (error) {
-      toast.error(`Failed to delete product with ID ${_id}`);
+      toast.error(DELETE_PRODUCT_ERROR);
     }
   };
 
@@ -101,33 +109,33 @@ const ProductsPage = () => {
     setModalIsOpen(!modalIsOpen);
   };
 
+  if (!products) {
+    return;
+  }
+
   return (
     <>
       <div>
         <h1 className="text-5xl text-TechStopBlue font-bold mb-4">Products</h1>
-        <button
+        <Button
           type="button"
           className="text-white bg-slate-900 px-10 py-2 my-4 rounded-full hover:bg-slate-700 "
           onClick={toggleModal}
         >
           Create Product
-        </button>{" "}
+        </Button>{" "}
         <div className="overflow-auto z-1000000">
           <table className="min-w-full bg-white">
             <thead className="bg-gray-800 text-white">
               <AdminTHList />
             </thead>
-            <tbody>
-              {isLoading ? (
-                <tr>
-                  <td className="text-center p-3">
-                    <CustomSpinner />
-                  </td>
-                </tr>
-              ) : (
+            {isLoading ? (
+              <CustomSpinner />
+            ) : (
+              <tbody>
                 <ProductsList products={products} handleDelete={handleDelete} />
-              )}
-            </tbody>
+              </tbody>
+            )}
           </table>
         </div>
         <CustomToast />
@@ -161,7 +169,7 @@ const ProductsPage = () => {
                   characteristicFields={characteristicFields}
                   control={control}
                 />
-                <button
+                <Button
                   type="button"
                   onClick={() =>
                     appendCharacteristic({ name: "", description: [""] })
@@ -169,7 +177,7 @@ const ProductsPage = () => {
                   className="text-blue-500 hover:text-blue-700 mt-2"
                 >
                   Add Characteristic
-                </button>
+                </Button>
               </div>
 
               <div className="mb-4">
@@ -186,19 +194,19 @@ const ProductsPage = () => {
               </div>
 
               <div className="flex justify-end">
-                <button
+                <Button
                   type="button"
                   onClick={toggleModal}
                   className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
                 >
                   Cancel
-                </button>
-                <button
+                </Button>
+                <Button
                   type="submit"
                   className="bg-blue-500 text-white px-4 py-2 rounded"
                 >
                   Create
-                </button>
+                </Button>
               </div>
             </form>
           </FormProvider>
