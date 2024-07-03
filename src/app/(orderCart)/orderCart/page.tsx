@@ -85,8 +85,10 @@ function OrderCart() {
     } else {
       const combinedObject = {
         customerPhone: orderContactData.phone,
+        email: orderContactData.email,
+        orderStatus: 'Очікується',
         totalPrice: productsPriceWithAdd,
-        paymentStatus: "string",
+        paymentStatus: "Очікується",
         paymentMethod: orderContactData.payMethod_id,
         products: orderedProducts,
         recepient: {

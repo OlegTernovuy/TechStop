@@ -9,12 +9,15 @@ import defaultProductIcon from "../../../../public/defaultProductIcon.svg";
 import { useCartStore } from "@/store/useCartStore";
 import { format } from "date-fns";
 import { uk } from "date-fns/locale";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 interface Purchase {
   purchases: PurchasesData;
 }
 
-const SinglePurchase = ({ purchases }: Purchase) => {
+const SinglePurchase = ({ purchases }: Purchase) => {  
+  const router = useRouter()
   const { addItemToCart } = useCartStore();
 
   const formattedDate = format(purchases.createdAt, "dd MMMM yyyy", {
@@ -30,7 +33,12 @@ const SinglePurchase = ({ purchases }: Purchase) => {
       quantity: purchaseProduct.quantity,
     };
     addItemToCart(newOrder);
+    toast.success('Your order has been added to the cart');
   };
+
+  const leaveFeetback = (id: string) => {
+    router.push(`/products/${id}/feedback`)
+  }
 
   return (
     <div>
@@ -174,6 +182,7 @@ const SinglePurchase = ({ purchases }: Purchase) => {
                       />
                       <Button
                         title="залишити відгук"
+                        onClick={() => leaveFeetback(purchases._id)}
                         stylesButton="flex w-full lg:max-w-[196px] px-6 bg-white text-TechStopBlue border border-TechStopBlue60 uppercase"
                       />
                     </div>
