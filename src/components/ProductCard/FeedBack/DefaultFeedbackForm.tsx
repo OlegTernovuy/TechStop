@@ -22,23 +22,7 @@ import { CssSelect } from "@/constants/customStyles";
 import FormRate from "./FormRate";
 import { Review, IParams } from "@/types";
 import { TOAST_MESSAGES } from "@/constants/toastMessages";
-
-const nameRegex = /^[A-Aa-Я]+$/i;
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-const schema = yup.object({
-  rating: yup.number().required("Це поле є обов'язковим"),
-  advantages: yup.string().required("Це поле є обов'язковим"),
-  disadvantages: yup.string().required("Це поле є обов'язковим"),
-  comment: yup.string(),
-  userName: yup
-    .string()
-    .min(1, "Занадто коротко")
-    .max(80, "Занадто довге")
-    .matches(nameRegex, "Некоректне ім'я")
-    .required(),
-  userEmail: yup.string().matches(emailRegex, "Некоректний email").required(),
-});
+import { createReviewsSchema } from "@/components/admin/schemas";
 
 const MenuProps = {
   PaperProps: {
@@ -57,7 +41,7 @@ const DefaultFeedbackForm: FC<IParams> = ({ params }) => {
   const { _id: productId } = params;
 
   const methods = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(createReviewsSchema),
     defaultValues: {
       advantages: "",
       disadvantages: "",

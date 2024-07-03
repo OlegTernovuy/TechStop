@@ -4,6 +4,10 @@ import React, { SyntheticEvent } from "react";
 import { useRouter } from "next/navigation";
 import { signUp } from "@/api/admin";
 import Link from "next/link";
+import toast from "react-hot-toast";
+import { adminToastMessages } from "@/components/admin/constants/adminToastMessages";
+
+const { AUTH_ERROR_CREDENTIALS, AUTH_SUCCESSFULLY } = adminToastMessages();
 
 const RegisterPage = () => {
   const [email, setEmail] = React.useState("");
@@ -11,8 +15,13 @@ const RegisterPage = () => {
   const router = useRouter();
 
   const handleSubmit = async (e: SyntheticEvent) => {
+    if (!email || !password) {
+      return toast.error(AUTH_ERROR_CREDENTIALS);
+    }
+
     e.preventDefault();
     await signUp({ email, password });
+    toast.success(AUTH_SUCCESSFULLY);
     router.push("/admin/dashboard");
   };
 

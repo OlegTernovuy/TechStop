@@ -1,3 +1,5 @@
+"use client";
+
 import { FC } from "react";
 import { useFieldArray, Control } from "react-hook-form";
 import CustomInput from "@/components/ProductCard/FeedBack/CustomInput";

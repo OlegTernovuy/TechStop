@@ -263,6 +263,7 @@ export interface IFeedback {
   comment?: string;
   product: Product;
   user: User;
+  userId: string;
   createdAt: string;
   updatedAt?: string;
 }
