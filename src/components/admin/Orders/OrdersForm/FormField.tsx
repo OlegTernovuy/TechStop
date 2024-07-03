@@ -1,3 +1,5 @@
+"use client";
+
 import React, { FC } from "react";
 import { useController, Control, FieldErrors } from "react-hook-form";
 

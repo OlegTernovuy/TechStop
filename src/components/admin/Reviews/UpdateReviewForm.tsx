@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { IUpdateReview } from "../types";
