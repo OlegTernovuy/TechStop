@@ -5,6 +5,10 @@ import { useRouter } from "next/navigation";
 import { signIn } from "@/api/admin";
 import Link from "next/link";
 import CustomSpinner from "@/components/Global/Spinner/CustomSpinner";
+import toast from "react-hot-toast";
+import { adminToastMessages } from "@/components/admin/constants/adminToastMessages";
+
+const { AUTH_ERROR_CREDENTIALS, AUTH_SUCCESSFULLY } = adminToastMessages();
 
 const LoginPage = () => {
   const [email, setEmail] = React.useState("");
@@ -12,14 +16,14 @@ const LoginPage = () => {
   const [password, setPassword] = React.useState("");
   const router = useRouter();
 
-  if (!email || !password) {
-    return;
-  }
-
   const handleSubmit = async (e: SyntheticEvent) => {
+    if (!email || !password) {
+      return toast.error(AUTH_ERROR_CREDENTIALS);
+    }
     e.preventDefault();
     setIsLoading(true);
     await signIn({ email, password });
+    toast.success(AUTH_SUCCESSFULLY);
     setIsLoading(false);
     router.push("/admin/dashboard");
   };
