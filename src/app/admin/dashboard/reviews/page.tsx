@@ -26,10 +26,6 @@ const ReviewsPage = () => {
   });
 
   const {
-    reset,
-    handleSubmit,
-    control,
-    register,
     formState: { errors },
   } = methods;
 

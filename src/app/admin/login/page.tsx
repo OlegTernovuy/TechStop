@@ -1,7 +1,7 @@
 "use client";
 
 import React, { SyntheticEvent, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { signIn } from "@/api/admin";
 import Link from "next/link";
 import CustomSpinner from "@/components/Global/Spinner/CustomSpinner";
@@ -13,7 +13,7 @@ const LoginPage = () => {
   const router = useRouter();
 
   if (!email || !password) {
-    return <div>Loading...</div>;
+    return;
   }
 
   const handleSubmit = async (e: SyntheticEvent) => {

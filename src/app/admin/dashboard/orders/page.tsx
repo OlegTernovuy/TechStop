@@ -11,6 +11,7 @@ const Orders = () => {
   const toggleModal = () => {
     setModalIsOpen(!modalIsOpen);
   };
+
   return (
     <div>
       <h1 className="text-5xl text-TechStopBlue font-bold mb-4">Orders</h1>

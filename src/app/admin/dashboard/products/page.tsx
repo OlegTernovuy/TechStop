@@ -110,7 +110,7 @@ const ProductsPage = () => {
   };
 
   if (!products) {
-    return <div>Loading....</div>;
+    return;
   }
 
   return (

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { SyntheticEvent } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { signUp } from "@/api/admin";
 import Link from "next/link";
 
@@ -11,7 +11,7 @@ const RegisterPage = () => {
   const router = useRouter();
 
   if (!email || !password) {
-    return <div>Loading...</div>;
+    return;
   }
 
   const handleSubmit = async (e: SyntheticEvent) => {

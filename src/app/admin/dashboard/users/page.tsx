@@ -1,5 +1,3 @@
-"use client";
-
 const UsersPage = () => {
   return (
     <div>
