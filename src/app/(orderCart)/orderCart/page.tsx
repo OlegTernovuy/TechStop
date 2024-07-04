@@ -168,7 +168,7 @@ function OrderCart() {
                 },
               }}
               fullWidth
-              inputProps={{ maxLength: 80 }}
+              inputProps={{ maxLength: 200 }}
             />
           </div>
         </div>
