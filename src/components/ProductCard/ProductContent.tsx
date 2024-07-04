@@ -60,7 +60,7 @@ const ProductContent: FC<IData> = ({ product }) => {
             onChange={(e, newValue) =>
               handleRatingChange(Math.floor(newValue ?? 0))
             }
-            value={Number(value.toFixed(2)) ?? 0}
+            value={Number(value?.toFixed(2)) ?? 0}
             defaultValue={2.5}
             readOnly={hasReviewed}
             precision={0.5}

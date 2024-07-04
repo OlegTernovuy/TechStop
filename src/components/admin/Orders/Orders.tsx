@@ -1,9 +1,9 @@
-import React from "react";
+import React, { FC } from "react";
 import OrdersTHList from "./OrdersTHList";
 import OrdersList from "./OrdersList";
 import BtnToTop from "@/components/ProductCard/BtnToTop";
 
-const Orders = () => {
+const Orders: FC = () => {
   return (
     <div className="overflow-auto z-1000000">
       <table className="min-w-full bg-white">

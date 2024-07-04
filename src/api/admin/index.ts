@@ -1,7 +1,11 @@
 import axios from "axios";
 import { env } from "../../../next.config";
 import {
+  ICategory,
+  ICreateCategory,
+  ICreateOrderFormValues,
   ICreateProductData,
+  IUpdateCategory,
   IUpdateProductFields,
   IUpdateReview,
   UpdatePurchasesData,
@@ -122,6 +126,59 @@ export const updateOrderById = async (
 ) => {
   try {
     const { data } = await axios.patch(`/orders/${orderCode}`, orderData);
+
+    return data;
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+export const createOrder = async (orderData: ICreateOrderFormValues) => {
+  try {
+    const { data } = await axios.post(`/orders`, orderData);
+
+    return data;
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+export const getAllCategories = async () => {
+  try {
+    const { data } = await axios.get(`/categories`);
+
+    return data;
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+export const createCategory = async (newCategory: ICreateCategory) => {
+  try {
+    const { data } = await axios.post(`/categories`, newCategory);
+
+    return data;
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+export const updateCategory = async (
+  orderData: IUpdateCategory,
+  slug: string
+) => {
+  try {
+    const { data } = await axios.patch(`/categories/${slug}`, orderData);
+
+    return data;
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+export const deleteCategoryBySlug = async (slug: string) => {
+  try {
+    const { data } = await axios.delete(`/categories/${slug}`);
 
     return data;
   } catch (error) {

@@ -1,10 +1,9 @@
-export const filterEmptyFields = <T extends {}>(data: T): Partial<T> => {
-  return Object.fromEntries(
+export const filterEmptyFields = <T extends {}>(data: T): Partial<T> =>
+  Object.fromEntries(
     Object.entries(data).filter(
       ([_, value]) => value !== "" && value !== undefined
     )
   ) as Partial<T>;
-};
 
 export const filteredEmptyNestedFields = <T>(data: T): Partial<T> => {
   const filterObject = (obj: any): any => {

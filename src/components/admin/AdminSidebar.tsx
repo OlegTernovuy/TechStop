@@ -12,6 +12,7 @@ const AdminSidebar = () => {
     { href: "/admin/dashboard/products", label: "Products" },
     { href: "/admin/dashboard/reviews", label: "Reviews" },
     { href: "/admin/dashboard/orders", label: "Orders" },
+    { href: "/admin/dashboard/categories", label: "Categories" },
   ];
 
   return (

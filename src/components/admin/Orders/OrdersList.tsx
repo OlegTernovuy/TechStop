@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { getOrders } from "@/api";
 import { PurchasesData } from "@/app/account/purchases/purchasesType";
 import CustomSpinner from "@/components/Global/Spinner/CustomSpinner";
@@ -16,7 +16,7 @@ import { adminToastMessages } from "../constants/adminToastMessages";
 
 const { DELETE_ORDER_ERROR, DELETE_ORDER_SUCCESS } = adminToastMessages();
 
-const OrdersList = () => {
+const OrdersList: FC = () => {
   const [orders, setOrders] = useState<PurchasesData[] | []>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentProductId, setCurrentProductId] = useState<string | null>(null);

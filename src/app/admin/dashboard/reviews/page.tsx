@@ -36,6 +36,7 @@ const ReviewsPage = () => {
   return (
     <div>
       <h1 className="text-5xl text-TechStopBlue font-bold mb-4">Reviews</h1>
+      <p className="text-TechStopBlue text-3xl">Manage your Reviews here.</p>
       <Button
         type="button"
         className="text-white bg-slate-900 px-10 py-2 my-4 rounded-full hover:bg-slate-700 "
