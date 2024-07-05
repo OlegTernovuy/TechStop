@@ -1,7 +1,6 @@
 import axios from "axios";
 import { env } from "../../../next.config";
 import {
-  ICategory,
   ICreateCategory,
   ICreateOrderFormValues,
   ICreateProductData,

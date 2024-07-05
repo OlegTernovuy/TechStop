@@ -1,6 +1,6 @@
 "use client";
 
-import React, { SyntheticEvent } from "react";
+import { SyntheticEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signUp } from "@/api/admin";
 import Link from "next/link";
@@ -10,8 +10,8 @@ import { adminToastMessages } from "@/components/admin/constants/adminToastMessa
 const { AUTH_ERROR_CREDENTIALS, AUTH_SUCCESSFULLY } = adminToastMessages();
 
 const RegisterPage = () => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const router = useRouter();
 
   const handleSubmit = async (e: SyntheticEvent) => {

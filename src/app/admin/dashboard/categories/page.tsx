@@ -1,6 +1,5 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import Modal from "@/components/Global/Modal/ModalWindow";
 import Button from "@/components/ProductCard/Button";
 import Categories from "@/components/admin/Categories";
@@ -9,10 +8,6 @@ import React, { Suspense, useState } from "react";
 
 const CategoriesPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
-  const searchParams = useSearchParams();
-
-  const search = searchParams.get("search");
 
   const toggleModal = () => {
     setModalIsOpen(!modalIsOpen);

@@ -1,22 +1,13 @@
 "use client";
 
-import {
-  FormProvider,
-  SubmitHandler,
-  useForm,
-  useFieldArray,
-  Controller,
-} from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-
-import React from "react";
+import { useState } from "react";
 import AdminOrders from "@/components/admin/Orders";
 import Button from "@/components/ProductCard/Button";
 import Modal from "@/components/Global/Modal/ModalWindow";
 import CreateOrderForm from "@/components/admin/Orders/CreateOrder/CreateOrderForm";
 
 const Orders = () => {
-  const [modalIsOpen, setModalIsOpen] = React.useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const toggleModal = () => {
     setModalIsOpen(!modalIsOpen);
