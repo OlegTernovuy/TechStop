@@ -1,13 +1,18 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import Modal from "@/components/Global/Modal/ModalWindow";
 import Button from "@/components/ProductCard/Button";
 import Categories from "@/components/admin/Categories";
 import CreateCategoryForm from "@/components/admin/Categories/CreateCategoryForm";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 
 const CategoriesPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const searchParams = useSearchParams();
+
+  const search = searchParams.get("search");
 
   const toggleModal = () => {
     setModalIsOpen(!modalIsOpen);
@@ -27,7 +32,10 @@ const CategoriesPage = () => {
       {modalIsOpen && (
         <Modal onClose={toggleModal}>
           <h2>Create modal</h2>
-          <CreateCategoryForm toggleModal={toggleModal} />
+          <Suspense fallback="Loading">
+            {" "}
+            <CreateCategoryForm toggleModal={toggleModal} />
+          </Suspense>
           <Button
             type="button"
             onClick={toggleModal}
@@ -37,7 +45,9 @@ const CategoriesPage = () => {
           </Button>
         </Modal>
       )}
-      <Categories />
+      <Suspense fallback="Loading">
+        <Categories />
+      </Suspense>
     </>
   );
 };

@@ -36,7 +36,7 @@ const Orders = () => {
       </Button>{" "}
       <AdminOrders />
       {modalIsOpen && (
-        <Modal onClose={toggleModal} alignitems="">
+        <Modal onClose={toggleModal}>
           <h2>Create Order</h2>
           <CreateOrderForm toggleModal={toggleModal} />
           <Button
