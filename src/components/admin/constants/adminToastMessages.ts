@@ -10,6 +10,12 @@ export const adminToastMessages = (field?: string) => {
     UPDATE_ORDER_ERROR: "Failed to update order",
     DELETE_ORDER_SUCCESS: "Order was successfully deleted",
     DELETE_ORDER_ERROR: "Failed to delete order",
+    UPDATE_CATEGORY_SUCCESS: "CATEGORY was successfully updated",
+    UPDATE_CATEGORY_ERROR: "Failed to update CATEGORY",
+    DELETE_CATEGORY_SUCCESS: "CATEGORY was successfully deleted",
+    DELETE_CATEGORY_ERROR: "Failed to delete CATEGORY",
+    CREATE_CATEGORY_SUCCESS: "CATEGORY was successfully created",
+    CREATE_CATEGORY_ERROR: "Failed to delete CATEGORY",
     AUTH_ERROR_CREDENTIALS: "You need enter credentials",
     AUTH_SUCCESSFULLY: "Login success",
   };

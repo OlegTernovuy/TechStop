@@ -98,10 +98,7 @@ const ReviewsList = () => {
                     </Button>
 
                     {updateModal && currentProductId === _id && (
-                      <Modal
-                        alignitems="flex-start"
-                        onClose={() => toggleUpdateModal()}
-                      >
+                      <Modal onClose={() => toggleUpdateModal()}>
                         <h2 className="text-TechStopBlue">Update modal</h2>
 
                         <UpdateReviewForm productId={currentProductId} />
