@@ -77,8 +77,10 @@ const ProductsPage = () => {
       const createdProduct = await createProduct(data);
 
       setProducts((prevProducts) => [...prevProducts, createdProduct]);
+
       toast.success("Product created successfully");
       toggleModal();
+
       reset();
     } catch (error) {
       toast.error("Failed to create product");
@@ -204,6 +206,7 @@ const ProductsPage = () => {
           </FormProvider>
         </Modal>
       )}
+      <CustomToast />
     </>
   );
 };

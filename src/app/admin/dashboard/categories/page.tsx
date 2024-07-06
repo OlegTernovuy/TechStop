@@ -1,6 +1,7 @@
 "use client";
 
 import Modal from "@/components/Global/Modal/ModalWindow";
+import CustomToast from "@/components/Global/Toaster/CustomToast";
 import Button from "@/components/ProductCard/Button";
 import Categories from "@/components/admin/Categories";
 import CreateCategoryForm from "@/components/admin/Categories/CreateCategoryForm";

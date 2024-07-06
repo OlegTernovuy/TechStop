@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 
 import { FC, useState } from "react";
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
@@ -58,6 +58,7 @@ const CreateOrderForm: FC<ICreateOrderFormProps> = ({ toggleModal }) => {
       await createOrder(data);
 
       setIsLoading(false);
+
       setIsError(null);
       toggleModal();
       toast.success(CREATE_ORDER_SUCCESS);

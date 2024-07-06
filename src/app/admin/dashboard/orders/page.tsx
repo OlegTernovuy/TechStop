@@ -4,6 +4,7 @@ import React from "react";
 import AdminOrders from "@/components/admin/Orders";
 import Button from "@/components/ProductCard/Button";
 import Modal from "@/components/Global/Modal/ModalWindow";
+import CreateOrderForm from "@/components/admin/Orders/CreateOrder/CreateOrderForm";
 
 const Orders = () => {
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
@@ -26,6 +27,7 @@ const Orders = () => {
       {modalIsOpen && (
         <Modal onClose={toggleModal}>
           <h2>Create Order</h2>
+          <CreateOrderForm toggleModal={toggleModal} />
           <Button
             onClick={toggleModal}
             type="submit"

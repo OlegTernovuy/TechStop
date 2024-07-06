@@ -11,6 +11,7 @@ import { ICreateCategory } from "../types";
 import { filterEmptyFields, isObjectFilled } from "../utils";
 import { createCategory } from "@/api/admin";
 import { adminToastMessages } from "../constants/adminToastMessages";
+import CustomToast from "@/components/Global/Toaster/CustomToast";
 
 const defaultValues = {
   title: "",
@@ -50,18 +51,17 @@ const CreateCategoryForm: FC<ICreateCategoryFormProps> = ({ toggleModal }) => {
 
     try {
       setIsLoading(true);
-      setIsError(null);
-
       await createCategory(filteredData as ICreateCategory);
 
       if (isError) {
         setIsError(isError);
-        throw new Error();
+        throw new Error("Error");
       }
 
       setIsLoading(false);
       toast.success(CREATE_ORDER_SUCCESS);
       toggleModal();
+
       reset();
     } catch (error) {
       setIsLoading(false);
@@ -124,6 +124,7 @@ const CreateCategoryForm: FC<ICreateCategoryFormProps> = ({ toggleModal }) => {
         >
           {isLoading ? <CustomSpinner width={20} height={20} /> : "Submit"}
         </Button>
+        <CustomToast />
       </form>
     </div>
   );
