@@ -319,4 +319,5 @@ export interface IFilteredProducts {
   category?: string;
   sort?: string | null;
   search?: string | null;
+  page?: number;
 }

@@ -9,7 +9,6 @@ import NoSsr from '../utils/NoSsr';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getCategories } from '@/api';
-import { Categories } from '@/types';
 import { findTitleBySlug } from '../utils/findTitleBySlug';
 
 interface IPropsParams {
@@ -17,21 +16,18 @@ interface IPropsParams {
 }
 
 const HeaderBlockProductsByCategory = ({ pathname }: IPropsParams) => {
-    const [categories, setCategories] = useState<Categories[] | undefined>();
+    const parts = pathname.split('/');
+    const category = parts[2];
+    const [categoryTitle, setCategoryTitle] = useState<string | null>('');
 
     useEffect(() => {
         const fetchProducts = async () => {
-            const categories = await getCategories();
-
-            setCategories(categories);
+            const fetchedCategories = await getCategories();
+            const title = findTitleBySlug(fetchedCategories, category);
+            setCategoryTitle(title);
         };
         fetchProducts();
-    }, []);
-
-    const parts = pathname.split('/');
-    const category = parts[2];
-
-    const CategoryTitle = findTitleBySlug(categories, category);
+    }, [category]);
 
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -56,7 +52,7 @@ const HeaderBlockProductsByCategory = ({ pathname }: IPropsParams) => {
                 </div>
                 <div className="flex justify-between gap-4">
                     <h2 className="hidden md:flex text-Headline3 text-TechStopBlue">
-                        {searchQuery ? searchQuery : CategoryTitle}
+                        {searchQuery ? searchQuery : categoryTitle}
                     </h2>
                     <div className="w-full max-w-[220px]">
                         <FormControl fullWidth>
@@ -77,11 +73,10 @@ const HeaderBlockProductsByCategory = ({ pathname }: IPropsParams) => {
                                     <MenuItem value="">
                                         <em>Сортувати за</em>
                                     </MenuItem>
-                                    <MenuItem value={'популярні'}>
-                                        популярні
-                                    </MenuItem>
-                                    <MenuItem value={'дешеві'}>дешеві</MenuItem>
-                                    <MenuItem value={'дорогі'}>дорогі</MenuItem>
+                                    <MenuItem value={'date'}>Нові</MenuItem>
+                                    <MenuItem value={'-date'}>Старі</MenuItem>
+                                    <MenuItem value={'price'}>дешеві</MenuItem>
+                                    <MenuItem value={'-price'}>дорогі</MenuItem>
                                 </Select>
                             </NoSsr>
                         </FormControl>
