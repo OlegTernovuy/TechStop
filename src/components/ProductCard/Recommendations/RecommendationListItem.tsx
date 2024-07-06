@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 
 import React, { FC, useMemo } from "react";
 import Link from "next/link";

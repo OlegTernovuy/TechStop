@@ -1,5 +1,3 @@
-// "use client";
-
 import { FC } from "react";
 import { useCartStore } from "@/store/useCartStore";
 import { IDataWithServices } from "@/types";

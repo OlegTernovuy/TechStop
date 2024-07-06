@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { Children } from "@/components/admin/types";
-import dynamic from "next/dynamic";
 
 const RootLayout: FC<Children> = ({ children }) => {
   return (
