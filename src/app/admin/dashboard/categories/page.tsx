@@ -2,7 +2,7 @@
 
 import Modal from "@/components/Global/Modal/ModalWindow";
 import Button from "@/components/ProductCard/Button";
-import Categories from "@/components/admin/Categories";
+// import Categories from "@/components/admin/Categories";
 import CreateCategoryForm from "@/components/admin/Categories/CreateCategoryForm";
 import React, { useState } from "react";
 
@@ -27,8 +27,7 @@ const CategoriesPage = () => {
       {modalIsOpen && (
         <Modal onClose={toggleModal}>
           <h2>Create modal</h2>
-          \
-          <CreateCategoryForm toggleModal={toggleModal} />\
+          {/* <CreateCategoryForm toggleModal={toggleModal} /> */}
           <Button
             type="button"
             onClick={toggleModal}
@@ -39,7 +38,7 @@ const CategoriesPage = () => {
         </Modal>
       )}
 
-      <Categories />
+      {/* <Categories /> */}
     </>
   );
 };
