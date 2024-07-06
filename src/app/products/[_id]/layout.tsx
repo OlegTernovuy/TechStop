@@ -1,5 +1,4 @@
 import { getProductById } from "@/api";
-import Bestsellers from "@/components/Bestsellers";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import BtnToTop from "@/components/ProductCard/BtnToTop";
 import ProductNavList from "@/components/ProductCard/ProductNavList";
@@ -26,7 +25,6 @@ const Layout: FC<ILayoutProps> = async ({ children, params }) => {
       {children}
       <MaxWidthWrapper>
         <RecommendationList title="Також Вас можуть зацікавити" />
-        {/* <Bestsellers /> */}
         <BtnToTop />
       </MaxWidthWrapper>
     </>

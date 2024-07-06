@@ -1,5 +1,3 @@
-"use client";
-
 import { FC } from "react";
 import ProductContent from "./ProductContent";
 import ProductSlider from "./ProductSlider";

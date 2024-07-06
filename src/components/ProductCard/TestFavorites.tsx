@@ -1,4 +1,4 @@
-// "use client"
+"use client";
 
 import { useFavoritesStore } from "@/store/useFavoritesStore";
 import { FC } from "react";

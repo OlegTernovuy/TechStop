@@ -1,13 +1,8 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { FC } from "react";
-import { join } from "path";
-import Image from "next/image";
-import { Product } from "@/types";
-import { useFeedbackStore } from "@/store/useFeedbackStore";
+import { FC, Suspense } from "react";
 
+import { Product } from "@/types";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
 import NavList from "./NavList";
@@ -46,7 +41,9 @@ const ProductNavList: FC<IProductNavListProps> = ({ params }) => {
         </div>
 
         <ul className="flex gap-x-8 border-b-[1px] w-full border-b-TechStopBlue40 mt-6 pb-2 overflow-auto md:overflow-hidden">
-          <NavList productNavList={productNavList} paramsId={paramsId} />
+          <Suspense fallback={<div>Loading</div>}>
+            <NavList productNavList={productNavList} paramsId={paramsId} />
+          </Suspense>
         </ul>
       </nav>
     </>
