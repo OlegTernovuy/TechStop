@@ -10,4 +10,4 @@ const RootLayout: FC<Children> = ({ children }) => {
   );
 };
 
-export default dynamic(() => Promise.resolve(RootLayout), { ssr: false });
+export default RootLayout;
