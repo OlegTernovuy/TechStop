@@ -2,7 +2,7 @@
 
 import Button from "@/components/ProductCard/Button";
 import AdminReviews from "@/components/admin/Reviews/Reviews";
-import React, { Suspense, useState } from "react";
+import React, { useState } from "react";
 import Modal from "@/components/Global/Modal/ModalWindow";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -44,18 +44,14 @@ const ReviewsPage = () => {
       >
         Create Review
       </Button>{" "}
-      <Suspense fallback="Loading">
-        <AdminReviews />
-      </Suspense>
+      <AdminReviews />
       {modalIsOpen && (
         <Modal onClose={toggleModal}>
           <h2>Create review</h2>
 
-          <Suspense fallback="loading">
-            <FormProvider {...methods}>
-              <FormRate errors={errors} />
-            </FormProvider>
-          </Suspense>
+          <FormProvider {...methods}>
+            <FormRate errors={errors} />
+          </FormProvider>
 
           <Button
             onClick={toggleModal}

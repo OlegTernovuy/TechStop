@@ -4,7 +4,7 @@ import Modal from "@/components/Global/Modal/ModalWindow";
 import Button from "@/components/ProductCard/Button";
 import Categories from "@/components/admin/Categories";
 import CreateCategoryForm from "@/components/admin/Categories/CreateCategoryForm";
-import React, { Suspense, useState } from "react";
+import React, { useState } from "react";
 
 const CategoriesPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -27,10 +27,8 @@ const CategoriesPage = () => {
       {modalIsOpen && (
         <Modal onClose={toggleModal}>
           <h2>Create modal</h2>
-          <Suspense fallback="Loading">
-            {" "}
-            <CreateCategoryForm toggleModal={toggleModal} />
-          </Suspense>
+          \
+          <CreateCategoryForm toggleModal={toggleModal} />\
           <Button
             type="button"
             onClick={toggleModal}
@@ -40,9 +38,8 @@ const CategoriesPage = () => {
           </Button>
         </Modal>
       )}
-      <Suspense fallback="Loading">
-        <Categories />
-      </Suspense>
+
+      <Categories />
     </>
   );
 };
