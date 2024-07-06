@@ -36,6 +36,8 @@ interface FormFieldProps {
   options?: string[];
 }
 
+console.log("TEST");
+
 const FormField: FC<FormFieldProps> = ({
   name,
   label,
