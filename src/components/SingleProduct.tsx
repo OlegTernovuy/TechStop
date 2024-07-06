@@ -1,3 +1,5 @@
+"use client";
+
 import formatPrice from "@/app/utils/formatPrice";
 import { useCartStore } from "@/store/useCartStore";
 import { Product } from "@/types";
@@ -31,7 +33,7 @@ const SingleProduct = ({ product }: IProduct) => {
 
   // const isFavoriteProduct = useStore(useFavoritesStore, (state) => state.isFavoriteProduct);
 
-  const { data: session } = useSession();  
+  const { data: session } = useSession();
 
   useEffect(() => {}, []);
 
@@ -51,9 +53,9 @@ const SingleProduct = ({ product }: IProduct) => {
   ) => {
     e?.preventDefault();
     e?.stopPropagation();
-    session !== null ?
-    toggleProductCardToFavorites(product) :
-    toast.error(`Please log in`);
+    session !== null
+      ? toggleProductCardToFavorites(product)
+      : toast.error(`Please log in`);
   };
 
   const addProductToView = (product: Product) => {
