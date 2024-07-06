@@ -4,26 +4,27 @@ import { FC, useState } from "react";
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { UpdatePurchasesData } from "../types/index"; // Adjust the import path according to your project structure
-import { updateOrderSchema } from "../schemas";
-
-import toast from "react-hot-toast";
-import { filteredEmptyNestedFields, isObjectFilled } from "../utils";
-import { updateOrderById } from "@/api/admin";
-import FormField from "./OrdersForm/FormField";
 import CustomToast from "@/components/Global/Toaster/CustomToast";
-import { adminToastMessages } from "../constants/adminToastMessages";
 import Button from "@/components/ProductCard/Button";
 import CustomSpinner from "@/components/Global/Spinner/CustomSpinner";
 
-import { defaultValues } from "../schemas/defaultValues";
-interface IUpdateOrderFormProps {
-  currentOrderCode: string | null;
+import toast from "react-hot-toast";
+
+import { defaultValues } from "@/components/admin/schemas/defaultValues";
+import { createOrderSchema } from "@/components/admin/schemas";
+import { adminToastMessages } from "@/components/admin/constants/adminToastMessages";
+import { createOrder } from "@/api/admin";
+import { isObjectFilled } from "@/components/admin/utils";
+import { ICreateOrderFormValues } from "@/components/admin/types";
+import CreateOrder from "./CreateOrder";
+
+interface ICreateOrderFormProps {
+  toggleModal: () => void;
 }
 
-const { UPDATE_ORDER_ERROR, UPDATE_ORDER_SUCCESS } = adminToastMessages();
+const { CREATE_ORDER_ERROR, CREATE_ORDER_SUCCESS } = adminToastMessages();
 
-const UpdateOrderForm: FC<IUpdateOrderFormProps> = ({ currentOrderCode }) => {
+const CreateOrderForm: FC<ICreateOrderFormProps> = ({ toggleModal }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState<Error | null>(null);
 
@@ -35,7 +36,7 @@ const UpdateOrderForm: FC<IUpdateOrderFormProps> = ({ currentOrderCode }) => {
     formState: { errors },
   } = useForm({
     defaultValues,
-    resolver: yupResolver(updateOrderSchema),
+    resolver: yupResolver(createOrderSchema),
   });
 
   const { fields, append, remove } = useFieldArray({
@@ -43,7 +44,7 @@ const UpdateOrderForm: FC<IUpdateOrderFormProps> = ({ currentOrderCode }) => {
     name: "products",
   });
 
-  const onSubmit: SubmitHandler<UpdatePurchasesData> = async (data) => {
+  const onSubmit: SubmitHandler<ICreateOrderFormValues> = async (data) => {
     const hasChanges = isObjectFilled(data);
 
     if (!data || !hasChanges) {
@@ -51,21 +52,20 @@ const UpdateOrderForm: FC<IUpdateOrderFormProps> = ({ currentOrderCode }) => {
       return;
     }
 
-    const filteredData = filteredEmptyNestedFields(data);
-
     try {
       setIsLoading(true);
 
-      await updateOrderById(currentOrderCode ?? "", filteredData);
+      await createOrder(data);
 
       setIsLoading(false);
       setIsError(null);
-      toast.success(UPDATE_ORDER_SUCCESS);
+      toggleModal();
+      toast.success(CREATE_ORDER_SUCCESS);
       reset();
     } catch (error) {
       setIsLoading(false);
       setIsError(isError);
-      toast.error(isError?.message ?? UPDATE_ORDER_ERROR);
+      toast.error(isError?.message ?? CREATE_ORDER_ERROR);
     }
   };
 
@@ -74,38 +74,38 @@ const UpdateOrderForm: FC<IUpdateOrderFormProps> = ({ currentOrderCode }) => {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="flex justify-center">
           {" "}
-          <FormField
+          <CreateOrder
             name="email"
             label="Email"
             control={control}
             errors={errors}
           />
-          <FormField
+          <CreateOrder
             name="orderStatus"
             label="Order Status"
             control={control}
             errors={errors}
           />
-          <FormField
+          <CreateOrder
             name="customerPhone"
             label="Customer Phone"
             control={control}
             errors={errors}
           />
-          <FormField
+          <CreateOrder
             type="number"
             name="totalPrice"
             label="Total Price"
             control={control}
             errors={errors}
           />
-          <FormField
+          <CreateOrder
             name="paymentStatus"
             label="Payment Status"
             control={control}
             errors={errors}
           />
-          <FormField
+          <CreateOrder
             name="paymentMethod"
             label="Payment Method"
             control={control}
@@ -118,34 +118,34 @@ const UpdateOrderForm: FC<IUpdateOrderFormProps> = ({ currentOrderCode }) => {
           <ul>
             {fields.map((item, index) => (
               <div
-                key={item.productId}
+                key={item?.productId}
                 className="flex justify-center items-center"
               >
-                <FormField
+                <CreateOrder
                   name={`products[${index}].productId`}
                   label="ProductId"
                   control={control}
                   errors={errors}
                 />
-                <FormField
+                <CreateOrder
                   name={`products[${index}].title`}
                   label="Title"
                   control={control}
                   errors={errors}
                 />
-                <FormField
+                <CreateOrder
                   name={`products[${index}].price`}
                   label="Price"
                   control={control}
                   errors={errors}
                 />
-                <FormField
+                <CreateOrder
                   name={`products[${index}].quantity`}
                   label="Quantity"
                   control={control}
                   errors={errors}
                 />
-                <FormField
+                <CreateOrder
                   name={`products[${index}].poster`}
                   label="Poster"
                   control={control}
@@ -186,13 +186,13 @@ const UpdateOrderForm: FC<IUpdateOrderFormProps> = ({ currentOrderCode }) => {
 
           <div className="flex justify-center">
             {" "}
-            <FormField
+            <CreateOrder
               name="recepient.name"
               label="Recepient Name"
               control={control}
               errors={errors}
             />
-            <FormField
+            <CreateOrder
               name="recepient.phone"
               label="Recepient Phone"
               control={control}
@@ -207,37 +207,37 @@ const UpdateOrderForm: FC<IUpdateOrderFormProps> = ({ currentOrderCode }) => {
           </h3>
           <div className="flex justify-center items-center">
             {" "}
-            <FormField
+            <CreateOrder
               name="deliveryAddress.city"
               label="City"
               control={control}
               errors={errors}
             />
-            <FormField
+            <CreateOrder
               name="deliveryAddress.postalOperator"
               label="Postal Operator"
               control={control}
               errors={errors}
             />
-            <FormField
+            <CreateOrder
               name="deliveryAddress.postalDepartment"
               label="Postal Department"
               control={control}
               errors={errors}
             />
-            <FormField
+            <CreateOrder
               name="deliveryAddress.personalAddress.street"
               label="Street"
               control={control}
               errors={errors}
             />
-            <FormField
+            <CreateOrder
               name="deliveryAddress.personalAddress.house"
               label="House"
               control={control}
               errors={errors}
             />
-            <FormField
+            <CreateOrder
               type="number"
               name="deliveryAddress.personalAddress.apartment"
               label="Apartment"
@@ -269,4 +269,4 @@ const UpdateOrderForm: FC<IUpdateOrderFormProps> = ({ currentOrderCode }) => {
   );
 };
 
-export default UpdateOrderForm;
+export default CreateOrderForm;
