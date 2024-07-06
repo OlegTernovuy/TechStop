@@ -1,4 +1,6 @@
+import { PurchasesData } from "@/app/account/purchases/purchasesType";
 import { Product, User } from "@/types";
+import { SetStateAction } from "react";
 import { FieldErrors } from "react-hook-form";
 
 export interface Children {
@@ -107,4 +109,72 @@ export interface IUpdateOrderFormValues {
       apartment?: number;
     };
   };
+}
+
+export interface ICreateOrderFormValues {
+  email: string;
+  orderStatus: string;
+  customerPhone: string;
+  totalPrice: number;
+  paymentStatus: string;
+  paymentMethod: string;
+  products: {
+    productId: string;
+    title: string;
+    price: number;
+    quantity: number;
+    poster: string;
+  }[];
+  recepient: {
+    name: string;
+    phone: string;
+  };
+  deliveryAddress: {
+    city: string;
+    postalOperator: string;
+    postalDepartment: string;
+    personalAddress: {
+      street: string;
+      house: string;
+      apartment: number;
+    };
+  };
+}
+
+export interface ICategory {
+  title: string;
+  parent: string;
+  icon: string;
+  slug: string;
+  _id: string;
+  children: ICategoryChildren[];
+}
+
+export interface ICategoryChildren {
+  title: string;
+  parent: string;
+  icon: string;
+  slug: string;
+  _id: string;
+  children: ICategoryChildren[];
+}
+
+export interface ICategoryChildren {
+  title: string;
+  parent: string;
+  icon: string;
+  slug: string;
+  _id: string;
+}
+
+export interface IUpdateCategory {
+  title?: string;
+  parent?: string;
+  icon?: string;
+}
+
+export interface ICreateCategory {
+  title: string;
+  parent?: string;
+  icon?: string;
 }
