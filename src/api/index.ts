@@ -73,17 +73,8 @@ export const getProductsByQuery = async (
         const url = new URL(`${NEXT_PUBLIC_BASE_URL}/products`);
         const params = new URLSearchParams();
 
-        // if (filters.category) params.append('category', filters.category);
-        // if (filters.sort) params.append('sort', filters.sort);
-        // if (filters.search) params.append('search', filters.search);
-        // if (filters.minPrice !== 0)
-        //     params.append('minPrice', String(filters.minPrice));
-        // if (filters.maxPrice !== 0)
-        //     params.append('maxPrice', String(filters.maxPrice));
-        // if (filters.page !== undefined) params.append('page', String(filters.page));
         (Object.keys(filters) as (keyof IFilteredProducts)[]).forEach((key) => {
             const value = filters[key];
-            // Додаємо параметр, якщо значення визначене
             if (value !== undefined && value !== null && value !== 0) {
                 params.append(key, String(value));
             }

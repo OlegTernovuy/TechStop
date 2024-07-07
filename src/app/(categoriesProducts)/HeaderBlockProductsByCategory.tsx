@@ -10,6 +10,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getCategories } from '@/api';
 import { findTitleBySlug } from '../utils/findTitleBySlug';
+import { useFilterModalStore } from '@/store/modalStore';
 
 interface IPropsParams {
     pathname: string;
@@ -19,6 +20,10 @@ const HeaderBlockProductsByCategory = ({ pathname }: IPropsParams) => {
     const parts = pathname.split('/');
     const category = parts[2];
     const [categoryTitle, setCategoryTitle] = useState<string | null>('');
+
+    const setShowFilterModal = useFilterModalStore(
+        (state) => state.setShowFilterModal
+    );
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -81,7 +86,10 @@ const HeaderBlockProductsByCategory = ({ pathname }: IPropsParams) => {
                             </NoSsr>
                         </FormControl>
                     </div>
-                    <button className="w-full md:hidden bg-TechStopBlue text-TechStopWhite uppercas h-[42px] md:h-[52px] flex justify-center items-center py-2 rounded">
+                    <button
+                        className="w-full md:hidden bg-TechStopBlue text-TechStopWhite uppercas h-[42px] md:h-[52px] flex justify-center items-center py-2 rounded"
+                        onClick={setShowFilterModal}
+                    >
                         фільтри
                     </button>
                 </div>

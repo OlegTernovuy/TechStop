@@ -55,7 +55,7 @@ const CatalogItem: FC<ICatalogItemsProps> = ({ params }) => {
                 minPrice: Number(minPriceQuery),
                 maxPrice: Number(maxPriceQuery),
                 sort: searchSortQuery,
-                // page: page,
+                page: page,
             });
             setData(product);
             setLoading(false);
