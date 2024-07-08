@@ -178,3 +178,28 @@ export interface ICreateCategory {
   parent?: string;
   icon?: string;
 }
+
+//ADMIN_STORE
+
+export interface IUser {
+  data: {
+    user: {
+      roles: string[];
+      _id: string;
+      email: string;
+      password: string;
+      createdAt: string;
+      updatedAt: string;
+    };
+    token: string;
+  };
+}
+
+export interface IUserData {
+  roles: string[];
+  _id: string;
+  email: string;
+  password: string;
+  createdAt: string;
+  updatedAt: string;
+}

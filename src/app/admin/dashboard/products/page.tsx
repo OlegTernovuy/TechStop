@@ -26,6 +26,7 @@ import AdminTHList from "@/components/admin/AdminTHList";
 import CharacteristicsFields from "@/components/admin/CharacteristicsFields";
 import FieldArray from "@/components/admin/FieldArray";
 import ProductsList from "@/components/admin/Products/ProductsList";
+import withAuth from "@/components/hoc/withAuth";
 
 const defaultValues = {
   title: "",
@@ -211,4 +212,4 @@ const ProductsPage = () => {
   );
 };
 
-export default ProductsPage;
+export default withAuth(ProductsPage);

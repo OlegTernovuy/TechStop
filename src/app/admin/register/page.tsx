@@ -1,28 +1,57 @@
 "use client";
 
-import React, { SyntheticEvent } from "react";
+import React, { SyntheticEvent, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { signUp } from "@/api/admin";
+
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { adminToastMessages } from "@/components/admin/constants/adminToastMessages";
+import { useAdminAuth } from "@/store/useAdminAuth";
+import CustomSpinner from "@/components/Global/Spinner/CustomSpinner";
+import CustomToast from "@/components/Global/Toaster/CustomToast";
 
 const { AUTH_ERROR_CREDENTIALS, AUTH_SUCCESSFULLY } = adminToastMessages();
 
 const RegisterPage = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const { signUp, isError, isLoading, isLoggedIn } = useAdminAuth();
   const router = useRouter();
 
-  const handleSubmit = async (e: SyntheticEvent) => {
-    if (!email || !password) {
-      return toast.error(AUTH_ERROR_CREDENTIALS);
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/admin/dashboard");
     }
+  }, [isLoggedIn, router]);
 
-    e.preventDefault();
-    await signUp({ email, password });
-    toast.success(AUTH_SUCCESSFULLY);
-    router.push("/admin/dashboard");
+  const handleSubmit = async (e: SyntheticEvent) => {
+    try {
+      e.preventDefault();
+
+      const resp = await signUp(email, password);
+
+      console.log(resp);
+
+      if (isError) {
+        toast.error("OOPS something went wrong");
+        alert("OOPS something went wrong");
+        throw new Error();
+      }
+
+      const user = resp?.data?.user.roles;
+
+      const userRoles = user?.find((item) => item === "user");
+
+      if (userRoles || !resp?.data?.user) {
+        toast.error(AUTH_ERROR_CREDENTIALS);
+        alert("Unauthorized");
+        throw new Error("Unauthorized");
+      }
+
+      toast.success(AUTH_SUCCESSFULLY);
+
+      router.push("/admin/login");
+    } catch (error) {}
   };
 
   return (
@@ -50,9 +79,10 @@ const RegisterPage = () => {
           </div>
           <button
             type="submit"
+            disabled={isLoading}
             className="w-full mb-2 bg-blue-500 text-white p-2 rounded"
           >
-            Sign Up
+            {isLoading ? <CustomSpinner width={20} height={20} /> : "Register"}
           </button>
         </form>
 
@@ -60,6 +90,7 @@ const RegisterPage = () => {
           Login
         </Link>
       </div>
+      <CustomToast />
     </div>
   );
 };

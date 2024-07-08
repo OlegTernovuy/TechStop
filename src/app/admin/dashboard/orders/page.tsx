@@ -5,6 +5,7 @@ import AdminOrders from "@/components/admin/Orders";
 import Button from "@/components/ProductCard/Button";
 import Modal from "@/components/Global/Modal/ModalWindow";
 import CreateOrderForm from "@/components/admin/Orders/CreateOrder/CreateOrderForm";
+import withAuth from "@/components/hoc/withAuth";
 
 const Orders = () => {
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
@@ -41,4 +42,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default withAuth(Orders);

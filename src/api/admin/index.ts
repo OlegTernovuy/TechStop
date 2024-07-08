@@ -1,5 +1,5 @@
 import axios from "axios";
-import { env } from "../../../next.config";
+
 import {
   ICreateCategory,
   ICreateOrderFormValues,
@@ -9,44 +9,11 @@ import {
   IUpdateReview,
   UpdatePurchasesData,
 } from "@/components/admin/types";
-
-const token = {
-  set(token: string) {
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-  },
-  unset() {
-    axios.defaults.headers.common.Authorization = "";
-  },
-};
+import { env } from "../../../next.config";
 
 const { NEXT_PUBLIC_BASE_URL } = env;
 
 axios.defaults.baseURL = NEXT_PUBLIC_BASE_URL;
-
-interface User {
-  email: string;
-  password: string;
-}
-
-export const signUp = async (user: User) => {
-  try {
-    const { data } = await axios.post("auth/register", user);
-    token.set(data.token);
-    return data;
-  } catch (error) {
-    console.log((error as Error).message);
-  }
-};
-
-export const signIn = async (user: User) => {
-  try {
-    const { data } = await axios.post("auth/login", user);
-    token.set(data.token);
-    return data;
-  } catch (error) {
-    console.log((error as Error).message);
-  }
-};
 
 export const createProduct = async (product: ICreateProductData) => {
   try {
@@ -178,6 +145,16 @@ export const updateCategory = async (
 export const deleteCategoryBySlug = async (slug: string) => {
   try {
     const { data } = await axios.delete(`/categories/${slug}`);
+
+    return data;
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+export const getUsers = async () => {
+  try {
+    const { data } = await axios.get(`/users/`);
 
     return data;
   } catch (error) {

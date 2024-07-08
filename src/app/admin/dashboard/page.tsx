@@ -1,3 +1,7 @@
+"use client";
+
+import withAuth from "@/components/hoc/withAuth";
+
 const DashboardPage = () => {
   return (
     <div className="mb-screen">
@@ -9,4 +13,4 @@ const DashboardPage = () => {
   );
 };
 
-export default DashboardPage;
+export default withAuth(DashboardPage);
