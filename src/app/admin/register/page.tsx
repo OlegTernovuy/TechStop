@@ -38,11 +38,11 @@ const RegisterPage = () => {
         throw new Error();
       }
 
-      const user = resp?.data?.user.roles;
+      const user = resp?.user.roles;
 
       const userRoles = user?.find((item) => item === "user");
 
-      if (userRoles || !resp?.data?.user) {
+      if (userRoles || !resp?.user) {
         toast.error(AUTH_ERROR_CREDENTIALS);
         alert("Unauthorized");
         throw new Error("Unauthorized");
