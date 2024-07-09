@@ -36,7 +36,7 @@ interface IAuthStore {
     email: null | string,
     password: null | string
   ) => Promise<IUser | null>;
-  signOut: () => Promise<void>;
+  signOut: (token: string) => Promise<void>;
 }
 
 const initialState = {
@@ -70,9 +70,7 @@ export const useAdminAuth = create<IAuthStore>()(
             throw new Error("Something went wrong");
           }
 
-          const {
-            data: { user },
-          } = resp.data;
+          const { data } = resp.data;
 
           set(
             {
@@ -80,18 +78,18 @@ export const useAdminAuth = create<IAuthStore>()(
               isLoading: false,
               isLoggedIn: true,
               isError: null,
-              email: user.email,
-              password: user.password,
-              roles: user?.roles,
-              token: resp?.data?.token,
+              email: data.user.email,
+              password: data.user.password,
+              roles: data?.user.roles,
+              token: data?.token,
             },
             false,
             "signUp"
           );
 
-          token.set(resp.data.token);
+          token.set(data.token);
 
-          return resp.data;
+          return data;
         } catch (error) {
           set({ isLoading: false, isError: error as Error }, false, "signUp");
           console.log((error as Error).message);
@@ -107,30 +105,26 @@ export const useAdminAuth = create<IAuthStore>()(
             throw new Error("Something went wrong");
           }
 
-          console.log(resp.data);
-
-          const {
-            data: { user },
-          } = resp.data;
+          const { data } = resp.data;
 
           set(
             {
-              data: resp.data,
+              data: resp.data.data,
               isLoading: false,
               isLoggedIn: true,
               isError: null,
-              email: user.email,
-              password: user.password,
-              roles: user?.roles,
-              token: resp?.data?.token,
+              email: data?.user.email,
+              password: data?.user.password,
+              roles: data?.user?.roles,
+              token: data?.token,
             },
             false,
             "signIn"
           );
 
-          token.set(resp.data.token);
+          token.set(data?.token);
 
-          return resp.data;
+          return data;
         } catch (error) {
           set({ isLoading: false, isError: error as Error }, false, "signIn");
           console.log((error as Error).message);
@@ -138,10 +132,42 @@ export const useAdminAuth = create<IAuthStore>()(
       },
 
       signOut: async () => {
+        // const { data, token } = get();
+        // console.log(data);
+        // console.log(token);
         try {
-          await axios.post("auth/logout");
+          set({ isLoading: true, isError: null }, false, "signOut");
+          // token.set(authToken);
+          const resp = await axios.post("auth/logout");
+
+          if (resp.status !== 200) {
+            throw new Error("Something went wrong");
+          }
+
           token.unset();
-        } catch (error) {}
+
+          const { data } = resp.data;
+
+          set(
+            {
+              data: {},
+              isLoading: false,
+              isError: null,
+              isLoggedIn: false,
+              email: null,
+              password: null,
+              roles: [""],
+              token: "",
+            },
+            false,
+            "signOut"
+          );
+
+          return data;
+        } catch (error) {
+          console.log((error as Error).message);
+          set({ isLoading: false, isError: error as Error }, false, "signOut");
+        }
       },
     })),
     { name: "AdminAuth", version: 1 }

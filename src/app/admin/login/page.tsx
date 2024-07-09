@@ -29,6 +29,7 @@ const LoginPage = () => {
       e.preventDefault();
 
       const resp = await signIn(email, password);
+      console.log(resp);
 
       if (isError) {
         toast.error("OOPS something went wrong");
@@ -39,14 +40,14 @@ const LoginPage = () => {
         router.push("/admin/dashboard");
       }
 
-      const user = resp?.data?.user.roles;
+      const user = resp?.user.roles;
 
       const userRoles = user?.find((item) => item === "user");
 
-      if (userRoles || !resp?.data?.user) {
+      if (userRoles || !resp?.user) {
         toast.error(AUTH_ERROR_CREDENTIALS);
         alert("Unauthorized");
-        throw new Error("Unauthorized");
+        return;
       }
 
       toast.success(AUTH_SUCCESSFULLY);

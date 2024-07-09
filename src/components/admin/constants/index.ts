@@ -215,5 +215,4 @@ export const usersTHList = [
   },
   { id: 6, title: "UpdatedAt" },
   { id: 7, title: "UPDATE" },
-  { id: 8, title: "DELETE" },
 ];

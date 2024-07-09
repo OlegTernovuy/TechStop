@@ -7,6 +7,7 @@ import {
   IUpdateCategory,
   IUpdateProductFields,
   IUpdateReview,
+  IUpdateRole,
   UpdatePurchasesData,
 } from "@/components/admin/types";
 import { env } from "../../../next.config";
@@ -157,6 +158,16 @@ export const getUsers = async () => {
     const { data } = await axios.get(`/users/`);
 
     return data;
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+export const changeRole = async (data: IUpdateRole) => {
+  try {
+    const { data: respData } = await axios.post(`/users/changeRoles`, data);
+
+    return respData;
   } catch (error) {
     console.log((error as Error).message);
   }
