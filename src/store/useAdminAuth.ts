@@ -36,7 +36,7 @@ interface IAuthStore {
     email: null | string,
     password: null | string
   ) => Promise<IUser | null>;
-  signOut: (token: string) => Promise<void>;
+  signOut: () => Promise<void>;
 }
 
 const initialState = {
@@ -132,12 +132,9 @@ export const useAdminAuth = create<IAuthStore>()(
       },
 
       signOut: async () => {
-        // const { data, token } = get();
-        // console.log(data);
-        // console.log(token);
         try {
           set({ isLoading: true, isError: null }, false, "signOut");
-          // token.set(authToken);
+
           const resp = await axios.post("auth/logout");
 
           if (resp.status !== 200) {
