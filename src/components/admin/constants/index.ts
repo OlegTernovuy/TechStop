@@ -191,3 +191,28 @@ export const categoriesThList = [
   { id: 8, title: "UPDATE" },
   { id: 9, title: "DELETE" },
 ];
+
+export const usersTHList = [
+  {
+    id: 1,
+    title: "No",
+  },
+  {
+    id: 2,
+    title: "ID",
+  },
+  {
+    id: 3,
+    title: "Email",
+  },
+  {
+    id: 4,
+    title: "Role",
+  },
+  {
+    id: 5,
+    title: "CreatedAt",
+  },
+  { id: 6, title: "UpdatedAt" },
+  { id: 7, title: "UPDATE" },
+];

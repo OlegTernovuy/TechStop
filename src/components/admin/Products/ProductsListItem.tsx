@@ -16,6 +16,7 @@ import UploadPoster from "../UploadPoster";
 import Modal from "@/components/Global/Modal/ModalWindow";
 import CustomInput from "@/components/ProductCard/FeedBack/CustomInput";
 import CustomToast from "@/components/Global/Toaster/CustomToast";
+import { useCheckUsers } from "@/components/hooks/useCheckUsers";
 
 const defaultValues = {
   title: "",
@@ -46,7 +47,15 @@ const ProductsListItem: FC<IProductsListItemProps> = ({
     formState: { errors },
   } = methods;
 
+  const { isUser } = useCheckUsers("user");
+
   const onSubmit: SubmitHandler<IUpdateProductFields> = async (data) => {
+    if (isUser) {
+      toast.error(`You do not have access to change products`);
+      alert(`You do not have access to change products`);
+      return;
+    }
+
     try {
       if (!data) {
         toast.error("No data to change");
@@ -62,16 +71,33 @@ const ProductsListItem: FC<IProductsListItemProps> = ({
   };
 
   const togglePosterModal = (productId: string | null = null) => {
+    if (isUser) {
+      toast.error(`You do not have access to change poster`);
+      alert(`You do not have access to change poster`);
+      return;
+    }
+
     setCurrentProductId(productId);
     setModalPosterIsOpen(!modalPosterIsOpen);
   };
 
   const toggleUpdateModal = (productId: string | null = null) => {
+    if (isUser) {
+      toast.error(`You do not have access to change products`);
+      alert(`You do not have access to change poster`);
+      return;
+    }
+
     setCurrentProductId(productId);
     setIsUpdateModal(!updateModal);
   };
 
   const toggleDeleteModal = (productId: string | null = null) => {
+    if (isUser) {
+      toast.error(`You do not have access to delete products`);
+      alert(`You do not have access to change poster delete products`);
+      return;
+    }
     setCurrentProductId(productId);
     setIsDeleteModal(!deleteModal);
   };

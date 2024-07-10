@@ -11,7 +11,6 @@ import {
   useForm,
 } from "react-hook-form";
 import toast from "react-hot-toast";
-import * as yup from "yup";
 
 import CustomToast from "@/components/Global/Toaster";
 import { yupResolver } from "@hookform/resolvers/yup";

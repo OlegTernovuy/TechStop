@@ -178,3 +178,37 @@ export interface ICreateCategory {
   parent?: string;
   icon?: string;
 }
+
+//ADMIN_STORE
+
+export interface IUser {
+  user: {
+    roles: string[];
+    _id: string;
+    email: string;
+    password: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  token: string;
+}
+
+export interface IUserData {
+  roles: string[];
+  _id: string;
+  email: string;
+  password: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IUpdateRole {
+  roles: UserRole[];
+  email: string;
+}
+
+export enum UserRole {
+  User = "user",
+  Admin = "admin",
+  SuperAdmin = "superadmin",
+}

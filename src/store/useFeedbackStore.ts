@@ -16,7 +16,7 @@ interface IFeedbackStore {
   isError?: null | Error;
   getAll: () => Promise<void>;
   getAllFeedbacks: (productId: string) => Promise<void>;
-  addNewFeedback: (newReview: Review) => Promise<void>;
+  addNewFeedback: (newReview: Review, productId?: string) => Promise<void>;
   deleteFeedback: (id: string) => Promise<void>;
 }
 
@@ -78,7 +78,7 @@ export const useFeedbackStore = create<IFeedbackStore>()(
           toast.error((error as Error).message);
         }
       },
-      addNewFeedback: async (newReview) => {
+      addNewFeedback: async (newReview, productId) => {
         const { isError, reviews } = get();
         set({ isLoading: true, isError: null }, false, "addNewFeedback");
         try {
@@ -92,6 +92,7 @@ export const useFeedbackStore = create<IFeedbackStore>()(
           }
 
           const { data } = resp.data;
+          data.productId = productId;
 
           set(
             {

@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import CustomToast from "@/components/Global/Toaster/CustomToast";
 import { TOAST_MESSAGES } from "@/constants/toastMessages";
 import UpdateReviewForm from "./UpdateReviewForm";
+import { useCheckUsers } from "@/components/hooks/useCheckUsers";
 
 const ReviewsList = () => {
   const [currentProductId, setCurrentProductId] = useState<string | null>(null);
@@ -24,6 +25,8 @@ const ReviewsList = () => {
     isError,
   } = useFeedbackStore();
 
+  const { isUser } = useCheckUsers("user");
+
   useEffect(() => {
     const fetchAllReviews = async () => {
       getAll();
@@ -33,11 +36,21 @@ const ReviewsList = () => {
   }, [getAll]);
 
   const toggleUpdateModal = (productId: string | null = null) => {
+    if (isUser) {
+      toast.error(`You do not have access to delete products`);
+      alert(`You do not have access to change poster delete products`);
+      return;
+    }
     setCurrentProductId(productId);
     setIsUpdateModal(!updateModal);
   };
 
   const toggleDeleteModal = (productId: string | null = null) => {
+    if (isUser) {
+      toast.error(`You do not have access to delete products`);
+      alert(`You do not have access to change poster delete products`);
+      return;
+    }
     setCurrentProductId(productId);
     setIsDeleteModal(!deleteModal);
   };

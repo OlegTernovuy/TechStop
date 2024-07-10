@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import { UserRole } from "../types";
 
 export const createProductSchema = yup.object({
   title: yup.string().required("Це поле є обов'язковим"),
@@ -143,4 +144,20 @@ export const createCategorySchema = yup.object({
   title: yup.string().required("Це поле обов'язкове"),
   parent: yup.string().optional(),
   icon: yup.string().optional(),
+});
+
+export const updateRole = yup.object({
+  roles: yup
+    .array()
+    .of(
+      yup
+        .mixed<UserRole>()
+        .oneOf(Object.values(UserRole))
+        .required("Це поле обов'язкове")
+    )
+    .required("Це поле обов'язкове"),
+  email: yup
+    .string()
+    .matches(emailRegex, "Некоректний email")
+    .required("Email is required"),
 });
