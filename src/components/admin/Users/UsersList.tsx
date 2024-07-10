@@ -38,7 +38,6 @@ const UsersList = () => {
   const toggleUpdateModal = (productId: string | null = null) => {
     if (!isUser) {
       toast.error(`You do not have access to change Users`);
-      alert(`You do not have access to change Users`);
       return;
     }
 

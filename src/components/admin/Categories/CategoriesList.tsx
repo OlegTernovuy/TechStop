@@ -45,7 +45,6 @@ const CategoriesList: FC = () => {
   const toggleUpdateModal = (categoryID: string | null = null) => {
     if (isUser) {
       toast.error(`You do not have access to update categories`);
-      alert(`You do not have access to change to update categories`);
       return;
     }
     setCurrentCategoryId(categoryID);
@@ -55,7 +54,6 @@ const CategoriesList: FC = () => {
   const toggleDeleteModal = (categoryID: string | null = null) => {
     if (isUser) {
       toast.error(`You do not have access to delete categories`);
-      alert(`You do not have access to change to delete categories`);
       return;
     }
     setCurrentCategoryId(categoryID);

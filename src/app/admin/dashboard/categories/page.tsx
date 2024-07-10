@@ -17,7 +17,6 @@ const CategoriesPage = () => {
   const toggleModal = () => {
     if (isUser) {
       toast.error(`You do not have access to create categories`);
-      alert(`You do not have access create categories`);
       return;
     }
     setModalIsOpen(!modalIsOpen);

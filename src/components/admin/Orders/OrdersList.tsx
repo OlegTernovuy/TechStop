@@ -43,7 +43,6 @@ const OrdersList = () => {
   ) => {
     if (isUser) {
       toast.error(`You do not have access to update orders`);
-      alert(`You do not have access to update orders`);
       return;
     }
     setCurrentProductId(productId);
@@ -54,7 +53,6 @@ const OrdersList = () => {
   const toggleDeleteModal = (productId: string | null = null) => {
     if (isUser) {
       toast.error(`You do not have access to delete orders`);
-      alert(`You do not have access to delete orders`);
       return;
     }
     setCurrentProductId(productId);

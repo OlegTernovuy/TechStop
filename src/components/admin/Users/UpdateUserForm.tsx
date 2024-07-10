@@ -47,7 +47,6 @@ const UpdateUserForm: FC<IUpdateUserFormProps> = ({ userId, toggleModal }) => {
   const onSubmit: SubmitHandler<IUpdateRole> = async (data) => {
     if (data.roles.length === 0) {
       toast.error("Roles not selected");
-      alert("Roles not selected");
       return;
     }
 
@@ -66,7 +65,6 @@ const UpdateUserForm: FC<IUpdateUserFormProps> = ({ userId, toggleModal }) => {
 
     if (!isSuperAdmin) {
       toast.error("You don`t have access to change roles");
-      alert("You don`t have access to change roles");
       return;
     }
 

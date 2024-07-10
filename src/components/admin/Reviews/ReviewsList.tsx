@@ -38,7 +38,6 @@ const ReviewsList = () => {
   const toggleUpdateModal = (productId: string | null = null) => {
     if (isUser) {
       toast.error(`You do not have access to delete products`);
-      alert(`You do not have access to change poster delete products`);
       return;
     }
     setCurrentProductId(productId);

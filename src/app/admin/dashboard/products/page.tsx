@@ -77,7 +77,6 @@ const ProductsPage = () => {
   const onSubmit: SubmitHandler<ICreateProductData> = async (data) => {
     if (isUser) {
       toast.error("You don`t have access to create products");
-      alert("You don`t have access to create products");
       return;
     }
 
@@ -102,7 +101,6 @@ const ProductsPage = () => {
   const handleDelete = async (_id: string) => {
     if (isUser) {
       toast.error("You don`t have access to delete products");
-      alert("You don`t have access to delete products");
       return;
     }
 
