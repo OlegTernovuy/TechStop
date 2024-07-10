@@ -46,7 +46,6 @@ const ReviewsPage = () => {
   const toggleModal = () => {
     if (isUser) {
       toast.error(`You do not have access to create review`);
-      alert(`You do not have access to create review`);
       return;
     }
     setModalIsOpen(!modalIsOpen);

@@ -56,7 +56,6 @@ const LoginPage = () => {
       setIsLoading(false);
       console.log((error as Error).message);
       toast.error((error as Error).message);
-      alert((error as Error).message);
     }
   };
 
