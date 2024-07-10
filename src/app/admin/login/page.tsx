@@ -42,7 +42,7 @@ const LoginPage = () => {
       await signIn("credentials", {
         email,
         password,
-        callbackUrl: "http://localhost:3000/admin/dashboard",
+        callbackUrl: "/admin/dashboard",
       });
 
       setIsLoading(false);
