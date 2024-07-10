@@ -5,12 +5,21 @@ import Button from "@/components/ProductCard/Button";
 import Categories from "@/components/admin/Categories";
 import CreateCategoryForm from "@/components/admin/Categories/CreateCategoryForm";
 import withAuth from "@/components/hoc/withAuth";
+import { useCheckUsers } from "@/components/hooks/useCheckUsers";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 const CategoriesPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
+  const { isUser } = useCheckUsers("user");
+
   const toggleModal = () => {
+    if (isUser) {
+      toast.error(`You do not have access to create categories`);
+      alert(`You do not have access create categories`);
+      return;
+    }
     setModalIsOpen(!modalIsOpen);
   };
 

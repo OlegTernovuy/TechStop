@@ -1,60 +1,62 @@
 "use client";
 
-import React, { SyntheticEvent, useEffect } from "react";
+import React, { SyntheticEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+// import Link from "next/link";
 import CustomSpinner from "@/components/Global/Spinner/CustomSpinner";
 import toast from "react-hot-toast";
 import { adminToastMessages } from "@/components/admin/constants/adminToastMessages";
-import { useAdminAuth } from "@/store/useAdminAuth";
 import CustomToast from "@/components/Global/Toaster/CustomToast";
+import { signIn, useSession } from "next-auth/react";
 
 const { AUTH_ERROR_CREDENTIALS, AUTH_SUCCESSFULLY } = adminToastMessages();
 
 const LoginPage = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const { signIn, isLoading, isError, isLoggedIn } = useAdminAuth();
+  const { data } = useSession();
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (data?.token) {
       router.push("/admin/dashboard");
     }
-  }, [isLoggedIn, router]);
+  }, [router, data?.token]);
 
   const handleSubmit = async (e: SyntheticEvent) => {
     try {
       e.preventDefault();
 
-      const resp = await signIn(email, password);
-      console.log(resp);
+      const userRoles = data?.user?.roles.find((item) => item === "user");
 
-      if (isError) {
-        toast.error("OOPS something went wrong");
-        return;
-      }
-
-      if (isLoggedIn) {
-        router.push("/admin/dashboard");
-      }
-
-      const user = resp?.user.roles;
-
-      const userRoles = user?.find((item) => item === "user");
-
-      if (userRoles || !resp?.user) {
+      if (userRoles) {
         toast.error(AUTH_ERROR_CREDENTIALS);
         alert("Unauthorized");
         return;
       }
 
-      toast.success(AUTH_SUCCESSFULLY);
+      setIsLoading(true);
 
-      router.push("/admin/dashboard");
+      await signIn("credentials", {
+        email,
+        password,
+        callbackUrl: "http://localhost:3000/admin/dashboard",
+      });
+
+      setIsLoading(false);
+
+      // if (resp?.status !== 200) {
+      //   throw new Error("Error");
+      // }
+
+      toast.success(AUTH_SUCCESSFULLY);
     } catch (error) {
-      // alert("Unauthorized");
+      setIsLoading(false);
+      console.log((error as Error).message);
+      toast.error((error as Error).message);
+      alert((error as Error).message);
     }
   };
 
@@ -85,20 +87,21 @@ const LoginPage = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full mb-2 bg-blue-500 text-white p-2 rounded"
+              className={`w-full mb-2 ${
+                isLoading
+                  ? "bg-gray-700 cursor-not-allowed"
+                  : "bg-blue-500 cursor-pointer"
+              }  text-white p-2 rounded`}
             >
               {isLoading ? <CustomSpinner width={20} height={20} /> : "Login"}
             </button>
           </form>
-          <Link href="/admin/register" className="text-TechStopBlue">
+          {/* <Link href="/admin/register" className="text-TechStopBlue">
             Register
-          </Link>
+          </Link> */}
         </div>
       </div>
-      <div style={{ zIndex: 10000000000000 }}>
-        {" "}
-        <CustomToast />
-      </div>
+      <CustomToast />
     </>
   );
 };

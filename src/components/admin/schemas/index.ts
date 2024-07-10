@@ -149,7 +149,12 @@ export const createCategorySchema = yup.object({
 export const updateRole = yup.object({
   roles: yup
     .array()
-    .of(yup.mixed<UserRole>().oneOf(Object.values(UserRole)).required())
+    .of(
+      yup
+        .mixed<UserRole>()
+        .oneOf(Object.values(UserRole))
+        .required("Це поле обов'язкове")
+    )
     .required("Це поле обов'язкове"),
   email: yup
     .string()

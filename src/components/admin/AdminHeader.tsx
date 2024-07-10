@@ -1,24 +1,25 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { useAdminAuth } from "@/store/useAdminAuth";
-import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import CustomToast from "../Global/Toaster/CustomToast";
-import CustomSpinner from "../Global/Spinner/CustomSpinner";
 import Button from "../ProductCard/Button";
+import { signOut, useSession } from "next-auth/react";
+import CustomSpinner from "../Global/Spinner/CustomSpinner";
 
 const AdminHeader = () => {
-  const { email, roles, signOut, isLoading } = useAdminAuth();
-
-  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const { data } = useSession();
 
   const handleSignOut = async () => {
-    await signOut();
+    setIsLoading(true);
+    await signOut({ callbackUrl: "http://localhost:3000/admin/login" });
+    setIsLoading(false);
     toast.success("Logout success");
-    router.push("/admin/login");
   };
+
+  const roles = data?.user.roles;
 
   return (
     <>
@@ -31,13 +32,13 @@ const AdminHeader = () => {
           <li>
             {" "}
             <p className="text-TechStopBlue">
-              You login with email <strong>{email}</strong>
+              You login with email <strong>{data?.user.email}</strong>
             </p>
           </li>
           <li>
             {" "}
             <p className="text-TechStopBlue">
-              Your role <strong>{...roles}</strong>
+              Your role <strong>{roles && [...roles]}</strong>
             </p>
           </li>
         </ul>

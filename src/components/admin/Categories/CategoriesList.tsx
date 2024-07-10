@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import Modal from "@/components/Global/Modal/ModalWindow";
 import CustomToast from "@/components/Global/Toaster/CustomToast";
 import UpdateCategoryForm from "./UpdateCategoryForm";
+import { useCheckUsers } from "@/components/hooks/useCheckUsers";
 
 const CategoriesList: FC = () => {
   const [categories, setCategories] = useState<ICategory[] | []>([]);
@@ -21,6 +22,8 @@ const CategoriesList: FC = () => {
   const [updateModal, setIsUpdateModal] = useState(false);
   const [deleteModal, setIsDeleteModal] = useState(false);
   const [isError, setIsError] = useState<Error | null>(null);
+
+  const { isUser } = useCheckUsers("user");
 
   useEffect(() => {
     const fetchAllCategories = async () => {
@@ -40,11 +43,21 @@ const CategoriesList: FC = () => {
   }, []);
 
   const toggleUpdateModal = (categoryID: string | null = null) => {
+    if (isUser) {
+      toast.error(`You do not have access to update categories`);
+      alert(`You do not have access to change to update categories`);
+      return;
+    }
     setCurrentCategoryId(categoryID);
     setIsUpdateModal(!updateModal);
   };
 
   const toggleDeleteModal = (categoryID: string | null = null) => {
+    if (isUser) {
+      toast.error(`You do not have access to delete categories`);
+      alert(`You do not have access to change to delete categories`);
+      return;
+    }
     setCurrentCategoryId(categoryID);
     setIsDeleteModal(!deleteModal);
   };

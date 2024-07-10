@@ -7,16 +7,14 @@ import Modal from "@/components/Global/Modal/ModalWindow";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FormRate from "@/components/ProductCard/FeedBack/FormRate";
-import {
-  createReviewsSchema,
-  updateReviewsSchema,
-} from "@/components/admin/schemas";
+import { createReviewsSchema } from "@/components/admin/schemas";
 import { Rating } from "@/components/ProductCard/FeedBack/Feedback.types";
 import { Review } from "@/types";
 import { useFeedbackStore } from "@/store/useFeedbackStore";
 import { TOAST_MESSAGES } from "@/constants/toastMessages";
 import toast from "react-hot-toast";
 import withAuth from "@/components/hoc/withAuth";
+import { useCheckUsers } from "@/components/hooks/useCheckUsers";
 
 const { REVIEW_SUCCESS } = TOAST_MESSAGES();
 
@@ -25,6 +23,7 @@ const ReviewsPage = () => {
   const [leaveFeedback, setLeaveFeedback] = useState(false);
 
   const { addNewFeedback } = useFeedbackStore();
+  const { isUser } = useCheckUsers("user");
 
   const methods = useForm({
     resolver: yupResolver(createReviewsSchema),
@@ -45,6 +44,11 @@ const ReviewsPage = () => {
   } = methods;
 
   const toggleModal = () => {
+    if (isUser) {
+      toast.error(`You do not have access to create review`);
+      alert(`You do not have access to create review`);
+      return;
+    }
     setModalIsOpen(!modalIsOpen);
   };
 
@@ -53,7 +57,6 @@ const ReviewsPage = () => {
     const newData = {
       ...data,
       productId,
-      // userId
     };
 
     const { userEmail, ...filteredData } = newData;

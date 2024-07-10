@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { getUsers } from "@/api/admin";
 import { IUserData } from "@/components/admin/types";
 import { useEffect, useState } from "react";
@@ -8,15 +7,17 @@ import CustomSpinner from "@/components/Global/Spinner/CustomSpinner";
 import Button from "@/components/ProductCard/Button";
 import Modal from "@/components/Global/Modal/ModalWindow";
 import CustomToast from "@/components/Global/Toaster/CustomToast";
-import { adminToastMessages } from "../constants/adminToastMessages";
 import UpdateUserForm from "./UpdateUserForm";
+import { useCheckUsers } from "@/components/hooks/useCheckUsers";
+import toast from "react-hot-toast";
 
 const UsersList = () => {
   const [users, setUser] = useState<IUserData[] | []>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [updateModal, setIsUpdateModal] = useState(false);
-  const [deleteModal, setIsDeleteModal] = useState(false);
+
+  const { isUser } = useCheckUsers("superadmin");
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -35,11 +36,15 @@ const UsersList = () => {
   }, []);
 
   const toggleUpdateModal = (productId: string | null = null) => {
+    if (!isUser) {
+      toast.error(`You do not have access to change Users`);
+      alert(`You do not have access to change Users`);
+      return;
+    }
+
     setCurrentUserId(productId);
     setIsUpdateModal(!updateModal);
   };
-
-  const { DELETE_USER_ERROR, DELETE_USER_SUCCESS } = adminToastMessages();
 
   return (
     <>
@@ -70,7 +75,10 @@ const UsersList = () => {
 
                   {updateModal && currentUserId === _id && (
                     <Modal onClose={() => toggleUpdateModal(currentUserId)}>
-                      <UpdateUserForm userId={currentUserId} />
+                      <UpdateUserForm
+                        userId={currentUserId}
+                        toggleModal={toggleUpdateModal}
+                      />
 
                       <Button
                         type="button"

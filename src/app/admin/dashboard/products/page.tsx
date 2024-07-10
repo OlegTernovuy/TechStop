@@ -27,6 +27,7 @@ import CharacteristicsFields from "@/components/admin/CharacteristicsFields";
 import FieldArray from "@/components/admin/FieldArray";
 import ProductsList from "@/components/admin/Products/ProductsList";
 import withAuth from "@/components/hoc/withAuth";
+import { useSession } from "next-auth/react";
 
 const defaultValues = {
   title: "",
@@ -40,6 +41,8 @@ const ProductsPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const { data } = useSession();
 
   const methods = useForm({
     defaultValues,
@@ -69,7 +72,15 @@ const ProductsPage = () => {
       name: "characteristics",
     });
 
+  const isUser = data?.user?.roles?.find((item) => item === "user");
+
   const onSubmit: SubmitHandler<ICreateProductData> = async (data) => {
+    if (isUser) {
+      toast.error("You don`t have access to create products");
+      alert("You don`t have access to create products");
+      return;
+    }
+
     try {
       if (!data) {
         return;
@@ -89,6 +100,12 @@ const ProductsPage = () => {
   };
 
   const handleDelete = async (_id: string) => {
+    if (isUser) {
+      toast.error("You don`t have access to delete products");
+      alert("You don`t have access to delete products");
+      return;
+    }
+
     try {
       await deleteById(_id);
       setProducts((prevProducts) =>
