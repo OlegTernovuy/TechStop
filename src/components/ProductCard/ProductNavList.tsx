@@ -1,12 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { FC } from "react";
-import { join } from "path";
-import Image from "next/image";
 import { Product } from "@/types";
-import { useFeedbackStore } from "@/store/useFeedbackStore";
 
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";

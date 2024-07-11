@@ -24,16 +24,6 @@ const RecommendationListItem: FC<IRecommendationProps> = ({ products }) => {
     [products]
   );
 
-  //! АБО
-
-  // const sortedProducts = averageRatings?.sort(
-  //   (a, b) => b.averageRating - a.averageRating
-  // );
-  // console.log("sortedProducts", sortedProducts);
-
-  // const topProducts = sortedProducts?.slice(0, 6);
-  // console.log("topProducts", topProducts);
-
   return (
     <>
       {topProducts ? (

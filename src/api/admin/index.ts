@@ -1,49 +1,20 @@
 import axios from "axios";
-import { env } from "../../../next.config";
+
 import {
+  ICreateCategory,
+  ICreateOrderFormValues,
   ICreateProductData,
+  IUpdateCategory,
   IUpdateProductFields,
   IUpdateReview,
+  IUpdateRole,
   UpdatePurchasesData,
 } from "@/components/admin/types";
-
-const token = {
-  set(token: string) {
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-  },
-  unset() {
-    axios.defaults.headers.common.Authorization = "";
-  },
-};
+import { env } from "../../../next.config";
 
 const { NEXT_PUBLIC_BASE_URL } = env;
 
 axios.defaults.baseURL = NEXT_PUBLIC_BASE_URL;
-
-interface User {
-  email: string;
-  password: string;
-}
-
-export const signUp = async (user: User) => {
-  try {
-    const { data } = await axios.post("auth/register", user);
-    token.set(data.token);
-    return data;
-  } catch (error) {
-    console.log((error as Error).message);
-  }
-};
-
-export const signIn = async (user: User) => {
-  try {
-    const { data } = await axios.post("auth/login", user);
-    token.set(data.token);
-    return data;
-  } catch (error) {
-    console.log((error as Error).message);
-  }
-};
 
 export const createProduct = async (product: ICreateProductData) => {
   try {
@@ -124,6 +95,79 @@ export const updateOrderById = async (
     const { data } = await axios.patch(`/orders/${orderCode}`, orderData);
 
     return data;
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+export const createOrder = async (orderData: ICreateOrderFormValues) => {
+  try {
+    const { data } = await axios.post(`/orders`, orderData);
+
+    return data;
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+export const getAllCategories = async () => {
+  try {
+    const { data } = await axios.get(`/categories`);
+
+    return data;
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+export const createCategory = async (newCategory: ICreateCategory) => {
+  try {
+    const { data } = await axios.post(`/categories`, newCategory);
+
+    return data;
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+export const updateCategory = async (
+  orderData: IUpdateCategory,
+  slug: string
+) => {
+  try {
+    const { data } = await axios.patch(`/categories/${slug}`, orderData);
+
+    return data;
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+export const deleteCategoryBySlug = async (slug: string) => {
+  try {
+    const { data } = await axios.delete(`/categories/${slug}`);
+
+    return data;
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+export const getUsers = async () => {
+  try {
+    const { data } = await axios.get(`/users/`);
+
+    return data;
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+export const changeRole = async (data: IUpdateRole) => {
+  try {
+    const { data: respData } = await axios.post(`/users/changeRoles`, data);
+
+    return respData;
   } catch (error) {
     console.log((error as Error).message);
   }

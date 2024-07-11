@@ -13,6 +13,7 @@ import { deleteOrderById } from "@/api/admin";
 import toast from "react-hot-toast";
 import UpdateOrderForm from "./UpdateOrderForm";
 import { adminToastMessages } from "../constants/adminToastMessages";
+import { useCheckUsers } from "@/components/hooks/useCheckUsers";
 
 const { DELETE_ORDER_ERROR, DELETE_ORDER_SUCCESS } = adminToastMessages();
 
@@ -23,6 +24,8 @@ const OrdersList = () => {
   const [currentOrderCode, setCurrentOrderCode] = useState<string>("");
   const [updateModal, setIsUpdateModal] = useState(false);
   const [deleteModal, setIsDeleteModal] = useState(false);
+
+  const { isUser } = useCheckUsers("user");
 
   useEffect(() => {
     const getAllOrders = async () => {
@@ -38,12 +41,20 @@ const OrdersList = () => {
     productId: string | null = null,
     orderCode?: string
   ) => {
+    if (isUser) {
+      toast.error(`You do not have access to update orders`);
+      return;
+    }
     setCurrentProductId(productId);
     setCurrentOrderCode(orderCode as string);
     setIsUpdateModal(!updateModal);
   };
 
   const toggleDeleteModal = (productId: string | null = null) => {
+    if (isUser) {
+      toast.error(`You do not have access to delete orders`);
+      return;
+    }
     setCurrentProductId(productId);
     setIsDeleteModal(!deleteModal);
   };
