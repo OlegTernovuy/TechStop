@@ -56,13 +56,13 @@ const HomeDelivery = () => {
   const onSubmit: SubmitHandler<IHomeDeliveryAddress> = async (data) => {
     const address = {
       address: {
-        city: "м. Львів, Львівська обл.",
-        postalOperator: "Нова Пошта",
-        postalDepartment: "Відділення №16 (до 30 кг): вул. Вербова, 24",
+        city: data.city,
+        // postalOperator: "Нова Пошта",
+        // postalDepartment: "Відділення №16 (до 30 кг): вул. Вербова, 24",
         personalAddress: {
-          street: "string",
-          house: "1",
-          apartament: undefined,
+          street: data.street,
+          house: data.house,
+          apartament: data.apartament,
         },
       },
     };
