@@ -78,32 +78,6 @@ const FiltersForm: React.FC<FiltersFormProps> = ({
                         />
                     </div>
                 </div>
-                <div className="mb-14">
-                    <h4 className="text-Headline5 text-TechStopBlue mb-6">
-                        Бренд
-                    </h4>
-                    <FormControl component="fieldset" variant="standard">
-                        <FormGroup>
-                            {productFilters.length > 0 &&
-                                productFilters.map((filter) => (
-                                    <FormControlLabel
-                                        key={filter.brandId}
-                                        control={
-                                            <NoSsr>
-                                                <Checkbox
-                                                    name={filter.brandTitle}
-                                                    sx={{ color: '#02275099' }}
-                                                />
-                                            </NoSsr>
-                                        }
-                                        label={filter.brandTitle}
-                                        className="text-body1 text-TechStopBlue"
-                                        sx={{ marginLeft: '12px' }}
-                                    />
-                                ))}
-                        </FormGroup>
-                    </FormControl>
-                </div>
                 <Button
                     stylesButton="w-full md:w-[296px] bg-TechStopBlue text-TechStopWhite uppercase"
                     title="Застосувати"
