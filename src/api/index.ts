@@ -20,11 +20,6 @@ export const getProductById = async (_id: string): Promise<Product | any> => {
     } catch (error) {
         console.log((error as Error).message);
     }
-
-    return res.data as Product;
-  } catch (error) {
-    console.log((error as Error).message);
-  }
 };
 
 export const getReviews = async () => {
@@ -38,11 +33,6 @@ export const getReviews = async () => {
     } catch (error) {
         console.log((error as Error).message);
     }
-
-    return res.data;
-  } catch (error) {
-    console.log((error as Error).message);
-  }
 };
 
 export const rateProduct = async (_id: string, value: number) => {
@@ -74,11 +64,6 @@ export const getProductsData = async (): Promise<Product[] | undefined> => {
     } catch (error) {
         console.log((error as Error).message);
     }
-
-    return res.json().then((res) => res.data);
-  } catch (error) {
-    console.log((error as Error).message);
-  }
 };
 
 export const getProductsByQuery = async (
@@ -122,11 +107,6 @@ export const getCategories = async (): Promise<Categories[] | undefined> => {
     } catch (error) {
         console.log((error as Error).message);
     }
-
-    return res.json().then((res) => res.data);
-  } catch (error) {
-    console.log((error as Error).message);
-  }
 };
 
 export const getOrders = async (): Promise<PurchasesData[] | undefined> => {
@@ -142,11 +122,6 @@ export const getOrders = async (): Promise<PurchasesData[] | undefined> => {
     } catch (error) {
         console.log((error as Error).message);
     }
-
-    return res.json().then((res) => res.data);
-  } catch (error) {
-    console.log((error as Error).message);
-  }
 };
 
 export const getAllFeedbacks = async (userId: string) => {
@@ -159,10 +134,6 @@ export const getAllFeedbacks = async (userId: string) => {
     } catch (error) {
         console.log((error as Error).message);
     }
-    return res.data.data as IRewiewData[];
-  } catch (error) {
-    console.log((error as Error).message);
-  }
 };
 
 export const getMe = async (token: string) => {
@@ -180,10 +151,6 @@ export const getMe = async (token: string) => {
     } catch (error) {
         console.log((error as Error).message);
     }
-    return res.data.data;
-  } catch (error) {
-    console.log((error as Error).message);
-  }
 };
 
 export const editMe = async (token: string, body: any) => {
@@ -207,41 +174,37 @@ export const editMe = async (token: string, body: any) => {
     } catch (error) {
         console.log((error as Error).message);
     }
-    return res.data.data;
-  } catch (error) {
-    console.log((error as Error).message);
-  }
 
-  // const res = await fetch(
-  //   process.env.NEXT_PUBLIC_BASE_URL + "/auth/me",
-  //   {
-  //     method: "PATCH",
-  //     body: JSON.stringify({
-  //      ...body
-  //     }),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "Authorization": `Bearer ${token}`,
-  //     },
-  //   }
-  // );
-  // if (res.status === 200) {
-  //   try {
-  //     const user = await res.json();
-  //     return user.data;
-  //   } catch (error) {
-  //     console.error("Error parsing response:", error);
-  //     return null;
-  //   }
-  // } else {
-  //   try {
-  //     const errorResponse = await res.json();
-  //     return { error: errorResponse.message };
-  //   } catch (error) {
-  //     console.error("Error parsing error response:", error);
-  //   }
-  //   return null;
-  // }
+    // const res = await fetch(
+    //   process.env.NEXT_PUBLIC_BASE_URL + "/auth/me",
+    //   {
+    //     method: "PATCH",
+    //     body: JSON.stringify({
+    //      ...body
+    //     }),
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       "Authorization": `Bearer ${token}`,
+    //     },
+    //   }
+    // );
+    // if (res.status === 200) {
+    //   try {
+    //     const user = await res.json();
+    //     return user.data;
+    //   } catch (error) {
+    //     console.error("Error parsing response:", error);
+    //     return null;
+    //   }
+    // } else {
+    //   try {
+    //     const errorResponse = await res.json();
+    //     return { error: errorResponse.message };
+    //   } catch (error) {
+    //     console.error("Error parsing error response:", error);
+    //   }
+    //   return null;
+    // }
 };
 
 export const makeOrder = async (body: any) => {
@@ -256,8 +219,4 @@ export const makeOrder = async (body: any) => {
     } catch (error) {
         console.log((error as Error).message);
     }
-    return res.data;
-  } catch (error) {
-    console.log((error as Error).message);
-  }
 };
