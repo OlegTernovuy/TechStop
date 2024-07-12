@@ -41,7 +41,11 @@ const HeaderBlockProductsByCategory = ({ pathname }: IPropsParams) => {
 
     const addQueryParams = (event: SelectChangeEvent) => {
         const currentParams = new URLSearchParams(searchParams.toString());
-        currentParams.set('sort', event.target.value as string);
+        if (event.target.value !== '' && event.target.value !== null) {
+            currentParams.set('sort', event.target.value as string);
+        } else {
+            currentParams.delete('sort');
+        }
 
         router.push(`${pathname}/?${currentParams.toString()}`);
     };

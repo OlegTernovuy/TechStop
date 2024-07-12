@@ -12,10 +12,23 @@ const FiltersForProducts = () => {
     const minPriceQuery = searchParams.get('minPrice');
     const maxPriceQuery = searchParams.get('maxPrice');
 
-    const addQueryParams = (minPrice?: number, maxPrice?: number) => {
+    const addQueryParams = (
+        minPrice?: number | null,
+        maxPrice?: number | null
+    ) => {
         const currentParams = new URLSearchParams(searchParams.toString());
-        minPrice && currentParams.set('minPrice', String(minPrice));
-        maxPrice && currentParams.set('maxPrice', String(maxPrice));
+        
+        if (minPrice !== undefined && minPrice !== null) {
+            currentParams.set('minPrice', String(minPrice));
+        } else {
+            currentParams.delete('minPrice');
+        }
+
+        if (maxPrice !== undefined && maxPrice !== null) {
+            currentParams.set('maxPrice', String(maxPrice));
+        } else {
+            currentParams.delete('maxPrice');
+        }
 
         router.push(`${pathname}/?${currentParams.toString()}`);
     };
@@ -33,7 +46,10 @@ const FiltersForProducts = () => {
     } = useForm<IPriceFilter>({});
 
     const onSubmit: SubmitHandler<IPriceFilter> = (data) => {
-        addQueryParams(data.priceFrom, data.priceTo);
+        addQueryParams(
+            data.priceFrom ? Number(data.priceFrom) : null,
+            data.priceTo ? Number(data.priceTo) : null
+        );
         setHideFilterModal();
     };
 
