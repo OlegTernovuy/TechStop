@@ -1,12 +1,6 @@
 import Button from '@/components/ui/Button';
 import { productFilters } from '@/constants';
-import {
-    Checkbox,
-    FormControl,
-    FormControlLabel,
-    FormGroup,
-    TextField,
-} from '@mui/material';
+import { TextField } from '@mui/material';
 import NoSsr from '../utils/NoSsr';
 import { useEffect } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -14,8 +8,8 @@ import { IPriceFilter } from '@/types';
 
 interface FiltersFormProps {
     onSubmit: SubmitHandler<IPriceFilter>;
-    minPriceQuery: string | null;
-    maxPriceQuery: string | null;
+    minPriceQuery: string | null | undefined;
+    maxPriceQuery: string | null | undefined;
 }
 
 const FiltersForm: React.FC<FiltersFormProps> = ({
