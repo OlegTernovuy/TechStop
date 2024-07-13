@@ -8,6 +8,7 @@ import Pagination from '@mui/material/Pagination';
 import { makeStyles } from '@mui/styles';
 import { CircularProgress } from '@mui/material';
 import ProductsByCategory from '@/app/(categoriesProducts)/ProductsByCategory';
+import { pageCount } from '@/app/utils/pageCount';
 
 interface ICatalogItemsProps {
     params: {
@@ -42,6 +43,7 @@ const SearchPage: FC<ICatalogItemsProps> = ({ params }) => {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState<Product[] | undefined>();
     const [page, setPage] = useState(1);
+    const [totalProducts, setTotalProducts] = useState<number | undefined>(1);
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
     };
@@ -51,15 +53,16 @@ const SearchPage: FC<ICatalogItemsProps> = ({ params }) => {
     useEffect(() => {
         const fetchProducts = async () => {
             setLoading(true);
-            const product = await getProductsByQuery({
+            const data = await getProductsByQuery({
                 category: id,
                 minPrice: Number(minPriceQuery),
                 maxPrice: Number(maxPriceQuery),
                 sort: searchSortQuery,
                 search: searchQuery,
-                // page: page,
+                page: page,
             });
-            setData(product);
+            setData(data?.products);
+            setTotalProducts(data?.total);
             setLoading(false);
         };
 
@@ -75,7 +78,11 @@ const SearchPage: FC<ICatalogItemsProps> = ({ params }) => {
             )}
             <ProductsByCategory products={data} />
             <div className="flex justify-center my-8">
-                <Pagination count={10} page={page} onChange={handleChange} />
+                <Pagination
+                    count={pageCount(totalProducts)}
+                    page={page}
+                    onChange={handleChange}
+                />
             </div>
         </div>
     );

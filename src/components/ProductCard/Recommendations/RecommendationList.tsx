@@ -16,7 +16,7 @@ const RecommendationList: FC<IRecommendationListProps> = async ({ title }) => {
       </h2>
       <div className="flex justify-center">
         <ul className="flex  md:flex-wrap md:justify-between xl:flex-nowrap items-center  gap-x-[52px] gap-y-4 w-full mt-[51px] mb-20">
-          <RecommendationListItem products={products} />
+          <RecommendationListItem products={products?.products} />
         </ul>
       </div>
     </div>

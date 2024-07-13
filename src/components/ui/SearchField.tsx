@@ -9,7 +9,11 @@ const SearchField = () => {
 
     const onSearchSubmit = (e: any) => {
         e.preventDefault();
-        router.push(`/products/search?search=${search}`);
+        if (search === '' || search === null) {
+            router.push(`/products/search`);
+        } else {
+            router.push(`/products/search?search=${search}`);
+        }
         setSearch('');
     };
 
