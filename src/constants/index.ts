@@ -529,8 +529,3 @@ export const productFilters = [
         brandTitle: 'Lenovo',
     },
 ];
-
-
-export const NEXTAUTH_SECRET="7d5f9b372b79f01a9c5454048d5b8c14"
-export const NEXT_PUBLIC_BASE_URL = "https://team-project-server-41ev.onrender.com/api"
-export const NEXT_PUBLIC_CALLBACK_URL="http://localhost:3000/admin/login"
