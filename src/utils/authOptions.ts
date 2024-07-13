@@ -1,4 +1,5 @@
 import { getMe } from "@/api";
+import { NEXT_PUBLIC_BASE_URL, NEXTAUTH_SECRET } from "@/constants";
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
@@ -8,7 +9,7 @@ export const authOptions: AuthOptions = {
     strategy: "jwt",
   },
   jwt: {
-    secret: process.env.NEXTAUTH_SECRET,
+    secret: NEXTAUTH_SECRET,
   },
   providers: [
     // GoogleProvider({
@@ -30,7 +31,7 @@ export const authOptions: AuthOptions = {
         if (!credentials?.email || !credentials?.password) return null;
         const { email, password } = credentials;
         const res = await fetch(
-          process.env.NEXT_PUBLIC_BASE_URL + "/auth/login",
+          NEXT_PUBLIC_BASE_URL + "/auth/login",
           {
             method: "POST",
             body: JSON.stringify({

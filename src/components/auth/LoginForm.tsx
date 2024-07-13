@@ -12,6 +12,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { signIn, useSession } from "next-auth/react";
 import { useLoginModalStore } from "@/store/modalStore";
 import toast from "react-hot-toast";
+import { NEXT_PUBLIC_BASE_URL } from "@/constants";
 
 interface IAuthModal {
   showLoginForm: boolean;
@@ -87,7 +88,7 @@ const LoginForm = ({ showLoginForm, setPending }: IAuthModal) => {
       try {
         setPending(true);
         const res = await fetch(
-          process.env.NEXT_PUBLIC_BASE_URL + "/auth/register",
+          NEXT_PUBLIC_BASE_URL + "/auth/register",
           {
             method: "POST",
             body: JSON.stringify({
