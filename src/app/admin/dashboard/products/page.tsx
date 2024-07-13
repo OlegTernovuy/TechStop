@@ -61,7 +61,7 @@ const ProductsPage = () => {
       setIsLoading(true);
       const productsList = await getProductsData();
       setIsLoading(false);
-      setProducts(productsList ?? []);
+      setProducts(productsList?.products ?? []);
     };
     fetchProducts();
   }, []);

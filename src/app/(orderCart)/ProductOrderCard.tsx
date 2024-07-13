@@ -13,7 +13,6 @@ type ProductProps = {
 };
 
 function ProductOrderCard(product: ProductProps) {
-  // const { setShowShoppingCart } = useShoppingCartModalStore();
   const setShowShoppingCart = useShoppingCartModalStore(
     (state) => state.setShowShoppingCart
   );

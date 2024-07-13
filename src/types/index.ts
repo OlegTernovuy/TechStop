@@ -60,6 +60,11 @@ export interface Product {
     rating: IRating;
 }
 
+export interface ProductsInfo {
+    products: Product[];
+    total: number;
+}
+
 export interface AddServices {
     servicesId: number;
     servicesTitle: string;
