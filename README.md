@@ -50,7 +50,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 - [![Next][Next.js]][Next-url]
 - [![TailwindCSS][Tailwdind.css]][Tailwind-url]
-- [![Zustand][Zustand.]][Zustand-url]
+- [![Zustand][Zustand-front]][Zustand-url]
 - [![TypeScript][TS]][TS-url]
 
 #### Backend
@@ -65,9 +65,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
-[Tailwdind.css]: https://raw.githubusercontent.com/tailwindlabs/tailwindcss/HEAD/.github/logo-light.svg
+[Tailwdind.css]: https://img.shields.io/badge/tailwindcss-cyan?style=for-the-badge&logo=tailwindcss&logoColor=white
 [Tailwind-url]: https://tailwindcss.com
-[Zustand.]: https://raw.githubusercontent.com/tailwindlabs/tailwindcss/HEAD/.github/logo-light.svg
+[Zustand-front]: https://raw.githubusercontent.com/tailwindlabs/tailwindcss/HEAD/.github/logo-light.svg
 [Zustand-url]: https://tailwindcss.com
 [TS]: https://img.shields.io/badge/typescript-blue?style=for-the-badge&logo=typescriptlogoColor=white
 [TS-url]: https://www.typescriptlang.org/

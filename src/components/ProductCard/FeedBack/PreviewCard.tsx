@@ -38,8 +38,7 @@ const PreviewCard: FC<IPreviewCardProps> = ({ productData }) => {
         </li>
         <li className="relative">
           <p className="text-textBlack font-medium text-xl">
-            Характеристики Геймпад Microsoft Xbox Series X | S Wireless
-            Controller Velocity Green (QAU-00091)
+            Характеристики {productData?.data?.title}
           </p>
           <div className="absolute bottom-0 right-0">
             {" "}
