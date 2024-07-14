@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import PreviewCard from "../FeedBack/PreviewCard";
 import CharacteristicsInfo from "./CharacteristicsInfo";
