@@ -19,9 +19,7 @@ const CharacteristicsComponent: FC<CharacteristicsItemProps> = ({
       <dd className="text-TechStopBlue flex w-3/5 break-words">
         <ul>
           {values.map((item, idx) => (
-            <li key={idx}>
-              <span>{item}</span>
-            </li>
+            <li key={idx}>{item}</li>
           ))}
         </ul>
       </dd>

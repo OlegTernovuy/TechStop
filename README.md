@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# TechStop
+
+TechStop is a modern online marketplace for buying and selling technological gadgets, electronics and accessories. Our marketplace provides a user-friendly interface, ease of use, and a wide selection of products from various sellers.
 
 ## Getting Started
 
@@ -16,21 +18,60 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Key Features
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1.`Product catalog`: View, search and filter products by category, price, brand and other parameters.
 
-## Learn More
+2.`Cart`: Adding products to the cart for further ordering.
 
-To learn more about Next.js, take a look at the following resources:
+3.`Reviewed products`: The ability to see a list of viewed products.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4.`Bestseller section`: Look the most popular products.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+5.`Rating and reviews`: The ability to leave reviews about products and sellers.
 
-## Deploy on Vercel
+6.`Authentication`: Register,login and logout user with email and password.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+7.`Personal account`: Manage orders, view purchase history and personal data.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Technical Details
+
+#### Authorization
+
+-- **Introduce user authentication, registration, login, and logout through `NextAuth`.**
+
+#### Forms
+
+-- Utilize **react-hook-form** and **yup** for handle and validation fields
+
+### Technology stack
+
+#### Frontend
+
+- [![Next][Next.js]][Next-url]
+- [![TailwindCSS][Tailwdind.css]][Tailwind-url]
+- [![Zustand][Zustand.]][Zustand-url]
+- [![TypeScript][TS]][TS-url]
+
+#### Backend
+
+- [![Node.js][Node.js]][Node.js-url]
+- [![MongoDB][MongoDB]][MongoDB-url]
+- [![TypeScript][TS]][TS-url]
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- MARKDOWN LINKS & IMAGES -->
+
+[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
+[Next-url]: https://nextjs.org/
+[Tailwdind.css]: https://raw.githubusercontent.com/tailwindlabs/tailwindcss/HEAD/.github/logo-light.svg
+[Tailwind-url]: https://tailwindcss.com
+[Zustand.]: https://raw.githubusercontent.com/tailwindlabs/tailwindcss/HEAD/.github/logo-light.svg
+[Zustand-url]: https://tailwindcss.com
+[TS]: https://img.shields.io/badge/typescript-blue?style=for-the-badge&logo=typescriptlogoColor=white
+[TS-url]: https://www.typescriptlang.org/
+[Node.js]: https://img.shields.io/badge/node.js-green?style=for-the-badge&logo=node.jslogoColor=white
+[Node.js-url]: https://nodejs.org/en
+[MongoDB]: https://img.shields.io/badge/mongodb-green?style=for-the-badge&logo=mongodblogoColor=white
+[MongoDB-url]: https://www.mongodb.com/

@@ -14,8 +14,8 @@ interface IFeedbackStore {
   reviews: IFeedback[];
   isLoading?: boolean;
   isError?: null | Error;
-  getAll: () => Promise<void>;
   getAllFeedbacks: (productId: string) => Promise<void>;
+  hasReviewed: (productId: string, userId: string) => boolean;
   addNewFeedback: (newReview: Review, productId?: string) => Promise<void>;
   deleteFeedback: (id: string) => Promise<void>;
 }
@@ -53,31 +53,15 @@ export const useFeedbackStore = create<IFeedbackStore>()(
           toast.error((error as Error).message);
         }
       },
-      getAll: async () => {
-        try {
-          set({ isLoading: true, isError: null }, false, "getAll");
+      hasReviewed: (productId, userId) => {
+        const { reviews } = get();
 
-          const res = await axios.get(`${NEXT_PUBLIC_BASE_URL}/reviews`);
-          if (res.status !== 200) {
-            throw new Error("Something went wrong");
-          }
-
-          const { data } = res.data;
-
-          set(
-            { isLoading: false, reviews: data, isError: null },
-            false,
-            "getAll"
-          );
-        } catch (error) {
-          set(
-            { isLoading: false, isError: error as Error },
-            false,
-            "getAllFeedbacks"
-          );
-          toast.error((error as Error).message);
-        }
+        return reviews.some(
+          (review) =>
+            review.userId === userId && review.product._id === productId
+        );
       },
+
       addNewFeedback: async (newReview, productId) => {
         const { isError, reviews } = get();
         set({ isLoading: true, isError: null }, false, "addNewFeedback");
@@ -98,6 +82,7 @@ export const useFeedbackStore = create<IFeedbackStore>()(
             {
               isLoading: false,
               reviews: [...reviews, data],
+
               isError: null,
             },
             false,
@@ -112,7 +97,6 @@ export const useFeedbackStore = create<IFeedbackStore>()(
           console.log((error as Error).message);
         }
       },
-
       deleteFeedback: async (id) => {
         const { reviews } = get();
         set({ isLoading: true, isError: null }, false, "deleteFeedback");

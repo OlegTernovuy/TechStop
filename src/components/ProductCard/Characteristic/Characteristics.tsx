@@ -14,20 +14,21 @@ import Link from "next/link";
 import Image from "next/image";
 import { useFavoritesStore } from "@/store/useFavoritesStore";
 import { useCartStore } from "@/store/useCartStore";
-import { useRatingStore } from "@/store/useRatingStore";
-import { handleChangeValue } from "../utils";
 
 import CustomToast from "@/components/Global/Toaster/CustomToast";
 import toast from "react-hot-toast";
 
 import feedback from "/public/product-card-icons/CommentOutlined.svg";
 import { useFeedbackStore } from "@/store/useFeedbackStore";
+import formatPrice from "@/app/utils/formatPrice";
+import { DiscountPercentage } from "@/constants";
+import calculateRating from "@/app/utils/calculateRating";
 
 const Characteristics: FC<IData> = ({ product }) => {
-  const { title, _id, price } = product.data;
+  const { title, _id, price, characteristics, rating } = product.data;
   const { toggleProductCardToFavorites } = useFavoritesStore();
   const { reviews, getAllFeedbacks } = useFeedbackStore();
-  const { rateProduct, value } = useRatingStore();
+
   const { addItemToCart } = useCartStore();
 
   useEffect(() => {
@@ -39,13 +40,8 @@ const Characteristics: FC<IData> = ({ product }) => {
     toast.success(`Товар ${title} додано до кошика`);
   };
 
-  const handleRatingChange = async (newValue: number) => {
-    await handleChangeValue(
-      newValue,
-      _id,
-      async () => await rateProduct(_id, newValue)
-    );
-  };
+  const oldPrice = formatPrice(price * DiscountPercentage);
+  const newPrice = formatPrice(price);
 
   return (
     <MaxWidthWrapper>
@@ -59,10 +55,7 @@ const Characteristics: FC<IData> = ({ product }) => {
             <Rating
               name="characteristics-rating"
               readOnly
-              onChange={(e, newValue) =>
-                handleRatingChange(Math.floor(newValue ?? 0))
-              }
-              value={Number(value.toFixed(2)) ?? 0}
+              value={calculateRating(rating)}
               defaultValue={2.5}
               precision={0.5}
             />
@@ -86,7 +79,7 @@ const Characteristics: FC<IData> = ({ product }) => {
         </div>
         <ul className="flex">
           <li className="md:max-w-[60%] mr-auto">
-            <CharacteristicsInfo />
+            <CharacteristicsInfo characteristics={characteristics} />
           </li>
           <li>
             <div className="min-h-[96%] border-l border-deWiseGreyLight hidden md:block mr-6"></div>
@@ -100,10 +93,10 @@ const Characteristics: FC<IData> = ({ product }) => {
             <div className="md:mr-20">
               {" "}
               <p className="line-through text-TechStopBlue font-medium text-nowrap text-sm mb-1">
-                28 999 ₴
+                {oldPrice} &#8372;
               </p>
               <p className="text-TechStopRed font-normal text-lg text-nowrap">
-                {price} ₴
+                {newPrice} &#8372;
               </p>
             </div>
           </li>

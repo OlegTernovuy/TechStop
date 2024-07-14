@@ -15,7 +15,7 @@ const RecommendationListItem: FC<IRecommendationProps> = ({ products }) => {
     () =>
       products &&
       products
-        .map((product) => ({
+        ?.map((product) => ({
           ...product,
           averageRating: calculateAverageRating(product.rating),
         }))

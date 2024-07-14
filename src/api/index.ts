@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Categories, IFilteredProducts, Product } from "@/types";
+import { Categories, IFilteredProducts, IProduct, Product } from "@/types";
 import { PurchasesData } from "@/app/account/purchases/purchasesType";
 import { IRewiewData } from "@/app/account/reviews/typeRewiew";
 
@@ -50,7 +50,7 @@ export const rateProduct = async (_id: string, value: number) => {
   }
 };
 
-export const getProductsData = async (): Promise<Product[] | undefined> => {
+export const getProductsData = async (): Promise<IProduct | undefined> => {
   try {
     const res = await fetch(`${NEXT_PUBLIC_BASE_URL}/products`, {
       next: { revalidate: 10 },

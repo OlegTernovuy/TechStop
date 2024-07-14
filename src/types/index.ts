@@ -43,6 +43,11 @@ export interface ProductInCart {
   quantity?: number;
 }
 
+export interface ICharacteristic {
+  name: string;
+  description: string[];
+}
+
 export interface Product {
   id: number;
   _id: string;
@@ -51,7 +56,13 @@ export interface Product {
   price: number;
   title: string;
   categories: string[];
+  characteristics: ICharacteristic[];
+  images: [];
   rating: IRating;
+}
+
+export interface IProduct {
+  products: Product[];
 }
 
 export interface AddServices {

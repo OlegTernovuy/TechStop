@@ -12,7 +12,8 @@ import rightArrow from "/public/product-card-icons/ChevronRightFilled.svg";
 import leftArrow from "/public/icon_left.svg";
 
 const ProductSlider: FC<IData> = ({ product }) => {
-  // const { poster, title } = product?.data;
+  // const { images } = product?.data;
+  console.log(product?.data?.images);
 
   const [current, setCurrent] = useState<number>(0);
 
@@ -32,10 +33,15 @@ const ProductSlider: FC<IData> = ({ product }) => {
 
   return (
     <div className="lg:max-w-full ">
-      <div className="relative">
-        <ul className="top-0 left-[104px] w-full bg-TechStopWhite h-full border shadow-sm">
+      <div className="relative h-[500px] lg:h-[1000px]">
+        <ul className="top-0 left-[104px] w-full bg-TechStopWhite h-full border shadow-sm overflow-hidden">
           {gallery.map(({ id, href }, idx) => (
-            <li key={id} className={`${idx === current ? "block" : "hidden"} `}>
+            <li
+              key={id}
+              className={`transition-opacity duration-1000 ${
+                idx === current ? "block" : "hidden"
+              } `}
+            >
               {" "}
               <Transition
                 key={id}
@@ -53,7 +59,7 @@ const ProductSlider: FC<IData> = ({ product }) => {
                   width={720}
                   height={500}
                   alt="img_product"
-                  className=" max-h-[249px]  lg:max-w-[720px] lg:max-h-[500px] my-[125px] lg:my-[250px]"
+                  className="h-[249px] xl:max-w-[720px] lg:h-[500px] my-[125px] lg:my-[250px]"
                 />
               </Transition>
             </li>
@@ -96,7 +102,7 @@ const ProductSlider: FC<IData> = ({ product }) => {
                 width={120}
                 height={100}
                 alt="mini"
-                className="my-8 max-w-[120px] h-[100px]"
+                className="my-8 w-[120px] h-[100px]"
               />
             </button>
           </li>

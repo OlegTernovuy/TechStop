@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { CssTextField } from "@/constants/customStyles";
 
@@ -8,26 +8,33 @@ interface ICustomSmallInputProps {
   name: string;
   label: string;
   placeholder?: string;
+  defaultValue: string;
 }
 
 const CustomSmallInput: FC<ICustomSmallInputProps> = ({
   name,
   label,
   placeholder,
+  defaultValue,
 }) => {
   const {
     control,
     formState: { errors },
+    setValue,
   } = useFormContext();
 
   const isError = !!errors[name];
+
+  useEffect(() => {
+    setValue(name, defaultValue);
+  });
 
   return (
     <>
       <Controller
         name={name}
         control={control}
-        defaultValue=""
+        defaultValue={defaultValue}
         render={({ field }) => (
           <CssTextField
             {...field}
