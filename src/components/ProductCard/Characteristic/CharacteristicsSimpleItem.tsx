@@ -2,7 +2,7 @@ import { FC } from "react";
 
 interface ICharacteristicsSimpleItemProps {
   title: string;
-  type: string;
+  type: string[];
 }
 
 const CharacteristicsSimpleItem: FC<ICharacteristicsSimpleItemProps> = ({
@@ -17,8 +17,10 @@ const CharacteristicsSimpleItem: FC<ICharacteristicsSimpleItemProps> = ({
           {title}
         </span>
       </dt>{" "}
-      <dd className="text-TechStopBlue break-words">
-        <span>{type}</span>
+      <dd className="text-TechStopBlue break-words md:overflow-nowrap">
+        {type.map((item, idx) => (
+          <span key={idx}>{item}</span>
+        ))}
       </dd>
     </div>
   );

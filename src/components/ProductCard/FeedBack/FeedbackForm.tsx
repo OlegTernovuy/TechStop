@@ -6,12 +6,32 @@ import DefaultFeedbackForm from "./DefaultFeedbackForm";
 import Button from "../Button";
 
 import { useFeedbackStore } from "@/store/useFeedbackStore";
+import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
+import { TOAST_MESSAGES } from "@/constants/toastMessages";
+import { useRouter } from "next/navigation";
+
+const { AUTH_ERROR } = TOAST_MESSAGES();
 
 const FeedbackForm: FC<IParams> = ({ params }) => {
   const [show, setShow] = useState(false);
   const { reviews } = useFeedbackStore();
+  const { data } = useSession();
+
+  const router = useRouter();
 
   const handleClick = () => {
+    if (!data?.user) {
+      toast.error(AUTH_ERROR);
+      return;
+    }
+
+    if (data?.token && !data?.user?.first_name) {
+      toast.error("Заповніть контактну інформацію");
+      router.push("/account");
+      return;
+    }
+
     setShow(!show);
   };
 

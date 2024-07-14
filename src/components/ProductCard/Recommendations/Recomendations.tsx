@@ -4,10 +4,11 @@ import React from "react";
 
 const Recommendations = async () => {
   const data = await getProductsData();
+
   return (
     <div>
       {data?.products && data.products?.length !== 0 ? (
-        <div className=" ">
+        <div>
           <HomePageProducts
             products={data.products}
             title="Також Вас можуть зацікавити"

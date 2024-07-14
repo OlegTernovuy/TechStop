@@ -12,6 +12,7 @@ export interface Characteristics {
 
 export enum TypesCharacteristics {
   compatibility = "Сумісність",
+  brand = "Бренд",
   type = "Тип",
   additionalFeatures = "Додаткові функції",
   connection = "Підключення",

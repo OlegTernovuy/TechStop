@@ -36,7 +36,7 @@ const ProductNavList: FC<IProductNavListProps> = ({ params }) => {
     <>
       <nav>
         <div>
-          <MobileNav />
+          <MobileNav title={title} />
           <DesktopNav urlNavList={urlNavList} />
         </div>
 

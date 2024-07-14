@@ -7,7 +7,6 @@ import { Rating } from "@mui/material";
 import MaterialCheckBox from "./MaterialCheckBox";
 import { AddServices, IData } from "@/types";
 
-import { useRatingStore } from "@/store/useRatingStore";
 import { useFeedbackStore } from "@/store/useFeedbackStore";
 
 import ButtonLabels from "./ButtonLabels";
@@ -17,29 +16,19 @@ import novaPost from "/public/product-card-icons/Nova_Poshta_2014_logo 1.svg";
 import ukrPost from "/public/product-card-icons/Ukrposhta-ua 1.svg";
 import feedBack from "/public/product-card-icons/CommentOutlined.svg";
 
-import { handleChangeValue } from "./utils";
 import { checkboxLabels } from "@/constants/productCard";
+import calculateRating from "@/app/utils/calculateRating";
 
 const ProductContent: FC<IData> = ({ product }) => {
-  const { title, inStock, _id } = product?.data;
-  const { value, rateProduct } = useRatingStore();
+  const { title, inStock, _id, rating } = product?.data;
+
   const { reviews, getAllFeedbacks } = useFeedbackStore();
 
   const [addService, setAddService] = useState<AddServices[]>([]);
-  const [hasReviewed, setHasReviewed] = useState<boolean>(false);
 
   useEffect(() => {
     getAllFeedbacks(_id);
   }, [getAllFeedbacks, _id]);
-
-  const handleRatingChange = async (newValue: number) => {
-    await handleChangeValue(
-      newValue,
-      _id,
-      async () => await rateProduct(_id, newValue)
-    );
-    setHasReviewed(true);
-  };
 
   return (
     <div className="md:max-w-[992px] relative">
@@ -56,13 +45,9 @@ const ProductContent: FC<IData> = ({ product }) => {
       <ul className="flex gap-10 md:pb-8 pb-6 border-b-[1px] lg:items-center flex-wrap">
         <li>
           <Rating
-            name="product-rating"
-            onChange={(e, newValue) =>
-              handleRatingChange(Math.floor(newValue ?? 0))
-            }
-            value={Number(value.toFixed(2)) ?? 0}
-            defaultValue={2.5}
-            readOnly={hasReviewed}
+            name="read-only"
+            value={calculateRating(rating)}
+            readOnly
             precision={0.5}
           />
         </li>
@@ -74,7 +59,7 @@ const ProductContent: FC<IData> = ({ product }) => {
             <Image src={feedBack} alt="feedBack_icon" width={20} height={20} />
             <span>
               Відгуки
-              <span className="ml-1"> ({reviews.length})</span>
+              <span className="ml-1"> ({reviews?.length})</span>
             </span>
           </Link>
         </li>
@@ -116,13 +101,3 @@ const ProductContent: FC<IData> = ({ product }) => {
 };
 
 export default ProductContent;
-
-// const handleChangeValue = async (newValue: number | null) => {
-//   if (!newValue || isError) {
-//     toast.error("Something went wrong");
-//     return;
-//   }
-//   await rateProduct(_id, Number(newValue));
-//   setHasReviewed(true);
-//   toast.success("Дякуємо за оцінку 🤝");
-// };
