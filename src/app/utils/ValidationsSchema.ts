@@ -70,7 +70,8 @@ export const DeliveryValidationsSchema = yup.object().shape({
                 .label('Appartment')
                 .typeError('The value must be a number')
                 .positive('Appartment be a positive value')
-                .integer(),
+                .integer()
+                .nullable()
         })
         .nullable(),
 });

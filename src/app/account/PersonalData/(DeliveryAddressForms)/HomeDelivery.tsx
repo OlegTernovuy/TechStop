@@ -57,8 +57,6 @@ const HomeDelivery = () => {
     const address = {
       address: {
         city: data.city,
-        // postalOperator: "Нова Пошта",
-        // postalDepartment: "Відділення №16 (до 30 кг): вул. Вербова, 24",
         personalAddress: {
           street: data.street,
           house: data.house,

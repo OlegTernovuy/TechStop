@@ -109,16 +109,14 @@ export const getCategories = async (): Promise<Categories[] | undefined> => {
     }
 };
 
-export const getOrders = async (): Promise<PurchasesData[] | undefined> => {
+export const getOrders = async (userEmail: string): Promise<PurchasesData[] | undefined> => {
     try {
-        const res = await fetch(`${NEXT_PUBLIC_BASE_URL}/orders`, {
-            next: { revalidate: 10 },
-        });
+        const res = await axios.get(`/orders?email=${userEmail}`);
         if (res.status !== 200) {
             throw new Error('Something went wrong');
-        }
+        }        
 
-        return res.json().then((res) => res.data);
+        return res.data.data as PurchasesData[];
     } catch (error) {
         console.log((error as Error).message);
     }
@@ -174,37 +172,6 @@ export const editMe = async (token: string, body: any) => {
     } catch (error) {
         console.log((error as Error).message);
     }
-
-    // const res = await fetch(
-    //   process.env.NEXT_PUBLIC_BASE_URL + "/auth/me",
-    //   {
-    //     method: "PATCH",
-    //     body: JSON.stringify({
-    //      ...body
-    //     }),
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       "Authorization": `Bearer ${token}`,
-    //     },
-    //   }
-    // );
-    // if (res.status === 200) {
-    //   try {
-    //     const user = await res.json();
-    //     return user.data;
-    //   } catch (error) {
-    //     console.error("Error parsing response:", error);
-    //     return null;
-    //   }
-    // } else {
-    //   try {
-    //     const errorResponse = await res.json();
-    //     return { error: errorResponse.message };
-    //   } catch (error) {
-    //     console.error("Error parsing error response:", error);
-    //   }
-    //   return null;
-    // }
 };
 
 export const makeOrder = async (body: any) => {
