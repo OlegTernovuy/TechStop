@@ -14,6 +14,7 @@ interface IFeedbackStore {
   reviews: IFeedback[];
   isLoading?: boolean;
   isError?: null | Error;
+  getAll: () => Promise<void>;
   getAllFeedbacks: (productId: string) => Promise<void>;
   hasReviewed: (productId: string, userId: string) => boolean;
   addNewFeedback: (newReview: Review, productId?: string) => Promise<void>;
@@ -43,6 +44,31 @@ export const useFeedbackStore = create<IFeedbackStore>()(
             { isLoading: false, reviews: data, isError: null },
             false,
             "getAllFeedbacks"
+          );
+        } catch (error) {
+          set(
+            { isLoading: false, isError: error as Error },
+            false,
+            "getAllFeedbacks"
+          );
+          toast.error((error as Error).message);
+        }
+      },
+      getAll: async () => {
+        try {
+          set({ isLoading: true, isError: null }, false, "getAll");
+
+          const res = await axios.get(`${NEXT_PUBLIC_BASE_URL}/reviews`);
+          if (res.status !== 200) {
+            throw new Error("Something went wrong");
+          }
+
+          const { data } = res.data;
+
+          set(
+            { isLoading: false, reviews: data, isError: null },
+            false,
+            "getAll"
           );
         } catch (error) {
           set(
