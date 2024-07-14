@@ -13,7 +13,7 @@ import leftArrow from "/public/icon_left.svg";
 
 const ProductSlider: FC<IData> = ({ product }) => {
   // const { images } = product?.data;
-  console.log(product?.data?.images);
+  // console.log(product?.data?.images);
 
   const [current, setCurrent] = useState<number>(0);
 
