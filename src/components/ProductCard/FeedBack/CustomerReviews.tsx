@@ -20,9 +20,6 @@ const CustomerReviews: FC<ICustomerReviewsProps> = ({ productId }) => {
 
   const { data } = useSession();
 
-  const reviewsUser = useFeedbackStore(({ reviews }) => reviews);
-  console.log("reviewsUser", reviewsUser);
-
   useEffect(() => {
     getAllFeedbacks(productId);
   }, [getAllFeedbacks, productId]);
