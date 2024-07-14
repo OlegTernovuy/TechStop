@@ -7,7 +7,7 @@ const Recommendations = async () => {
 
   return (
     <div>
-      {data && data?.products.length !== 0 ? (
+      {data?.products && data.products?.length !== 0 ? (
         <div>
           <HomePageProducts
             products={data.products}

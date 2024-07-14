@@ -67,27 +67,7 @@ const AuthModal = () => {
             {showLoginForm ? "Вхід" : "Реєстрація"}
           </h3>
           <LoginForm showLoginForm={showLoginForm} setPending={setPending} />
-          <div className="w-full flex justify-between items-center mt-14 mb-6 text-TechStopBlue60 text-Headline6">
-            <span className="w-full h-[1px] bg-TechStopBlue60"></span>
-            <span className="px-4">або</span>
-            <span className="w-full h-[1px] bg-TechStopBlue60"></span>
-          </div>
-          <form
-            action="https://team-project-server-41ev.onrender.com/api/google"
-            method="get"
-          >
-            <button
-              type="submit"
-              value="Google"
-              className="h-[52px] w-full flex justify-center items-center gap-2 py-2 mb-4 border border-TechStopBlue60 rounded"
-            >
-              <Image src={googleIcon} alt="googleIcon" width={24} height={24} />
-              <span className="text-[15px] text-TechStopBlue tracking-wide font-medium uppercase">
-                google
-              </span>
-            </button>
-          </form>
-          <div className="text-Headline6">
+          <div className="text-Headline6 mt-10">
             {showLoginForm ? (
               <p className="flex items-center gap-4">
                 Немає профілю?

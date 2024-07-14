@@ -6,6 +6,7 @@ const Bestsellers = async () => {
 
   return (
     <div>
+
       {data === undefined || data?.products?.length === 0 ? null : (
         <div className="lg:pl-4 py-4 md:py-5 lg:py-6">
           <HomePageProducts products={data?.products} title="Бестселлери" />

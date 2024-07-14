@@ -14,6 +14,9 @@ const config: Config = {
       variants: {
         display: ["group-hover"],
       },
+      height: {
+        'screen-with-footer': 'calc(100vh - 340px)',
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

@@ -4,43 +4,49 @@
 // }
 
 export interface NavigationProps {
-  nav: boolean;
-  handleNav: () => void;
+    nav: boolean;
+    handleNav: () => void;
 }
 
 export interface ButtonProps {
-  stylesButton?: string;
-  title: string;
-  onClick?: () => void;
-  icon?: boolean;
-  disabled?: boolean;
+    stylesButton?: string;
+    title: string;
+    onClick?: () => void;
+    icon?: boolean;
+    disabled?: boolean;
 }
 
 export interface CatalogModalState {
-  showCatalog: boolean;
-  setShowCatalog: () => void;
+    showCatalog: boolean;
+    setShowCatalog: () => void;
 }
 
 export interface ShoppingCartModalState {
-  showShoppingCart: boolean;
-  setShowShoppingCart: () => void;
+    showShoppingCart: boolean;
+    setShowShoppingCart: () => void;
 }
 
 export interface LoginModalState {
-  showLoginModal: boolean;
-  setShowLoginModal: () => void;
+    showLoginModal: boolean;
+    setShowLoginModal: () => void;
+}
+
+export interface FilterModalState {
+    showFilterModal: boolean;
+    setShowFilterModal: () => void;
+    setHideFilterModal: () => void;
 }
 
 export interface IRating {
-  [key: number]: number;
+    [key: number]: number;
 }
 
 export interface ProductInCart {
-  _id: string;
-  poster: string;
-  price: number;
-  title: string;
-  quantity?: number;
+    _id: string;
+    poster: string;
+    price: number;
+    title: string;
+    quantity?: number;
 }
 
 export interface ICharacteristic {
@@ -49,16 +55,19 @@ export interface ICharacteristic {
 }
 
 export interface Product {
-  id: number;
-  _id: string;
-  inStock: boolean;
-  poster: string;
-  price: number;
-  title: string;
-  categories: string[];
-  characteristics: ICharacteristic[];
-  images: [];
-  rating: IRating;
+    id: number;
+    _id: string;
+    inStock: boolean;
+    poster: string;
+    price: number;
+    title: string;
+    categories: string[];
+    rating: IRating;
+}
+
+export interface ProductsInfo {
+    products: Product[];
+    total: number;
 }
 
 export interface IProduct {
@@ -66,14 +75,14 @@ export interface IProduct {
 }
 
 export interface AddServices {
-  servicesId: number;
-  servicesTitle: string;
-  servicesDesc: string;
-  servicesPrice: number;
+    servicesId: number;
+    servicesTitle: string;
+    servicesDesc: string;
+    servicesPrice: number;
 }
 
 export type addAdditionalServices = AddServices & {
-  productId: string;
+    productId: string;
 };
 
 // export type CartProduct = Product & {
@@ -82,252 +91,258 @@ export type addAdditionalServices = AddServices & {
 //   addServices?: AddServices[];
 // };
 export type CartProduct = ProductInCart & {
-  quantity: number;
+    quantity: number;
 } & {
-  addServices?: AddServices[];
+    addServices?: AddServices[];
 };
 
 export type AdditionalServicesDesktopType = {
-  // productId: number;
-  productId: string;
+    // productId: number;
+    productId: string;
 };
 
 export interface IContactContent
-  extends Record<string, string | number | boolean> {
-  name: string;
-  surname: string;
-  email: string;
-  phone: string;
-  // anotherPersonReceive: boolean;
+    extends Record<string, string | number | boolean> {
+    name: string;
+    surname: string;
+    email: string;
+    phone: string;
+    // anotherPersonReceive: boolean;
 }
 
 export interface ICourierAddress {
-  street: string | undefined;
-  house: string | undefined;
-  apartment: number | undefined;
+    street: string | undefined;
+    house: string | undefined;
+    apartment: number | undefined;
 }
 
 export interface IDeliveryContent {
-  postalOperator: string;
-  postalDepartment?: string | undefined;
-  courierAddress: {
-    street?: string | undefined;
-    house?: string | undefined;
-    apartment?: number | undefined;
-  } | null;
+    postalOperator: string;
+    postalDepartment?: string | undefined;
+    courierAddress: {
+        street?: string | undefined;
+        house?: string | undefined;
+        apartment?: number | undefined;
+    } | null;
 }
 
 export interface IPayMethodContent
-  extends Record<string, string | number | boolean> {
-  // payMethod_id: number;
-  payMethod_id: string;
+    extends Record<string, string | number | boolean> {
+    // payMethod_id: number;
+    payMethod_id: string;
 }
 
 export interface IAdd {
-  [key: string]: string;
+    [key: string]: string;
 }
 
 export interface formDat {
-  setOrderContactData: React.Dispatch<React.SetStateAction<IAdd>>;
-  // setCourierAddress: React.Dispatch<React.SetStateAction<{}>>;
-  toggle: (i: any) => void;
+    setOrderContactData: React.Dispatch<React.SetStateAction<IAdd>>;
+    // setCourierAddress: React.Dispatch<React.SetStateAction<{}>>;
+    toggle: (i: any) => void;
 }
 
 export interface formDatAddress extends formDat {
-  setCourierAddress: React.Dispatch<React.SetStateAction<ICourierAddress>>;
+    setCourierAddress: React.Dispatch<React.SetStateAction<ICourierAddress>>;
 }
 
 export interface INPCity {
-  AddressDeliveryAllowed: boolean;
-  Area: string;
-  DeliveryCity: string;
-  MainDescription: string;
-  ParentRegionCode: string;
-  ParentRegionTypes: string;
-  Present: string;
-  Ref: string;
-  Region: string;
-  RegionTypes: string;
-  RegionTypesCode: string;
-  SettlementTypeCode: string;
-  StreetsAvailability: boolean;
-  Warehouses: number;
+    AddressDeliveryAllowed: boolean;
+    Area: string;
+    DeliveryCity: string;
+    MainDescription: string;
+    ParentRegionCode: string;
+    ParentRegionTypes: string;
+    Present: string;
+    Ref: string;
+    Region: string;
+    RegionTypes: string;
+    RegionTypesCode: string;
+    SettlementTypeCode: string;
+    StreetsAvailability: boolean;
+    Warehouses: number;
 }
 
 export interface IPersonalContactInfo {
-  first_name: string;
-  last_name: string;
-  phone_number: string;
-  email: string;
-  b_day?: string | null | undefined;
+    first_name: string;
+    last_name: string;
+    phone_number: string;
+    email: string;
+    b_day?: string | null | undefined;
 }
 
 export interface IPersonalLoginInfo {
-  loginPhone: string;
+    loginPhone: string;
 }
 
 export interface IHomeDeliveryAddress {
-  city: string;
-  street: string;
-  house: string;
-  apartament?: number | null | undefined;
+    city: string;
+    street: string;
+    house: string;
+    apartament?: number | null | undefined;
 }
 
 export interface INovaPostDeliveryAddress {
-  city: string;
-  novaPostDepart: string;
+    city: string;
+    novaPostDepart: string;
 }
 
 export interface IUkrPostDeliveryAddress {
-  city: string;
-  ukrPostDepart: string;
+    city: string;
+    ukrPostDepart: string;
 }
 
 export interface IInfoAboutPurchase {
-  productId: number;
-  orderNumber: string;
-  orderStatus: string;
-  orderDate: string;
-  orderIcon: string;
-  orderTitle: string;
-  orderPrice: number;
-  orderCount: number;
-  paymentStatus: string;
-  PaymentMethod: string;
-  deliveryAddress: string;
-  orderRecipientName: string;
-  orderRecipientPhone: string;
-  inStock: boolean;
+    productId: number;
+    orderNumber: string;
+    orderStatus: string;
+    orderDate: string;
+    orderIcon: string;
+    orderTitle: string;
+    orderPrice: number;
+    orderCount: number;
+    paymentStatus: string;
+    PaymentMethod: string;
+    deliveryAddress: string;
+    orderRecipientName: string;
+    orderRecipientPhone: string;
+    inStock: boolean;
 }
 
 export interface SubcategoryModel {
-  id: string;
-  name: string;
+    id: string;
+    name: string;
 }
 
 export interface Subcategory {
-  id: number;
-  name: string;
-  model: SubcategoryModel[];
+    id: number;
+    name: string;
+    model: SubcategoryModel[];
 }
 
 export interface Category {
-  id: number;
-  icon: string;
-  title: string;
-  subcategories: Subcategory[];
+    id: number;
+    icon: string;
+    title: string;
+    subcategories: Subcategory[];
 }
 
 //* Product-card types
 
 export interface IParams {
-  params: {
-    _id: string;
-  };
+    params: {
+        _id: string;
+    };
 }
 
 export interface IOption {
-  id: string;
-  name: string;
-  label: string;
-  price: number;
-  idx?: string;
+    id: string;
+    name: string;
+    label: string;
+    price: number;
+    idx?: string;
 }
 
 export interface IData {
-  product: {
-    data: Product;
-  };
+    product: {
+        data: Product;
+    };
 }
 
 export interface Review {
-  rating: number;
-  advantages: string;
-  disadvantages: string;
-  comment?: string;
-  userEmail?: string;
-  userName?: string;
-  productId?: string;
-  date?: string;
+    rating: number;
+    advantages: string;
+    disadvantages: string;
+    comment?: string;
+    userEmail?: string;
+    userName?: string;
+    productId?: string;
+    date?: string;
 }
 
 export interface User {
-  userEmail: string;
-  userName: string;
+    userEmail: string;
+    userName: string;
 }
 
 export interface Product {
-  _id: string;
-  title: string;
-  price: number;
-  inStock: boolean;
-  id: number;
-  poster: string;
-  rating: IRating;
+    _id: string;
+    title: string;
+    price: number;
+    inStock: boolean;
+    id: number;
+    poster: string;
+    rating: IRating;
 }
 
 export interface IFeedback {
-  _id?: string;
-  rating: number;
-  advantages: string;
-  disadvantages: string;
-  comment?: string;
-  product: Product;
-  user: User;
-  userId: string;
-  createdAt: string;
-  updatedAt?: string;
+    _id?: string;
+    rating: number;
+    advantages: string;
+    disadvantages: string;
+    comment?: string;
+    product: Product;
+    user: User;
+    userId: string;
+    createdAt: string;
+    updatedAt?: string;
 }
 
 export interface IReviewCollection {
-  _id: string;
-  rating: number;
-  advantages: string;
-  disadvantages: string;
-  comment?: string;
-  product: Product;
-  user: User;
-  createdAt: string;
-  updatedAt?: string;
+    _id: string;
+    rating: number;
+    advantages: string;
+    disadvantages: string;
+    comment?: string;
+    product: Product;
+    user: User;
+    createdAt: string;
+    updatedAt?: string;
 }
 
 export interface IDataWithServices {
-  product: {
-    data: Product;
-  };
-  addService: AddServices[];
+    product: {
+        data: Product;
+    };
+    addService: AddServices[];
 }
 
 export interface IReviewPersonalAccount {
-  id: number;
-  icon: string;
-  title: string;
+    id: number;
+    icon: string;
+    title: string;
 }
 
 export interface Categories {
-  _id: string;
-  title: string;
-  slug: string;
-  icon: null;
-  parent: string;
-  children: Categories[];
+    _id: string;
+    title: string;
+    slug: string;
+    icon: null;
+    parent: string;
+    children: Categories[];
 }
 
 export interface IAuthData {
-  email: string;
-  password: string;
+    email: string;
+    password: string;
 }
 
 export interface IProductFilters {
-  priceFrom: number;
-  priceTo: number;
-  brand: string[];
+    priceFrom: number;
+    priceTo: number;
+    brand: string[];
 }
 
 export interface IFilteredProducts {
-  minPrice?: number;
-  maxPrice?: number;
-  category?: string;
-  sort?: string | null;
-  search?: string | null;
+    minPrice?: number;
+    maxPrice?: number;
+    category?: string;
+    sort?: string | null;
+    search?: string | null;
+    page?: number;
+}
+
+export interface IPriceFilter {
+    priceFrom: number;
+    priceTo: number;
 }

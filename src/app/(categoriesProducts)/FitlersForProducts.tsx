@@ -1,131 +1,89 @@
-"use client";
+import { useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import FiltersForm from './FiltersForm';
+import { IPriceFilter } from '@/types';
+import { useFilterModalStore } from '@/store/modalStore';
 
-import Button from "@/components/ui/Button";
-import { productFilters } from "@/constants";
-import {
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  TextField,
-} from "@mui/material";
-import NoSsr from "../utils/NoSsr";
-import { useEffect } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+const FiltersForProducts = () => {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const pathname = usePathname();
+    const minPriceQuery = searchParams.get('minPrice');
+    const maxPriceQuery = searchParams.get('maxPrice');
 
-interface IPriceFilter {
-  priceFrom: number;
-  priceTo: number;
-}
+    const addQueryParams = (
+        minPrice?: number | null,
+        maxPrice?: number | null
+    ) => {
+        const currentParams = new URLSearchParams(searchParams.toString());
+        
+        if (minPrice !== undefined && minPrice !== null) {
+            currentParams.set('minPrice', String(minPrice));
+        } else {
+            currentParams.delete('minPrice');
+        }
 
-const FitlersForProducts = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const minPriceQuery = searchParams.get("minPrice");
-  const maxPriceQuery = searchParams.get("maxPrice");
+        if (maxPrice !== undefined && maxPrice !== null) {
+            currentParams.set('maxPrice', String(maxPrice));
+        } else {
+            currentParams.delete('maxPrice');
+        }
 
-  const addQueryParams = (minPrice?: number, maxPrice?: number) => {
-    const currentParams = new URLSearchParams(searchParams.toString());
-    minPrice && currentParams.set("minPrice", String(minPrice));
-    maxPrice && currentParams.set("maxPrice", String(maxPrice));
+        router.push(`${pathname}/?${currentParams.toString()}`);
+    };
 
-    router.push(`${pathname}/?${currentParams.toString()}`);
-  };
+    const showFilterModal = useFilterModalStore(
+        (state) => state.showFilterModal
+    );
+    const setHideFilterModal = useFilterModalStore(
+        (state) => state.setHideFilterModal
+    );
 
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-    reset,
-  } = useForm<IPriceFilter>({});
+    const {
+        formState: { errors },
+        reset,
+    } = useForm<IPriceFilter>({});
 
-  const onSubmit: SubmitHandler<IPriceFilter> = (data) => {
-    addQueryParams(data.priceFrom, data.priceTo);
-  };
+    const onSubmit: SubmitHandler<IPriceFilter> = (data) => {
+        addQueryParams(
+            data.priceFrom ? Number(data.priceFrom) : null,
+            data.priceTo ? Number(data.priceTo) : null
+        );
+        setHideFilterModal();
+    };
 
-  useEffect(() => {
-    reset({
-      priceFrom: minPriceQuery === null ? undefined : Number(minPriceQuery),
-      priceTo: maxPriceQuery === null ? undefined : Number(maxPriceQuery),
-    });
-  }, [reset, maxPriceQuery, minPriceQuery]);
+    useEffect(() => {
+        reset({
+            priceFrom:
+                minPriceQuery === null ? undefined : Number(minPriceQuery),
+            priceTo: maxPriceQuery === null ? undefined : Number(maxPriceQuery),
+        });
+    }, [reset, maxPriceQuery, minPriceQuery]);
 
-  return (
-    <aside className="hidden md:flex min-h-screen min-w-80 pt-8 pr-6 border-r-[1px] border-r-TechStopBlue40">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col">
-          <div className="mb-10">
-            <h4 className="text-Headline5 text-TechStopBlue mb-6">Ціна</h4>
-            <div className="flex items-center gap-4 text-TechStopBlue60">
-              <span>від</span>
-              <Controller
-                control={control}
-                name="priceFrom"
-                render={({ field }) => (
-                  <TextField
-                    variant="outlined"
-                    type="number"
-                    value={field.value}
-                    onChange={(e) => field.onChange(e)}
-                    placeholder="100"
-                    className="max-w-24"
-                  />
-                )}
-              />
-              <span>до</span>
-              <Controller
-                control={control}
-                name="priceTo"
-                render={({ field }) => (
-                  <TextField
-                    variant="outlined"
-                    type="number"
-                    value={field.value}
-                    onChange={(e) => field.onChange(e)}
-                    placeholder="12 500"
-                    className="max-w-24"
-                  />
-                )}
-              />
-            </div>
-          </div>
-          <div className="mb-14">
-            <h4 className="text-Headline5 text-TechStopBlue mb-6">Бренд</h4>
-            <FormControl component="fieldset" variant="standard">
-              <FormGroup>
-                {productFilters.length > 0
-                  ? productFilters.map((filter) => {
-                      return (
-                        <FormControlLabel
-                          key={filter.brandId}
-                          control={
-                            <NoSsr>
-                              <Checkbox
-                                name={filter.brandTitle}
-                                sx={{ color: "#02275099" }}
-                              />
-                            </NoSsr>
-                          }
-                          label={filter.brandTitle}
-                          className="text-body1 text-TechStopBlue"
-                          sx={{ marginLeft: "12px" }}
+    return (
+        <>
+            <aside className="hidden md:flex min-h-screen min-w-80 pt-8 pr-6 border-r-[1px] border-r-TechStopBlue40">
+                <FiltersForm
+                    onSubmit={onSubmit}
+                    minPriceQuery={minPriceQuery}
+                    maxPriceQuery={maxPriceQuery}
+                />
+            </aside>
+
+            {showFilterModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white w-full h-full md:w-[80%] max-w-screen-lg p-8">
+                        <FiltersForm
+                            onSubmit={onSubmit}
+                            minPriceQuery={minPriceQuery}
+                            maxPriceQuery={maxPriceQuery}
                         />
-                      );
-                    })
-                  : null}
-              </FormGroup>
-            </FormControl>
-          </div>
-          <Button
-            stylesButton="w-full md:w-[296px] bg-TechStopBlue text-TechStopWhite uppercase"
-            title="Застосувати"
-          />
-        </div>
-      </form>
-    </aside>
-  );
+                    </div>
+                </div>
+            )}
+        </>
+    );
 };
 
-export default FitlersForProducts;
+export default FiltersForProducts;
