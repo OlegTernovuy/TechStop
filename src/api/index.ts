@@ -52,15 +52,13 @@ export const rateProduct = async (_id: string, value: number) => {
 
 export const getProductsData = async (): Promise<ProductsInfo | undefined> => {
     try {
-        const res = await fetch(`${NEXT_PUBLIC_BASE_URL}/products`, {
-            next: { revalidate: 10 },
-        });
+        const res = await axios.get(`${NEXT_PUBLIC_BASE_URL}/products`);
 
         if (res.status !== 200) {
             throw new Error('Something went wrong');
         }
-
-        return res.json().then((res) => res.data);
+        
+        return res.data.data
     } catch (error) {
         console.log((error as Error).message);
     }
@@ -80,15 +78,13 @@ export const getProductsByQuery = async (
             }
         });
 
-        const res = await fetch(`${url}?${params.toString()}`, {
-            next: { revalidate: 10 },
-        });
+        const res = await axios.get(`${url}?${params.toString()}`);
 
         if (res.status !== 200) {
             throw new Error('Something went wrong');
         }
 
-        return res.json().then((res) => res.data);
+        return res.data.data
     } catch (error) {
         console.log((error as Error).message);
     }
@@ -96,14 +92,11 @@ export const getProductsByQuery = async (
 
 export const getCategories = async (): Promise<Categories[] | undefined> => {
     try {
-        const res = await fetch(`${NEXT_PUBLIC_BASE_URL}/categories`, {
-            next: { revalidate: 10 },
-        });
+        const res = await axios.get(`${NEXT_PUBLIC_BASE_URL}/categories`);
         if (res.status !== 200) {
             throw new Error('Something went wrong');
-        }
-
-        return res.json().then((res) => res.data);
+        }        
+        return res.data.data
     } catch (error) {
         console.log((error as Error).message);
     }
