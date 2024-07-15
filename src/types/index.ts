@@ -113,19 +113,19 @@ export interface IContactContent
 }
 
 export interface ICourierAddress {
-  street: string | undefined;
-  house: string | undefined;
-  apartment: number | undefined;
+    street: string | undefined;
+    house: string | undefined;
+    apartment: number | undefined | null;
 }
 
 export interface IDeliveryContent {
-  postalOperator: string;
-  postalDepartment?: string | undefined;
-  courierAddress: {
-    street?: string | undefined;
-    house?: string | undefined;
-    apartment?: number | undefined;
-  } | null;
+    postalOperator: string;
+    postalDepartment?: string | undefined;
+    courierAddress: {
+        street?: string | undefined;
+        house?: string | undefined;
+        apartment?: number | undefined | null;
+    } | null;
 }
 
 export interface IPayMethodContent

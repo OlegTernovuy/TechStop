@@ -27,24 +27,43 @@ const Footer = () => {
                         priority={true}
                     />
                     <span className="flex pt-6 gap-5">
-                        <Image
-                            src="/FacebookIcon.svg"
-                            alt="facebookLogo"
-                            width={24}
-                            height={24}
-                        />
-                        <Image
-                            src="/YoutubeIcon.svg"
-                            alt="youtubeLogo"
-                            width={24}
-                            height={24}
-                        />
-                        <Image
-                            src="/InstagramIcon.svg"
-                            alt="instaLogo"
-                            width={24}
-                            height={24}
-                        />
+                        <Link
+                            href={
+                                'https://www.facebook.com/share/HN2wqi5DQ4KPy45c/?mibextid=WC7FNe'
+                            }
+                            target="_blank"
+                        >
+                            <Image
+                                src="/FacebookIcon.svg"
+                                alt="facebookLogo"
+                                width={24}
+                                height={24}
+                            />
+                        </Link>
+                        <Link
+                            href={'https://www.youtube.com/watch?v=QZ-NWmUE30s'}
+                            target="_blank"
+                        >
+                            <Image
+                                src="/YoutubeIcon.svg"
+                                alt="youtubeLogo"
+                                width={24}
+                                height={24}
+                            />
+                        </Link>
+                        <Link
+                            href={
+                                'https://www.instagram.com/reel/C9LELt4NGOC/?igsh=dXk0MW84cHplN3g2'
+                            }
+                            target="_blank"
+                        >
+                            <Image
+                                src="/InstagramIcon.svg"
+                                alt="instaLogo"
+                                width={24}
+                                height={24}
+                            />
+                        </Link>
                     </span>
                 </div>
                 <div className="md:flex md:gap-6 lg:gap-20 md:flex-wrap pb-6">
@@ -55,13 +74,17 @@ const Footer = () => {
                                     <h2 className="pb-6 text-Headline5">
                                         {item.head}
                                     </h2>
-                                    <ul className='flex flex-col'>
+                                    <ul className="flex flex-col">
                                         {item.subHeaders.map((el, index) => {
                                             return (
                                                 <Link
                                                     key={index}
                                                     href={el.href}
-                                                    target={el.target ? '_blank' : ''}
+                                                    target={
+                                                        el.target
+                                                            ? '_blank'
+                                                            : ''
+                                                    }
                                                     className="text-body1 pb-4 last:pb-0"
                                                 >
                                                     {el.title}

@@ -1,6 +1,6 @@
 const InformationCenter = () => {
     return (
-        <div className="max-w-3xl mx-auto p-6 h-screen-with-footer">
+        <div className="max-w-3xl mx-auto p-6 min-h-screen">
             <h1 className="text-3xl font-bold mb-6">Довідковий центр</h1>
             <section className="mb-6">
                 <h2 className="text-2xl font-semibold mb-2">
@@ -64,9 +64,6 @@ const InformationCenter = () => {
                 <ul>
                     <li className="mb-2">
                         <strong>Email:</strong> support@electroshop.com
-                    </li>
-                    <li>
-                        <strong>Телефон:</strong> +38 (044) 123-45-67
                     </li>
                 </ul>
             </section>
