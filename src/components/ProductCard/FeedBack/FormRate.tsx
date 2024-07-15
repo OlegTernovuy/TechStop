@@ -9,6 +9,7 @@ import CustomInput from "./CustomInput";
 import CustomSmallInput from "./CustomSmallInput";
 import { useFeedbackStore } from "@/store/useFeedbackStore";
 import CustomSpinner from "@/components/Global/Spinner";
+import { useSession } from "next-auth/react";
 
 const FormRate: FC<IFormRateProps> = ({ errors }) => {
   const isError = Object.values(errors).some((error) => error !== undefined);
@@ -16,6 +17,8 @@ const FormRate: FC<IFormRateProps> = ({ errors }) => {
   const { advantages, disadvantages, comment, userName, userEmail } = errors;
 
   const { isLoading } = useFeedbackStore();
+
+  const { data } = useSession();
 
   return (
     <>
@@ -43,19 +46,24 @@ const FormRate: FC<IFormRateProps> = ({ errors }) => {
           {" "}
           <div className="md:mb-4 xl:mb-0">
             {" "}
-            <CustomSmallInput name="userName" label="Ім'я" />
-            {userName && (
+            <CustomSmallInput
+              name="userName"
+              label={"Ім'я"}
+              placeholder={data?.user?.first_name}
+              defaultValue={data?.user?.first_name || "User"}
+            />
+            {userName && !data?.user?.first_name && (
               <p className="text-red-500 mb-4 md:mb-0">{userName?.message}</p>
             )}
           </div>
           <div>
             {" "}
             <CustomSmallInput
+              defaultValue={data?.user?.email || "example@gmail.com"}
               name="userEmail"
               label="Email"
-              placeholder="example@email.com"
             />
-            {userEmail && (
+            {userEmail && !data?.user.email && (
               <p className="text-red-500 mb-6 md:mb-0">{userEmail?.message}</p>
             )}
           </div>
@@ -63,10 +71,10 @@ const FormRate: FC<IFormRateProps> = ({ errors }) => {
         <li>
           {" "}
           <Button
-            disabled={isError || !!isLoading}
+            disabled={isError || isLoading || !data?.token}
             type="submit"
             className={`w-full h-[56px] xl:min-w-[453px] bg-TechStopBlue text-TechStopWhite   ${
-              isError
+              isError || isLoading || !data?.token
                 ? "disabled:opacity-50  cursor-not-allowed"
                 : "hover:bg-TechStopBlue60 focus:bg-TechStopBlue60"
             }`}

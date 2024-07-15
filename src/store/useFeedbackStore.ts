@@ -16,6 +16,7 @@ interface IFeedbackStore {
   isError?: null | Error;
   getAll: () => Promise<void>;
   getAllFeedbacks: (productId: string) => Promise<void>;
+  hasReviewed: (productId: string, userId: string) => boolean;
   addNewFeedback: (newReview: Review, productId?: string) => Promise<void>;
   deleteFeedback: (id: string) => Promise<void>;
 }
@@ -78,6 +79,15 @@ export const useFeedbackStore = create<IFeedbackStore>()(
           toast.error((error as Error).message);
         }
       },
+      hasReviewed: (productId, userId) => {
+        const { reviews } = get();
+
+        return reviews.some(
+          (review) =>
+            review.userId === userId && review.product._id === productId
+        );
+      },
+
       addNewFeedback: async (newReview, productId) => {
         const { isError, reviews } = get();
         set({ isLoading: true, isError: null }, false, "addNewFeedback");
@@ -98,6 +108,7 @@ export const useFeedbackStore = create<IFeedbackStore>()(
             {
               isLoading: false,
               reviews: [...reviews, data],
+
               isError: null,
             },
             false,
@@ -112,7 +123,6 @@ export const useFeedbackStore = create<IFeedbackStore>()(
           console.log((error as Error).message);
         }
       },
-
       deleteFeedback: async (id) => {
         const { reviews } = get();
         set({ isLoading: true, isError: null }, false, "deleteFeedback");

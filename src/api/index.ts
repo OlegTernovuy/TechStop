@@ -1,7 +1,10 @@
+
+
 import axios from 'axios';
 import { Categories, IFilteredProducts, Product, ProductsInfo } from '@/types';
 import { PurchasesData } from '@/app/account/purchases/purchasesType';
 import { IRewiewData } from '@/app/account/reviews/typeRewiew';
+
 
 import { env } from '../../next.config';
 
@@ -49,6 +52,7 @@ export const rateProduct = async (_id: string, value: number) => {
         console.log((error as Error).message);
     }
 };
+
 
 export const getProductsData = async (): Promise<ProductsInfo | undefined> => {
     try {

@@ -14,6 +14,13 @@ import FeedbackForm from "./FeedbackForm";
 import DefaultFeedbackForm from "./DefaultFeedbackForm";
 
 import CustomToast from "@/components/Global/Toaster";
+import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
+import { TOAST_MESSAGES } from "@/constants/toastMessages";
+
+import { useRouter } from "next/navigation";
+
+const { AUTH_ERROR } = TOAST_MESSAGES();
 
 const FeedbackPage: FC<IParams> = ({ params }) => {
   const { _id } = params;
@@ -21,6 +28,9 @@ const FeedbackPage: FC<IParams> = ({ params }) => {
   const [data, setData] = useState<IProduct | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
   const { reviews } = useFeedbackStore();
+  const { data: userData } = useSession();
+
+  const router = useRouter();
 
   const productData = useMemo(() => {
     return getProductById(_id);
@@ -36,6 +46,17 @@ const FeedbackPage: FC<IParams> = ({ params }) => {
   }, [productData]);
 
   const handleLeaveFeedback = () => {
+    if (!userData?.token) {
+      toast.error(AUTH_ERROR);
+      return;
+    }
+
+    if (userData?.token && !userData?.user?.first_name) {
+      toast.error("Заповніть контактну інформацію");
+      router.push("/account");
+      return;
+    }
+
     setShowFeedback(!showFeedback);
   };
 

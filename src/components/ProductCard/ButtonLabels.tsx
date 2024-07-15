@@ -9,6 +9,9 @@ import diagram from "/public/product-card-icons/diagram_White.svg";
 import basket from "/public/product-card-icons/basket.svg";
 import Image from "next/image";
 
+import formatPrice from "@/app/utils/formatPrice";
+import { DiscountPercentage } from "@/constants";
+
 import ToggleButton from "./ToggleButton";
 import { TOAST_MESSAGES } from "@/constants/toastMessages";
 
@@ -26,15 +29,18 @@ const ButtonLabels: FC<IDataWithServices> = ({ product, addService }) => {
     toast.success(ADD_SUCCESS);
   };
 
+  const oldPrice = formatPrice(price * DiscountPercentage);
+  const newPrice = formatPrice(price);
+
   return (
     <div className="md:flex items-center border-b-[1px] md:py-10 pt-3 pb-[32px] flex-wrap md:flex-nowrap relative">
       <div className="md:mr-20">
         {" "}
         <p className="line-through text-TechStopBlue font-medium text-nowrap text-xl mb-1">
-          28 999 ₴
+          {oldPrice} &#8372;
         </p>
         <p className="text-TechStopRed font-normal text-3xl text-nowrap">
-          {price} ₴
+          {newPrice} &#8372;
         </p>
       </div>
 

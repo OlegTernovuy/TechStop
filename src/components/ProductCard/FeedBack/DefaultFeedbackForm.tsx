@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC } from "react";
 import FormControl from "@mui/material/FormControl";
 import { InputLabel, MenuItem } from "@mui/material";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -22,6 +22,7 @@ import FormRate from "./FormRate";
 import { Review, IParams } from "@/types";
 import { TOAST_MESSAGES } from "@/constants/toastMessages";
 import { createReviewsSchema } from "@/components/admin/schemas";
+import { useSession } from "next-auth/react";
 
 const MenuProps = {
   PaperProps: {
@@ -31,13 +32,13 @@ const MenuProps = {
   },
 };
 
-const { REVIEW_SUCCESS } = TOAST_MESSAGES();
+const { REVIEW_SUCCESS, ADD_REVIEW_ERROR, AUTH_ERROR } = TOAST_MESSAGES();
 
 const DefaultFeedbackForm: FC<IParams> = ({ params }) => {
-  const { addNewFeedback, isError } = useFeedbackStore();
-  const [leaveFeedback, setLeaveFeedback] = useState(false);
-
   const { _id: productId } = params;
+
+  const { addNewFeedback } = useFeedbackStore();
+  const { data: userData } = useSession();
 
   const methods = useForm({
     resolver: yupResolver(createReviewsSchema),
@@ -59,21 +60,29 @@ const DefaultFeedbackForm: FC<IParams> = ({ params }) => {
     formState: { errors },
   } = methods;
 
-  const userId = "6670068dd86670039a07c324";
+  const userId = userData?.user?._id;
+
+  const isUserHasReviewed = useFeedbackStore(({ hasReviewed }) =>
+    hasReviewed(productId, userId as string)
+  );
 
   const onSubmit: SubmitHandler<Review> = async (data) => {
+    if (!userData?.token) {
+      toast.error(AUTH_ERROR);
+      return;
+    }
+
+    if (isUserHasReviewed) {
+      toast.error(ADD_REVIEW_ERROR);
+      return;
+    }
+
     const newData = { ...data, productId, userId };
 
     const { userEmail, ...filteredData } = newData;
 
     try {
       await addNewFeedback(filteredData);
-
-      if (leaveFeedback) {
-        throw new Error("Ви вже залишили відгук");
-      }
-
-      setLeaveFeedback(true);
 
       toast.success(REVIEW_SUCCESS);
       reset();
@@ -124,5 +133,3 @@ const DefaultFeedbackForm: FC<IParams> = ({ params }) => {
 };
 
 export default DefaultFeedbackForm;
-
-//dimon.bond.94@gmail.com
