@@ -10,18 +10,18 @@ const withAuth = (WrappedComponent: any) => {
     const router = useRouter();
     const { data } = useSession();
 
-    // const isUser = data?.user.roles?.find((item) => item === "user");
+    const isUser = data?.user.roles?.find((item) => item === "user");
 
-    // useEffect(() => {
-    //   if (isUser || !data?.token || undefined || "") {
-    //     router.push("/admin/login");
-    //     return;
-    //   }
-    // }, [data?.user, isUser, router, data?.token]);
+    useEffect(() => {
+      if (isUser || !data?.token || undefined || "") {
+        router.push("/admin/login");
+        return;
+      }
+    }, [data?.user, isUser, router, data?.token]);
 
-    // if (isUser) {
-    //   return <CustomSpinner />;
-    // }
+    if (isUser) {
+      return <CustomSpinner />;
+    }
 
     return <WrappedComponent {...props} />;
   };
