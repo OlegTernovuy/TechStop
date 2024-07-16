@@ -1,6 +1,4 @@
-import { gallery } from "@/constants/productCard";
-import { IImage, ISmallSliderProps } from "@/types";
-import Image from "next/image";
+import { ISmallSliderProps } from "@/types";
 import React, { FC } from "react";
 import DefaultSmallSlider from "./DefaultSmallSlider";
 import SmallSlider from "./SmallSlider";
