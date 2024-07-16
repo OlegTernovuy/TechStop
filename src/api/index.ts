@@ -51,20 +51,14 @@ export const rateProduct = async (_id: string, value: number) => {
 };
 
 export const getProductsData = async (): Promise<ProductsInfo | undefined> => {
+  try {
+    const res = await axios.get(`${NEXT_PUBLIC_BASE_URL}/products`);
 
-    try {
-        const res = await axios.get(`${NEXT_PUBLIC_BASE_URL}/products`);
-
-        if (res.status !== 200) {
-            throw new Error('Something went wrong');
-        }
-        
-        return res.data.data
-    } catch (error) {
-        console.log((error as Error).message);
+    if (res.status !== 200) {
+      throw new Error("Something went wrong");
     }
 
-    return res.json().then((res) => res.data);
+    return res.data.data;
   } catch (error) {
     console.log((error as Error).message);
   }
@@ -73,67 +67,51 @@ export const getProductsData = async (): Promise<ProductsInfo | undefined> => {
 export const getProductsByQuery = async (
   filters: IFilteredProducts
 ): Promise<ProductsInfo | undefined> => {
+  try {
+    const url = new URL(`${NEXT_PUBLIC_BASE_URL}/products`);
+    const params = new URLSearchParams();
 
-    try {
-        const url = new URL(`${NEXT_PUBLIC_BASE_URL}/products`);
-        const params = new URLSearchParams();
+    (Object.keys(filters) as (keyof IFilteredProducts)[]).forEach((key) => {
+      const value = filters[key];
+      if (value !== undefined && value !== null && value !== 0) {
+        params.append(key, String(value));
+      }
+    });
 
-        (Object.keys(filters) as (keyof IFilteredProducts)[]).forEach((key) => {
-            const value = filters[key];
-            if (value !== undefined && value !== null && value !== 0) {
-                params.append(key, String(value));
-            }
-        });
+    const res = await axios.get(`${url}?${params.toString()}`);
 
-        const res = await axios.get(`${url}?${params.toString()}`);
-
-        if (res.status !== 200) {
-            throw new Error('Something went wrong');
-        }
-
-        return res.data.data
-    } catch (error) {
-        console.log((error as Error).message);
+    if (res.status !== 200) {
+      throw new Error("Something went wrong");
     }
 
-    return res.json().then((res) => res.data);
+    return res.data.data;
   } catch (error) {
     console.log((error as Error).message);
   }
 };
 
 export const getCategories = async (): Promise<Categories[] | undefined> => {
-
-    try {
-        const res = await axios.get(`${NEXT_PUBLIC_BASE_URL}/categories`);
-        if (res.status !== 200) {
-            throw new Error('Something went wrong');
-        }        
-        return res.data.data
-    } catch (error) {
-        console.log((error as Error).message);
+  try {
+    const res = await axios.get(`${NEXT_PUBLIC_BASE_URL}/categories`);
+    if (res.status !== 200) {
+      throw new Error("Something went wrong");
     }
-
-    return res.json().then((res) => res.data);
+    return res.data.data;
   } catch (error) {
     console.log((error as Error).message);
   }
 };
 
-
-export const getOrders = async (userEmail: string): Promise<PurchasesData[] | undefined> => {
-    try {
-        const res = await axios.get(`/orders?email=${userEmail}`);
-        if (res.status !== 200) {
-            throw new Error('Something went wrong');
-        }        
-
-        return res.data.data as PurchasesData[];
-    } catch (error) {
-        console.log((error as Error).message);
+export const getOrders = async (
+  userEmail: string
+): Promise<PurchasesData[] | undefined> => {
+  try {
+    const res = await axios.get(`/orders?email=${userEmail}`);
+    if (res.status !== 200) {
+      throw new Error("Something went wrong");
     }
 
-    return res.json().then((res) => res.data);
+    return res.data.data as PurchasesData[];
   } catch (error) {
     console.log((error as Error).message);
   }
@@ -190,7 +168,6 @@ export const editMe = async (token: string, body: any) => {
   } catch (error) {
     console.log((error as Error).message);
   }
-
 };
 
 export const makeOrder = async (body: any) => {
