@@ -1,6 +1,4 @@
-import { PurchasesData } from "@/app/account/purchases/purchasesType";
 import { Product, User } from "@/types";
-import { SetStateAction } from "react";
 import { FieldErrors } from "react-hook-form";
 
 export interface Children {
@@ -15,17 +13,25 @@ export interface ICreateProductData {
     name: string;
     description: string[];
   }[];
-  inStock?: boolean;
+  inStock: boolean;
 }
 
 export interface IUploadPosterForm {
   poster: FileList | null;
 }
+export interface IUploadCollection {
+  image: FileList | null;
+}
 
 export interface IUpdateProductFields {
-  title: string;
-  parent?: string;
-  icon?: string;
+  title?: string;
+  price?: number;
+  categories?: any[];
+  characteristics?: {
+    name?: string;
+    description?: any[];
+  }[];
+  inStock?: boolean;
 }
 
 export interface IProductsListItemProps {

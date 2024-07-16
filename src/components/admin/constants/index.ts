@@ -38,11 +38,15 @@ export const productThList = [
   },
   {
     id: 10,
+    title: "Upload collection images",
+  },
+  {
+    id: 11,
     title: "Update",
   },
 
   {
-    id: 11,
+    id: 12,
     title: "Delete",
   },
 ];

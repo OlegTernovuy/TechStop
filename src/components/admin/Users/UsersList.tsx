@@ -51,47 +51,48 @@ const UsersList = () => {
         <CustomSpinner />
       ) : (
         <>
-          {users &&
-            users.map(({ _id, email, createdAt, updatedAt, roles }, idx) => (
-              <tr
-                key={_id}
-                className="even:bg-gray-500 odd:bg-slate-400 text-center"
-              >
-                <td className="p-3">{idx + 1}</td>{" "}
-                <td className="p-3">{_id}</td>
-                <td className="p-3">{email}</td>
-                <td className="p-3">{...roles}</td>
-                <td className="p-3">{createdAt}</td>
-                <td className="p-3">{updatedAt}</td>
-                <td className="p-3">
-                  <Button
-                    onClick={() => toggleUpdateModal(_id)}
-                    className="text-white border px-4 py-2 bg-green-900 hover:bg-green-700"
-                    type="button"
-                  >
-                    Update
-                  </Button>
+          {users.length !== 0
+            ? users.map(({ _id, email, createdAt, updatedAt, roles }, idx) => (
+                <tr
+                  key={_id}
+                  className="even:bg-gray-500 odd:bg-slate-400 text-center"
+                >
+                  <td className="p-3">{idx + 1}</td>{" "}
+                  <td className="p-3">{_id}</td>
+                  <td className="p-3">{email}</td>
+                  <td className="p-3">{...roles}</td>
+                  <td className="p-3">{createdAt}</td>
+                  <td className="p-3">{updatedAt}</td>
+                  <td className="p-3">
+                    <Button
+                      onClick={() => toggleUpdateModal(_id)}
+                      className="text-white border px-4 py-2 bg-green-900 hover:bg-green-700"
+                      type="button"
+                    >
+                      Update
+                    </Button>
 
-                  {updateModal && currentUserId === _id && (
-                    <Modal onClose={() => toggleUpdateModal(currentUserId)}>
-                      <UpdateUserForm
-                        userId={currentUserId}
-                        toggleModal={toggleUpdateModal}
-                      />
+                    {updateModal && currentUserId === _id && (
+                      <Modal onClose={() => toggleUpdateModal(currentUserId)}>
+                        <UpdateUserForm
+                          userId={currentUserId}
+                          toggleModal={toggleUpdateModal}
+                        />
 
-                      <Button
-                        type="button"
-                        onClick={() => toggleUpdateModal()}
-                        className="bg-gray-500 text-white px-4 py-2 rounded mr-2 mt-4"
-                      >
-                        Cancel
-                      </Button>
-                    </Modal>
-                  )}
-                  <CustomToast />
-                </td>
-              </tr>
-            ))}
+                        <Button
+                          type="button"
+                          onClick={() => toggleUpdateModal()}
+                          className="bg-gray-500 text-white px-4 py-2 rounded mr-2 mt-4"
+                        >
+                          Cancel
+                        </Button>
+                      </Modal>
+                    )}
+                    <CustomToast />
+                  </td>
+                </tr>
+              ))
+            : "Users is Empty"}
         </>
       )}
     </>

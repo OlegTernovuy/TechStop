@@ -1,7 +1,6 @@
 "use client";
 
 import Users from "@/components/admin/Users/Users";
-import UsersList from "@/components/admin/Users/UsersList";
 import withAuth from "@/components/hoc/withAuth";
 
 const UsersPage = () => {

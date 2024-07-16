@@ -49,7 +49,6 @@ const UpdateReviewForm: React.FC<IUpdateReviewFormProps> = ({ productId }) => {
 
     const filteredData = filterEmptyFields(newData);
 
-    console.log(filteredData);
     try {
       await updateReviewById(productId, filteredData);
       toast.success(REVIEW_SUCCESS);

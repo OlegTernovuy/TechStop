@@ -63,8 +63,25 @@ export interface Product {
   title: string;
   categories: string[];
   characteristics: ICharacteristic[];
-  images: [];
+  images: IImage[];
   rating: IRating;
+}
+
+export interface IImage {
+  imageId: number;
+  url: string;
+}
+
+export interface SliderProps {
+  images?: IImage[];
+  current: number;
+  prevSlide: () => void;
+  nextSlide: () => void;
+}
+
+export interface ISmallSliderProps {
+  changeSlide: (idx: number) => void;
+  images?: IImage[];
 }
 
 export interface ProductsInfo {
