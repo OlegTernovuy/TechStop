@@ -24,9 +24,16 @@ export const createProductSchema = yup.object({
 });
 
 export const updateProductSchema = yup.object({
-  title: yup.string().required("Це поле є обов'язковим"),
-  parent: yup.string(),
-  icon: yup.string(),
+  title: yup.string(),
+  price: yup.number(),
+  categories: yup.array().of(yup.string()),
+  characteristics: yup.array().of(
+    yup.object().shape({
+      name: yup.string(),
+      description: yup.array().of(yup.string()),
+    })
+  ),
+  inStock: yup.boolean().default(false),
 });
 
 const nameRegex = /^[A-Aa-Я]+$/i;

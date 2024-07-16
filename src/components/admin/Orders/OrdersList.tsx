@@ -88,121 +88,124 @@ const OrdersList = () => {
         <CustomSpinner />
       ) : (
         <>
-          {orders &&
-            orders?.map(
-              (
-                {
-                  _id,
-                  orderCode,
-                  executionAt,
-                  totalPrice,
-                  customerPhone,
-                  recepient,
-                  deliveryAddress,
-                  paymentStatus,
-                  paymentMethod,
-                  products,
-                  createdAt,
-                  updatedAt,
-                },
-                idx
-              ) => (
-                <tr
-                  key={_id}
-                  className="even:bg-gray-500 odd:bg-slate-400 text-center"
-                >
-                  <td className="p-3"> {idx + 1}</td>
-                  <td className="p-3"> {_id}</td>
-                  <td className="p-3"> {orderCode}</td>
-                  <td className="p-3"> {executionAt || "Empty"}</td>
-                  <td className="p-3"> {totalPrice}</td>
-                  <td className="p-3"> {customerPhone}</td>
-                  <td className="p-3">
-                    <p>{recepient?.name}</p>
-                    <p>{recepient?.phone}</p>
-                  </td>
-                  <td className="p-3">
-                    {" "}
-                    <ul>
-                      <DeliveryAddressList deliveryAddress={deliveryAddress} />
-                    </ul>
-                  </td>
-                  <td className="p-3"> {paymentStatus}</td>
-                  <td className="p-3"> {paymentMethod}</td>
-                  <td className="p-3">
-                    {" "}
-                    <ProductsInOrdersList products={products} />
-                  </td>
-                  <td className="p-3"> {updatedAt.toString()}</td>
-                  <td className="p-3"> {createdAt.toString()}</td>
-                  <td className="p-3">
-                    {" "}
-                    <Button
-                      onClick={() => toggleUpdateModal(_id)}
-                      className="text-white border px-4 py-2 bg-green-900 hover:bg-green-700"
-                      type="button"
-                    >
-                      Update
-                    </Button>
-                    {updateModal && currentProductId === _id && (
-                      <Modal
-                        onClose={() => toggleUpdateModal()}
-                        maxheight="972"
-                        maxwidth="600"
-                        alignitems="flex-start"
+          {orders.length !== 0
+            ? orders?.map(
+                (
+                  {
+                    _id,
+                    orderCode,
+                    executionAt,
+                    totalPrice,
+                    customerPhone,
+                    recepient,
+                    deliveryAddress,
+                    paymentStatus,
+                    paymentMethod,
+                    products,
+                    createdAt,
+                    updatedAt,
+                  },
+                  idx
+                ) => (
+                  <tr
+                    key={_id}
+                    className="even:bg-gray-500 odd:bg-slate-400 text-center"
+                  >
+                    <td className="p-3"> {idx + 1}</td>
+                    <td className="p-3"> {_id}</td>
+                    <td className="p-3"> {orderCode}</td>
+                    <td className="p-3"> {executionAt || "Empty"}</td>
+                    <td className="p-3"> {totalPrice}</td>
+                    <td className="p-3"> {customerPhone}</td>
+                    <td className="p-3">
+                      <p>{recepient?.name}</p>
+                      <p>{recepient?.phone}</p>
+                    </td>
+                    <td className="p-3">
+                      {" "}
+                      <ul>
+                        <DeliveryAddressList
+                          deliveryAddress={deliveryAddress}
+                        />
+                      </ul>
+                    </td>
+                    <td className="p-3"> {paymentStatus}</td>
+                    <td className="p-3"> {paymentMethod}</td>
+                    <td className="p-3">
+                      {" "}
+                      <ProductsInOrdersList products={products} />
+                    </td>
+                    <td className="p-3"> {updatedAt.toString()}</td>
+                    <td className="p-3"> {createdAt.toString()}</td>
+                    <td className="p-3">
+                      {" "}
+                      <Button
+                        onClick={() => toggleUpdateModal(_id)}
+                        className="text-white border px-4 py-2 bg-green-900 hover:bg-green-700"
+                        type="button"
                       >
-                        <h2 className="text-TechStopBlue">Update modal</h2>
-
-                        <UpdateOrderForm currentOrderCode={orderCode} />
-
-                        <Button
-                          type="button"
-                          onClick={() => toggleUpdateModal()}
-                          className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
+                        Update
+                      </Button>
+                      {updateModal && currentProductId === _id && (
+                        <Modal
+                          onClose={() => toggleUpdateModal()}
+                          maxheight="972"
+                          maxwidth="600"
+                          alignitems="flex-start"
                         >
-                          Cancel
-                        </Button>
-                      </Modal>
-                    )}
-                    <CustomToast />
-                  </td>
-                  <td className="p-3">
-                    {" "}
-                    <Button
-                      type="button"
-                      className="text-white border px-4 py-2 bg-red-900 hover:bg-red-700 "
-                      onClick={() => toggleDeleteModal(_id)}
-                    >
-                      Delete
-                    </Button>{" "}
-                    {deleteModal && currentProductId === _id && (
-                      <Modal onClose={() => toggleDeleteModal()}>
-                        <h2 className="text-TechStopBlue text-3xl mb-4">
-                          Do you really want delete review with ORDER CODE{" "}
-                          {orderCode}
-                        </h2>
+                          <h2 className="text-TechStopBlue">Update modal</h2>
 
-                        <Button
-                          type="button"
-                          onClick={() => toggleDeleteModal()}
-                          className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
-                        >
-                          Cancel
-                        </Button>
-                        <Button
-                          type="button"
-                          onClick={() => handleDeleteOrder(orderCode)}
-                          className="bg-red-700 text-white px-4 py-2 rounded mr-2"
-                        >
-                          Delete
-                        </Button>
-                      </Modal>
-                    )}
-                    <CustomToast />
-                  </td>
-                </tr>
+                          <UpdateOrderForm currentOrderCode={orderCode} />
+
+                          <Button
+                            type="button"
+                            onClick={() => toggleUpdateModal()}
+                            className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
+                          >
+                            Cancel
+                          </Button>
+                        </Modal>
+                      )}
+                      <CustomToast />
+                    </td>
+                    <td className="p-3">
+                      {" "}
+                      <Button
+                        type="button"
+                        className="text-white border px-4 py-2 bg-red-900 hover:bg-red-700 "
+                        onClick={() => toggleDeleteModal(_id)}
+                      >
+                        Delete
+                      </Button>{" "}
+                      {deleteModal && currentProductId === _id && (
+                        <Modal onClose={() => toggleDeleteModal()}>
+                          <h2 className="text-TechStopBlue text-3xl mb-4">
+                            Do you really want delete review with ORDER CODE{" "}
+                            {orderCode}
+                          </h2>
+
+                          <Button
+                            type="button"
+                            onClick={() => toggleDeleteModal()}
+                            className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
+                          >
+                            Cancel
+                          </Button>
+                          <Button
+                            type="button"
+                            onClick={() => handleDeleteOrder(orderCode)}
+                            className="bg-red-700 text-white px-4 py-2 rounded mr-2"
+                          >
+                            Delete
+                          </Button>
+                        </Modal>
+                      )}
+                      <CustomToast />
+                    </td>
+                  </tr>
+                )
               )
-            )}
+            : "Orders is Empty"}
         </>
       )}
     </>

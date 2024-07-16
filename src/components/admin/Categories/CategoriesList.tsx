@@ -95,142 +95,150 @@ const CategoriesList: FC = () => {
         <CustomSpinner />
       ) : (
         <>
-          {categories &&
-            categories.map(
-              (
-                { title, parent, icon, children: categoryChildren, _id, slug },
-                idx
-              ) => (
-                <tr
-                  key={idx}
-                  className="even:bg-gray-500 odd:bg-slate-400 text-center"
-                >
-                  <td className="p-3">{idx + 1}</td>
-                  <td className="p-3">{_id}</td>
-                  <td className="p-3">{title}</td>
-                  <td className="p-3">{slug}</td>
-                  <td className="p-3">{icon || "Empty"}</td>
-                  <td className="p-3">{parent || "Empty"}</td>
-                  <td className="p-3">
-                    {categoryChildren &&
-                      categoryChildren?.map(
-                        ({
-                          _id,
-                          icon,
-                          slug,
-                          title,
-                          parent,
-                          children: categoryChildren,
-                        }) => (
-                          <li
-                            key={_id}
-                            className="border border-TechStopBlue rounded-md p-4 mb-2"
+          {categories.length !== 0
+            ? categories.map(
+                (
+                  {
+                    title,
+                    parent,
+                    icon,
+                    children: categoryChildren,
+                    _id,
+                    slug,
+                  },
+                  idx
+                ) => (
+                  <tr
+                    key={idx}
+                    className="even:bg-gray-500 odd:bg-slate-400 text-center"
+                  >
+                    <td className="p-3">{idx + 1}</td>
+                    <td className="p-3">{_id}</td>
+                    <td className="p-3">{title}</td>
+                    <td className="p-3">{slug}</td>
+                    <td className="p-3">{icon || "Empty"}</td>
+                    <td className="p-3">{parent || "Empty"}</td>
+                    <td className="p-3">
+                      {categoryChildren &&
+                        categoryChildren?.map(
+                          ({
+                            _id,
+                            icon,
+                            slug,
+                            title,
+                            parent,
+                            children: categoryChildren,
+                          }) => (
+                            <li
+                              key={_id}
+                              className="border border-TechStopBlue rounded-md p-4 mb-2"
+                            >
+                              <p>
+                                {" "}
+                                <strong className="text-TechStopBlue">
+                                  ID -
+                                </strong>{" "}
+                                {_id}
+                              </p>
+                              <p>
+                                {" "}
+                                <strong className="text-TechStopBlue">
+                                  ICON -
+                                </strong>{" "}
+                                {icon || "Empty"}
+                              </p>
+                              <p>
+                                <strong className="text-TechStopBlue">
+                                  SLUG -
+                                </strong>{" "}
+                                {slug}
+                              </p>
+                              <p>
+                                {" "}
+                                <strong className="text-TechStopBlue">
+                                  TITLE -
+                                </strong>{" "}
+                                {title}
+                              </p>
+                              <p>
+                                {" "}
+                                <strong className="text-TechStopBlue">
+                                  PARENT -
+                                </strong>{" "}
+                                {parent}
+                              </p>
+                              <p>
+                                <CategoryChildren
+                                  categoryChildren={categoryChildren}
+                                />
+                              </p>
+                            </li>
+                          )
+                        )}
+                    </td>
+                    <td className="p-3">
+                      <Button
+                        type="button"
+                        className="text-white border px-4 py-2 bg-green-900 hover:bg-green-700"
+                        onClick={() => toggleUpdateModal(_id)}
+                      >
+                        Update
+                      </Button>
+                      {updateModal && currentCategoryId === _id && (
+                        <Modal onClose={() => toggleUpdateModal()}>
+                          <h2 className="text-TechStopBlue">Update modal</h2>
+
+                          <UpdateCategoryForm
+                            slug={slug}
+                            toggleUpdateModal={toggleUpdateModal}
+                          />
+
+                          <Button
+                            type="button"
+                            onClick={() => toggleUpdateModal()}
+                            className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
                           >
-                            <p>
-                              {" "}
-                              <strong className="text-TechStopBlue">
-                                ID -
-                              </strong>{" "}
-                              {_id}
-                            </p>
-                            <p>
-                              {" "}
-                              <strong className="text-TechStopBlue">
-                                ICON -
-                              </strong>{" "}
-                              {icon || "Empty"}
-                            </p>
-                            <p>
-                              <strong className="text-TechStopBlue">
-                                SLUG -
-                              </strong>{" "}
-                              {slug}
-                            </p>
-                            <p>
-                              {" "}
-                              <strong className="text-TechStopBlue">
-                                TITLE -
-                              </strong>{" "}
-                              {title}
-                            </p>
-                            <p>
-                              {" "}
-                              <strong className="text-TechStopBlue">
-                                PARENT -
-                              </strong>{" "}
-                              {parent}
-                            </p>
-                            <p>
-                              <CategoryChildren
-                                categoryChildren={categoryChildren}
-                              />
-                            </p>
-                          </li>
-                        )
+                            Cancel
+                          </Button>
+                        </Modal>
                       )}
-                  </td>
-                  <td className="p-3">
-                    <Button
-                      type="button"
-                      className="text-white border px-4 py-2 bg-green-900 hover:bg-green-700"
-                      onClick={() => toggleUpdateModal(_id)}
-                    >
-                      Update
-                    </Button>
-                    {updateModal && currentCategoryId === _id && (
-                      <Modal onClose={() => toggleUpdateModal()}>
-                        <h2 className="text-TechStopBlue">Update modal</h2>
+                    </td>
+                    <td className="p-3">
+                      <Button
+                        type="button"
+                        className="text-white border px-4 py-2 bg-red-900 hover:bg-red-700 "
+                        onClick={() => toggleDeleteModal(_id)}
+                      >
+                        DELETE
+                      </Button>
 
-                        <UpdateCategoryForm
-                          slug={slug}
-                          toggleUpdateModal={toggleUpdateModal}
-                        />
-
-                        <Button
-                          type="button"
-                          onClick={() => toggleUpdateModal()}
-                          className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
-                        >
-                          Cancel
-                        </Button>
-                      </Modal>
-                    )}
-                  </td>
-                  <td className="p-3">
-                    <Button
-                      type="button"
-                      className="text-white border px-4 py-2 bg-red-900 hover:bg-red-700 "
-                      onClick={() => toggleDeleteModal(_id)}
-                    >
-                      DELETE
-                    </Button>
-
-                    {deleteModal && currentCategoryId === _id && (
-                      <Modal onClose={() => toggleDeleteModal()}>
-                        <h2 className="text-TechStopBlue text-3xl mb-4">
-                          Do you really wanna delete category with SLUG{" "}
-                          <strong>{slug}</strong>
-                        </h2>
-                        <Button
-                          type="button"
-                          onClick={() => toggleDeleteModal()}
-                          className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
-                        >
-                          Cancel
-                        </Button>
-                        <Button
-                          type="button"
-                          onClick={() => handleDeleteOrder(slug)}
-                          className="bg-red-700 text-white px-4 py-2 rounded mr-2"
-                        >
-                          Delete
-                        </Button>
-                      </Modal>
-                    )}
-                  </td>
-                </tr>
+                      {deleteModal && currentCategoryId === _id && (
+                        <Modal onClose={() => toggleDeleteModal()}>
+                          <h2 className="text-TechStopBlue text-3xl mb-4">
+                            Do you really wanna delete category with SLUG{" "}
+                            <strong>{slug}</strong>
+                          </h2>
+                          <Button
+                            type="button"
+                            onClick={() => toggleDeleteModal()}
+                            className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
+                          >
+                            Cancel
+                          </Button>
+                          <Button
+                            type="button"
+                            onClick={() => handleDeleteOrder(slug)}
+                            className="bg-red-700 text-white px-4 py-2 rounded mr-2"
+                          >
+                            Delete
+                          </Button>
+                        </Modal>
+                      )}
+                    </td>
+                  </tr>
+                )
               )
-            )}
+            : "Categories is Empty"}
           <CustomToast />
         </>
       )}

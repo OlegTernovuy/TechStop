@@ -1,3 +1,5 @@
+<a id="readme-top"></a>
+
 # TechStop
 
 TechStop is a modern online marketplace for buying and selling technological gadgets, electronics and accessories. Our marketplace provides a user-friendly interface, ease of use, and a wide selection of products from various sellers.
@@ -59,7 +61,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - [![MongoDB][MongoDB]][MongoDB-url]
 - [![TypeScript][TS]][TS-url]
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">Back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
@@ -67,8 +69,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 [Next-url]: https://nextjs.org/
 [Tailwdind.css]: https://img.shields.io/badge/tailwindcss-cyan?style=for-the-badge&logo=tailwindcss&logoColor=white
 [Tailwind-url]: https://tailwindcss.com
-[Zustand-front]: https://raw.githubusercontent.com/tailwindlabs/tailwindcss/HEAD/.github/logo-light.svg
-[Zustand-url]: https://tailwindcss.com
+[Zustand-front]: https://img.shields.io/badge/zustand-black?style=for-the-badge&logo=mongodblogoColor=white
+[Zustand-url]: https://docs.pmnd.rs/zustand/getting-started/introduction
 [TS]: https://img.shields.io/badge/typescript-blue?style=for-the-badge&logo=typescriptlogoColor=white
 [TS-url]: https://www.typescriptlang.org/
 [Node.js]: https://img.shields.io/badge/node.js-green?style=for-the-badge&logo=node.jslogoColor=white

@@ -54,6 +54,19 @@ export const uploadPoster = async (formData: FormData, _id: string) => {
   }
 };
 
+export const uploadCollection = async (formData: FormData, _id: string) => {
+  try {
+    const { data } = await axios.patch(`/products/${_id}/add-image`, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+
+    return data;
+  } catch (error) {
+    console.error("Error creating product:", (error as Error).message);
+    throw error;
+  }
+};
+
 export const deleteById = async (_id: string) => {
   try {
     const { data } = await axios.delete(`/products/${_id}`);

@@ -2,7 +2,6 @@
 
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-// import Link from "next/link";
 import CustomSpinner from "@/components/Global/Spinner/CustomSpinner";
 import toast from "react-hot-toast";
 import { adminToastMessages } from "@/components/admin/constants/adminToastMessages";
@@ -19,37 +18,39 @@ const LoginPage = () => {
 
   const { data } = useSession();
 
+  const userRoles = data?.user?.roles.find((item) => item === "user");
+
   useEffect(() => {
-    if (data?.token) {
-      router.push("/admin/dashboard");
+    if (userRoles || !data?.token) {
+      toast.error(AUTH_ERROR_CREDENTIALS);
+      router.push("/admin/login");
+      return;
     }
-  }, [router, data?.token]);
+
+    toast.success(AUTH_SUCCESSFULLY);
+    router.push("/admin/dashboard");
+  }, [router, data?.token, data?.user, userRoles]);
 
   const handleSubmit = async (e: SyntheticEvent) => {
+    const userRoles = data?.user?.roles.find((item) => item === "user");
+
+    if (userRoles) {
+      toast.error(AUTH_ERROR_CREDENTIALS);
+      return;
+    }
+
     try {
       e.preventDefault();
-
-      const userRoles = data?.user?.roles.find((item) => item === "user");
-
-      if (userRoles) {
-        toast.error(AUTH_ERROR_CREDENTIALS);
-        alert("Unauthorized");
-        return;
-      }
 
       setIsLoading(true);
 
       await signIn("credentials", {
         email,
         password,
-        callbackUrl: "/admin/dashboard",
+        callbackUrl: `${userRoles ? "admin/login" : "/admin/dashboard"}`,
       });
 
       setIsLoading(false);
-
-      // if (resp?.status !== 200) {
-      //   throw new Error("Error");
-      // }
 
       toast.success(AUTH_SUCCESSFULLY);
     } catch (error) {
@@ -95,9 +96,6 @@ const LoginPage = () => {
               {isLoading ? <CustomSpinner width={20} height={20} /> : "Login"}
             </button>
           </form>
-          {/* <Link href="/admin/register" className="text-TechStopBlue">
-            Register
-          </Link> */}
         </div>
       </div>
       <CustomToast />

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getProductsData } from "@/api";
+import { getCategories, getProductsByQuery } from "@/api";
 import { createProduct, deleteById } from "@/api/admin";
 import toast from "react-hot-toast";
 import {
@@ -11,9 +11,9 @@ import {
   useFieldArray,
   Controller,
 } from "react-hook-form";
-import { Checkbox } from "@mui/material";
+import { Checkbox, Pagination } from "@mui/material";
 
-import { Product } from "@/types";
+import { Categories, Product } from "@/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ICreateProductData } from "@/components/admin/types";
 import { createProductSchema } from "@/components/admin/schemas";
@@ -24,23 +24,28 @@ import Modal from "@/components/Global/Modal/ModalWindow";
 import CustomInput from "@/components/ProductCard/FeedBack/CustomInput";
 import AdminTHList from "@/components/admin/AdminTHList";
 import CharacteristicsFields from "@/components/admin/CharacteristicsFields";
-import FieldArray from "@/components/admin/FieldArray";
 import ProductsList from "@/components/admin/Products/ProductsList";
 import withAuth from "@/components/hoc/withAuth";
 import { useSession } from "next-auth/react";
+import { pageCount } from "@/app/utils/pageCount";
+import CustomSelect from "@/components/admin/Categories/CustomSelect";
 
 const defaultValues = {
   title: "",
-  price: 0,
-  categories: [""],
+  price: Number(0),
+  categories: [],
   characteristics: [{ name: "", description: [""] }],
   inStock: false,
 };
 
 const ProductsPage = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[] | []>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const [page, setPage] = useState(1);
+  const [totalProducts, setTotalProducts] = useState<number | undefined>(1);
+  const [categories, setCategories] = useState<Categories[] | undefined>([]);
 
   const { data } = useSession();
 
@@ -59,12 +64,24 @@ const ProductsPage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       setIsLoading(true);
-      const productsList = await getProductsData();
-      console.log(productsList);
+      const productsList = await getProductsByQuery({
+        page,
+      });
+
+      setProducts(productsList?.products || []);
       setIsLoading(false);
-      setProducts(productsList?.products ?? []);
+      setTotalProducts(productsList?.total);
     };
     fetchProducts();
+  }, [page]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const categories = await getCategories();
+      setCategories(categories);
+    };
+
+    fetchCategories();
   }, []);
 
   const { fields: characteristicFields, append: appendCharacteristic } =
@@ -80,6 +97,8 @@ const ProductsPage = () => {
       toast.error("You don`t have access to create products");
       return;
     }
+
+    data.price = Number(data.price);
 
     try {
       if (!data) {
@@ -120,6 +139,14 @@ const ProductsPage = () => {
     setModalIsOpen(!modalIsOpen);
   };
 
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+    if (value === pageCount(totalProducts)) {
+      toast.success("Ви дійшли до останьої сторінки");
+      return;
+    }
+  };
+
   return (
     <>
       <div>
@@ -137,14 +164,18 @@ const ProductsPage = () => {
               <AdminTHList />
             </thead>
             <tbody>
-              {isLoading ? (
+              {isLoading && (
                 <tr>
                   <td className="text-center p-3">
                     <CustomSpinner />
                   </td>
                 </tr>
-              ) : (
+              )}
+
+              {products.length !== 0 ? (
                 <ProductsList products={products} handleDelete={handleDelete} />
+              ) : (
+                "Products list is empty"
               )}
             </tbody>
           </table>
@@ -166,14 +197,31 @@ const ProductsPage = () => {
                 <CustomInput label="Price" name="price" />
               </div>
 
-              <div className="mb-4">
-                <label className="block text-gray-700">Categories</label>
-                <FieldArray
-                  control={control}
+              <div className="w-full mb-4">
+                <label htmlFor="categories" className="block text-gray-700">
+                  Categories
+                </label>
+                <Controller
                   name="categories"
-                  labelPrefix="Category"
+                  control={control}
+                  render={({ field }) => (
+                    <CustomSelect
+                      value={field.value}
+                      onChange={field.onChange}
+                      options={
+                        (categories &&
+                          categories?.map((option) => option.slug)) ||
+                        []
+                      }
+                      error={errors.categories?.message}
+                    />
+                  )}
                 />
+                {errors.categories && (
+                  <p className="text-red-500">{errors.categories.message}</p>
+                )}
               </div>
+
               <div className="mb-4">
                 <label className="block text-gray-700">Characteristics</label>
                 <CharacteristicsFields
@@ -224,6 +272,16 @@ const ProductsPage = () => {
         </Modal>
       )}
       <CustomToast />
+
+      {products.length !== 0 && (
+        <div className="flex justify-center my-8">
+          <Pagination
+            count={pageCount(totalProducts)}
+            page={page}
+            onChange={handleChange}
+          />
+        </div>
+      )}
     </>
   );
 };
