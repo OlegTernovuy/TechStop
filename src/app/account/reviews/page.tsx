@@ -1,7 +1,5 @@
 import React from "react";
 import SingleReview from "./SingleReview";
-// import { reviews } from "@/constants";
-import Link from "next/link";
 import { getAllFeedbacks } from "@/api";
 import { IRewiewData } from "./typeRewiew";
 import { getServerSession } from "next-auth";

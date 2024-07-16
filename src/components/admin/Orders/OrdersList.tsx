@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 import UpdateOrderForm from "./UpdateOrderForm";
 import { adminToastMessages } from "../constants/adminToastMessages";
 import { useCheckUsers } from "@/components/hooks/useCheckUsers";
+import { useSession } from "next-auth/react";
 
 const { DELETE_ORDER_ERROR, DELETE_ORDER_SUCCESS } = adminToastMessages();
 
@@ -27,10 +28,14 @@ const OrdersList = () => {
 
   const { isUser } = useCheckUsers("user");
 
+  const {data: session } = useSession()
+  const userEmail: string =
+      session?.user?.email !== undefined ? session?.user?.email : '';
+
   useEffect(() => {
     const getAllOrders = async () => {
       setIsLoading(true);
-      const orderList = await getOrders();
+      const orderList = await getOrders(userEmail);
       setOrders(orderList as []);
       setIsLoading(false);
     };

@@ -51,13 +51,17 @@ export const rateProduct = async (_id: string, value: number) => {
 };
 
 export const getProductsData = async (): Promise<ProductsInfo | undefined> => {
-  try {
-    const res = await fetch(`${NEXT_PUBLIC_BASE_URL}/products`, {
-      next: { revalidate: 10 },
-    });
 
-    if (res.status !== 200) {
-      throw new Error("Something went wrong");
+    try {
+        const res = await axios.get(`${NEXT_PUBLIC_BASE_URL}/products`);
+
+        if (res.status !== 200) {
+            throw new Error('Something went wrong');
+        }
+        
+        return res.data.data
+    } catch (error) {
+        console.log((error as Error).message);
     }
 
     return res.json().then((res) => res.data);
@@ -69,23 +73,27 @@ export const getProductsData = async (): Promise<ProductsInfo | undefined> => {
 export const getProductsByQuery = async (
   filters: IFilteredProducts
 ): Promise<ProductsInfo | undefined> => {
-  try {
-    const url = new URL(`${NEXT_PUBLIC_BASE_URL}/products`);
-    const params = new URLSearchParams();
 
-    (Object.keys(filters) as (keyof IFilteredProducts)[]).forEach((key) => {
-      const value = filters[key];
-      if (value !== undefined && value !== null && value !== 0) {
-        params.append(key, String(value));
-      }
-    });
+    try {
+        const url = new URL(`${NEXT_PUBLIC_BASE_URL}/products`);
+        const params = new URLSearchParams();
 
-    const res = await fetch(`${url}?${params.toString()}`, {
-      next: { revalidate: 10 },
-    });
+        (Object.keys(filters) as (keyof IFilteredProducts)[]).forEach((key) => {
+            const value = filters[key];
+            if (value !== undefined && value !== null && value !== 0) {
+                params.append(key, String(value));
+            }
+        });
 
-    if (res.status !== 200) {
-      throw new Error("Something went wrong");
+        const res = await axios.get(`${url}?${params.toString()}`);
+
+        if (res.status !== 200) {
+            throw new Error('Something went wrong');
+        }
+
+        return res.data.data
+    } catch (error) {
+        console.log((error as Error).message);
     }
 
     return res.json().then((res) => res.data);
@@ -95,12 +103,15 @@ export const getProductsByQuery = async (
 };
 
 export const getCategories = async (): Promise<Categories[] | undefined> => {
-  try {
-    const res = await fetch(`${NEXT_PUBLIC_BASE_URL}/categories`, {
-      next: { revalidate: 10 },
-    });
-    if (res.status !== 200) {
-      throw new Error("Something went wrong");
+
+    try {
+        const res = await axios.get(`${NEXT_PUBLIC_BASE_URL}/categories`);
+        if (res.status !== 200) {
+            throw new Error('Something went wrong');
+        }        
+        return res.data.data
+    } catch (error) {
+        console.log((error as Error).message);
     }
 
     return res.json().then((res) => res.data);
@@ -109,13 +120,17 @@ export const getCategories = async (): Promise<Categories[] | undefined> => {
   }
 };
 
-export const getOrders = async (): Promise<PurchasesData[] | undefined> => {
-  try {
-    const res = await fetch(`${NEXT_PUBLIC_BASE_URL}/orders`, {
-      next: { revalidate: 10 },
-    });
-    if (res.status !== 200) {
-      throw new Error("Something went wrong");
+
+export const getOrders = async (userEmail: string): Promise<PurchasesData[] | undefined> => {
+    try {
+        const res = await axios.get(`/orders?email=${userEmail}`);
+        if (res.status !== 200) {
+            throw new Error('Something went wrong');
+        }        
+
+        return res.data.data as PurchasesData[];
+    } catch (error) {
+        console.log((error as Error).message);
     }
 
     return res.json().then((res) => res.data);
@@ -170,41 +185,12 @@ export const editMe = async (token: string, body: any) => {
     if (res.status !== 200) {
       throw new Error("Something went wrong");
     }
+
     return res.data.data;
   } catch (error) {
     console.log((error as Error).message);
   }
 
-  // const res = await fetch(
-  //   process.env.NEXT_PUBLIC_BASE_URL + "/auth/me",
-  //   {
-  //     method: "PATCH",
-  //     body: JSON.stringify({
-  //      ...body
-  //     }),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "Authorization": `Bearer ${token}`,
-  //     },
-  //   }
-  // );
-  // if (res.status === 200) {
-  //   try {
-  //     const user = await res.json();
-  //     return user.data;
-  //   } catch (error) {
-  //     console.error("Error parsing response:", error);
-  //     return null;
-  //   }
-  // } else {
-  //   try {
-  //     const errorResponse = await res.json();
-  //     return { error: errorResponse.message };
-  //   } catch (error) {
-  //     console.error("Error parsing error response:", error);
-  //   }
-  //   return null;
-  // }
 };
 
 export const makeOrder = async (body: any) => {
