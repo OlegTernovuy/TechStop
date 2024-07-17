@@ -10,11 +10,11 @@ import {
   IUpdateRole,
   UpdatePurchasesData,
 } from "@/components/admin/types";
-import { env } from "../../../next.config";
+// import { env } from "../../../next.config";
 
-const { NEXT_PUBLIC_BASE_URL } = env;
+// const { NEXT_PUBLIC_BASE_URL } = env;
 
-axios.defaults.baseURL = NEXT_PUBLIC_BASE_URL;
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const createProduct = async (product: ICreateProductData) => {
   try {
