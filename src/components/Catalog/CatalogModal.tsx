@@ -10,12 +10,13 @@ import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 
 import laptop from "../../../public/catalogIcons/laptop.svg";
 import ChevronRightFilled from "../../../public/ChevronRightFilled.svg";
+import { getCategories } from "@/api";
 
 interface ICategoryProps {
   categories: Categories[] | undefined;
 }
 
-const CatalogModal = ({ categories }: ICategoryProps) => {
+const CatalogModal = () => {
   const showCatalog = useCatalogModalStore((state) => state.showCatalog);
   const setShowCatalog = useCatalogModalStore((state) => state.setShowCatalog);
 
@@ -23,6 +24,17 @@ const CatalogModal = ({ categories }: ICategoryProps) => {
     null
     // categories === undefined ? null : categories[9]
   );
+
+  const [categories, setCategories] = useState<Categories[] | undefined>([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const categories = await getCategories();
+      setCategories(categories);
+    };
+
+    fetchCategories();
+  }, []);
 
   useEffect(() => {
     const closeShoppingCartModal = (e: KeyboardEvent) => {

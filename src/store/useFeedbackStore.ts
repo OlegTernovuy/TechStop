@@ -6,9 +6,7 @@ import { Review, IFeedback } from "@/types";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-import { env } from "../../next.config";
-
-const { NEXT_PUBLIC_BASE_URL } = env;
+const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 interface IFeedbackStore {
   reviews: IFeedback[];

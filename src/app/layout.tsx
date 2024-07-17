@@ -5,7 +5,6 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import CatalogModal from "../components/Catalog/CatalogModal";
 import ShoppingCartModal from "../components/(ShoppingCart)/ShoppingCartModal";
-import { getCategories } from "@/api";
 import CatalogModalMobile from "@/components/Catalog/CatalogModalMobile";
 import Providers from "@/providers/Providers";
 import AuthModal from "@/components/auth/AuthModal";
@@ -22,7 +21,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const categories = await getCategories();
   return (
     <html lang="en">
       <body className={roboto.className}>
@@ -30,8 +28,8 @@ export default async function RootLayout({
           <Navbar />
           {children}
           <ShoppingCartModal />
-          <CatalogModal categories={categories} />
-          <CatalogModalMobile categories={categories} />
+          <CatalogModal />
+          <CatalogModalMobile />
           <AuthModal/>
           <Footer />
         </Providers>
