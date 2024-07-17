@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import {
   useForm,
   SubmitHandler,
@@ -14,7 +14,7 @@ import toast from "react-hot-toast";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { updateProductSchema } from "../schemas";
 import { updateProduct } from "@/api/admin";
-import { filteredEmptyNestedFields, filterEmptyFields } from "../utils";
+import { filteredEmptyNestedFields } from "../utils";
 
 import { useCheckUsers } from "@/components/hooks/useCheckUsers";
 import CustomInput from "@/components/ProductCard/FeedBack/CustomInput";
@@ -22,6 +22,9 @@ import FieldArray from "../FieldArray";
 import CharacteristicsFields from "../CharacteristicsFields";
 import { Checkbox } from "@mui/material";
 import CustomSpinner from "@/components/Global/Spinner/CustomSpinner";
+import { ICharacteristic } from "@/types";
+import { getProductById } from "@/api";
+import CheckBoxCharacteristics from "./CheckBoxCharacteristics";
 
 const defaultValues = {
   title: "",
@@ -40,6 +43,12 @@ const UpdateProductForm: FC<IUpdateProductFormProps> = ({
   _id,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [characteristics, setCharacteristics] = useState<
+    ICharacteristic[] | []
+  >([]);
+  const [checkedCharacteristics, setCheckedCharacteristics] = useState<
+    { name: string; description: string[] }[]
+  >([]);
 
   const methods = useForm({
     defaultValues,
@@ -51,6 +60,7 @@ const UpdateProductForm: FC<IUpdateProductFormProps> = ({
     handleSubmit,
     formState: { errors },
     control,
+    watch,
   } = methods;
 
   const { fields: characteristicFields, append: appendCharacteristic } =
@@ -61,22 +71,73 @@ const UpdateProductForm: FC<IUpdateProductFormProps> = ({
 
   const { isUser } = useCheckUsers("user");
 
+  useEffect(() => {
+    const fetchProductById = async () => {
+      setIsLoading(true);
+      const characteristics = await getProductById(_id);
+      setCharacteristics(characteristics?.data?.characteristics || []);
+      setIsLoading(false);
+    };
+    fetchProductById();
+  }, [_id, reset]);
+
+  const updateCharacteristics = (name: string, checked: boolean) => {
+    const characteristic =
+      characteristics && characteristics?.find((char) => char?.name === name);
+
+    if (characteristic) {
+      if (checked) {
+        setCheckedCharacteristics((prev) => [
+          ...prev,
+          {
+            name: characteristic.name,
+            description: characteristic.description || [],
+          },
+        ]);
+      } else {
+        setCheckedCharacteristics((prev) =>
+          prev.filter((char) => char.name !== name)
+        );
+      }
+    }
+  };
+
   const onSubmit: SubmitHandler<IUpdateProductFields> = async (data) => {
     if (isUser) {
       toast.error(`You do not have access to change products`);
       return;
     }
 
-    try {
-      if (!data) {
-        toast.error("No data to change");
-        return;
-      }
+    if (!data) {
+      toast.error("No data to change");
+      return;
+    }
 
-      const filteredData = filteredEmptyNestedFields(data);
+    const isEmpty = data.characteristics
+      ?.map((item) => item)
+      .some(({ name, description }) => name === "" || !description);
+
+    if (isEmpty) {
+      toast.error("No data to change");
+      return;
+    }
+
+    try {
+      const mergedCharacteristics = [
+        ...checkedCharacteristics,
+        ...(data?.characteristics || []),
+      ];
+
+      const filteredData = {
+        ...data,
+        characteristics: mergedCharacteristics,
+      };
+
+      const finalData = filteredEmptyNestedFields(filteredData);
+      console.log("finalData", filteredData);
 
       setIsLoading(true);
-      const resp = await updateProduct(filteredData, _id);
+      const resp = await updateProduct(finalData, _id);
       setIsLoading(false);
       toast.success(resp?.message);
       toggleUpdateModal();
@@ -108,6 +169,12 @@ const UpdateProductForm: FC<IUpdateProductFormProps> = ({
         </div>
         <div className="mb-4">
           <label className="block text-gray-700">Characteristics</label>
+
+          <CheckBoxCharacteristics
+            characteristics={characteristics}
+            updateCharacteristics={updateCharacteristics}
+          />
+
           <CharacteristicsFields
             characteristicFields={characteristicFields}
             control={control}

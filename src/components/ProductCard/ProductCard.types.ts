@@ -1,3 +1,5 @@
+import { IImage } from "@/types";
+
 export interface IProduct {
   data: {
     _id: string;
@@ -6,6 +8,7 @@ export interface IProduct {
     inStock: boolean;
     id: number;
     poster: string;
+    images: IImage[];
   };
 }
 

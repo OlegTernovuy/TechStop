@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { getOrders } from "@/api";
+import { getOrderList } from "@/api";
 import { PurchasesData } from "@/app/account/purchases/purchasesType";
 import CustomSpinner from "@/components/Global/Spinner/CustomSpinner";
 import ProductsInOrdersList from "./ProductsInOrdersList";
@@ -14,7 +14,6 @@ import toast from "react-hot-toast";
 import UpdateOrderForm from "./UpdateOrderForm";
 import { adminToastMessages } from "../constants/adminToastMessages";
 import { useCheckUsers } from "@/components/hooks/useCheckUsers";
-import { useSession } from "next-auth/react";
 
 const { DELETE_ORDER_ERROR, DELETE_ORDER_SUCCESS } = adminToastMessages();
 
@@ -28,15 +27,11 @@ const OrdersList = () => {
 
   const { isUser } = useCheckUsers("user");
 
-  const {data: session } = useSession()
-  const userEmail: string =
-      session?.user?.email !== undefined ? session?.user?.email : '';
-
   useEffect(() => {
     const getAllOrders = async () => {
       setIsLoading(true);
-      const orderList = await getOrders(userEmail);
-      setOrders(orderList as []);
+      const orderList = await getOrderList();
+      setOrders(orderList ?? []);
       setIsLoading(false);
     };
     getAllOrders();
@@ -88,8 +83,11 @@ const OrdersList = () => {
         <CustomSpinner />
       ) : (
         <>
-          {orders.length !== 0
-            ? orders?.map(
+          {orders.length !== 0 ? (
+            orders
+              ?.slice()
+              .reverse()
+              .map(
                 (
                   {
                     _id,
@@ -205,7 +203,11 @@ const OrdersList = () => {
                   </tr>
                 )
               )
-            : "Orders is Empty"}
+          ) : (
+            <p className="font-bold text-xl text-center my-4">
+              Orders is Empty
+            </p>
+          )}
         </>
       )}
     </>

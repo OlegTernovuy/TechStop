@@ -54,8 +54,13 @@ const CreateOrderForm: FC<ICreateOrderFormProps> = ({ toggleModal }) => {
 
     try {
       setIsLoading(true);
+      setIsError(null);
 
-      await createOrder(data);
+      const resp = await createOrder(data);
+
+      if (!resp) {
+        throw new Error("Ooops something went wrong");
+      }
 
       setIsLoading(false);
 
@@ -129,18 +134,21 @@ const CreateOrderForm: FC<ICreateOrderFormProps> = ({ toggleModal }) => {
                   errors={errors}
                 />
                 <CreateOrder
+                  type="text"
                   name={`products[${index}].title`}
                   label="Title"
                   control={control}
                   errors={errors}
                 />
                 <CreateOrder
+                  type="number"
                   name={`products[${index}].price`}
                   label="Price"
                   control={control}
                   errors={errors}
                 />
                 <CreateOrder
+                  type="number"
                   name={`products[${index}].quantity`}
                   label="Quantity"
                   control={control}
@@ -167,8 +175,8 @@ const CreateOrderForm: FC<ICreateOrderFormProps> = ({ toggleModal }) => {
                 append({
                   productId: "",
                   title: "",
-                  price: 0,
-                  quantity: 0,
+                  price: Number(0),
+                  quantity: Number(0),
                   poster: "",
                 })
               }
@@ -194,6 +202,7 @@ const CreateOrderForm: FC<ICreateOrderFormProps> = ({ toggleModal }) => {
               errors={errors}
             />
             <CreateOrder
+              type="number"
               name="recepient.phone"
               label="Recepient Phone"
               control={control}

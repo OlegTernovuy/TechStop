@@ -9,7 +9,7 @@ const SmallSlider: FC<ISmallSliderProps> = ({ images, changeSlide }) => {
         images?.map(({ imageId, url }, idx) => (
           <li
             key={imageId}
-            className="bg-TechStopWhite border shadow-sm  transition hover:scale-110 focus:scale-110"
+            className="bg-TechStopWhite border shadow-sm transition hover:scale-110 focus:scale-110"
           >
             <button type="button" onClick={() => changeSlide(idx)}>
               <Image
@@ -17,7 +17,7 @@ const SmallSlider: FC<ISmallSliderProps> = ({ images, changeSlide }) => {
                 width={120}
                 height={100}
                 alt="mini"
-                className="my-8 w-[120px] h-[100px]"
+                className="my-8 w-[120px] h-[100px] object-contain"
               />
             </button>
           </li>

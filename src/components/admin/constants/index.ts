@@ -180,7 +180,7 @@ export const categoriesThList = [
   },
   {
     id: 3,
-    title: "Slug",
+    title: "Title",
   },
   {
     id: 4,

@@ -62,7 +62,6 @@ export interface Product {
   price: number;
   title: string;
   categories: string[];
-  characteristics: ICharacteristic[];
   images: IImage[];
   rating: IRating;
 }
@@ -130,19 +129,19 @@ export interface IContactContent
 }
 
 export interface ICourierAddress {
-    street: string | undefined;
-    house: string | undefined;
-    apartment: number | undefined | null;
+  street: string | undefined;
+  house: string | undefined;
+  apartment: number | undefined | null;
 }
 
 export interface IDeliveryContent {
-    postalOperator: string;
-    postalDepartment?: string | undefined;
-    courierAddress: {
-        street?: string | undefined;
-        house?: string | undefined;
-        apartment?: number | undefined | null;
-    } | null;
+  postalOperator: string;
+  postalDepartment?: string | undefined;
+  courierAddress: {
+    street?: string | undefined;
+    house?: string | undefined;
+    apartment?: number | undefined | null;
+  } | null;
 }
 
 export interface IPayMethodContent
@@ -291,6 +290,7 @@ export interface Product {
   inStock: boolean;
   id: number;
   poster: string;
+  characteristics: ICharacteristic[];
   rating: IRating;
 }
 

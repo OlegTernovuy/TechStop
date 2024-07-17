@@ -14,7 +14,7 @@ const AdminHeader = () => {
 
   const handleSignOut = async () => {
     setIsLoading(true);
-    await signOut({ callbackUrl: "http://localhost:3000/admin/login" });
+    await signOut({ callbackUrl: "/admin/login" });
     setIsLoading(false);
     toast.success("Logout success");
   };

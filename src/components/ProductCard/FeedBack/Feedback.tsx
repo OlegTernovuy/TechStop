@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useEffect, useMemo, useState } from "react";
-import { IParams } from "@/types";
+import { IParams, Product } from "@/types";
 import { IProduct } from "../ProductCard.types";
 import { getProductById } from "@/api";
 import { useFeedbackStore } from "@/store/useFeedbackStore";
@@ -22,28 +22,21 @@ import { useRouter } from "next/navigation";
 
 const { AUTH_ERROR } = TOAST_MESSAGES();
 
-const FeedbackPage: FC<IParams> = ({ params }) => {
-  const { _id } = params;
+interface IFeedbackPageProps {
+  product: Product;
+  params: {
+    _id: string;
+  };
+}
 
-  const [data, setData] = useState<IProduct | null>(null);
+const FeedbackPage: FC<IFeedbackPageProps> = ({ product, params }) => {
+  const { _id } = product;
+
   const [showFeedback, setShowFeedback] = useState(false);
   const { reviews } = useFeedbackStore();
   const { data: userData } = useSession();
 
   const router = useRouter();
-
-  const productData = useMemo(() => {
-    return getProductById(_id);
-  }, [_id]);
-
-  useEffect(() => {
-    const fetchProduct = async () => {
-      const product = await productData;
-      setData(product);
-    };
-
-    fetchProduct();
-  }, [productData]);
 
   const handleLeaveFeedback = () => {
     if (!userData?.token) {
@@ -65,7 +58,7 @@ const FeedbackPage: FC<IParams> = ({ params }) => {
       <div className="mt-4 ">
         {" "}
         <h2 className="text-TechStopBlue text-[24px] md:text-5xl font-normal mb-4 md:mb-8">
-          Відгуки покупців про {data?.data?.title}
+          Відгуки покупців про {product?.title}
         </h2>
         {reviews.length === 0 && (
           <h2 className="text-TechStopBlue font-normal text-base md:text-[34px] mb-6 md:mb-8">
@@ -75,7 +68,7 @@ const FeedbackPage: FC<IParams> = ({ params }) => {
         <ul className="md:flex gap-10 ">
           <li className="w-full">
             <div className="md:hidden">
-              {!showFeedback && reviews.length !== 0 && (
+              {!showFeedback && reviews?.length !== 0 && (
                 <Button
                   color="TechStopWhite"
                   bgColor="TechStopBlue"
@@ -98,13 +91,14 @@ const FeedbackPage: FC<IParams> = ({ params }) => {
                 <DefaultFeedbackForm params={params} />
               </div>
             )}
+
             <CustomerReviews productId={_id} />
           </li>
           <li>
             <div className="min-h-[99%] border-l border-deWiseGreyLight hidden md:block"></div>
           </li>
           <li className="hidden md:block max-w-[522px]">
-            <PreviewCard productData={data} />
+            <PreviewCard productData={product} />
           </li>
         </ul>
       </div>

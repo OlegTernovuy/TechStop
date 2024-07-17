@@ -20,7 +20,7 @@ const defaultValues = {
   email: "",
   orderStatus: "",
   customerPhone: "",
-  totalPrice: Number(0),
+  totalPrice: 0,
   paymentStatus: "",
   paymentMethod: "",
   products: [
