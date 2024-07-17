@@ -18,7 +18,7 @@ export const adminToastMessages = (field?: string) => {
     UPDATE_USER_ERROR: `Failed  to delete USER ${field}`,
     DELETE_USER_SUCCESS: "USER was successfully UPDATED",
     DELETE_USER_ERROR: "Failed to delete USER",
-    AUTH_ERROR_CREDENTIALS: "You need enter credentials",
+    AUTH_ERROR_CREDENTIALS: "You do not have access",
     AUTH_SUCCESSFULLY: "Login success",
   };
 };

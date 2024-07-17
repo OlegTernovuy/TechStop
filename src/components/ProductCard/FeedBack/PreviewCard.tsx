@@ -17,6 +17,8 @@ interface IPreviewCardProps {
 const PreviewCard: FC<IPreviewCardProps> = ({ productData }) => {
   const { addItemToCart } = useCartStore();
 
+  const images = productData && productData?.images[0].url;
+
   const handleAddItem = () => {
     addItemToCart(productData?.data);
     toast.success(`Товар ${productData?.data?.title} додано до кошика ✅`);
@@ -29,7 +31,7 @@ const PreviewCard: FC<IPreviewCardProps> = ({ productData }) => {
           {" "}
           <div className="my-[84px] min-w-[240px] ">
             <Image
-              src={previewProduct}
+              src={images || previewProduct}
               width={240}
               height={167}
               alt="product"

@@ -115,9 +115,13 @@ export const updateOrderById = async (
 
 export const createOrder = async (orderData: ICreateOrderFormValues) => {
   try {
-    const { data } = await axios.post(`/orders`, orderData);
+    const resp = await axios.post(`/orders`, orderData);
 
-    return data;
+    if (resp.status !== 201) {
+      throw new Error(resp.statusText);
+    }
+
+    return resp.data;
   } catch (error) {
     console.log((error as Error).message);
   }

@@ -25,7 +25,7 @@ import { DiscountPercentage } from "@/constants";
 import calculateRating from "@/app/utils/calculateRating";
 
 const Characteristics: FC<IData> = ({ product }) => {
-  const { title, _id, price, characteristics, rating } = product.data;
+  const { title, _id, price, characteristics, rating } = product?.data;
   const { toggleProductCardToFavorites } = useFavoritesStore();
   const { reviews, getAllFeedbacks } = useFeedbackStore();
 
@@ -85,7 +85,7 @@ const Characteristics: FC<IData> = ({ product }) => {
             <div className="min-h-[96%] border-l border-deWiseGreyLight hidden md:block mr-6"></div>
           </li>
           <li className="hidden md:block ">
-            <PreviewCard productData={product} />
+            <PreviewCard productData={product.data} />
           </li>
         </ul>
         <ul className="md:hidden flex justify-between">

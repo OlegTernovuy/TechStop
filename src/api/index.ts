@@ -117,6 +117,19 @@ export const getOrders = async (
   }
 };
 
+export const getOrderList = async (): Promise<PurchasesData[] | undefined> => {
+  try {
+    const res = await axios.get(`/orders`);
+    if (res.status !== 200) {
+      throw new Error("Something went wrong");
+    }
+
+    return res.data.data;
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
 export const getAllFeedbacks = async (userId: string) => {
   try {
     const res = await axios.get(`/reviews?userId=${userId}`);

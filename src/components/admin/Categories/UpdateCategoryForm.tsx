@@ -59,8 +59,10 @@ const UpdateCategoryForm: FC<IUpdateCategoryFormProps> = ({
       setIsError(null);
       await updateCategory(filteredData, slug);
       if (isError) {
-        return toast.error(isError?.message);
+        toast.error(isError?.message);
+        throw new Error(isError.message);
       }
+
       setIsLoading(false);
       toast.success(UPDATE_CATEGORY_SUCCESS);
       toggleUpdateModal();
@@ -68,7 +70,7 @@ const UpdateCategoryForm: FC<IUpdateCategoryFormProps> = ({
     } catch (error) {
       setIsLoading(false);
       setIsError(error as Error);
-      toast.error(isError?.message ?? UPDATE_CATEGORY_ERROR);
+      console.log((error as Error).message);
     }
   };
 

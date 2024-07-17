@@ -162,7 +162,7 @@ const ProductsListItem: FC<IProductsListItemProps> = ({
             Update
           </button>
           {updateModal && currentProductId === _id && (
-            <Modal onClose={() => toggleUpdateModal()}>
+            <Modal onClose={() => toggleUpdateModal()} alignitems="flex-start">
               <UpdateProductForm
                 toggleUpdateModal={toggleUpdateModal}
                 _id={currentProductId}
