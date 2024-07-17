@@ -3,9 +3,9 @@ import { Categories, IFilteredProducts, Product, ProductsInfo } from "@/types";
 import { PurchasesData } from "@/app/account/purchases/purchasesType";
 import { IRewiewData } from "@/app/account/reviews/typeRewiew";
 
-// import { env } from "../../next.config";
+import { env } from "../../next.config";
 
-// const { NEXT_PUBLIC_BASE_URL } = env;
+const { NEXT_PUBLIC_BASE_URL } = env;
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -38,7 +38,7 @@ export const getReviews = async () => {
 export const rateProduct = async (_id: string, value: number) => {
   try {
     const res = await axios.patch(
-      `/api/products/${_id}/rate`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${_id}/rate`,
       {
         value: value,
       }
@@ -52,7 +52,7 @@ export const rateProduct = async (_id: string, value: number) => {
 
 export const getProductsData = async (): Promise<ProductsInfo | undefined> => {
   try {
-    const res = await axios.get(`/products`);
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/products`);
 
     if (res.status !== 200) {
       throw new Error("Something went wrong");
@@ -68,7 +68,7 @@ export const getProductsByQuery = async (
   filters: IFilteredProducts
 ): Promise<ProductsInfo | undefined> => {
   try {
-    const url = new URL(`/products`);
+    const url = new URL(`${process.env.NEXT_PUBLIC_BASE_URL}/products`);
     const params = new URLSearchParams();
 
     (Object.keys(filters) as (keyof IFilteredProducts)[]).forEach((key) => {
@@ -92,7 +92,7 @@ export const getProductsByQuery = async (
 
 export const getCategories = async (): Promise<Categories[] | undefined> => {
   try {
-    const res = await axios.get(`/categories`);
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/categories`);
     if (res.status !== 200) {
       throw new Error("Something went wrong");
     }
