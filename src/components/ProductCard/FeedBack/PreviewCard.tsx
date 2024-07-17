@@ -17,7 +17,7 @@ interface IPreviewCardProps {
 const PreviewCard: FC<IPreviewCardProps> = ({ productData }) => {
   const { addItemToCart } = useCartStore();
 
-  const images = productData && productData?.images[0].url;
+  const images = productData.images.length !== 0 && productData?.images[0].url;
 
   const handleAddItem = () => {
     addItemToCart(productData?.data);
