@@ -26,6 +26,7 @@ export interface PurchasesProduct {
   poster: string;
   quantity: number;
   id: number;
+  productId: string;
 }
 
 export interface PurchasesRecepient {

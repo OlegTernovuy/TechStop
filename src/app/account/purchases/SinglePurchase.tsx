@@ -42,7 +42,7 @@ const SinglePurchase = ({ purchases }: Purchase) => {
 
   return (
     <div>
-      {purchases.products.map((purchaseProduct: PurchasesProduct) => {
+      {purchases.products.map((purchaseProduct: PurchasesProduct) => {        
         return (
           <Disclosure as="div" key={purchases.orderCode} className="mb-4">
             {({ open }) => (
@@ -99,7 +99,7 @@ const SinglePurchase = ({ purchases }: Purchase) => {
                           height={62}
                           className={`${
                             open ? "mr-6" : ""
-                          } max-h-16 min-w-[90px] object-cover`}
+                          } max-h-16 min-w-[90px] object-scale-down`}
                         />
                         <p
                           className={`${
@@ -182,7 +182,7 @@ const SinglePurchase = ({ purchases }: Purchase) => {
                       />
                       <Button
                         title="залишити відгук"
-                        onClick={() => leaveFeetback(purchases._id)}
+                        onClick={() => leaveFeetback(purchaseProduct.productId)}
                         stylesButton="flex w-full lg:max-w-[196px] px-6 bg-white text-TechStopBlue border border-TechStopBlue60 uppercase"
                       />
                     </div>

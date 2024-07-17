@@ -74,7 +74,7 @@ const SingleProduct = ({ product }: IProduct) => {
                         alt="cartImage"
                         height={370}
                         width={240}
-                        className="w-full min-h-[260px] md:min-h-[370px] object-cover"
+                        className="w-full min-h-[260px] md:min-h-[370px] object-scale-down"
                     />
                     <button
                         className="absolute bottom-4 right-4 cursor-pointer"
