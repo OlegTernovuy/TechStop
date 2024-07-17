@@ -1,9 +1,20 @@
-import Link from "next/link";
+'use client'
 import { getCategories } from "@/api";
+import { Categories } from "@/types";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
-const Catalog = async ({ children }: { children?: React.ReactNode }) => {
-  const categories = await getCategories();
+const Catalog = ({ children }: { children?: React.ReactNode }) => {
+  const [categories, setCategories] = useState<Categories[] | undefined>([]);
 
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const categories = await getCategories();
+      setCategories(categories);
+    };
+
+    fetchCategories();
+  }, []);
   return (
     <ul className="flex flex-col py-6 text-TechStopBlue">
       {categories ? (

@@ -10,12 +10,13 @@ import ChevronLeftFilled from "../../../public/ChevronLeftFilled.svg";
 import ChevronRightFilled from "../../../public/ChevronRightFilled.svg";
 import { useCatalogModalMobileStore } from "@/store/modalStore";
 import { useRouter } from "next/navigation";
+import { getCategories } from "@/api";
 
 interface ICategoryProps {
   categories: Categories[] | undefined;
 }
 
-const CatalogModalMobile = ({ categories }: ICategoryProps) => {
+const CatalogModalMobile = () => {
   const showCatalog = useCatalogModalMobileStore((state) => state.showCatalog);
   const setShowCatalog = useCatalogModalMobileStore(
     (state) => state.setShowCatalog
@@ -23,6 +24,16 @@ const CatalogModalMobile = ({ categories }: ICategoryProps) => {
 
   const [title, setTitle] = useState("Каталог товарів");
   const [subcategory, setSubcategory] = useState<Categories[]>([]);  
+  const [categories, setCategories] = useState<Categories[] | undefined>([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const categories = await getCategories();
+      setCategories(categories);
+    };
+
+    fetchCategories();
+  }, []);
 
   const router = useRouter();
 
