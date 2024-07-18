@@ -39,7 +39,7 @@ const BigSlider: FC<SliderProps> = ({
                 width={720}
                 height={500}
                 alt="img_product"
-                className="h-[249px] object-contain xl:max-w-[720px] lg:h-[500px] my-[125px] lg:my-[250px]"
+                className="ml-auto mr-auto h-[249px] object-contain xl:max-w-[720px] lg:h-[500px] my-[125px] lg:my-[250px]"
               />
             </Transition>
           </li>

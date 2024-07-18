@@ -17,7 +17,7 @@ const DefaultSmallSlider: FC<ISmallSliderProps> = ({ changeSlide }) => {
               width={120}
               height={100}
               alt="mini"
-              className="my-8 w-[120px] h-[100px]"
+              className="ml-auto mr-auto  my-8 w-[120px] h-[100px]"
             />
           </button>
         </li>

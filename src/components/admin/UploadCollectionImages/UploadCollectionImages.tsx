@@ -33,7 +33,6 @@ const UploadCollectionImages: FC<IUploadCollectionImagesProps> = ({
     }
 
     Array.from(data.image).forEach((image) => {
-      console.log(image);
       formData.append("image", image);
     });
 

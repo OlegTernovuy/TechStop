@@ -1,9 +1,8 @@
 "use client";
 
-import { FC, useEffect, useMemo, useState } from "react";
-import { IParams, Product } from "@/types";
-import { IProduct } from "../ProductCard.types";
-import { getProductById } from "@/api";
+import { FC, useState } from "react";
+import { Product } from "@/types";
+
 import { useFeedbackStore } from "@/store/useFeedbackStore";
 
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";

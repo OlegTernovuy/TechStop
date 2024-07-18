@@ -18,7 +18,7 @@ const LoginPage = () => {
 
   const { data } = useSession();
 
-  const userRoles = data?.user?.roles.find((item) => item === "user");
+  const userRoles = data?.user?.roles.includes("user");
 
   useEffect(() => {
     if (userRoles || !data?.token) {
@@ -26,14 +26,11 @@ const LoginPage = () => {
       router.push("/admin/login");
       return;
     }
-
     toast.success(AUTH_SUCCESSFULLY);
     router.push("/admin/dashboard");
   }, [router, data?.token, data?.user, userRoles]);
 
   const handleSubmit = async (e: SyntheticEvent) => {
-    const userRoles = data?.user?.roles.find((item) => item === "user");
-
     if (userRoles) {
       toast.error(AUTH_ERROR_CREDENTIALS);
       return;

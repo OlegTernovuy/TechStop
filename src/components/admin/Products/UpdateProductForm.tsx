@@ -31,7 +31,7 @@ const defaultValues = {
   price: 0,
   categories: [""],
   characteristics: [{ name: "", description: [""] }],
-  inStock: false,
+  inStock: true,
 };
 interface IUpdateProductFormProps {
   _id: string;
