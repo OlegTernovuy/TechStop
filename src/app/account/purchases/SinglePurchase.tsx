@@ -17,6 +17,7 @@ interface Purchase {
 }
 
 const SinglePurchase = ({ purchases }: Purchase) => {  
+  
   const router = useRouter()
   const { addItemToCart } = useCartStore();
 
@@ -24,15 +25,15 @@ const SinglePurchase = ({ purchases }: Purchase) => {
     locale: uk,
   });
 
-  const repeatOrder = (purchaseProduct: PurchasesProduct) => {
+  const repeatOrder = (purchaseProduct: PurchasesProduct) => {    
     const newOrder = {
-      _id: purchaseProduct.id.toString(), //Тимчасово потім замінити
+      _id: purchaseProduct.productId, //Тимчасово потім замінити
       poster: purchaseProduct.poster,
       price: purchaseProduct.price,
       title: purchaseProduct.title,
       quantity: purchaseProduct.quantity,
+      inStock: purchaseProduct.inStock
     };
-    console.log(newOrder);
     
     addItemToCart(newOrder);
     // toast.success('Your order has been added to the cart');

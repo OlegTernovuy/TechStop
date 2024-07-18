@@ -27,6 +27,7 @@ export interface PurchasesProduct {
   quantity: number;
   id: number;
   productId: string;
+  inStock: boolean;
 }
 
 export interface PurchasesRecepient {
