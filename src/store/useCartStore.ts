@@ -148,7 +148,7 @@ export const useCartStore = create(
           (cartItem) => cartItem._id === item._id
         );
 
-        if(item?.inStock === true || item?.inStock === undefined) {
+        if(item?.inStock) {
 
             if (itemExists) {
               itemExists.quantity++;
