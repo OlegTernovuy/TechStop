@@ -26,7 +26,7 @@ const ButtonLabels: FC<IDataWithServices> = ({ product, addService }) => {
   const handleAddItem = () => {
     addItemToCart(product.data);
     addArrayOfAdditionalServices(addService, _id);
-    toast.success(ADD_SUCCESS);
+    // toast.success(ADD_SUCCESS);
   };
 
   const oldPrice = formatPrice(price * DiscountPercentage);
