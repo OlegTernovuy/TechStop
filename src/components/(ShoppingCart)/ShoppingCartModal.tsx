@@ -94,7 +94,7 @@ const ShoppingCartModal = () => {
           ) : (
             <div className="text-TechStopBlue px-4 md:px-8">
               <div className="pt-4 md:pt-6 pb-12 flex lg:divide-x w-full flex-col lg:flex-row">
-                <div className="flex flex-col gap-3 lg:w-[70%]  w-full lg:pr-6">
+                <div className="flex flex-col gap-7 lg:w-[70%]  w-full lg:pr-6">
                   {cartItems.length ? (
                     cartItems.map((product) => {
                       return (

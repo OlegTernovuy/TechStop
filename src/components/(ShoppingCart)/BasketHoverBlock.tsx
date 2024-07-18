@@ -38,6 +38,7 @@ function BasketHoverBlock() {
                     alt="test icon"
                     width={63}
                     height={96}
+                    className="object-scale-down"
                   />
                   <div className=" flex flex-col w-full">
                     <div className="flex w-full items-baseline justify-between">
