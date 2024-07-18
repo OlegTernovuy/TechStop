@@ -38,6 +38,7 @@ function ProductOrderCard(product: ProductProps) {
           alt="basket"
           width={112}
           height={171}
+          className="object-scale-down"
         />
         <div className="flex flex-col justify-between pl-6 w-full">
           <div className="flex justify-between">

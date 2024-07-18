@@ -42,7 +42,7 @@ const ProductInCard = ({ product }: CartItemCardProps) => {
           alt="shoppingCardItem"
           width={320}
           height={488}
-          className="w-[104px] h-[158px] md:w-[320px] md:h-[488px]"
+          className="w-[104px] h-[158px] md:w-[320px] md:h-[488px] object-scale-down"
         />
         <div className="flex flex-col justify-between pl-6 w-full">
           <div className="flex justify-between">
