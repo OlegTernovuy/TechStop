@@ -40,8 +40,12 @@ const SingleProduct = ({ product }: IProduct) => {
     ) => {
         e?.preventDefault();
         e?.stopPropagation();
+        // if(!product.inStock) {
+        //     toast.error(`Sorry, this product is out of stock`);
+        // } else {
         addItemToCart(product);
-        toast.success(`Product ${product.title} was added to basket`);
+        // toast.success(`Product ${product.title} was added to basket`);
+        // }
     };
 
     const addProductToFavorite = (

@@ -96,7 +96,6 @@ export const getCategories = async (): Promise<Categories[] | undefined> => {
     if (res.status !== 200) {
       throw new Error("Something went wrong");
     }
-    console.log(res.data.data);
     
     return res.data.data;
   } catch (error) {

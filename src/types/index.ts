@@ -46,6 +46,7 @@ export interface ProductInCart {
   poster: string;
   price: number;
   title: string;
+  inStock?: boolean;
   quantity?: number;
 }
 

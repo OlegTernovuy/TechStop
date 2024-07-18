@@ -7,6 +7,7 @@ import {
   Product,
   ProductInCart,
 } from "../types";
+import toast from "react-hot-toast";
 
 interface TotalPrices {
   totalPrice: number;
@@ -147,17 +148,24 @@ export const useCartStore = create(
           (cartItem) => cartItem._id === item._id
         );
 
-        if (itemExists) {
-          itemExists.quantity++;
-          set({ cartItems: [...get().cartItems] });
-        } else {
-          set({
-            cartItems: [
-              ...get().cartItems,
-              { ...item, quantity: item.quantity ?? 1, addServices: [] },
-            ],
-          });
-        }
+        if(item?.inStock === true || item?.inStock === undefined) {
+
+            if (itemExists) {
+              itemExists.quantity++;
+              set({ cartItems: [...get().cartItems] });
+              toast.success(`Product ${item.title} was added to basket`);
+            } else {
+              set({
+                cartItems: [
+                  ...get().cartItems,
+                  { ...item, quantity: item.quantity ?? 1, addServices: [] },
+                ],
+              });
+              toast.success(`Product ${item.title} was added to basket`);
+            }
+      } else {
+              toast.error(`Sorry, this product is out of stock`);
+      }
         get().countTotalPrice();
       },
       increaseQuantity: (productId) => {

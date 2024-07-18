@@ -32,8 +32,10 @@ const SinglePurchase = ({ purchases }: Purchase) => {
       title: purchaseProduct.title,
       quantity: purchaseProduct.quantity,
     };
+    console.log(newOrder);
+    
     addItemToCart(newOrder);
-    toast.success('Your order has been added to the cart');
+    // toast.success('Your order has been added to the cart');
   };
 
   const leaveFeetback = (id: string) => {
