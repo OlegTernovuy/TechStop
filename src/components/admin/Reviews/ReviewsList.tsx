@@ -16,14 +16,8 @@ const ReviewsList = () => {
   const [updateModal, setIsUpdateModal] = useState(false);
   const [deleteModal, setIsDeleteModal] = useState(false);
 
-  const {
-    isLoading,
-    reviews,
-    getAll,
-    deleteFeedback,
-    addNewFeedback,
-    isError,
-  } = useFeedbackStore();
+  const { isLoading, reviews, getAll, deleteFeedback, isError } =
+    useFeedbackStore();
 
   const { isUser } = useCheckUsers("user");
 
@@ -110,12 +104,7 @@ const ReviewsList = () => {
                       </Button>
 
                       {updateModal && currentProductId === _id && (
-                        <Modal
-                          alignitems="flex-start"
-                          onClose={() => toggleUpdateModal()}
-                        >
-                          <h2 className="text-TechStopBlue">Update modal</h2>
-
+                        <Modal onClose={() => toggleUpdateModal()}>
                           <UpdateReviewForm productId={currentProductId} />
 
                           <Button

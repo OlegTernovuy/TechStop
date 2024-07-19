@@ -35,7 +35,6 @@ const CategoriesPage = () => {
       </Button>
       {modalIsOpen && (
         <Modal onClose={toggleModal}>
-          <h2>Create modal</h2>
           <CreateCategoryForm toggleModal={toggleModal} />
           <Button
             type="button"

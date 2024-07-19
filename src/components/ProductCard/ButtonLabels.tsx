@@ -4,7 +4,6 @@ import { IDataWithServices } from "@/types";
 import { useFavoritesStore } from "@/store/useFavoritesStore";
 
 import CustomToast from "../Global/Toaster/CustomToast";
-import toast from "react-hot-toast";
 import diagram from "/public/product-card-icons/diagram_White.svg";
 import basket from "/public/product-card-icons/basket.svg";
 import Image from "next/image";
@@ -13,20 +12,29 @@ import formatPrice from "@/app/utils/formatPrice";
 import { DiscountPercentage } from "@/constants";
 
 import ToggleButton from "./ToggleButton";
-import { TOAST_MESSAGES } from "@/constants/toastMessages";
+import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
+import { Session } from "next-auth";
 
 const ButtonLabels: FC<IDataWithServices> = ({ product, addService }) => {
-  const { price, _id, title } = product.data;
+  const { price, _id } = product.data;
   const { addItemToCart } = useCartStore();
   const { toggleProductCardToFavorites } = useFavoritesStore();
   const { addArrayOfAdditionalServices } = useCartStore();
 
-  const { ADD_SUCCESS } = TOAST_MESSAGES(title);
+  const { data } = useSession();
 
   const handleAddItem = () => {
     addItemToCart(product.data);
     addArrayOfAdditionalServices(addService, _id);
-    // toast.success(ADD_SUCCESS);
+  };
+
+  const handleToggleButton = () => {
+    if (!data?.token) {
+      toast.error("Please, log in");
+      return;
+    }
+    toggleProductCardToFavorites(product.data);
   };
 
   const oldPrice = formatPrice(price * DiscountPercentage);
@@ -74,7 +82,7 @@ const ButtonLabels: FC<IDataWithServices> = ({ product, addService }) => {
         <li className="absolute top-5  right-0 md:static">
           <button
             type="button"
-            onClick={() => toggleProductCardToFavorites(product.data)}
+            onClick={handleToggleButton}
             className=" md:flex justify-center items-center text-TechStopBlue uppercase md:w-[122px] h-[52px] w-full  hover:scale-110 transition ease-out duration-300"
           >
             <ToggleButton _id={_id} text="В обране" />

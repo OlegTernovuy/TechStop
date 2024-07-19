@@ -186,8 +186,6 @@ const CategoriesList: FC = () => {
                       </Button>
                       {updateModal && currentCategoryId === _id && (
                         <Modal onClose={() => toggleUpdateModal()}>
-                          <h2 className="text-TechStopBlue">Update modal</h2>
-
                           <UpdateCategoryForm
                             slug={slug}
                             toggleUpdateModal={toggleUpdateModal}
