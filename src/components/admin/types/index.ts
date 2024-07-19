@@ -38,7 +38,6 @@ export interface IProductsListItemProps {
   idx: number;
   listItem: Product;
   handleDelete: (_id: string) => void;
-  handleDeleteImageById: (productId: string, imageId: number) => void;
 }
 
 export interface IUpdateInputsErrors {

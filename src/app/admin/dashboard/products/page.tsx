@@ -135,21 +135,6 @@ const ProductsPage = () => {
     }
   };
 
-  const handleDeleteImageById = async (productId: string, imageId: number) => {
-    if (isUser) {
-      toast.error("You don`t have access to delete products");
-      return;
-    }
-
-    try {
-      await deleteImageById(productId, imageId);
-
-      toast.success(`Products with ID ${imageId} was deleted`);
-    } catch (error) {
-      toast.error(`Failed to delete product with ID ${imageId}`);
-    }
-  };
-
   const toggleModal = () => {
     setModalIsOpen(!modalIsOpen);
   };
@@ -188,11 +173,7 @@ const ProductsPage = () => {
               )}
 
               {products.length !== 0 ? (
-                <ProductsList
-                  products={products}
-                  handleDelete={handleDelete}
-                  handleDeleteImageById={handleDeleteImageById}
-                />
+                <ProductsList products={products} handleDelete={handleDelete} />
               ) : (
                 "Products list is empty"
               )}
