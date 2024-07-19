@@ -28,7 +28,7 @@ const LoginPage = () => {
     }
     toast.success(AUTH_SUCCESSFULLY);
     router.push("/admin/dashboard");
-  }, [router, data?.token, data?.user, userRoles]);
+  }, [router, data?.token, userRoles]);
 
   const handleSubmit = async (e: SyntheticEvent) => {
     if (userRoles) {
@@ -94,8 +94,8 @@ const LoginPage = () => {
             </button>
           </form>
         </div>
+        <CustomToast />
       </div>
-      <CustomToast />
     </>
   );
 };
