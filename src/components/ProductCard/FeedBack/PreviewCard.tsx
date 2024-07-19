@@ -44,7 +44,9 @@ const PreviewCard: FC<IPreviewCardProps> = ({ productData }) => {
           </p>
           <div className="absolute bottom-0 right-0">
             {" "}
-            <p className="text-TechStopBlue text-3xl font-bold">19 999 ₴</p>
+            <p className="text-TechStopBlue text-3xl font-bold">
+              {productData?.price} ₴
+            </p>
             <p className="text-SuccessLightGreen text-xl">В наявності</p>
           </div>
         </li>

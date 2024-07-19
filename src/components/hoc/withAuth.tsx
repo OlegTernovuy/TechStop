@@ -10,7 +10,7 @@ const withAuth = (WrappedComponent: any) => {
     const router = useRouter();
     const { data } = useSession();
 
-    const isUser = data?.user.roles?.find((item) => item === "user");
+    const isUser = data?.user.roles?.includes("user");
 
     useEffect(() => {
       if (isUser || !data?.token || undefined || "") {

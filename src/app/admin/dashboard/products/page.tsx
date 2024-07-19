@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getCategories, getProductsByQuery } from "@/api";
-import { createProduct, deleteById } from "@/api/admin";
+import { createProduct, deleteById, deleteImageById } from "@/api/admin";
 import toast from "react-hot-toast";
 import {
   FormProvider,
@@ -35,7 +35,7 @@ const defaultValues = {
   price: Number(0),
   categories: [],
   characteristics: [{ name: "", description: [""] }],
-  inStock: false,
+  inStock: true,
 };
 
 const ProductsPage = () => {
@@ -68,7 +68,7 @@ const ProductsPage = () => {
         page,
       });
 
-      setProducts(productsList?.products || []);
+      setProducts(productsList?.products.reverse() || []);
       setIsLoading(false);
       setTotalProducts(productsList?.total);
     };
@@ -90,7 +90,7 @@ const ProductsPage = () => {
       name: "characteristics",
     });
 
-  const isUser = data?.user?.roles?.find((item) => item === "user");
+  const isUser = data?.user?.roles?.includes("user");
 
   const onSubmit: SubmitHandler<ICreateProductData> = async (data) => {
     if (isUser) {
@@ -107,7 +107,7 @@ const ProductsPage = () => {
 
       const createdProduct = await createProduct(data);
 
-      setProducts((prevProducts) => [...prevProducts, createdProduct]);
+      setProducts((prevProducts) => [createdProduct, ...prevProducts]);
 
       toast.success("Product created successfully");
       toggleModal();
@@ -150,7 +150,7 @@ const ProductsPage = () => {
   return (
     <>
       <div>
-        <h1 className="text-5xl text-TechStopBlue font-bold mb-4">Products</h1>
+        <h1 className="text-5xl text-TechStopBlue font-bold mb-4">Products</h1>{" "}
         <button
           type="button"
           className="text-white bg-slate-900 px-10 py-2 my-4 rounded-full hover:bg-slate-700 "

@@ -221,3 +221,13 @@ export const updateRole = yup.object({
     .matches(emailRegex, "Некоректний email")
     .required("Email is required"),
 });
+
+export const deleteImageByIdSchema = yup.object({
+  imageId: yup
+    .number()
+    .min(1, "Too short")
+    .max(100, "Too long")
+    .positive("Only positive")
+    .integer()
+    .required("Required"),
+});

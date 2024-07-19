@@ -1,10 +1,10 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Image from "next/image";
 import toast from "react-hot-toast";
 
-import { IProductsListItemProps } from "../types";
+import { IImage, IProductsListItemProps } from "../types";
 
 import Rating from "../Rating";
 import UploadPoster from "../UploadPoster";
@@ -15,6 +15,17 @@ import { useCheckUsers } from "@/components/hooks/useCheckUsers";
 import UpdateProductForm from "./UpdateProductForm";
 import Button from "@/components/ProductCard/Button";
 import UploadCollectionImages from "../UploadCollectionImages";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import CustomSmallInput from "@/components/ProductCard/FeedBack/CustomSmallInput";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { deleteImageById } from "@/api/admin";
+import { getProductById } from "@/api";
+import { Product } from "@/types";
+import { deleteImageByIdSchema } from "../schemas";
+
+const defaultValues = {
+  imageId: 0,
+};
 
 const ProductsListItem: FC<IProductsListItemProps> = ({
   listItem,
@@ -26,8 +37,30 @@ const ProductsListItem: FC<IProductsListItemProps> = ({
   const [currentProductId, setCurrentProductId] = useState<string | null>(null);
   const [updateModal, setIsUpdateModal] = useState(false);
   const [deleteModal, setIsDeleteModal] = useState(false);
+  const [deleteImageModal, setIsDeleteImageModal] = useState(false);
+  const [productById, setProductById] = useState<Product | null>(null);
 
   const { _id, title, poster, price, inStock, rating, categories } = listItem;
+
+  useEffect(() => {
+    const getById = async () => {
+      const Id = await getProductById(_id);
+      setProductById(Id.data);
+    };
+
+    getById();
+  }, [_id]);
+
+  const methods = useForm({
+    defaultValues,
+    resolver: yupResolver(deleteImageByIdSchema),
+  });
+
+  const {
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = methods;
 
   const { isUser } = useCheckUsers("user");
 
@@ -68,6 +101,51 @@ const ProductsListItem: FC<IProductsListItemProps> = ({
     }
     setCurrentProductId(productId);
     setIsDeleteModal(!deleteModal);
+  };
+
+  const toggleDeleteImageModal = (productId: string | null = null) => {
+    if (isUser) {
+      toast.error(`You do not have access to delete products`);
+      return;
+    }
+    setCurrentProductId(productId);
+    setIsDeleteImageModal(!deleteImageModal);
+  };
+
+  const onSubmit: SubmitHandler<IImage> = async (data) => {
+    if (!data.imageId) {
+      toast.error("No data");
+      return;
+    }
+
+    const { imageId } = data;
+
+    try {
+      const itemId =
+        productById &&
+        productById?.images?.find(
+          (item) => Number(item?.imageId) === Number(imageId)
+        );
+
+      if (!imageId) {
+        toast.error("Id not found");
+        return;
+      }
+
+      const resp = await deleteImageById(_id, Number(itemId?.imageId));
+
+      if (!resp) {
+        throw new Error("Oops something went wrong");
+      }
+
+      toast.success(`Image with ID ${imageId} was deleted`);
+
+      toggleDeleteImageModal();
+      reset();
+    } catch (error) {
+      console.log((error as Error).message);
+      toast.error((error as Error).message);
+    }
   };
 
   return (
@@ -189,6 +267,15 @@ const ProductsListItem: FC<IProductsListItemProps> = ({
             Delete
           </button>{" "}
         </td>
+        <td className="p-3">
+          <button
+            type="button"
+            className="text-white border px-4 py-2 bg-red-900 hover:bg-red-700 "
+            onClick={() => toggleDeleteImageModal(_id)}
+          >
+            Delete image by id
+          </button>
+        </td>
       </tr>
       {deleteModal && currentProductId === _id && (
         <Modal onClose={toggleDeleteModal}>
@@ -210,6 +297,42 @@ const ProductsListItem: FC<IProductsListItemProps> = ({
               className="bg-red-800 text-white px-6 py-4 rounded mr-2"
             >
               Delete
+            </button>
+          </div>
+        </Modal>
+      )}
+      {deleteImageModal && currentProductId === _id && (
+        <Modal onClose={toggleDeleteImageModal}>
+          <div className="">
+            <FormProvider {...methods}>
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="flex items-baseline justify-between gap-2"
+              >
+                {" "}
+                <CustomSmallInput
+                  label="ImageId"
+                  name="imageId"
+                  defaultValue=""
+                />
+                <button
+                  type="submit"
+                  className="bg-red-800 text-white px-6 py-4 rounded "
+                >
+                  Delete
+                </button>
+              </form>
+            </FormProvider>
+            {errors.imageId && (
+              <p className="text-red-500 ">{errors.imageId?.message}</p>
+            )}
+
+            <button
+              type="button"
+              onClick={() => toggleDeleteImageModal()}
+              className="bg-gray-500 text-white px-6 py-4 rounded mr-2"
+            >
+              Cancel
             </button>
           </div>
         </Modal>

@@ -49,6 +49,10 @@ export const productThList = [
     id: 12,
     title: "Delete",
   },
+  {
+    id: 13,
+    title: "Delete image by ID",
+  },
 ];
 
 export const reviewsThList = [

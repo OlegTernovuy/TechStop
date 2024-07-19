@@ -218,3 +218,7 @@ export enum UserRole {
   Admin = "admin",
   SuperAdmin = "superadmin",
 }
+
+export interface IImage {
+  imageId: number;
+}
