@@ -5,9 +5,14 @@ import { Product } from "@/types";
 interface IProductsListProps {
   products: Product[];
   handleDelete: (_id: string) => void;
+  handleDeleteImageById: (productId: string, imageId: number) => void;
 }
 
-const ProductsList: FC<IProductsListProps> = ({ products, handleDelete }) => {
+const ProductsList: FC<IProductsListProps> = ({
+  products,
+  handleDelete,
+  handleDeleteImageById,
+}) => {
   return (
     <>
       {products &&
@@ -17,6 +22,7 @@ const ProductsList: FC<IProductsListProps> = ({ products, handleDelete }) => {
             listItem={item}
             idx={idx}
             handleDelete={handleDelete}
+            handleDeleteImageById={handleDeleteImageById}
           />
         ))}
     </>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getCategories, getProductsByQuery } from "@/api";
-import { createProduct, deleteById } from "@/api/admin";
+import { createProduct, deleteById, deleteImageById } from "@/api/admin";
 import toast from "react-hot-toast";
 import {
   FormProvider,
@@ -135,6 +135,21 @@ const ProductsPage = () => {
     }
   };
 
+  const handleDeleteImageById = async (productId: string, imageId: number) => {
+    if (isUser) {
+      toast.error("You don`t have access to delete products");
+      return;
+    }
+
+    try {
+      await deleteImageById(productId, imageId);
+
+      toast.success(`Products with ID ${imageId} was deleted`);
+    } catch (error) {
+      toast.error(`Failed to delete product with ID ${imageId}`);
+    }
+  };
+
   const toggleModal = () => {
     setModalIsOpen(!modalIsOpen);
   };
@@ -173,7 +188,11 @@ const ProductsPage = () => {
               )}
 
               {products.length !== 0 ? (
-                <ProductsList products={products} handleDelete={handleDelete} />
+                <ProductsList
+                  products={products}
+                  handleDelete={handleDelete}
+                  handleDeleteImageById={handleDeleteImageById}
+                />
               ) : (
                 "Products list is empty"
               )}

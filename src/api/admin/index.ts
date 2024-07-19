@@ -77,6 +77,18 @@ export const deleteById = async (_id: string) => {
   }
 };
 
+export const deleteImageById = async (productId: string, imageId: number) => {
+  try {
+    const { data } = await axios.delete(
+      `/products/${productId}/${imageId}/delete-image`
+    );
+
+    return data;
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
 export const updateReviewById = async (
   _id: string,
   reviewData: IUpdateReview
